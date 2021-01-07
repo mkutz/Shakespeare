@@ -1,0 +1,4 @@
+rootProject.name = 'shakespeare'
+
+include 'modules:core'
+include 'manual'
