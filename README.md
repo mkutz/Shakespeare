@@ -1,4 +1,4 @@
-# Shakespeare
+# Shakespeare ![Build](https://github.com/mkutz/shakespeare/workflows/Build/badge.svg)
 
 A framework helping to write tests like screenplays.
 It is based on the ideas from [Page Objects Refactored] by Antony Marcano, Andy Palmer & John Ferguson Smart, with Jan Molak.
