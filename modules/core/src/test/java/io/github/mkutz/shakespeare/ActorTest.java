@@ -46,9 +46,10 @@ class ActorTest {
     @DisplayName("use throws a MissingAbilityException")
     void useTest1() {
         final var abilityMock = mock(Ability.class);
+        final var abilityClass = abilityMock.getClass();
 
         assertThatExceptionOfType(MissingAbilityException.class)
-                .isThrownBy(() -> actor.use(abilityMock.getClass()));
+                .isThrownBy(() -> actor.use(abilityClass));
     }
 
     @Test
@@ -65,8 +66,9 @@ class ActorTest {
     @DisplayName("learn makes the actor remember a fact")
     void rememberTest1() {
         final var factMock = mock(Fact.class);
+        final var factClass = factMock.getClass();
 
         assertThatExceptionOfType(MissingFactException.class)
-                .isThrownBy(() -> actor.remember(factMock.getClass()));
+                .isThrownBy(() -> actor.remember(factClass));
     }
 }
