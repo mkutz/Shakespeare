@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    id 'io.freefair.lombok'
 }
 
 repositories {
@@ -22,11 +23,6 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.18.1'
 
     testImplementation 'org.mockito:mockito-core:3.7.0'
-
-    compileOnly 'org.projectlombok:lombok:1.18.16'
-    annotationProcessor 'org.projectlombok:lombok:1.18.16'
-    testCompileOnly 'org.projectlombok:lombok:1.18.16'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 }
 
 test {
