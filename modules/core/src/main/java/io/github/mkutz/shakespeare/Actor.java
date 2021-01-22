@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.lang.Thread.currentThread;
+import static java.lang.Thread.sleep;
+import static java.time.Instant.now;
+
 /**
  * An {@link Actor} is the central class of the Shakespeare Framework. It is basically used for any interaction with the
  * system under test.
@@ -35,12 +39,92 @@ public class Actor {
     }
 
     /**
+     * @param task the {@link RetryableTask} to be performed by this {@link Actor}
+     * @return this {@link Actor}
+     * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
+     */
+    public Actor performsEventually(RetryableTask task) {
+        final var timeout = task.getTimeout();
+        final var end = now().plus(timeout);
+
+        Throwable lastException;
+
+        while (true) {
+            try {
+                task.performAs(this);
+                return this;
+            } catch (Throwable e) {
+                lastException = e;
+                if (task.getAcknowledgedExceptions().stream().anyMatch(acknowledge -> acknowledge.isInstance(e))) {
+                    throw e;
+                }
+            }
+
+            if (now().isAfter(end)) {
+                throw new TimeoutException(this, task, lastException);
+            }
+
+            final Throwable finalLastException = lastException;
+
+            try {
+                sleep(task.getInterval().toMillis());
+            } catch (InterruptedException e) {
+                currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
      * @param question the {@link Question} to be answered by this {@link Actor}
      * @param <A>      the {@link Class} of the answer
      * @return the answer to the given Question
      */
     public <A> A answers(Question<A> question) {
         return question.answerAs(this);
+    }
+
+    /**
+     * @param question the {@link RetryableQuestion} to be answered by this {@link Actor}
+     * @param <A>      the {@link Class} of the answer
+     * @return the answer to the given Question
+     * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
+     */
+    public <A> A answersEventually(RetryableQuestion<A> question) {
+        final var timeout = question.getTimeout();
+        final var end = now().plus(timeout);
+
+        Throwable lastException;
+        A lastAnswer = null;
+
+        while (true) {
+            try {
+                lastAnswer = question.answerAs(this);
+                lastException = null;
+
+                if (question.acceptable(lastAnswer)) {
+                    return lastAnswer;
+                }
+            } catch (Throwable e) {
+                lastException = e;
+                if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
+                    throw e;
+                }
+            }
+
+            if (now().isAfter(end)) {
+                throw new TimeoutException(this, question, lastException);
+            }
+
+            final A finalLastAnswer = lastAnswer;
+
+            try {
+                sleep(question.getInterval().toMillis());
+            } catch (InterruptedException e) {
+                currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**
