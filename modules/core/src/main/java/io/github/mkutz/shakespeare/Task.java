@@ -1,7 +1,7 @@
 package io.github.mkutz.shakespeare;
 
 /**
- * A {@link Task} can be {@link Actor#perform}ed by an {@link Actor}.
+ * A {@link Task} can be {@link Actor#performs}ed by an {@link Actor}.
  */
 public interface Task {
 

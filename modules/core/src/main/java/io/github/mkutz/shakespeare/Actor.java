@@ -29,7 +29,7 @@ public class Actor {
      * @param task the {@link Task} to be performed by this {@link Actor}
      * @return this {@link Actor}
      */
-    public Actor perform(Task task) {
+    public Actor performs(Task task) {
         task.performAs(this);
         return this;
     }
@@ -39,12 +39,12 @@ public class Actor {
      * @param <A>      the {@link Class} of the answer
      * @return the answer to the given Question
      */
-    public <A> A answer(Question<A> question) {
+    public <A> A answers(Question<A> question) {
         return question.answerAs(this);
     }
 
     /**
-     * @param abilities {@link Ability}s the {@link Actor} may {@link #use}
+     * @param abilities {@link Ability}s the {@link Actor} may {@link #uses}
      * @return this {@link Actor}
      */
     public Actor can(Ability... abilities) {
@@ -59,7 +59,7 @@ public class Actor {
      * @throws MissingAbilityException if there's no instance of the requested {@link Ability} {@link Class} in the
      *                                 {@link Actor}'s {@link #abilities}
      */
-    public <A extends Ability> A use(Class<A> abilityClass) {
+    public <A extends Ability> A uses(Class<A> abilityClass) {
         return abilities.stream()
                 .filter(ability -> ability.getClass().equals(abilityClass))
                 .findAny()
@@ -68,10 +68,10 @@ public class Actor {
     }
 
     /**
-     * @param facts {@link Fact}s the {@link Actor} {@link #remember}s
+     * @param facts {@link Fact}s the {@link Actor} {@link #remembers}s
      * @return this {@link Actor}
      */
-    public Actor learn(Fact... facts) {
+    public Actor learns(Fact... facts) {
         this.facts.addAll(Arrays.asList(facts));
         return this;
     }
@@ -83,7 +83,7 @@ public class Actor {
      * @throws MissingFactException if there's no instance of the requested {@link Fact} {@link Class} in the
      *                              {@link Actor}'s {@link #facts}
      */
-    public <F extends Fact> F remember(Class<F> factClass) {
+    public <F extends Fact> F remembers(Class<F> factClass) {
         return facts.stream()
                 .filter(fact -> fact.getClass().equals(factClass))
                 .findAny()

@@ -1,7 +1,7 @@
 package io.github.mkutz.shakespeare;
 
 /**
- * A {@link MissingAbilityException} is thrown in case an {@link Actor} cannot {@link Actor#use} a required
+ * A {@link MissingAbilityException} is thrown in case an {@link Actor} cannot {@link Actor#uses} a required
  * {@link Ability} {@link Class}.
  */
 public class MissingAbilityException extends RuntimeException {

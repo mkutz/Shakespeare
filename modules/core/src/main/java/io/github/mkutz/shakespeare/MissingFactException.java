@@ -1,7 +1,7 @@
 package io.github.mkutz.shakespeare;
 
 /**
- * A {@link MissingFactException} is thrown in case an {@link Actor} cannot {@link Actor#remember} a required
+ * A {@link MissingFactException} is thrown in case an {@link Actor} cannot {@link Actor#remembers} a required
  * {@link Fact} {@link Class}.
  */
 public class MissingFactException extends RuntimeException {

@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class ActorTest {
 
@@ -13,21 +16,21 @@ class ActorTest {
 
     @Test
     @DisplayName("perform calls the task's performAs")
-    void performTest1() {
+    void performsTest1() {
         final var taskMock = mock(Task.class);
 
-        actor.perform(taskMock);
+        actor.performs(taskMock);
 
         verify(taskMock, times(1)).performAs(actor);
     }
 
     @Test
     @DisplayName("answer calls the question's answerAs")
-    void answerTest1() {
+    void answersTest1() {
         @SuppressWarnings("unchecked") final var questionMock = (Question<String>) mock(Question.class);
         when(questionMock.answerAs(actor)).thenReturn("Answer");
 
-        actor.answer(questionMock);
+        actor.answers(questionMock);
 
         verify(questionMock, times(1)).answerAs(actor);
     }
@@ -39,36 +42,36 @@ class ActorTest {
 
         actor.can(abilityMock);
 
-        assertThat(actor.use(abilityMock.getClass())).isEqualTo(abilityMock);
+        assertThat(actor.uses(abilityMock.getClass())).isEqualTo(abilityMock);
     }
 
     @Test
     @DisplayName("use throws a MissingAbilityException")
-    void useTest1() {
+    void usesTest1() {
         final var abilityMock = mock(Ability.class);
         final var abilityClass = abilityMock.getClass();
 
         assertThatExceptionOfType(MissingAbilityException.class)
-                .isThrownBy(() -> actor.use(abilityClass));
+                .isThrownBy(() -> actor.uses(abilityClass));
     }
 
     @Test
     @DisplayName("learn makes the actor remember a fact")
-    void learnTest1() {
+    void learnsTest1() {
         final var factMock = mock(Fact.class);
 
-        actor.learn(factMock);
+        actor.learns(factMock);
 
-        assertThat(actor.remember(factMock.getClass())).isEqualTo(factMock);
+        assertThat(actor.remembers(factMock.getClass())).isEqualTo(factMock);
     }
 
     @Test
     @DisplayName("learn makes the actor remember a fact")
-    void rememberTest1() {
+    void remembersTest1() {
         final var factMock = mock(Fact.class);
         final var factClass = factMock.getClass();
 
         assertThatExceptionOfType(MissingFactException.class)
-                .isThrownBy(() -> actor.remember(factClass));
+                .isThrownBy(() -> actor.remembers(factClass));
     }
 }
