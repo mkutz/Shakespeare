@@ -27,10 +27,11 @@ class ActorTest {
     @Test
     @DisplayName("answer calls the question's answerAs")
     void answersTest1() {
+        final var mockedAnswer = "Answer";
         @SuppressWarnings("unchecked") final var questionMock = (Question<String>) mock(Question.class);
-        when(questionMock.answerAs(actor)).thenReturn("Answer");
+        when(questionMock.answerAs(actor)).thenReturn(mockedAnswer);
 
-        actor.answers(questionMock);
+        assertThat(actor.answers(questionMock)).isEqualTo(mockedAnswer);
 
         verify(questionMock, times(1)).answerAs(actor);
     }
@@ -40,9 +41,8 @@ class ActorTest {
     void canTest1() {
         final var abilityMock = mock(Ability.class);
 
-        actor.can(abilityMock);
-
-        assertThat(actor.uses(abilityMock.getClass())).isEqualTo(abilityMock);
+        assertThat(actor.can(abilityMock).uses(abilityMock.getClass()))
+                .isEqualTo(abilityMock);
     }
 
     @Test
@@ -60,9 +60,8 @@ class ActorTest {
     void learnsTest1() {
         final var factMock = mock(Fact.class);
 
-        actor.learns(factMock);
-
-        assertThat(actor.remembers(factMock.getClass())).isEqualTo(factMock);
+        assertThat(actor.learns(factMock).remembers(factMock.getClass()))
+                .isEqualTo(factMock);
     }
 
     @Test
