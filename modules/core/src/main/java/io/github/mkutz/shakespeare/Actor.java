@@ -4,12 +4,15 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 import static java.time.Instant.now;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * An {@link Actor} is the central class of the Shakespeare Framework. It is basically used for any interaction with the
@@ -20,14 +23,14 @@ import static java.time.Instant.now;
 public class Actor {
 
     /**
-     * The {@link Set} of the {@link Actor}'s {@link Ability}s.
+     * A {@link Map} of {@link Ability}s the {@link Actor}'s posses.
      */
-    private final Set<Ability> abilities = new HashSet<>();
+    private final Map<Class<? extends Ability>, Ability> abilities = new HashMap<>();
 
     /**
-     * The {@link Set} of the {@link Fact}s the {@link Actor} remembers.
+     * A {@link Map} of the {@link Fact}s the {@link Actor} remembers.
      */
-    private final Set<Fact> facts = new HashSet<>();
+    private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
 
     /**
      * @param task the {@link Task} to be performed by this {@link Actor}
@@ -132,7 +135,7 @@ public class Actor {
      * @return this {@link Actor}
      */
     public Actor can(Ability... abilities) {
-        this.abilities.addAll(Arrays.asList(abilities));
+        this.abilities.putAll(Arrays.stream(abilities).collect(toMap(Ability::getClass, identity())));
         return this;
     }
 
@@ -144,9 +147,7 @@ public class Actor {
      *                                 {@link Actor}'s {@link #abilities}
      */
     public <A extends Ability> A uses(Class<A> abilityClass) {
-        return abilities.stream()
-                .filter(ability -> ability.getClass().equals(abilityClass))
-                .findAny()
+        return Optional.of(abilities.get(abilityClass))
                 .map(abilityClass::cast)
                 .orElseThrow(() -> new MissingAbilityException(this, abilityClass));
     }
@@ -156,7 +157,7 @@ public class Actor {
      * @return this {@link Actor}
      */
     public Actor learns(Fact... facts) {
-        this.facts.addAll(Arrays.asList(facts));
+        this.facts.putAll(Arrays.stream(facts).collect(toMap(Fact::getClass, identity())));
         return this;
     }
 
@@ -168,9 +169,7 @@ public class Actor {
      *                              {@link Actor}'s {@link #facts}
      */
     public <F extends Fact> F remembers(Class<F> factClass) {
-        return facts.stream()
-                .filter(fact -> fact.getClass().equals(factClass))
-                .findAny()
+        return Optional.of(facts.get(factClass))
                 .map(factClass::cast)
                 .orElseThrow(() -> new MissingFactException(this, factClass));
     }
