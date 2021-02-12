@@ -67,8 +67,6 @@ public class Actor {
                 throw new TimeoutException(this, task, lastException);
             }
 
-            final Throwable finalLastException = lastException;
-
             try {
                 sleep(task.getInterval().toMillis());
             } catch (InterruptedException e) {
@@ -118,8 +116,6 @@ public class Actor {
             if (now().isAfter(end)) {
                 throw new TimeoutException(this, question, lastException);
             }
-
-            final A finalLastAnswer = lastAnswer;
 
             try {
                 sleep(question.getInterval().toMillis());
