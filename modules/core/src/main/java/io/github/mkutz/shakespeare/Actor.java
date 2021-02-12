@@ -143,7 +143,7 @@ public class Actor {
      *                                 {@link Actor}'s {@link #abilities}
      */
     public <A extends Ability> A uses(Class<A> abilityClass) {
-        return Optional.of(abilities.get(abilityClass))
+        return Optional.ofNullable(abilities.get(abilityClass))
                 .map(abilityClass::cast)
                 .orElseThrow(() -> new MissingAbilityException(this, abilityClass));
     }
@@ -165,7 +165,7 @@ public class Actor {
      *                              {@link Actor}'s {@link #facts}
      */
     public <F extends Fact> F remembers(Class<F> factClass) {
-        return Optional.of(facts.get(factClass))
+        return Optional.ofNullable(facts.get(factClass))
                 .map(factClass::cast)
                 .orElseThrow(() -> new MissingFactException(this, factClass));
     }

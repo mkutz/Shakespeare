@@ -65,7 +65,7 @@ class ActorTest {
     }
 
     @Test
-    @DisplayName("learn makes the actor remember a fact")
+    @DisplayName("remembers throws a MissingFactException")
     void remembersTest1() {
         final var factMock = mock(Fact.class);
         final var factClass = factMock.getClass();
