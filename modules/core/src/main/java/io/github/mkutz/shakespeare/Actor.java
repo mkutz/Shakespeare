@@ -1,12 +1,12 @@
 package io.github.mkutz.shakespeare;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
@@ -19,8 +19,15 @@ import static java.util.stream.Collectors.toMap;
  * system under test.
  */
 @EqualsAndHashCode
-@ToString
 public class Actor {
+
+    private static final String[] NAMES = {
+            "Alex", "Morgan", "Robin", "Sam", "Max", "Ryan",
+            "Johnny", "Arnold", "Jim", "Daniel", "Leonardo", "Tom",
+            "Emma", "Cameron", "Kate", "Natalie", "Angelina", "Scarlett"
+    };
+
+    private final String name;
 
     /**
      * A {@link Map} of {@link Ability}s the {@link Actor}'s posses.
@@ -31,6 +38,20 @@ public class Actor {
      * A {@link Map} of the {@link Fact}s the {@link Actor} remembers.
      */
     private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
+
+    /**
+     * @param name the name of the actor, which will be used for logging and reporting
+     */
+    public Actor(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Picks a random name from {@link #NAMES}.
+     */
+    public Actor() {
+        this(NAMES[new Random().nextInt(NAMES.length)]);
+    }
 
     /**
      * @param task the {@link Task} to be performed by this {@link Actor}
@@ -168,5 +189,10 @@ public class Actor {
         return Optional.ofNullable(facts.get(factClass))
                 .map(factClass::cast)
                 .orElseThrow(() -> new MissingFactException(this, factClass));
+    }
+
+    @Override
+    public String toString() {
+        return "%s".formatted(name);
     }
 }
