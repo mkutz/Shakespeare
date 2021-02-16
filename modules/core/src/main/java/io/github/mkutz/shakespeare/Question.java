@@ -1,7 +1,7 @@
 package io.github.mkutz.shakespeare;
 
 /**
- * A {@link Question} can be {@link Actor#answers}ed by an {@link Actor}
+ * A {@link Question} can be {@link Actor#answers answered} by an {@link Actor}
  *
  * @param <A> the {@link Class} of the {@link Question}'s answer
  */

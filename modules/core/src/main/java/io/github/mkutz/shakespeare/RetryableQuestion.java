@@ -6,8 +6,9 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link Question} that will be retried until it succeeds or the {@link #getTimeout()} is reached. {@link Exception}s
- * thrown will be ignored if they are contained in {@link #getIgnoredExceptions()}.
+ * A {@link Question} that will be retried until it yields an answer deemed {@link #acceptable} or the
+ * {@link Retryable#getTimeout() timeout} is reached. {@link Exception}s thrown will be ignored if they are contained in
+ * {@link #getIgnoredExceptions() ignoredExceptions}.
  */
 public interface RetryableQuestion<A> extends Question<A>, Retryable {
 

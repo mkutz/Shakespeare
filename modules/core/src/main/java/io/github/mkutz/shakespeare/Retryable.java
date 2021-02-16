@@ -3,8 +3,8 @@ package io.github.mkutz.shakespeare;
 import java.time.Duration;
 
 /**
- * {@link Retryable} is something an {@link Actor} may retry every {@link #getInterval()} until it succeeds or the
- * {@link #getTimeout()} is reached.
+ * {@link Retryable} is something an {@link Actor} may retry every {@link #getInterval() interval} until it succeeds or
+ * the {@link #getTimeout() timeout} is reached.
  */
 public interface Retryable {
 
