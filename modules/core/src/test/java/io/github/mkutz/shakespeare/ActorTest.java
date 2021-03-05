@@ -15,7 +15,7 @@ class ActorTest {
     Actor actor = new Actor();
 
     @Test
-    @DisplayName("perform calls the task's performAs")
+    @DisplayName("performs calls the task's performAs")
     void performsTest1() {
         final var taskMock = mock(Task.class);
 
@@ -25,7 +25,7 @@ class ActorTest {
     }
 
     @Test
-    @DisplayName("answer calls the question's answerAs")
+    @DisplayName("answers calls the question's answerAs")
     void answersTest1() {
         final var mockedAnswer = "Answer";
         @SuppressWarnings("unchecked") final var questionMock = (Question<String>) mock(Question.class);
@@ -46,7 +46,7 @@ class ActorTest {
     }
 
     @Test
-    @DisplayName("use throws a MissingAbilityException")
+    @DisplayName("uses throws a MissingAbilityException")
     void usesTest1() {
         final var abilityMock = mock(Ability.class);
         final var abilityClass = abilityMock.getClass();
@@ -56,7 +56,7 @@ class ActorTest {
     }
 
     @Test
-    @DisplayName("learn makes the actor remember a fact")
+    @DisplayName("learns makes the actor remember a fact")
     void learnsTest1() {
         final var factMock = mock(Fact.class);
 
