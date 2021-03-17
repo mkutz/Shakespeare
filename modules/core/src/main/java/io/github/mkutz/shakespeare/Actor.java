@@ -2,11 +2,11 @@ package io.github.mkutz.shakespeare;
 
 import lombok.EqualsAndHashCode;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
@@ -50,7 +50,7 @@ public class Actor {
      * Picks a random name from {@link #NAMES}.
      */
     public Actor() {
-        this(NAMES[new Random().nextInt(NAMES.length)]);
+        this(NAMES[new SecureRandom().nextInt(NAMES.length)]);
     }
 
     /**
