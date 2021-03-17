@@ -15,12 +15,4 @@ public class TimeoutException extends RuntimeException {
         super(String.format("%s failed to %s before its timeout of %s",
                 actor, retryable, retryable.getTimeout()), lastException);
     }
-
-    /**
-     * @param actor     the {@link Actor} ran into the timeout
-     * @param retryable the {@link Retryable} which was not successful before its timeout
-     */
-    public TimeoutException(Actor actor, Retryable retryable) {
-        this(actor, retryable, null);
-    }
 }
