@@ -69,6 +69,7 @@ public class Actor {
      */
     public Actor performsEventually(RetryableTask task) {
         final var timeout = task.getTimeout();
+        final var intervalMillis = task.getInterval().toMillis();
         final var end = now().plus(timeout);
 
         Throwable lastException;
@@ -89,7 +90,7 @@ public class Actor {
             }
 
             try {
-                sleep(task.getInterval().toMillis());
+                sleep(intervalMillis);
             } catch (InterruptedException e) {
                 currentThread().interrupt();
                 throw new RuntimeException(e);
@@ -114,10 +115,11 @@ public class Actor {
      */
     public <A> A answersEventually(RetryableQuestion<A> question) {
         final var timeout = question.getTimeout();
+        final var intervalMillis = question.getInterval().toMillis();
         final var end = now().plus(timeout);
 
         Throwable lastException;
-        A lastAnswer = null;
+        A lastAnswer;
 
         while (true) {
             try {
@@ -139,7 +141,7 @@ public class Actor {
             }
 
             try {
-                sleep(question.getInterval().toMillis());
+                sleep(intervalMillis);
             } catch (InterruptedException e) {
                 currentThread().interrupt();
                 throw new RuntimeException(e);
