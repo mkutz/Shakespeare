@@ -13,9 +13,9 @@ import java.util.Set;
 public interface RetryableQuestion<A> extends Question<A>, Retryable {
 
     /**
-     * @return the {@link Set} of {@link Throwable} classes that will be ignored when thrown in a retry
+     * @return the {@link Set} of {@link Exception} classes that will be ignored when thrown in a retry
      */
-    default Set<Class<? extends Throwable>> getIgnoredExceptions() {
+    default Set<Class<? extends Exception>> getIgnoredExceptions() {
         return Set.of();
     }
 

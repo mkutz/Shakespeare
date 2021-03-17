@@ -10,9 +10,9 @@ import java.util.Set;
 public interface RetryableTask extends Task, Retryable {
 
     /**
-     * @return the {@link Set} of {@link Throwable} classes that won't be ignored when thrown in a retry
+     * @return the {@link Set} of {@link Exception} classes that won't be ignored when thrown in a retry
      */
-    default Set<Class<? extends Throwable>> getAcknowledgedExceptions() {
+    default Set<Class<? extends Exception>> getAcknowledgedExceptions() {
         return Set.of();
     }
 }

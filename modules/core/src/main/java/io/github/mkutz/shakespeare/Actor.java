@@ -72,13 +72,13 @@ public class Actor {
         final var intervalMillis = task.getInterval().toMillis();
         final var end = now().plus(timeout);
 
-        Throwable lastException;
+        Exception lastException;
 
         while (true) {
             try {
                 task.performAs(this);
                 return this;
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 lastException = e;
                 if (task.getAcknowledgedExceptions().stream().anyMatch(acknowledge -> acknowledge.isInstance(e))) {
                     throw e;
@@ -118,7 +118,7 @@ public class Actor {
         final var intervalMillis = question.getInterval().toMillis();
         final var end = now().plus(timeout);
 
-        Throwable lastException;
+        Exception lastException;
         A lastAnswer;
 
         while (true) {
@@ -129,7 +129,7 @@ public class Actor {
                 if (question.acceptable(lastAnswer)) {
                     return lastAnswer;
                 }
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 lastException = e;
                 if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
                     throw e;
