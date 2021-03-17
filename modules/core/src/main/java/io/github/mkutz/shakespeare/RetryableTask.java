@@ -12,5 +12,7 @@ public interface RetryableTask extends Task, Retryable {
     /**
      * @return the {@link Set} of {@link Throwable} classes that won't be ignored when thrown in a retry
      */
-    Set<Class<? extends Throwable>> getAcknowledgedExceptions();
+    default Set<Class<? extends Throwable>> getAcknowledgedExceptions() {
+        return Set.of();
+    }
 }
