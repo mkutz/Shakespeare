@@ -93,7 +93,7 @@ public class Actor {
                 sleep(intervalMillis);
             } catch (InterruptedException e) {
                 currentThread().interrupt();
-                throw new RuntimeException(e);
+                throw new RetryInterruptedException(this, task, e);
             }
         }
     }
@@ -144,7 +144,7 @@ public class Actor {
                 sleep(intervalMillis);
             } catch (InterruptedException e) {
                 currentThread().interrupt();
-                throw new RuntimeException(e);
+                throw new RetryInterruptedException(this, question, e);
             }
         }
     }
