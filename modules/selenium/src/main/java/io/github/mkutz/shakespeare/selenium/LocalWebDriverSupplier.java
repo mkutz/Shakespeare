@@ -12,10 +12,17 @@ public class LocalWebDriverSupplier extends WebDriverSupplier {
 
     private WebDriver webDriver;
 
+    /**
+     * @param browserType            the {@link BrowserType} to be setup
+     * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
+     */
     public LocalWebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
         super(browserType, additionalCapabilities);
     }
 
+    /**
+     * @param browserType the {@link BrowserType} to be setup
+     */
     public LocalWebDriverSupplier(BrowserType browserType) {
         this(browserType, null);
     }

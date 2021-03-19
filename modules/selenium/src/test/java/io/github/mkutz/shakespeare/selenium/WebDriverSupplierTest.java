@@ -13,22 +13,6 @@ import static org.mockito.Mockito.mock;
 
 class WebDriverSupplierTest {
 
-    private static class MockWebDriverSupplier extends WebDriverSupplier {
-
-        public MockWebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
-            super(browserType, additionalCapabilities);
-        }
-
-        @Override
-        public void close() {
-        }
-
-        @Override
-        public WebDriver get() {
-            return mock(WebDriver.class);
-        }
-    }
-
     @ParameterizedTest(name = "getCapabilities merges additional and base capabilities of {0}")
     @EnumSource(BrowserType.class)
     void getCapabilitiesTest1(BrowserType browserType) {
@@ -47,5 +31,21 @@ class WebDriverSupplierTest {
     void toStringTest1(BrowserType browserType) {
         assertThat(new MockWebDriverSupplier(browserType, null).toString())
                 .isEqualTo(browserType.name());
+    }
+
+    private static class MockWebDriverSupplier extends WebDriverSupplier {
+
+        public MockWebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
+            super(browserType, additionalCapabilities);
+        }
+
+        @Override
+        public void close() {
+        }
+
+        @Override
+        public WebDriver get() {
+            return mock(WebDriver.class);
+        }
     }
 }

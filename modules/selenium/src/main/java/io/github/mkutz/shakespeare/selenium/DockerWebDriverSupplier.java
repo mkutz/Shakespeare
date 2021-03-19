@@ -16,15 +16,14 @@ public class DockerWebDriverSupplier extends WebDriverSupplier {
 
     /**
      * @param browserType            the {@link BrowserType} to be setup
-     * @param additionalCapabilities additional {@link Capabilities} that will be merged with the
-     *                               {@link BrowserType#getBaseCapabilities() baseCapabilities}
+     * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
      */
     public DockerWebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
         super(browserType, additionalCapabilities);
     }
 
     /**
-     * @param browserType the {@link BrowserType} to be setup with no additional capabilities
+     * @param browserType the {@link BrowserType} to be setup
      */
     public DockerWebDriverSupplier(BrowserType browserType) {
         this(browserType, null);

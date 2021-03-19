@@ -1,8 +1,6 @@
 package io.github.mkutz.shakespeare.selenium;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -17,8 +15,6 @@ import static java.util.Arrays.stream;
 /**
  * {@link Enum} of all browser types which are supported by {@link WebDriverSupplier}.
  */
-@ToString
-@Getter
 @AllArgsConstructor
 public enum BrowserType {
 
@@ -65,5 +61,19 @@ public enum BrowserType {
                 .filter(browserType -> browserType.name().equalsIgnoreCase(string))
                 .findAny()
                 .orElseThrow(() -> new UnsupportedBrowserTypeException(string));
+    }
+
+    /**
+     * @return the {@link WebDriver} {@link Class} required to automate the {@link BrowserType}
+     */
+    public Class<? extends WebDriver> getWebDriverClass() {
+        return webDriverClass;
+    }
+
+    /**
+     * @return the base {@link Capabilities} of the {@link BrowserType}
+     */
+    public Capabilities getBaseCapabilities() {
+        return baseCapabilities;
     }
 }

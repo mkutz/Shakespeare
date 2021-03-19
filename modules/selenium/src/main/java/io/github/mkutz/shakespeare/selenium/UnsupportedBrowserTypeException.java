@@ -5,6 +5,9 @@ package io.github.mkutz.shakespeare.selenium;
  */
 public class UnsupportedBrowserTypeException extends RuntimeException {
 
+    /**
+     * @param string the string not matching any {@link BrowserType}
+     */
     public UnsupportedBrowserTypeException(String string) {
         super("Unknown browser type \"%s\"".formatted(string));
     }
