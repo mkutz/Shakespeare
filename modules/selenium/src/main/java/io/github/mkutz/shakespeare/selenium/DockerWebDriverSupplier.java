@@ -50,5 +50,9 @@ public class DockerWebDriverSupplier extends WebDriverSupplier {
             webDriver.quit();
             webDriver = null;
         }
+        if (webDriverContainer != null) {
+            webDriverContainer.close();
+            webDriverContainer = null;
+        }
     }
 }
