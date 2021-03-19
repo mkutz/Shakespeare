@@ -7,4 +7,5 @@ pluginManagement {
 rootProject.name = 'shakespeare'
 
 include 'modules:core'
+include 'modules:selenium'
 include 'manual'

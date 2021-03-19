@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'io.freefair.lombok'
+    id 'jacoco'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(15)
+    }
+}
+
+dependencies {
+    api project(':modules:core')
+
+    api 'org.seleniumhq.selenium:selenium-java:4.0.0-beta-2'
+
+    api 'io.github.bonigarcia:webdrivermanager:4.3.1'
+
+    api 'org.testcontainers:selenium:1.15.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+
+    testImplementation 'org.mockito:mockito-core:3.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
