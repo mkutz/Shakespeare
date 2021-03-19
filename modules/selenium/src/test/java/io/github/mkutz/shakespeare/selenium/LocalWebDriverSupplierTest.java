@@ -3,7 +3,9 @@ package io.github.mkutz.shakespeare.selenium;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.io.IOException;
@@ -21,7 +23,8 @@ class LocalWebDriverSupplierTest {
     void getTest1() throws IOException, InterruptedException {
         assumeTrue(new ProcessBuilder("which", "google-chrome").start().waitFor() == 0);
 
-        final var localWebDriverSupplier = new LocalWebDriverSupplier(CHROME);
+        final var localWebDriverSupplier = new LocalWebDriverSupplier(
+                CHROME, new ChromeOptions().setHeadless(true));
 
         assertThat(localWebDriverSupplier.get())
                 .isNotNull()
@@ -35,7 +38,8 @@ class LocalWebDriverSupplierTest {
     void getTest2() throws IOException, InterruptedException {
         assumeTrue(new ProcessBuilder("which", "firefox").start().waitFor() == 0);
 
-        final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX);
+        final var localWebDriverSupplier = new LocalWebDriverSupplier(
+                FIREFOX, new FirefoxOptions().setHeadless(true));
 
         assertThat(localWebDriverSupplier.get())
                 .isNotNull()
