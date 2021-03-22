@@ -18,7 +18,7 @@ public abstract class WebDriverSupplier implements Supplier<WebDriver>, AutoClos
      * @param browserType            the {@link BrowserType} to be setup
      * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
      */
-    public WebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
+    protected WebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
         this.browserType = browserType;
         this.capabilities = additionalCapabilities == null ?
                 browserType.getBaseCapabilities() :
