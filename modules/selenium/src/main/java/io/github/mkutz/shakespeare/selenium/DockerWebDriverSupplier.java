@@ -5,13 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * {@link WebDriverSupplier} relying on <a href="https://www.testcontainers.org/">Testcontainers</a>'
  * {@link BrowserWebDriverContainer} to run browsers on a local Docker infrastructure.
  */
 public class DockerWebDriverSupplier extends WebDriverSupplier {
 
-    private BrowserWebDriverContainer<?> webDriverContainer;
+    /**
+     * {@link Map} of running {@link BrowserWebDriverContainer}s mapped to their {@link BrowserType}. Generally it is
+     * possible to run multiple containers in parallel however, as each container will have a significant need for
+     * memory and CPU time, it should ideally be limited to one only!
+     */
+    private static final Map<BrowserType, BrowserWebDriverContainer<?>> webDriverContainers = new HashMap<>();
     private WebDriver webDriver;
 
     /**
@@ -31,15 +39,18 @@ public class DockerWebDriverSupplier extends WebDriverSupplier {
 
     @Override
     public WebDriver get() {
+        final var browserType = getBrowserType();
+        final var capabilities = getCapabilities();
+        var webDriverContainer = webDriverContainers.get(browserType);
         if (webDriverContainer == null || !webDriverContainer.isRunning()) {
-            webDriverContainer = new BrowserWebDriverContainer<>()
-                    .withCapabilities(getCapabilities());
+            webDriverContainer = new BrowserWebDriverContainer<>().withCapabilities(capabilities);
             webDriverContainer.start();
+            webDriverContainers.put(browserType, webDriverContainer);
         }
         if (webDriver == null) {
             webDriver = new RemoteWebDriver(
                     webDriverContainer.getSeleniumAddress(),
-                    getCapabilities());
+                    capabilities);
         }
         return webDriver;
     }
@@ -49,10 +60,6 @@ public class DockerWebDriverSupplier extends WebDriverSupplier {
         if (webDriver != null) {
             webDriver.quit();
             webDriver = null;
-        }
-        if (webDriverContainer != null) {
-            webDriverContainer.close();
-            webDriverContainer = null;
         }
     }
 }
