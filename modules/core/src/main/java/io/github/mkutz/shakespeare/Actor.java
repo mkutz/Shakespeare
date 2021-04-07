@@ -1,7 +1,5 @@
 package io.github.mkutz.shakespeare;
 
-import lombok.EqualsAndHashCode;
-
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +9,7 @@ import java.util.Optional;
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 import static java.time.Instant.now;
+import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -18,8 +17,10 @@ import static java.util.stream.Collectors.toMap;
  * An {@link Actor} is the central class of the Shakespeare Framework. It is basically used for any interaction with the
  * system under test.
  */
-@EqualsAndHashCode
-public class Actor {
+public record Actor(
+        String name,
+        Map<Class<? extends Ability>, Ability> abilities,
+        Map<Class<? extends Fact>, Fact> facts) {
 
     private static final String[] NAMES = {
             "Alex", "Morgan", "Robin", "Sam", "Max", "Ryan",
@@ -27,27 +28,26 @@ public class Actor {
             "Emma", "Cameron", "Kate", "Natalie", "Angelina", "Scarlett"
     };
 
-    private final String name;
-
     /**
-     * A {@link Map} of {@link Ability}s the {@link Actor}'s posses.
+     * @param name a name used for logging and reporting
+     * @param abilities a {@link Map} of {@link Ability}s the {@link Actor}'s posses
+     * @param facts a {@link Map} of the {@link Fact}s the {@link Actor} remembers
      */
-    private final Map<Class<? extends Ability>, Ability> abilities = new HashMap<>();
-
-    /**
-     * A {@link Map} of the {@link Fact}s the {@link Actor} remembers.
-     */
-    private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
-
-    /**
-     * @param name the name of the actor, which will be used for logging and reporting
-     */
-    public Actor(String name) {
-        this.name = name;
+    public Actor {
+        requireNonNull(name);
+        abilities = new HashMap<>();
+        facts = new HashMap<>();
     }
 
     /**
-     * Picks a random name from {@link #NAMES}.
+     * @param name a name used for logging and reporting
+     */
+    public Actor(String name) {
+        this(name, new HashMap<>(), new HashMap<>());
+    }
+
+    /**
+     * Picks a name from {@link #NAMES}.
      */
     public Actor() {
         this(NAMES[new SecureRandom().nextInt(NAMES.length)]);
