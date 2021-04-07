@@ -22,7 +22,7 @@ dependencies {
 
     api 'org.seleniumhq.selenium:selenium-java:4.0.0-beta-2'
 
-    api 'io.github.bonigarcia:webdrivermanager:4.3.1'
+    api 'io.github.bonigarcia:webdrivermanager:4.4.0'
 
     api 'org.testcontainers:selenium:1.15.2'
 
