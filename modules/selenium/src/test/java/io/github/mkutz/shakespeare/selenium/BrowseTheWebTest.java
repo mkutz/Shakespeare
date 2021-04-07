@@ -2,11 +2,13 @@ package io.github.mkutz.shakespeare.selenium;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class BrowseTheWebTest {
 
@@ -14,9 +16,11 @@ class BrowseTheWebTest {
     @DisplayName("getWebDriver uses the WebDriverSupplier")
     void getWebDriverTest1() {
         final var webDriverSupplierMock = mock(WebDriverSupplier.class);
+        final var webDriverMock = mock(WebDriver.class);
+        when(webDriverSupplierMock.get()).thenReturn(webDriverMock);
         final var browserTheWeb = new BrowseTheWeb(webDriverSupplierMock);
 
-        browserTheWeb.getWebDriver();
+        assertThat(browserTheWeb.getWebDriver()).isEqualTo(webDriverMock);
 
         verify(webDriverSupplierMock, times(1)).get();
     }
