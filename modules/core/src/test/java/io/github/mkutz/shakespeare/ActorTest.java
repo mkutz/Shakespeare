@@ -19,7 +19,7 @@ class ActorTest {
     void performsTest1() {
         final var taskMock = mock(Task.class);
 
-        actor.performs(taskMock);
+        actor.does(taskMock);
 
         verify(taskMock, times(1)).performAs(actor);
     }
@@ -31,7 +31,7 @@ class ActorTest {
         @SuppressWarnings("unchecked") final var questionMock = (Question<String>) mock(Question.class);
         when(questionMock.answerAs(actor)).thenReturn(mockedAnswer);
 
-        assertThat(actor.answers(questionMock)).isEqualTo(mockedAnswer);
+        assertThat(actor.checks(questionMock)).isEqualTo(mockedAnswer);
 
         verify(questionMock, times(1)).answerAs(actor);
     }

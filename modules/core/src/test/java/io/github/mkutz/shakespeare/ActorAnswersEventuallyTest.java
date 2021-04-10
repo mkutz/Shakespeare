@@ -29,7 +29,7 @@ class ActorAnswersEventuallyTest {
         when(retryableQuestionMock.acceptable(any())).thenReturn(false);
 
         assertThatExceptionOfType(TimeoutException.class)
-                .isThrownBy(() -> actor.answersEventually(retryableQuestionMock));
+                .isThrownBy(() -> actor.checksEventually(retryableQuestionMock));
 
         verify(retryableQuestionMock, atLeast(10)).answerAs(actor);
     }
@@ -45,7 +45,7 @@ class ActorAnswersEventuallyTest {
         when(retryableQuestionMock.acceptable(any())).thenReturn(true);
         when(retryableQuestionMock.answerAs(actor)).thenReturn(answer);
 
-        assertThat(actor.answersEventually(retryableQuestionMock)).isEqualTo(answer);
+        assertThat(actor.checksEventually(retryableQuestionMock)).isEqualTo(answer);
 
         verify(retryableQuestionMock, times(1)).answerAs(actor);
     }
@@ -61,7 +61,7 @@ class ActorAnswersEventuallyTest {
         when(retryableQuestionMock.getIgnoredExceptions()).thenReturn(Set.of(IllegalStateException.class));
 
         assertThatExceptionOfType(TimeoutException.class)
-                .isThrownBy(() -> actor.answersEventually(retryableQuestionMock));
+                .isThrownBy(() -> actor.checksEventually(retryableQuestionMock));
 
         verify(retryableQuestionMock, atLeast(10)).answerAs(actor);
     }
@@ -77,7 +77,7 @@ class ActorAnswersEventuallyTest {
         when(retryableQuestionMock.getIgnoredExceptions()).thenReturn(Set.of());
 
         assertThatExceptionOfType(IllegalStateException.class)
-                .isThrownBy(() -> actor.answersEventually(retryableQuestionMock));
+                .isThrownBy(() -> actor.checksEventually(retryableQuestionMock));
 
         verify(retryableQuestionMock, times(1)).answerAs(actor);
     }

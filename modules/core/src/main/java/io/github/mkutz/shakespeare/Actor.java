@@ -56,7 +56,7 @@ public final class Actor {
      * @param task the {@link Task} to be performed by this {@link Actor}
      * @return this {@link Actor}
      */
-    public Actor performs(Task task) {
+    public Actor does(Task task) {
         task.performAs(this);
         return this;
     }
@@ -66,7 +66,7 @@ public final class Actor {
      * @return this {@link Actor}
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
-    public Actor performsEventually(RetryableTask task) {
+    public Actor doesEventually(RetryableTask task) {
         final var timeout = task.getTimeout();
         final var intervalMillis = task.getInterval().toMillis();
         final var end = now().plus(timeout);
@@ -102,7 +102,7 @@ public final class Actor {
      * @param <A>      the {@link Class} of the answer
      * @return the answer to the given Question
      */
-    public <A> A answers(Question<A> question) {
+    public <A> A checks(Question<A> question) {
         return question.answerAs(this);
     }
 
@@ -112,7 +112,7 @@ public final class Actor {
      * @return the answer to the given Question
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
-    public <A> A answersEventually(RetryableQuestion<A> question) {
+    public <A> A checksEventually(RetryableQuestion<A> question) {
         final var timeout = question.getTimeout();
         final var intervalMillis = question.getInterval().toMillis();
         final var end = now().plus(timeout);

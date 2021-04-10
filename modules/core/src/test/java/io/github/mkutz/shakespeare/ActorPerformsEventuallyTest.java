@@ -27,7 +27,7 @@ class ActorPerformsEventuallyTest {
         doThrow(new RuntimeException()).when(retryableTaskMock).performAs(actor);
 
         assertThatExceptionOfType(TimeoutException.class)
-                .isThrownBy(() -> actor.performsEventually(retryableTaskMock));
+                .isThrownBy(() -> actor.doesEventually(retryableTaskMock));
 
         verify(retryableTaskMock, atLeast(10)).performAs(actor);
     }
@@ -39,7 +39,7 @@ class ActorPerformsEventuallyTest {
         when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(100));
         when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
 
-        actor.performsEventually(retryableTaskMock);
+        actor.doesEventually(retryableTaskMock);
 
         verify(retryableTaskMock, times(1)).performAs(actor);
     }
@@ -55,7 +55,7 @@ class ActorPerformsEventuallyTest {
         when(retryableTaskMock.getAcknowledgedExceptions()).thenReturn(Set.of(IllegalStateException.class));
 
         assertThatExceptionOfType(IllegalStateException.class)
-                .isThrownBy(() -> actor.performsEventually(retryableTaskMock));
+                .isThrownBy(() -> actor.doesEventually(retryableTaskMock));
 
         verify(retryableTaskMock, times(1)).performAs(actor);
     }
