@@ -3,6 +3,8 @@ package io.github.mkutz.shakespeare.selenium;
 import io.github.mkutz.shakespeare.Ability;
 import org.openqa.selenium.WebDriver;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * {@link io.github.mkutz.shakespeare.Ability} to browse the web using a Selenium {@link org.openqa.selenium.WebDriver}.
  */
