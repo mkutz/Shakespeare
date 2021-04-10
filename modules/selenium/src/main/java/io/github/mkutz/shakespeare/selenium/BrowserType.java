@@ -1,6 +1,5 @@
 package io.github.mkutz.shakespeare.selenium;
 
-import lombok.AllArgsConstructor;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +14,6 @@ import static java.util.Arrays.stream;
 /**
  * {@link Enum} of all browser types which are supported by {@link WebDriverSupplier}.
  */
-@AllArgsConstructor
 public enum BrowserType {
 
     /**
@@ -50,6 +48,11 @@ public enum BrowserType {
 
     private final Class<? extends WebDriver> webDriverClass;
     private final Capabilities baseCapabilities;
+
+    BrowserType(Class<? extends WebDriver> webDriverClass, Capabilities baseCapabilities) {
+        this.webDriverClass = webDriverClass;
+        this.baseCapabilities = baseCapabilities;
+    }
 
     /**
      * @param string the desired browser type as {@link String}

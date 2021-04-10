@@ -1,16 +1,16 @@
 package io.github.mkutz.shakespeare;
 
-import lombok.EqualsAndHashCode;
-
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 import static java.time.Instant.now;
+import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -18,8 +18,7 @@ import static java.util.stream.Collectors.toMap;
  * An {@link Actor} is the central class of the Shakespeare Framework. It is basically used for any interaction with the
  * system under test.
  */
-@EqualsAndHashCode
-public class Actor {
+public final class Actor {
 
     private static final String[] NAMES = {
             "Alex", "Morgan", "Robin", "Sam", "Max", "Ryan",
@@ -40,14 +39,14 @@ public class Actor {
     private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
 
     /**
-     * @param name the name of the actor, which will be used for logging and reporting
+     * @param name a name used for logging and reporting
      */
     public Actor(String name) {
-        this.name = name;
+        this.name = requireNonNull(name);
     }
 
     /**
-     * Picks a random name from {@link #NAMES}.
+     * Picks a name from {@link #NAMES}.
      */
     public Actor() {
         this(NAMES[new SecureRandom().nextInt(NAMES.length)]);
@@ -196,5 +195,20 @@ public class Actor {
     @Override
     public String toString() {
         return "%s".formatted(name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Actor) obj;
+        return Objects.equals(this.name, that.name) &&
+                Objects.equals(this.abilities, that.abilities) &&
+                Objects.equals(this.facts, that.facts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, abilities, facts);
     }
 }
