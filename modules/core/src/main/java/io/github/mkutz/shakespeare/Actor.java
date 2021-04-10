@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.lang.Thread.currentThread;
@@ -17,10 +18,7 @@ import static java.util.stream.Collectors.toMap;
  * An {@link Actor} is the central class of the Shakespeare Framework. It is basically used for any interaction with the
  * system under test.
  */
-public record Actor(
-        String name,
-        Map<Class<? extends Ability>, Ability> abilities,
-        Map<Class<? extends Fact>, Fact> facts) {
+public final class Actor {
 
     private static final String[] NAMES = {
             "Alex", "Morgan", "Robin", "Sam", "Max", "Ryan",
@@ -28,22 +26,15 @@ public record Actor(
             "Emma", "Cameron", "Kate", "Natalie", "Angelina", "Scarlett"
     };
 
-    /**
-     * @param name a name used for logging and reporting
-     * @param abilities a {@link Map} of {@link Ability}s the {@link Actor}'s posses
-     * @param facts a {@link Map} of the {@link Fact}s the {@link Actor} remembers
-     */
-    public Actor {
-        requireNonNull(name);
-        abilities = new HashMap<>();
-        facts = new HashMap<>();
-    }
+    private final String name;
+    private final Map<Class<? extends Ability>, Ability> abilities = new HashMap<>();
+    private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
 
     /**
      * @param name a name used for logging and reporting
      */
     public Actor(String name) {
-        this(name, new HashMap<>(), new HashMap<>());
+        this.name = requireNonNull(name);
     }
 
     /**
@@ -196,5 +187,20 @@ public record Actor(
     @Override
     public String toString() {
         return "%s".formatted(name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Actor) obj;
+        return Objects.equals(this.name, that.name) &&
+                Objects.equals(this.abilities, that.abilities) &&
+                Objects.equals(this.facts, that.facts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, abilities, facts);
     }
 }
