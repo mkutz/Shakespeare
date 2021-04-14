@@ -19,7 +19,7 @@ java {
 dependencies {
     api project(':modules:core')
 
-    api 'org.seleniumhq.selenium:selenium-java:4.0.0-beta-2'
+    api 'org.seleniumhq.selenium:selenium-java:4.0.0-beta-3'
 
     api 'io.github.bonigarcia:webdrivermanager:4.4.0'
 
