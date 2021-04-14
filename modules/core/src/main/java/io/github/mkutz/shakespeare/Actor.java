@@ -182,14 +182,34 @@ public final class Actor {
     /**
      * @param factClass the {@link Fact} {@link Class} that should be remembered
      * @param <F>       the required {@link Fact} {@link Class}
-     * @return the {@link Fact} instance for the {@link Actor}'s {@link #facts}
+     * @return an {@link Optional} {@link Fact} from the {@link Actor}'s {@link #facts}
+     */
+    public <F extends Fact> Optional<F> remembersOptional(Class<F> factClass) {
+        return Optional.ofNullable(facts.get(factClass))
+                .map(factClass::cast);
+    }
+
+    /**
+     * @param factClass the {@link Fact} {@link Class} that should be remembered
+     * @param <F>       the required {@link Fact} {@link Class}
+     * @return the {@link Fact} instance from the {@link Actor}'s {@link #facts} or the factClass' DEFAULT field
      * @throws MissingFactException if there's no instance of the requested {@link Fact} {@link Class} in the
-     *                              {@link Actor}'s {@link #facts}
+     *                              {@link Actor}'s {@link #facts} and there is no static DEFAULT
      */
     public <F extends Fact> F remembers(Class<F> factClass) {
-        return Optional.ofNullable(facts.get(factClass))
-                .map(factClass::cast)
+        return remembersOptional(factClass)
+                .or(() -> Fact.getStaticDefault(factClass))
                 .orElseThrow(() -> new MissingFactException(this, factClass));
+    }
+
+    /**
+     * @param factClass the {@link Fact} {@link Class} that should be remembered
+     * @param <F>       the required {@link Fact} {@link Class}
+     * @return the {@link Fact} instance from the {@link Actor}'s {@link #facts} or the given alternative
+     */
+    public <F extends Fact> F remembers(Class<F> factClass, F alternative) {
+        return remembersOptional(factClass)
+                .orElse(alternative);
     }
 
     @Override
