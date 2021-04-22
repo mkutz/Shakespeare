@@ -1,5 +1,6 @@
 package org.shakespeareframework;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 import java.util.Optional;
