@@ -186,6 +186,8 @@ public final class Actor {
      */
     public <F extends Fact> Optional<F> remembersOptional(Class<F> factClass) {
         return Optional.ofNullable(facts.get(factClass))
+                .or(() -> Fact.getStaticDefault(factClass))
+                .or(() -> Fact.getConstructedDefault(factClass))
                 .map(factClass::cast);
     }
 
@@ -198,7 +200,6 @@ public final class Actor {
      */
     public <F extends Fact> F remembers(Class<F> factClass) {
         return remembersOptional(factClass)
-                .or(() -> Fact.getStaticDefault(factClass))
                 .orElseThrow(() -> new MissingFactException(this, factClass));
     }
 
