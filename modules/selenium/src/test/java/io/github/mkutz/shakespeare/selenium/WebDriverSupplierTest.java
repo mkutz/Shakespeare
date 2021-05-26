@@ -29,8 +29,8 @@ class WebDriverSupplierTest {
     @ParameterizedTest(name = "toString returns a loggable string")
     @EnumSource(BrowserType.class)
     void toStringTest1(BrowserType browserType) {
-        assertThat(new MockWebDriverSupplier(browserType, null).toString())
-                .isEqualTo(browserType.name());
+        assertThat(new MockWebDriverSupplier(browserType, null))
+                .hasToString(browserType.name());
     }
 
     private static class MockWebDriverSupplier extends WebDriverSupplier {
