@@ -43,8 +43,11 @@ class LocalWebDriverSupplierTest {
 
     @Test
     @DisplayName("get caches the WebDriver")
-    void getTest2() {
-        final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX);
+    void getTest2() throws IOException, InterruptedException {
+        assumeTrue(COMMANDS.containsKey(FIREFOX));
+        assumeTrue(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor() == 0);
+
+        final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
 
         final var webDriver = localWebDriverSupplier.get();
         assertThat(webDriver).isSameAs(localWebDriverSupplier.get());
