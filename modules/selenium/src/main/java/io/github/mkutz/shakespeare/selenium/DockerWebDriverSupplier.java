@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -19,7 +19,9 @@ public class DockerWebDriverSupplier extends WebDriverSupplier {
      * possible to run multiple containers in parallel however, as each container will have a significant need for
      * memory and CPU time, it should ideally be limited to one only!
      */
-    private static final Map<BrowserType, BrowserWebDriverContainer<?>> webDriverContainers = new HashMap<>();
+    private static final Map<BrowserType, BrowserWebDriverContainer<?>> webDriverContainers =
+            new EnumMap<>(BrowserType.class);
+
     private WebDriver webDriver;
 
     /**
