@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BrowseTheWebTest {
 
@@ -40,7 +37,7 @@ class BrowseTheWebTest {
     @DisplayName("toString returns a loggable string")
     void toStringTest() {
         final var webDriverSupplierMock = mock(WebDriverSupplier.class);
-        assertThat(new BrowseTheWeb(webDriverSupplierMock).toString())
-                .isEqualTo("browse the web using %s".formatted(webDriverSupplierMock.toString()));
+        assertThat(new BrowseTheWeb(webDriverSupplierMock))
+                .hasToString("browse the web using %s".formatted(webDriverSupplierMock.toString()));
     }
 }
