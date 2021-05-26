@@ -6,19 +6,19 @@ import org.openqa.selenium.WebDriver;
 import static java.util.Objects.requireNonNull;
 
 /**
- * {@link io.github.mkutz.shakespeare.Ability} to browse the web using a Selenium {@link org.openqa.selenium.WebDriver}.
+ * {@link Ability} to browse the web using a Selenium {@link WebDriver}.
  */
 public record BrowseTheWeb(WebDriverSupplier webDriverSupplier) implements Ability, AutoCloseable {
 
     /**
-     * @param webDriverSupplier the {@link io.github.mkutz.shakespeare.selenium.WebDriverSupplier} used to setup the {@link org.openqa.selenium.WebDriver}
+     * @param webDriverSupplier the {@link WebDriverSupplier} used to setup the {@link WebDriver}
      */
     public BrowseTheWeb {
         requireNonNull(webDriverSupplier);
     }
 
     /**
-     * @return a {@link org.openqa.selenium.WebDriver} instance
+     * @return a {@link WebDriver} instance
      */
     public WebDriver getWebDriver() {
         return webDriverSupplier.get();
