@@ -23,7 +23,7 @@ dependencies {
 
     api 'io.github.bonigarcia:webdrivermanager:4.4.3'
 
-    api 'org.testcontainers:selenium:1.15.3'
+    api 'org.testcontainers:selenium:1.16.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.2'
