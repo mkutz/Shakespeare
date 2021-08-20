@@ -7,12 +7,7 @@ import java.time.Duration;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ActorPerformsEventuallyTest {
 
@@ -22,7 +17,7 @@ class ActorPerformsEventuallyTest {
     @DisplayName("performsEventually calls the task's performAs until its timeout")
     void performsEventuallyTest1() {
         final var retryableTaskMock = mock(RetryableTask.class);
-        when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(100));
+        when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(109));
         when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
         doThrow(new RuntimeException()).when(retryableTaskMock).performAs(actor);
 
