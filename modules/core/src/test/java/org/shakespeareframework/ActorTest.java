@@ -70,4 +70,21 @@ class ActorTest {
         assertThatExceptionOfType(MissingFactException.class)
                 .isThrownBy(() -> actor.remembers(factClass));
     }
+
+    @Test
+    @DisplayName("equals and hashCode work as expected")
+    void equalsTest1() {
+        final var equalActor = new Actor(actor.getName());
+        final var unequalActor = new Actor("Jane");
+
+        assertThat(equalActor.equals(actor))
+                .isTrue();
+        assertThat(unequalActor.equals(actor))
+                .isFalse();
+
+        assertThat(equalActor.hashCode())
+                .isEqualTo(actor.hashCode());
+        assertThat(unequalActor.hashCode())
+                .isNotEqualTo(actor.hashCode());
+    }
 }

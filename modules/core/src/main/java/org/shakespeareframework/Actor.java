@@ -188,6 +188,10 @@ public final class Actor {
                 .orElseThrow(() -> new MissingFactException(this, factClass));
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "%s".formatted(name);
