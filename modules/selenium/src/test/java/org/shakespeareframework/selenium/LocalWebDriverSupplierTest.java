@@ -58,7 +58,10 @@ class LocalWebDriverSupplierTest {
 
     @Test
     @DisplayName("close quits the WebDriver")
-    void closeTest1() {
+    void closeTest1() throws IOException, InterruptedException {
+        assumeThat(COMMANDS).containsKey(FIREFOX);
+        assumeThat(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor()).isEqualTo(0);
+
         final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX);
 
         final var webDriver = localWebDriverSupplier.get();
