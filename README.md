@@ -17,8 +17,6 @@ Contains base classes utilized by all other modules:
   [RetryableQuestion](modules/core/src/main/java/org/shakespeareframework/RetryableQuestion.java)
 - [Fact](modules/core/src/main/java/org/shakespeareframework/Fact.java)
 
-There is probably no reason to use this module directly as all other modules make this available transitively.
-
 ### [`selenium`](modules/selenium)
 
 Allows automating browsers using [Selenium WebDriver](https://www.selenium.dev/documentation/en/webdriver/) via the [BrowseTheWeb Ability](modules/selenium/src/main/java/org/shakespeareframework/selenium/BrowseTheWeb.java).
