@@ -62,7 +62,7 @@ class LocalWebDriverSupplierTest {
         assumeThat(COMMANDS).containsKey(FIREFOX);
         assumeThat(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor()).isEqualTo(0);
 
-        final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX);
+        final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
 
         final var webDriver = localWebDriverSupplier.get();
 
