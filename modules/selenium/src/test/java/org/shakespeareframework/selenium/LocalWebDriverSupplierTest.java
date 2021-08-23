@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.assertj.core.api.Assumptions.assumeThat;
 import static org.shakespeareframework.selenium.BrowserType.CHROME;
 import static org.shakespeareframework.selenium.BrowserType.FIREFOX;
 
@@ -29,8 +29,8 @@ class LocalWebDriverSupplierTest {
     @ParameterizedTest(name = "get returns a {0}")
     @EnumSource(BrowserType.class)
     void getTest1(BrowserType browserType) throws IOException, InterruptedException {
-        assumeTrue(COMMANDS.containsKey(browserType));
-        assumeTrue(new ProcessBuilder("which", COMMANDS.get(browserType)).start().waitFor() == 0);
+        assumeThat(COMMANDS).containsKey(browserType);
+        assumeThat(new ProcessBuilder("which", COMMANDS.get(browserType)).start().waitFor()).isEqualTo(0);
 
         final var localWebDriverSupplier = new LocalWebDriverSupplier(browserType, HEADLESS.get(browserType));
 
@@ -44,8 +44,8 @@ class LocalWebDriverSupplierTest {
     @Test
     @DisplayName("get caches the WebDriver")
     void getTest2() throws IOException, InterruptedException {
-        assumeTrue(COMMANDS.containsKey(FIREFOX));
-        assumeTrue(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor() == 0);
+        assumeThat(COMMANDS).containsKey(FIREFOX);
+        assumeThat(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor()).isEqualTo(0);
 
         final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
 
