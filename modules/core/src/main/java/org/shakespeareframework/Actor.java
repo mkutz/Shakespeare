@@ -4,9 +4,9 @@ import java.security.SecureRandom;
 import java.util.*;
 
 import static java.lang.Thread.currentThread;
-import static java.lang.Thread.sleep;
 import static java.time.Instant.now;
 import static java.util.Objects.requireNonNull;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -85,7 +85,7 @@ public final class Actor {
             }
 
             try {
-                sleep(intervalMillis);
+                MILLISECONDS.sleep(intervalMillis);
             } catch (InterruptedException e) {
                 currentThread().interrupt();
                 throw new RetryInterruptedException(this, task, e);
@@ -136,7 +136,7 @@ public final class Actor {
             }
 
             try {
-                sleep(intervalMillis);
+                MILLISECONDS.sleep(intervalMillis);
             } catch (InterruptedException e) {
                 currentThread().interrupt();
                 throw new RetryInterruptedException(this, question, e);
@@ -188,6 +188,9 @@ public final class Actor {
                 .orElseThrow(() -> new MissingFactException(this, factClass));
     }
 
+    /**
+     * @return #name
+     */
     public String getName() {
         return name;
     }
