@@ -5,13 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.IOException;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assumptions.assumeThat;
 import static org.shakespeareframework.selenium.BrowserType.CHROME;
 import static org.shakespeareframework.selenium.BrowserType.FIREFOX;
@@ -56,8 +57,18 @@ class LocalWebDriverSupplierTest {
     }
 
     @Test
-    @DisplayName("close does nothing when no WebDriver was created")
+    @DisplayName("close quits the WebDriver")
     void closeTest1() {
-        new LocalWebDriverSupplier(FIREFOX).close();
+        final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX);
+
+        final var webDriver = localWebDriverSupplier.get();
+
+        assertThatNoException()
+                .isThrownBy(() -> webDriver.manage().window().getSize());
+
+        localWebDriverSupplier.close();
+
+        assertThatExceptionOfType(NoSuchSessionException.class)
+                .isThrownBy(() -> webDriver.manage().window().getSize());
     }
 }
