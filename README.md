@@ -1,4 +1,4 @@
-# Shakespeare [![Build](https://github.com/mkutz/shakespeare/actions/workflows/build.yml/badge.svg)](https://github.com/mkutz/shakespeare/actions/workflows/build.yml)
+# Shakespeare [![Build](https://github.com/mkutz/shakespeare/actions/workflows/build.yml/badge.svg)](https://github.com/mkutz/shakespeare/actions/workflows/build.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mkutz_shakespeare&metric=alert_status)](https://sonarcloud.io/dashboard?id=mkutz_shakespeare)
 
 A framework helping to write tests like screenplays.
 It is based on the ideas from [Page Objects Refactored] by Antony Marcano, Andy Palmer & John Ferguson Smart, with Jan Molak.
