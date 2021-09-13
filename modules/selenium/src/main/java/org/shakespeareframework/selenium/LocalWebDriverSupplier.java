@@ -5,11 +5,12 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
 /**
- * A {@link WebDriverSupplier} for locally installed browser instances. Uses {@link WebDriverManager} to setup the local
- * binary.
+ * A {@link WebDriverSupplier} for locally installed browser instances. Uses {@link WebDriverManager} to set up the
+ * local binary and create the {@link WebDriver}.
  */
 public class LocalWebDriverSupplier extends WebDriverSupplier {
 
+    private final WebDriverManager webDriverManager;
     private WebDriver webDriver;
 
     /**
@@ -18,6 +19,9 @@ public class LocalWebDriverSupplier extends WebDriverSupplier {
      */
     public LocalWebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
         super(browserType, additionalCapabilities);
+        this.webDriverManager = WebDriverManager
+                .getInstance(browserType.getWebDriverClass())
+                .capabilities(getCapabilities());
     }
 
     /**
@@ -30,22 +34,14 @@ public class LocalWebDriverSupplier extends WebDriverSupplier {
     @Override
     public WebDriver get() {
         if (webDriver == null) {
-            try {
-                WebDriverManager.getInstance(getBrowserType().getWebDriverClass()).setup();
-                webDriver = getBrowserType().getWebDriverClass().getConstructor(Capabilities.class)
-                        .newInstance(getCapabilities());
-            } catch (Exception e) {
-                throw new WebDriverSetupFailedException(e);
-            }
+            webDriver = webDriverManager.create();
         }
         return webDriver;
     }
 
     @Override
     public void close() {
-        if (webDriver != null) {
-            webDriver.quit();
-            webDriver = null;
-        }
+        webDriverManager.quit();
+        webDriver = null;
     }
 }
