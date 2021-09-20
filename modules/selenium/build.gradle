@@ -21,7 +21,7 @@ dependencies {
 
     api 'org.seleniumhq.selenium:selenium-java:4.0.0-rc-1'
 
-    api 'io.github.bonigarcia:webdrivermanager:5.0.2'
+    api 'io.github.bonigarcia:webdrivermanager:5.0.3'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0'
