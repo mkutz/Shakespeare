@@ -82,9 +82,9 @@ class ActorTest {
         assertThat(unequalActor.equals(actor))
                 .isFalse();
 
-        assertThat(equalActor.hashCode())
-                .isEqualTo(actor.hashCode());
-        assertThat(unequalActor.hashCode())
-                .isNotEqualTo(actor.hashCode());
+        assertThat(equalActor)
+                .hasSameHashCodeAs(actor);
+        assertThat(unequalActor)
+                .doesNotHaveSameHashCodeAs(actor);
     }
 }
