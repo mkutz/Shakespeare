@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.NoSuchSessionException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
@@ -65,13 +66,14 @@ class LocalWebDriverSupplierTest {
         final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
 
         final var webDriver = localWebDriverSupplier.get();
+        final var window = webDriver.manage().window();
 
         assertThatNoException()
-                .isThrownBy(() -> webDriver.manage().window().getSize());
+                .isThrownBy(window::getSize);
 
         localWebDriverSupplier.close();
 
         assertThatExceptionOfType(NoSuchSessionException.class)
-                .isThrownBy(() -> webDriver.manage().window().getSize());
+                .isThrownBy(window::getSize);
     }
 }
