@@ -1,50 +1,8 @@
 plugins {
-    id 'java-library'
-    id 'jacoco'
-    id 'maven-publish'
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+    id 'shakespeare.module'
 }
 
 dependencies {
     api 'org.slf4j:slf4j-api:1.7.32'
     testImplementation 'ch.qos.logback:logback-classic:1.2.10'
-
-    testImplementation platform('org.junit:junit-bom:5.8.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-
-    testImplementation 'org.assertj:assertj-core:3.22.0'
-
-    testImplementation 'org.mockito:mockito-core:4.2.0'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-jacocoTestReport {
-    reports {
-        xml.required = true
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
 }
