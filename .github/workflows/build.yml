@@ -23,6 +23,11 @@ jobs:
           distribution: temurin
           cache: gradle
 
+      - name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
+
       - run: ./gradlew build
 
       - name: cache SonarCloud packages
