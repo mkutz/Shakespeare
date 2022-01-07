@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'jacoco'
+    id 'maven-publish'
 }
 
 repositories {
@@ -40,5 +41,13 @@ test {
 jacocoTestReport {
     reports {
         xml.required = true
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
     }
 }
