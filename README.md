@@ -26,5 +26,8 @@ It also provides some [WebDriverSupplier](modules/selenium/src/main/java/org/sha
 - [LocalWebDriverSupplier](modules/selenium/src/main/java/org/shakespeareframework/selenium/LocalWebDriverSupplier.java)
 - [DockerWebDriverSupplier](modules/selenium/src/main/java/org/shakespeareframework/selenium/DockerWebDriverSupplier.java)
 
+### [`retrofit`](modules/retrofit)
+
+Allows performing HTTP API calls using [Retrofit](https://square.github.io/retrofit/).
 
 [Page Objects Refactored]: <https://ideas.riverglide.com/page-objects-refactored-12ec3541990#.ekkiguobe>
