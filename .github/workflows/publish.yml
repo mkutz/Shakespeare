@@ -18,6 +18,8 @@ jobs:
           distribution: temurin
           cache: gradle
 
+      - run: ./gradlew assemble
+
       - run: ./gradlew sign
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
