@@ -4,8 +4,8 @@ package org.shakespeareframework;
  * A {@link RetryInterruptedException} is thrown when an {@link Actor} get interrupted while retrying a
  * {@link Retryable}.
  *
- * @see Actor#doesEventually(RetryableTask)
- * @see Actor#checksEventually(RetryableQuestion)
+ * @see Actor#does(RetryableTask)
+ * @see Actor#checks(RetryableQuestion)
  */
 public class RetryInterruptedException extends RuntimeException {
 

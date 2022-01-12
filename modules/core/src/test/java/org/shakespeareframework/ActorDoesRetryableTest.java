@@ -9,39 +9,39 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
-class ActorPerformsEventuallyTest {
+class ActorDoesRetryableTest {
 
     Actor actor = new Actor();
 
     @Test
-    @DisplayName("performsEventually calls the task's performAs until its timeout")
-    void performsEventuallyTest1() {
+    @DisplayName("does calls the task's performAs until its timeout")
+    void doesRetryableTest1() {
         final var retryableTaskMock = mock(RetryableTask.class);
         when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(109));
         when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
         doThrow(new RuntimeException()).when(retryableTaskMock).performAs(actor);
 
         assertThatExceptionOfType(TimeoutException.class)
-                .isThrownBy(() -> actor.doesEventually(retryableTaskMock));
+                .isThrownBy(() -> actor.does(retryableTaskMock));
 
         verify(retryableTaskMock, atLeast(10)).performAs(actor);
     }
 
     @Test
-    @DisplayName("performsEventually returns immediately after success")
-    void performsEventuallyTest2() {
+    @DisplayName("does returns immediately after success")
+    void doesRetryableTest2() {
         final var retryableTaskMock = mock(RetryableTask.class);
         when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(100));
         when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
 
-        actor.doesEventually(retryableTaskMock);
+        actor.does(retryableTaskMock);
 
         verify(retryableTaskMock, times(1)).performAs(actor);
     }
 
     @Test
-    @DisplayName("performsEventually throws acknowledged exceptions immediately")
-    void performsEventuallyTest3() {
+    @DisplayName("does throws acknowledged exceptions immediately")
+    void doesRetryableTest3() {
         final var retryableTaskMock = mock(RetryableTask.class);
         when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(100));
         when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
@@ -50,7 +50,7 @@ class ActorPerformsEventuallyTest {
         when(retryableTaskMock.getAcknowledgedExceptions()).thenReturn(Set.of(IllegalStateException.class));
 
         assertThatExceptionOfType(IllegalStateException.class)
-                .isThrownBy(() -> actor.doesEventually(retryableTaskMock));
+                .isThrownBy(() -> actor.does(retryableTaskMock));
 
         verify(retryableTaskMock, times(1)).performAs(actor);
     }
