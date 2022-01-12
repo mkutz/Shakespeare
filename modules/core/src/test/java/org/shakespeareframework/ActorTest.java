@@ -12,8 +12,8 @@ class ActorTest {
     Actor actor = new Actor();
 
     @Test
-    @DisplayName("performs calls the task's performAs")
-    void performsTest1() {
+    @DisplayName("does calls the task's performAs")
+    void doesTest1() {
         final var taskMock = mock(Task.class);
 
         actor.does(taskMock);

@@ -62,7 +62,7 @@ public final class Actor {
      * @return this {@link Actor}
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
-    public Actor doesEventually(RetryableTask task) {
+    public Actor does(RetryableTask task) {
         final var timeout = task.getTimeout();
         final var intervalMillis = task.getInterval().toMillis();
         final var end = now().plus(timeout);
@@ -108,7 +108,7 @@ public final class Actor {
      * @return the answer to the given Question
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
-    public <A> A checksEventually(RetryableQuestion<A> question) {
+    public <A> A checks(RetryableQuestion<A> question) {
         final var timeout = question.getTimeout();
         final var intervalMillis = question.getInterval().toMillis();
         final var end = now().plus(timeout);
