@@ -10,3 +10,14 @@ dependencies {
 
     api 'io.github.bonigarcia:webdrivermanager:5.0.3'
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'Shakespeare Selenium'
+                description = 'Module for browser automation via Selenium.'
+            }
+        }
+    }
+}
