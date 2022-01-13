@@ -3,6 +3,7 @@ package org.shakespeareframework.retrofit;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class HeaderInterceptor implements Interceptor {
     private final Map<String, String> headers = new HashMap<>();
 
     @Override
+    @Nonnull
     public Response intercept(Chain chain) throws IOException {
         final var originalRequest = chain.request();
         if (headers.isEmpty()) {
