@@ -53,20 +53,28 @@ class CallHttpApisTest {
     }
 
     @Test
-    @DisplayName("buildClient addInterceptor returns a working client")
+    @DisplayName("buildClient addInterceptor")
     void buildClientWithInterceptor() throws IOException, InterruptedException {
         final var headerInterceptor = new HeaderInterceptor();
-        headerInterceptor.add("test-header", "test");
         final var client = callRestApis.buildClient()
                 .addInterceptor(headerInterceptor)
                 .addScalarsConverterFactory()
                 .baseUrl(serviceMock.url("/string/").toString())
                 .build(TestApi.class);
+
         serviceMock.enqueue(new MockResponse().setBody("Hello"));
-
         client.getString().execute();
+        assertThat(serviceMock.takeRequest().getHeader("test")).isNull();
 
+        serviceMock.enqueue(new MockResponse().setBody("Hello"));
+        headerInterceptor.add("test-header", "test");
+        client.getString().execute();
         assertThat(serviceMock.takeRequest().getHeader("test-header")).isEqualTo("test");
+
+        serviceMock.enqueue(new MockResponse().setBody("Hello"));
+        headerInterceptor.remove("test-header");
+        client.getString().execute();
+        assertThat(serviceMock.takeRequest().getHeader("test")).isNull();
     }
 
     @AfterEach
