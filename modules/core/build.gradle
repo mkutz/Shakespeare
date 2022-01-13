@@ -6,3 +6,14 @@ dependencies {
     api 'org.slf4j:slf4j-api:1.7.32'
     testImplementation 'ch.qos.logback:logback-classic:1.2.10'
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'Shakespeare Core'
+                description = 'Core components of the Shakespeare framework.'
+            }
+        }
+    }
+}
