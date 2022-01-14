@@ -1,5 +1,6 @@
 rootProject.name = 'shakespeare'
 
+include 'modules:bom'
 include 'modules:core'
 include 'modules:selenium'
 include 'modules:retrofit'

@@ -1,0 +1,21 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+}
+
+dependencies {
+    constraints {
+        (parent.subprojects - project)
+                .sort { "$it.name" }
+                .each {api it }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'bom'
+            from components.javaPlatform
+        }
+    }
+}
