@@ -1,7 +1,7 @@
 = Shakespeare Framework
 Michael Kutz <mail@michael-kutz.de>
 v0.1
-:includedir: chapters
+:includedir: ./chapters
 :toc:
 
 include::{includedir}/00-introduction.adoc[leveloffset=1]
