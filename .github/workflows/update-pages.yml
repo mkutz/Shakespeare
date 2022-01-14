@@ -27,6 +27,7 @@ jobs:
           cp -r manual/build/docs/asciidoc pages/manual
 
           ./gradlew javadoc
+          mkdir pages/javadoc
           cp -r modules/core/build/docs/javadoc pages/javadoc/core
           cp -r modules/selenium/build/docs/javadoc pages/javadoc/selenium
           cp -r modules/retrofit/build/docs/javadoc pages/javadoc/retrofit
