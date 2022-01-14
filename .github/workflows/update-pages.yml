@@ -1,0 +1,38 @@
+name: Udpate Pages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - name: Generate pages
+        run: |
+          rm -rf pages
+          mkdir pages
+
+          ./gradlew asciidoc
+          cp -r manual/build/docs/asciidoc pages/manual
+
+          ./gradlew javadoc
+          cp -r modules/core/build/docs/javadoc pages/javadoc/core
+          cp -r modules/selenium/build/docs/javadoc pages/javadoc/selenium
+          cp -r modules/retrofit/build/docs/javadoc pages/javadoc/retrofit
+
+      - name: Push changes
+        run: |
+          git add pages
+          git commit -m "Update pages"
+          git push origin pages
