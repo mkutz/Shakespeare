@@ -10,3 +10,8 @@ repositories {
 asciidoctor {
 }
 
+asciidoctorj {
+    modules {
+        diagram.use()
+    }
+}

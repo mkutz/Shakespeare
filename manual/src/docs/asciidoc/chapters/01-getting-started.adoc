@@ -1,5 +1,51 @@
 = Getting Started
 
-== Gradle
+== Requirements
 
-== Maven
+In oder to use Shakespeare you currently need a JDK 17.
+
+== Dependencies
+
+To use Shakespeare in your own project, you need to add it as a dependency to your project and start using its classes.
+
+[source,groovy,subs=attributes+]
+.Gradle
+----
+implementation 'org.shakespeareframework:core:{revnumber}'
+----
+
+[source,xml,subs=attributes+]
+.Maven
+----
+<dependency>
+    <groupId>org.shakespeareframework</groupId>
+    <artifactId>core</artifactId>
+    <version>{revnumber}</version>
+</dependency>
+----
+
+== Create an Actor
+
+Within your code you should now be able to import the Actor class.
+
+[source,java]
+.Example with JUnit5
+----
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import org.shakespeareframework.Actor; // <1>
+
+class MyScreenplay {
+
+    @Test
+    @DisplayName("act 1")
+    void act1() {
+        actor.does(they -> System.out.println("Hello World!")); // <2>
+    }
+}
+----
+<1> Import the `Actor` class.
+<2> Call the `does` method to execute a task. In this case defined in place as a Lambda.
+
+In this example, the task is defined as a Lambda and simply prints the line "Hello World!".
