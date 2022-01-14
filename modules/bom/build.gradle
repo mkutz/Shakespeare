@@ -1,6 +1,7 @@
 plugins {
     id 'java-platform'
     id 'maven-publish'
+    id 'signing'
 }
 
 dependencies {
@@ -40,4 +41,9 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
+    sign publishing.publications.mavenJava
 }
