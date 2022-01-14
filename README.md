@@ -7,6 +7,46 @@
 A framework helping to write tests like screenplays.
 It is based on the ideas from [Page Objects Refactored] by Antony Marcano, Andy Palmer & John Ferguson Smart, with Jan Molak.
 
+## Getting Started
+
+To use Shakespeare for your tests, you currently will need a JDK 17.
+
+Add the following dependencies to your build.
+
+Gradle:
+
+```groovy
+implementation 'org.shakespeareframework:core:[VERSION]'
+```
+
+Maven:
+
+```xml
+<dependency>
+  <groupId>org.shakespeareframework</groupId>
+  <artifactId>core</artifactId>
+  <version>[VERSION]</version>
+</dependency>
+```
+
+After that you should be able to import the Actor class and start using it.
+
+Here's a simple JUnit example:
+
+```java
+import org.junit.jupiter.api.Test;
+
+import org.shakespeareframework.Actor;
+
+class MyScreenplay {
+
+    @Test
+    void act1() {
+        actor.does(they -> System.out.println("Hello World!"));
+    }
+}
+```
+
 ## Modules
 
 ### [`core`](modules/core)
