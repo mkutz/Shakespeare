@@ -18,15 +18,16 @@ jobs:
           distribution: temurin
           cache: gradle
 
-      - name: Generate pages
+      - name: Generate manual
         run: |
-          rm -rf docs
-          mkdir docs
-
           ./gradlew asciidoc
+          rm -rf docs/manual
           cp -r manual/build/docs/asciidoc docs/manual
 
+      - name: Generate javadocs
+        run: |
           ./gradlew javadoc
+          rm -rf docs/javadoc
           mkdir docs/javadoc
           cp -r modules/core/build/docs/javadoc docs/javadoc/core
           cp -r modules/selenium/build/docs/javadoc docs/javadoc/selenium
