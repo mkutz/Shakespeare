@@ -39,4 +39,4 @@ jobs:
           git checkout pages
           git add pages
           git commit -m "Update pages"
-          git push origin pages
+          git push
