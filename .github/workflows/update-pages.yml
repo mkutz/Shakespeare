@@ -36,6 +36,7 @@ jobs:
         run: |
           git config user.name "Documentor"
           git config user.email "mail@michael-kutz.de"
+          git checkout pages
           git add pages
           git commit -m "Update pages"
           git push origin pages
