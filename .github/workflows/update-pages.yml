@@ -20,23 +20,23 @@ jobs:
 
       - name: Generate pages
         run: |
-          rm -rf pages
-          mkdir pages
+          rm -rf docs
+          mkdir docs
 
           ./gradlew asciidoc
-          cp -r manual/build/docs/asciidoc pages/manual
+          cp -r manual/build/docs/asciidoc docs/manual
 
           ./gradlew javadoc
           mkdir pages/javadoc
-          cp -r modules/core/build/docs/javadoc pages/javadoc/core
-          cp -r modules/selenium/build/docs/javadoc pages/javadoc/selenium
-          cp -r modules/retrofit/build/docs/javadoc pages/javadoc/retrofit
+          cp -r modules/core/build/docs/javadoc docs/javadoc/core
+          cp -r modules/selenium/build/docs/javadoc docs/javadoc/selenium
+          cp -r modules/retrofit/build/docs/javadoc docs/javadoc/retrofit
 
       - name: Push changes
         run: |
           git config user.name "Documentor"
           git config user.email "mail@michael-kutz.de"
           git checkout pages
-          git add pages
-          git commit -m "Update pages"
+          git add docs
+          git commit -m "Update docs"
           git push
