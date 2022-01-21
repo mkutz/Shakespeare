@@ -3,9 +3,10 @@ package org.shakespeareframework;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.*;
 
 class ActorTest {
 
@@ -14,61 +15,67 @@ class ActorTest {
     @Test
     @DisplayName("does calls the task's performAs")
     void doesTest1() {
-        final var taskMock = mock(Task.class);
+        final var called = new AtomicBoolean(false);
+        final Task task = (actor) -> called.set(true);
 
-        actor.does(taskMock);
+        actor.does(task);
 
-        verify(taskMock, times(1)).performAs(actor);
+        assertThat(called).isTrue();
     }
 
     @Test
     @DisplayName("answers calls the question's answerAs")
     void answersTest1() {
-        final var mockedAnswer = "Answer";
-        @SuppressWarnings("unchecked") final var questionMock = (Question<String>) mock(Question.class);
-        when(questionMock.answerAs(actor)).thenReturn(mockedAnswer);
+        final var called = new AtomicBoolean(false);
+        final var answer = "Answer";
+        final Question<String> question = (actor) -> {
+            called.set(true);
+            return answer;
+        };
 
-        assertThat(actor.checks(questionMock)).isEqualTo(mockedAnswer);
+        assertThat(actor.checks(question)).isEqualTo(answer);
 
-        verify(questionMock, times(1)).answerAs(actor);
+        assertThat(called).isTrue();
     }
 
     @Test
     @DisplayName("can allows the actor to use the ability")
     void canTest1() {
-        final var abilityMock = mock(Ability.class);
+        final class TestAbility implements Ability {}
+        final var ability = new TestAbility();
 
-        assertThat(actor.can(abilityMock).uses(abilityMock.getClass()))
-                .isEqualTo(abilityMock);
+        assertThat(actor.can(ability).uses(TestAbility.class))
+                .isEqualTo(ability);
     }
 
     @Test
     @DisplayName("uses throws a MissingAbilityException")
     void usesTest1() {
-        final var abilityMock = mock(Ability.class);
-        final var abilityClass = abilityMock.getClass();
+        final class TestAbility implements Ability {}
 
         assertThatExceptionOfType(MissingAbilityException.class)
-                .isThrownBy(() -> actor.uses(abilityClass));
+                .isThrownBy(() -> actor.uses(TestAbility.class));
     }
 
     @Test
     @DisplayName("learns makes the actor remember a fact")
     void learnsTest1() {
-        final var factMock = mock(Fact.class);
+        final class TestFact implements Fact {}
+        final var fact = new TestFact();
 
-        assertThat(actor.learns(factMock).remembers(factMock.getClass()))
-                .isEqualTo(factMock);
+        actor.learns(fact);
+
+        assertThat(actor.remembers(TestFact.class))
+                .isEqualTo(fact);
     }
 
     @Test
     @DisplayName("remembers throws a MissingFactException")
     void remembersTest1() {
-        final var factMock = mock(Fact.class);
-        final var factClass = factMock.getClass();
+        final class TestFact implements Fact {}
 
         assertThatExceptionOfType(MissingFactException.class)
-                .isThrownBy(() -> actor.remembers(factClass));
+                .isThrownBy(() -> actor.remembers(TestFact.class));
     }
 
     @Test
