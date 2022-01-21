@@ -1,0 +1,43 @@
+= Doing Tasks
+
+== Grouping Interactions
+
+A Task should group single interactions into a semantic unit of work.
+
+Let's take a simple task to log in to a website.
+It might consist of the following interactions with the website:
+
+1. Navigate to the website,
+2. Click the link labeled "login",
+3. wait for an input field named "username" to be clickable,
+4. write "my-login" into that input field,
+5. wait for an input named "password" to be clickable,
+6. write "p4$$w0rd" into the input field labeled "Password",
+7. click on the button labeled "Login".
+
+So let's create that Task:
+
+[source,java,indent=0]
+.LoginTask
+----
+include::../../../test/java/WritingTasksQuestionsDocTest.java[tag=task]
+----
+<1> task data--in this case username and password--can be added as fields to the Task object
+
+As you can see all the interactions, including the details like waiting for things are wrapped in the Task object.
+It has fields for the username and the password, so we can easily reuse the Task with other credentials.
+
+== Grouping Tasks
+
+As the Actor is fully injected into the `performAs` method, it is also possible to do other tasks in a Task.
+
+NOTE: It is generally a bad idea to mix simple interactions with sub-tasks, as it makes finding problems much harder!
+
+== The Right Size
+
+// meaningful goal
+// is there any test I'd like to write that would like to use parts of the task, but not the thing as a whole?
+
+== Page Objects
+
+// why not use page objects?

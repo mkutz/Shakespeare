@@ -1,5 +1,10 @@
 = Introduction
 
+== Shakespeare
+
+Shakespeare is a Java implementation of Screenplay.
+It was mainly created to explain the basic concepts of Screenplay and hence is kept rather simple in its core.
+
 == Screenplay
 
 A framework helping to write tests like screenplays.
@@ -20,22 +25,23 @@ Actors can have _Abilities_.
 These enable them to do _Tasks_ or answer _Questions_.
 
 [ditaa]
+.Screenplay Core Concepts
 ....
-                        +-----------+
-     /--------answers-->| Questions |-------about-------\
+             answers    +-----------+      about
+     /----------------->| Questions |-------------------\
      |                  +-----------+                   |
      |                                                  |
      |                                                  |
      |                                                  v
-+-----------+           +-----------+           /---------------\
-|   Actor   |----does-->|   Tasks   |           |  Application  |
-+-----------+           +-----------+           \---------------/
-     |                         |                        ^
-     |has                      |made up of              |
++-----------+   does    +-----------+           /--------------\
+|   Actor   |---------->|   Tasks   |           |    System    |
++-----------+           +-----------+           |  under Test  |
+     |                         |                \--------------/
+     |has                      |made up of              ^
      |                         |                        |
      v                         v                        |
-+-----------+           /-----------\                   |
-| Abilities |--enable-->|  Actions  |----interact with--/
++-----------+  enable   /-----------\   interact with   |
+| Abilities |---------->|  Actions  |-------------------/
 +-----------+           \-----------/
 ....
 
@@ -43,8 +49,3 @@ In screenplay each of these concepts –Actor, Ability, Task and Question– are
 
 Actions can be calling an API, clicking a link, fetching an email, waiting for something to appear.
 All these tiny noisy details are hidden within the Task or Question objects.
-
-== Shakespeare
-
-Shakespeare is a Java implementation of Screenplay.
-It was mainly created to explain the basic concepts of Screenplay and hence is kept rather simple in its core.

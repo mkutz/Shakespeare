@@ -1,0 +1,24 @@
+= Actors with Abilities
+
+The central object in a Screenplay and Shakespeare is the https://{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor].
+Actors represent something or someone that interacts with the system under test.
+
+There can be any number of Actors in a Screenplay (Test).
+To make different Actors easily identifiable, they have a name.
+The name can be explicitly given or will be randomly assigned.
+
+.Actor with explicitly given name
+[source,java,indent=0]
+----
+include::../../../test/java/ActorDocTest.java[tag=create-actor]
+----
+
+.Actor with random name
+[source,java,indent=0]
+----
+include::../../../test/java/ActorDocTest.java[tag=create-actor-random-name]
+----
+
+== Abilities
+
+Actors use https://{javadoc-url}/core/org/shakespeareframework/Ability.html[Abilities] to interact with the system under test.

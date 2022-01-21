@@ -1,8 +1,15 @@
 = Shakespeare Framework
 Michael Kutz <mail@michael-kutz.de>
-:includedir: ./src/docs/asciidoc/chapters
-:toc:
+:toc: left
+:icons: font
+:sectlinks:
+:sectanchors:
+:source-highlighter: coderay
+:javadoc-url: shakespeareframework.org/javadoc
+:hide-uri-scheme:
 
-include::{includedir}/00-introduction.adoc[leveloffset=1]
-include::{includedir}/01-getting-started.adoc[leveloffset=1]
-include::{includedir}/02-core-concepts.adoc[leveloffset=1]
+include::chapters/00-introduction.adoc[leveloffset=1]
+include::chapters/01-getting-started.adoc[leveloffset=1]
+include::chapters/02-actors-with-abilities.adoc[leveloffset=1]
+include::chapters/03-doing-tasks.adoc[leveloffset=1]
+include::chapters/04-answering-questions.adoc[leveloffset=1]

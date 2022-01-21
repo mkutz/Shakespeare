@@ -1,5 +1,26 @@
 plugins {
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'java'
+}
+
+dependencies {
+    testImplementation project(':modules:core')
+    testImplementation project(':modules:selenium')
+    testImplementation project(':modules:retrofit')
+
+    testImplementation platform('org.junit:junit-bom:5.8.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+
+    testImplementation 'org.mockito:mockito-core:4.2.0'
+
+}
+
+test {
+    useJUnitPlatform()
 }
 
 repositories {
@@ -8,6 +29,7 @@ repositories {
 }
 
 asciidoctor {
+    baseDir = null
 }
 
 asciidoctorj {
