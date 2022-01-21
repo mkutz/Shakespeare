@@ -4,7 +4,17 @@ plugins {
 
 dependencies {
     api 'org.slf4j:slf4j-api:1.7.33'
+
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
     testImplementation 'ch.qos.logback:logback-classic:1.2.10'
+
+    testImplementation platform('org.junit:junit-bom:5.8.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    testImplementation 'org.assertj:assertj-core:3.22.0'
 }
 
 publishing {
