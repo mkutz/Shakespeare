@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
+import static java.time.Duration.ofMillis;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.*;
 
 class ActorDoesRetryableTest {
 
@@ -16,42 +19,94 @@ class ActorDoesRetryableTest {
     @Test
     @DisplayName("does calls the task's performAs until its timeout")
     void doesRetryableTest1() {
-        final var retryableTaskMock = mock(RetryableTask.class);
-        when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(109));
-        when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
-        doThrow(new RuntimeException()).when(retryableTaskMock).performAs(actor);
+        final var called = new AtomicInteger(0);
+        final var retryableTask = new RetryableTestTaskBuilder()
+                .timeout(ofMillis(100))
+                .interval(ofMillis(10))
+                .perform(actor -> {
+                    called.incrementAndGet();
+                    throw new RuntimeException();
+                });
 
         assertThatExceptionOfType(TimeoutException.class)
-                .isThrownBy(() -> actor.does(retryableTaskMock));
+                .isThrownBy(() -> actor.does(retryableTask));
 
-        verify(retryableTaskMock, atLeast(10)).performAs(actor);
+        assertThat(called).hasValueGreaterThanOrEqualTo(10);
     }
 
     @Test
     @DisplayName("does returns immediately after success")
     void doesRetryableTest2() {
-        final var retryableTaskMock = mock(RetryableTask.class);
-        when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(100));
-        when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
+        final var called = new AtomicInteger(0);
+        final var retryableTask = new RetryableTestTaskBuilder()
+                .perform(actor -> called.incrementAndGet());
 
-        actor.does(retryableTaskMock);
+        actor.does(retryableTask);
 
-        verify(retryableTaskMock, times(1)).performAs(actor);
+        assertThat(called).hasValue(1);
     }
 
     @Test
     @DisplayName("does throws acknowledged exceptions immediately")
     void doesRetryableTest3() {
-        final var retryableTaskMock = mock(RetryableTask.class);
-        when(retryableTaskMock.getTimeout()).thenReturn(Duration.ofMillis(100));
-        when(retryableTaskMock.getInterval()).thenReturn(Duration.ofMillis(10));
-
-        doThrow(new IllegalStateException()).when(retryableTaskMock).performAs(actor);
-        when(retryableTaskMock.getAcknowledgedExceptions()).thenReturn(Set.of(IllegalStateException.class));
+        final var called = new AtomicInteger(0);
+        final var retryableTask = new RetryableTestTaskBuilder()
+                .acknowledgedExceptions(Set.of(IllegalStateException.class))
+                .perform(actor -> {
+                    called.incrementAndGet();
+                    throw new IllegalStateException();
+                });
 
         assertThatExceptionOfType(IllegalStateException.class)
-                .isThrownBy(() -> actor.does(retryableTaskMock));
+                .isThrownBy(() -> actor.does(retryableTask));
 
-        verify(retryableTaskMock, times(1)).performAs(actor);
+        assertThat(called).hasValue(1);
+    }
+
+    private static final class RetryableTestTaskBuilder {
+
+        private Duration timeout = ofMillis(100);
+        private Duration interval = ofMillis(10);
+        private Set<Class<? extends Exception>> acknowledgedExceptions = Set.of();
+
+        public RetryableTestTaskBuilder timeout(Duration timeout) {
+            this.timeout = timeout;
+            return this;
+        }
+
+        public RetryableTestTaskBuilder interval(Duration interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public RetryableTestTaskBuilder acknowledgedExceptions(Set<Class<? extends Exception>> acknowledgedExceptions) {
+            this.acknowledgedExceptions = acknowledgedExceptions;
+            return this;
+        }
+
+        public RetryableTask perform(Consumer<Actor> perform) {
+            return new RetryableTask() {
+
+                @Override
+                public void performAs(Actor actor) {
+                    perform.accept(actor);
+                }
+
+                @Override
+                public Duration getTimeout() {
+                    return timeout;
+                }
+
+                @Override
+                public Duration getInterval() {
+                    return interval;
+                }
+
+                @Override
+                public Set<Class<? extends Exception>> getAcknowledgedExceptions() {
+                    return acknowledgedExceptions;
+                }
+            };
+        }
     }
 }
