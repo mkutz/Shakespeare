@@ -1,7 +1,7 @@
 package org.shakespeareframework;
 
 /**
- * A {@link Question} can be {@link Actor#checks answered} by an {@link Actor}
+ * A {@link Question} can be {@link Actor#checks checked} by an {@link Actor}
  *
  * @param <A> the {@link Class} of the {@link Question}'s answer
  */
