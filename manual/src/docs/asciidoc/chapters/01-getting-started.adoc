@@ -6,16 +6,16 @@ In oder to use Shakespeare you currently need a JDK 17.
 
 == Dependencies
 
-To use Shakespeare in your own project, you need to add it as a dependency to your project and start using its classes.
+To use Shakespeare in your own project, you need to add it as a dependency to your project.
 
-[source,groovy,subs=attributes+]
 .Gradle
+[source,groovy,subs=attributes+,role="primary"]
 ----
 implementation 'org.shakespeareframework:core:{revnumber}'
 ----
 
-[source,xml,subs=attributes+]
 .Maven
+[source,xml,subs=attributes+,role="secondary"]
 ----
 <dependency>
     <groupId>org.shakespeareframework</groupId>
@@ -24,28 +24,48 @@ implementation 'org.shakespeareframework:core:{revnumber}'
 </dependency>
 ----
 
-== Create an Actor
+NOTE: The `core` module is a transient dependency of any other module.
+Hence, you don't need to keep it once you add another module (e.g. `selenium` or `retrofit`)
 
-Within your code you should now be able to import the Actor class.
+=== Bill of Materials
 
-[source,java]
-.Example with JUnit5
+If you want to use more than one module in the same project, you can use Shakespeare's bill of materials (BOM) and omit the explicit version for the other modules.
+
+.Gradle
+[source,groovy,subs=attributes+,role="primary"]
 ----
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import org.shakespeareframework.Actor; // <1>
-
-class MyScreenplay {
-
-    @Test
-    @DisplayName("act 1")
-    void act1() {
-        actor.does(they -> System.out.println("Hello World!")); // <2>
-    }
-}
+implementation platform('org.shakespeareframework:bom:{revnumber}')
+implementation 'org.shakespeareframework:selenium'
+implementation 'org.shakespeareframework:retrofit'
 ----
-<1> Import the `Actor` class.
-<2> Call the `does` method to execute a task. In this case defined in place as a Lambda.
 
-In this example, the task is defined as a Lambda and simply prints the line "Hello World!".
+.Maven
+[source,xml,subs=attributes+,role="secondary"]
+----
+<project>
+    <!--…-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.shakespeareframework</groupId>
+                <artifactId>bom</artifactId>
+                <version>{revnumber}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- … -->
+    <dependencies>
+        <dependency>
+            <groupId>org.shakespeareframework</groupId>
+            <artifactId>selenium</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.shakespeareframework</groupId>
+            <artifactId>retrofit</artifactId>
+        </dependency>
+    </dependencies>
+    <!-- … -->
+</project>
+----
