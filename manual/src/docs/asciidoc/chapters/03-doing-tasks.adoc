@@ -1,0 +1,109 @@
+= Doing Tasks
+
+== Tasks
+
+https://{javadoc-url}/core/org/shakespeareframework/Task.html[Tasks] can be done by an Actor.
+What the actor should do is defined in the https://{javadoc-url}/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)[performAs(Actor) method] of the Task.
+
+As the Actor is given as an argument, the Task implementation has access to the Actor's Abilities via the https://{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
+
+.SayHelloWorld Task
+[source,java,indent=0]
+----
+include::../../../test/java/TaskDocTest.java[tag=task]
+----
+
+.Doing SayHelloWorld Task
+[source,java,indent=0]
+----
+include::../../../test/java/TaskDocTest.java[tag=does-task]
+----
+
+== Tasks with Parameters
+
+Some tasks require data to be executed.
+E.g. a `SearchFor` Task probably needs a query string, or an `AddToCart` Task might need a product identifier.
+
+Such data can be added as properties of the Task.
+
+.SayHello Parameterized Task
+[source,java,indent=0]
+----
+include::../../../test/java/TaskDocTest.java[tag=task-with-parameter]
+----
+
+As Tasks should not change over time and should be reusable, it is also possible to declare them as Java Records--given that you can use Java 17+ features.
+
+Doing the Tasks is the same for Classes and Records.
+
+.SayHelloAsRecord Parameterized Task
+[source,java,indent=0]
+----
+include::../../../test/java/TaskDocTest.java[tags=task-as-record,does-task-as-record]
+----
+
+.Doing SayHello Parameterized Task
+[source,java,indent=0]
+----
+include::../../../test/java/TaskDocTest.java[tag=does-task-with-parameter]
+----
+
+== Lambdas as Tasks
+
+As Tasks only have one abstract method, they can be declared using Java's Lambda syntax.
+
+.Simple parameterized Task
+[source,java,indent=0]
+----
+include::../../../test/java/TaskDocTest.java[tag=does-lambda]
+----
+
+NOTE: A Task should group complex interactions into a semantic unit of work.
+So declaring them as Lambdas might be useful for short-lived experiments or debugging, but is not generally advisable.
+
+== Abstraction Levels
+
+Tasks are a powerful tool.
+A task can be as simple as clicking on a link and as complex as a double-opt-in registration process.
+Finding the right abstraction can be hard.
+This chapter contains some examples how to find the right level of abstraction for Tasks.
+
+=== Grouping Interactions
+
+The simplest kind of Tasks are those who group simple interactions with the system under test.
+
+Let's take a Task to log in to a website.
+This might consist of the following interactions with the website:
+
+[source,java,indent=0]
+.LoginTask
+----
+include::../../../test/java/GroupingInteractionsDocTest.java[tag=task]
+----
+<1> Navigate to the website,
+<2> find the "username" input field,
+<3> write "john" into it,
+<4> find the "password" input field,
+<5> write "demo" into it,
+<6> find the login button,
+<7> click on it.
+
+As you can see all the interactions are wrapped in the Task object.
+It has fields for the username and the password, so we can easily reuse the Task with other credentials.
+
+=== Grouping Tasks
+
+As the Actor is fully injected into the `performAs` method, it is also possible to do other tasks in a Task.
+
+Let's take a shop website as an example.
+In order to check out, there are several complex steps needed:
+
+1. Add any product to the shopping cart,
+2. navigate to the checkout page,
+3. enter a delivery address,
+4. enter valid payment details,
+5. confirm the checkout.
+
+All these steps could be Tasks in their own right, but if we want to test that the user is able to cancel the order after check out, we might want to bundle the steps into something like a `Checkout` Task.
+
+WARNING: It is generally a bad idea to mix simple interactions with sub-tasks, as it makes finding problems much harder!
