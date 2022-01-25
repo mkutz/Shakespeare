@@ -5,6 +5,7 @@ package org.shakespeareframework;
  *
  * @param <A> the {@link Class} of the {@link Question}'s answer
  */
+@FunctionalInterface
 public interface Question<A> {
 
     /**
