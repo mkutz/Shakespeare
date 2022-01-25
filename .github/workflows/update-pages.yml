@@ -12,7 +12,18 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          ref: pages
+
+      - name: Configure Git
+        run: |
+          git config user.name "Documentor"
+          git config user.email "mail@michael-kutz.de"
+
+      - name: Rebase main
+        run: |
+          git rebase main
+          git pull --rebase
+          git push
 
       - uses: actions/setup-java@v2
         with:
@@ -37,9 +48,6 @@ jobs:
 
       - name: Push changes
         run: |
-          git config user.name "Documentor"
-          git config user.email "mail@michael-kutz.de"
-          git checkout pages
           git add docs
           git commit -m "Update docs"
           git push
