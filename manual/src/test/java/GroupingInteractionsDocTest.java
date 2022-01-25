@@ -9,7 +9,7 @@ import org.shakespeareframework.selenium.DockerWebDriverSupplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class WritingTasksQuestionsDocTest {
+class GroupingInteractionsDocTest {
 
     // tag::actor[]
     Actor user = new Actor()
@@ -19,16 +19,16 @@ class WritingTasksQuestionsDocTest {
     // tag::test[]
     @Test
     void act1() {
-        user.does(new Login("my-login", "p4$$w0rd"));
+        user.does(new Login("john", "demo"));
         assertThat(user.checks(new LoggedState())).isTrue();
     }
     // end::test[]
 
-    // tag::task[]
+    static // tag::task[]
     class Login implements Task {
 
-        private final String username; // <1>
-        private final String password; // <1>
+        private final String username;
+        private final String password;
 
         public Login(String username, String password) {
             this.username = username;
@@ -40,14 +40,14 @@ class WritingTasksQuestionsDocTest {
             final var webDriver = actor.uses(BrowseTheWeb.class)
                     .getWebDriver();
 
-            webDriver.get("http://parabank.parasoft.com/");
+            webDriver.get("http://parabank.parasoft.com/"); // <1>
 
-            webDriver.findElement(By.name("username"))
-                    .sendKeys(username);
-            webDriver.findElement(By.name("password"))
-                    .sendKeys(password);
-            webDriver.findElement(By.cssSelector(".login input.button"))
-                    .click();
+            webDriver.findElement(By.name("username")) // <2>
+                    .sendKeys(username); // <3>
+            webDriver.findElement(By.name("password")) // <4>
+                    .sendKeys(password); // <5>
+            webDriver.findElement(By.cssSelector(".login input.button")) // <6>
+                    .click(); // <7>
         }
 
         @Override
@@ -57,7 +57,7 @@ class WritingTasksQuestionsDocTest {
     }
     // end::task[]
 
-    // tag::question[]
+    static // tag::question[]
     class LoggedState implements Question<Boolean> {
 
         @Override

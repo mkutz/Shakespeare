@@ -25,7 +25,7 @@ implementation 'org.shakespeareframework:core:{revnumber}'
 ----
 
 NOTE: The `core` module is a transient dependency of any other module.
-Hence, you don't need to keep it once you add another module (e.g. the `selenium`)
+Hence, you don't need to keep it once you add another module (e.g. `selenium` or `retrofit`)
 
 === Bill of Materials
 

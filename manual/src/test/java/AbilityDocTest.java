@@ -1,36 +1,20 @@
 import org.junit.jupiter.api.Test;
-import org.shakespeareframework.Ability;
 import org.shakespeareframework.Actor;
 
-import java.util.logging.Logger;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AbilityDocTest {
 
-    // tag::create-actor[]
-    Actor alex = new Actor("Alex");
-    // end::create-actor[]
-
     @Test
     void act1() {
-        alex.can(new Log(alex.getName()));
-        alex.does((he) -> {
-            var logger = he.uses(Log.class).getLogger();
-            logger.info("Hello World");
-        });
+        // tag::can[]
+        var anna = new Actor("Anna")
+                .can(new Log("Anna"));
+        // end::can[]
+        // tag::uses[]
+        var log = anna.uses(Log.class);
+        log.getLogger().info("Hello World");
+        // end::uses[]
+        assertThat(log).isNotNull();
     }
-
-    // tag::ability[]
-    class Log implements Ability {
-
-        private final Logger logger;
-
-        Log(String name) {
-            this.logger = Logger.getLogger(name);
-        }
-
-        public Logger getLogger() {
-            return logger;
-        }
-    }
-    // end::ability[]
 }

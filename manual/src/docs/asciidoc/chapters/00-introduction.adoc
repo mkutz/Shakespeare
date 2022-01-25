@@ -45,7 +45,7 @@ These enable them to do _Tasks_ or answer _Questions_.
 +-----------+           \-----------/
 ....
 
-In screenplay each of these concepts –Actor, Ability, Task and Question– are objects which abstract from the actual actions.
+In screenplay each of these concepts--Actor, Ability, Task and Question--are objects which abstract from the actual actions.
 
 Actions can be calling an API, clicking a link, fetching an email, waiting for something to appear.
 All these tiny noisy details are hidden within the Task or Question objects.

@@ -1,19 +1,24 @@
 import org.junit.jupiter.api.Test;
 import org.shakespeareframework.Actor;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 class ActorDocTest {
 
-    // tag::create-actor[]
-    Actor robin = new Actor("Robin");
-    // end::create-actor[]
-
-    // tag::create-actor-random-name[]
-    Actor user = new Actor();
-    // end::create-actor-random-name[]
 
     @Test
     void act1() {
-        robin.does((they) -> System.out.printf("Hello World! My name is %s", they.getName()));
-        user.does((they) -> System.out.printf("Hello World! My name is %s", they.getName()));
+        // tag::create-actor[]
+        var robin = new Actor("Robin");
+        // end::create-actor[]
+        assertThat(robin.getName()).isEqualTo("Robin");
+    }
+
+    @Test
+    void act2() {
+        // tag::create-actor-random-name[]
+        var user = new Actor();
+        // end::create-actor-random-name[]
+        assertThat(user.getName()).isNotBlank();
     }
 }
