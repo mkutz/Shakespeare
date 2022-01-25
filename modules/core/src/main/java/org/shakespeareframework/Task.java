@@ -3,6 +3,7 @@ package org.shakespeareframework;
 /**
  * A {@link Task} can be {@link Actor#does done} by an {@link Actor}.
  */
+@FunctionalInterface
 public interface Task {
 
     /**
