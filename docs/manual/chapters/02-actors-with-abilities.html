@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Core Concepts</title>
+<title>Actors with Abilities</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,47 +438,93 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Core Concepts</h1>
+<h1>Actors with Abilities</h1>
 <div class="details">
 <span id="revnumber">version 0.3-SNAPSHOT</span>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_actor">Actor</h2>
+<h2 id="_actors">Actors</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>The central object in a Screenplay and Shakespeare is the <a href="https://{javadoc-url}/core/org/shakespeareframework/Actor.html">Actor</a>.
+Actors represent something or someone that interacts with the system under test.</p>
+</div>
+<div class="paragraph">
+<p>There can be any number of Actors in a Screenplay (Test).
+To make different Actors easily identifiable, they have a name.
+The name can be explicitly given or will be randomly assigned.</p>
+</div>
+<div class="listingblock">
+<div class="title">Actor with explicitly given name</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var robin = new Actor("Robin");</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Actor with random name</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var user = new Actor();</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_abilities">Abilities</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Actors may use <a href="https://{javadoc-url}/core/org/shakespeareframework/Ability.html">Abilities</a> to interact with the system under test.</p>
+</div>
+<div class="paragraph">
+<p>Ability is a simple marker interface.
+Implementations should provide methods providing an object which allows interaction with the system under test.
+If that object is being generated on demand or simply wrapped by the Ability is up to the implementation.</p>
+</div>
+<div class="listingblock">
+<div class="title">A simple example for an Ability implementation</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Log implements Ability {
 
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tasks">Tasks</h2>
-<div class="sectionbody">
+    private final Logger logger;
 
-</div>
-</div>
-<div class="sect1">
-<h2 id="_questions">Questions</h2>
-<div class="sectionbody">
+    Log(String name) {
+        this.logger = Logger.getLogger(name);
+    }
 
+    public Logger getLogger() {
+        return logger;
+    }
+}</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_retryables">Retryables</h2>
-<div class="sectionbody">
-
+<div class="paragraph">
+<p>To allow Actors to use an Ability it needs to be given to them via the <a href="https://{javadoc-url}/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability&#8230;&#8203;)"><code>can(Ability)</code> method</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Give an Ability to an Actor</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var anna = new Actor("Anna")
+        .can(new Log("Anna"));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get an Ability from an Actor, there&#8217;s the <a href="https://{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Get an Ability from an Actor</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var log = anna.uses(Log.class);
+log.getLogger().info("Hello World");</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.3-SNAPSHOT<br>
-Last updated 2022-01-15 11:37:14 UTC
+Last updated 2022-01-26 10:25:03 UTC
 </div>
 </div>
 </body>
