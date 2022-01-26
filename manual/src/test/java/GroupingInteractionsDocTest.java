@@ -20,7 +20,7 @@ class GroupingInteractionsDocTest {
     @Test
     void act1() {
         user.does(new Login("john", "demo"));
-        assertThat(user.checks(new LoggedState())).isTrue();
+        assertThat(user.checks(new LoggedInState())).isTrue();
     }
     // end::test[]
 
@@ -58,7 +58,7 @@ class GroupingInteractionsDocTest {
     // end::task[]
 
     static // tag::question[]
-    class LoggedState implements Question<Boolean> {
+    class LoggedInState implements Question<Boolean> {
 
         @Override
         public Boolean answerAs(Actor actor) {
