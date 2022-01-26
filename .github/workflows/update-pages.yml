@@ -22,7 +22,7 @@ jobs:
 
       - name: Rebase main
         run: |
-          git rebase main
+          git rebase origin/main
           git pull --rebase
           git push
 
