@@ -1,3 +1,5 @@
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.shakespeareframework.Actor;
@@ -7,22 +9,21 @@ import org.shakespeareframework.selenium.BrowseTheWeb;
 import org.shakespeareframework.selenium.BrowserType;
 import org.shakespeareframework.selenium.DockerWebDriverSupplier;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 class GroupingInteractionsDocTest {
 
-    // tag::actor[]
-    Actor user = new Actor()
-            .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.CHROME)));
-    // end::actor[]
-
-    // tag::test[]
     @Test
     void act1() {
-        user.does(new Login("john", "demo"));
-        assertThat(user.checks(new LoggedInState())).isTrue();
+        // tag::create-actor[]
+        var john = new Actor("John")
+                .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.CHROME)));
+        // end::create-actor[]
+        // tag::do-task[]
+        john.does(new Login("john", "demo"));
+        // end::do-task[]
+        // tag::check-question[]
+        assertThat(john.checks(new LoggedInState())).isTrue();
+        // end::check-question[]
     }
-    // end::test[]
 
     static // tag::task[]
     class Login implements Task {
@@ -30,17 +31,17 @@ class GroupingInteractionsDocTest {
         private final String username;
         private final String password;
 
-        public Login(String username, String password) {
+        Login(String username, String password) {
             this.username = username;
             this.password = password;
         }
 
         @Override
         public void performAs(Actor actor) {
-            final var webDriver = actor.uses(BrowseTheWeb.class)
+            var webDriver = actor.uses(BrowseTheWeb.class)
                     .getWebDriver();
 
-            webDriver.get("http://parabank.parasoft.com/"); // <1>
+            webDriver.get("https://parabank.parasoft.com/"); // <1>
 
             webDriver.findElement(By.name("username")) // <2>
                     .sendKeys(username); // <3>
@@ -62,7 +63,7 @@ class GroupingInteractionsDocTest {
 
         @Override
         public Boolean answerAs(Actor actor) {
-            final var webDriver = actor.uses(BrowseTheWeb.class)
+            var webDriver = actor.uses(BrowseTheWeb.class)
                     .getWebDriver();
 
             return webDriver.findElement(By.linkText("Log Out"))
