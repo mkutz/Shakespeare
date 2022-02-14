@@ -32,11 +32,10 @@ jobs:
           distribution: temurin
           cache: gradle
 
-      - name: Generate manual
-        run: |
-          ./gradlew asciidoc
-          rm -rf docs/manual
-          cp -r manual/build/docs/asciidoc docs/manual
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.ref }}
+          path: ${{ github.event.inputs.ref }}
 
       - name: Generate javadocs
         run: |

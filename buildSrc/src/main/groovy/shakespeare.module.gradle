@@ -65,3 +65,7 @@ signing {
     useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
     sign publishing.publications.mavenJava
 }
+
+javadoc {
+    destinationDir = file "${rootDir}/docs/javadoc/${project.name}"
+}
