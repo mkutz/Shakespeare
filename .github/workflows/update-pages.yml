@@ -2,6 +2,11 @@ name: Udpate Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        default: main
+        description: Tag or branch to generate documentation from
+        required: false
 
 jobs:
   build:
@@ -20,12 +25,6 @@ jobs:
           git config user.name "Documentor"
           git config user.email "mail@michael-kutz.de"
 
-      - name: Rebase main
-        run: |
-          git rebase origin/main
-          git pull --rebase
-          git push
-
       - uses: actions/setup-java@v2
         with:
           java-version: 17
@@ -37,17 +36,13 @@ jobs:
           ref: ${{ github.event.inputs.ref }}
           path: ${{ github.event.inputs.ref }}
 
-      - name: Generate javadocs
-        run: |
-          ./gradlew javadoc
-          rm -rf docs/javadoc
-          mkdir docs/javadoc
-          cp -r modules/core/build/docs/javadoc docs/javadoc/core
-          cp -r modules/selenium/build/docs/javadoc docs/javadoc/selenium
-          cp -r modules/retrofit/build/docs/javadoc docs/javadoc/retrofit
+      - run: ./gradlew asciidoc javadoc
+        working-directory: ${{ github.event.inputs.ref }}
 
       - name: Push changes
         run: |
+          rm -rf docs/${{ github.event.inputs.ref }}
+          mv ${{ github.event.inputs.ref }}/docs docs/${{ github.event.inputs.ref }}
           git add docs
           git commit -m "Update docs"
           git push
