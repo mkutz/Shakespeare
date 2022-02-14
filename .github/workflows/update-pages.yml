@@ -47,3 +47,4 @@ jobs:
           git add docs
           git commit -m "Update docs"
           git push
+        working-directory: pages
