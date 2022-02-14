@@ -30,7 +30,6 @@ repositories {
 
 asciidoctor {
     baseDir = null
-    outputDir = file "${rootDir}/docs/manual"
 }
 
 asciidoctorj {
