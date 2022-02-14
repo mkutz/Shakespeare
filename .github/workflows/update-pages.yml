@@ -38,7 +38,7 @@ jobs:
         run: |
           ./gradlew javadoc
           rm -rf pages/docs/main/javadoc/*
-          mv modules/core/build/docs/javadoc pages/${{ github.ref_name }}/docs/javadoc/core
+          mv modules/core/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/core
           mv modules/retrofit/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/retrofit
           mv modules/selenium/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/selenium
 
