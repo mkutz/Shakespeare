@@ -28,14 +28,22 @@ jobs:
           ref: pages
           path: pages
 
-      - run: ./gradlew asciidoc javadoc
-        working-directory: ${{ github.event.inputs.ref }}
+      - name: Update AsciiDoc
+        run: |
+          ./gradlew asciidoc
+          rm -rf pages/docs/${{ github.ref_name }}/manual
+          mv manual/build/docs/asciidoc pages/docs/${{ github.ref_name }}/manual
+
+      - name: Update JavaDoc
+        run: |
+          ./gradlew javadoc
+          rm -rf pages/docs/main/javadoc/*
+          mv modules/core/build/docs/javadoc pages/${{ github.ref_name }}/docs/javadoc/core
+          mv modules/retrofit/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/retrofit
+          mv modules/selenium/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/selenium
 
       - name: Push changes
         run: |
-          rm -rf docs/${{ github.event.inputs.ref }}
-          mkdir docs/${{ github.event.inputs.ref }}
-          mv ${{ github.event.inputs.ref }}/docs docs/${{ github.event.inputs.ref }}
           git add docs
           git commit -m "Update docs"
           git push
