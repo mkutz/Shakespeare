@@ -42,6 +42,7 @@ jobs:
       - name: Push changes
         run: |
           rm -rf docs/${{ github.event.inputs.ref }}
+          mkdir docs/${{ github.event.inputs.ref }}
           mv ${{ github.event.inputs.ref }}/docs docs/${{ github.event.inputs.ref }}
           git add docs
           git commit -m "Update docs"
