@@ -29,7 +29,7 @@ public interface RetryableQuestion<A> extends Question<A>, Retryable {
      *     <li>a {@link Optional#isPresent()},</li>
      *     <li>a !{@link Collection#isEmpty()},</li>
      *     <li>a !{@link Map#isEmpty()},</li>
-     *     <li>an array with length > 0, and</li>
+     *     <li>an array with length &gt; 0, and</li>
      *     <li>a {@link Boolean#TRUE}.</li>
      * </ul>
      *
