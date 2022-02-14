@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
+import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -38,6 +39,6 @@ class BrowseTheWebTest {
     void toStringTest() {
         final var webDriverSupplierMock = mock(WebDriverSupplier.class);
         assertThat(new BrowseTheWeb(webDriverSupplierMock))
-                .hasToString("browse the web using %s".formatted(webDriverSupplierMock.toString()));
+                .hasToString(format("browse the web using %s", webDriverSupplierMock.toString()));
     }
 }

@@ -2,7 +2,7 @@
 
 == Requirements
 
-In oder to use Shakespeare you currently need a JDK 17.
+In oder to use Shakespeare you need a JDK 11 or higher.
 
 == Dependencies
 

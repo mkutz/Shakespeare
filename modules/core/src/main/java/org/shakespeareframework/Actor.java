@@ -3,6 +3,7 @@ package org.shakespeareframework;
 import java.security.SecureRandom;
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.lang.Thread.currentThread;
 import static java.time.Instant.now;
 import static java.util.Objects.requireNonNull;
@@ -197,7 +198,7 @@ public final class Actor {
 
     @Override
     public String toString() {
-        return "%s".formatted(name);
+        return format("%s", name);
     }
 
     @Override

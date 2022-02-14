@@ -3,18 +3,21 @@ package org.shakespeareframework.selenium;
 import org.openqa.selenium.WebDriver;
 import org.shakespeareframework.Ability;
 
+import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 /**
  * {@link Ability} to browse the web using a Selenium {@link WebDriver}.
  */
-public record BrowseTheWeb(WebDriverSupplier webDriverSupplier) implements Ability, AutoCloseable {
+public final class BrowseTheWeb implements Ability, AutoCloseable {
+
+    private final WebDriverSupplier webDriverSupplier;
 
     /**
      * @param webDriverSupplier the {@link WebDriverSupplier} used to setup the {@link WebDriver}
      */
-    public BrowseTheWeb {
-        requireNonNull(webDriverSupplier);
+    public BrowseTheWeb(WebDriverSupplier webDriverSupplier) {
+        this.webDriverSupplier = requireNonNull(webDriverSupplier);
     }
 
     /**
@@ -31,6 +34,6 @@ public record BrowseTheWeb(WebDriverSupplier webDriverSupplier) implements Abili
 
     @Override
     public String toString() {
-        return "browse the web using %s".formatted(webDriverSupplier);
+        return format("browse the web using %s", webDriverSupplier);
     }
 }
