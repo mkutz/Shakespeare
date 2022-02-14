@@ -1,5 +1,6 @@
 package org.shakespeareframework.retrofit;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +12,7 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -90,6 +92,26 @@ class CallHttpApisTest {
         @GET("/json")
         Call<JsonResponseBody> getJson();
 
-        record JsonResponseBody(String greeting) {}
+       class JsonResponseBody {
+
+           private final String greeting;
+
+           public JsonResponseBody(@JsonProperty("greeting") String greeting) {
+               this.greeting = greeting;
+           }
+
+           @Override
+           public boolean equals(Object o) {
+               if (this == o) return true;
+               if (o == null || getClass() != o.getClass()) return false;
+               JsonResponseBody that = (JsonResponseBody) o;
+               return Objects.equals(greeting, that.greeting);
+           }
+
+           @Override
+           public int hashCode() {
+               return Objects.hash(greeting);
+           }
+       }
     }
 }

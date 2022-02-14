@@ -9,7 +9,7 @@ It is based on the ideas from [Page Objects Refactored] by Antony Marcano, Andy 
 
 ## Getting Started
 
-To use Shakespeare for your tests, you currently will need a JDK 17.
+In oder to use Shakespeare you need a JDK 11 or higher.
 
 Add the following dependencies to your build.
 

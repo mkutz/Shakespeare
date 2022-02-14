@@ -37,16 +37,16 @@ public interface RetryableQuestion<A> extends Question<A>, Retryable {
      * @return {@code true} if the given answer is acceptable
      */
     default boolean acceptable(A answer) {
-        if (answer instanceof Optional<?> optionalAnswer) {
-            return optionalAnswer.isPresent();
-        } else if (answer instanceof Collection<?> collectionAnswer) {
-            return !collectionAnswer.isEmpty();
-        } else if (answer instanceof Map<?, ?> mapAnswer) {
-            return !mapAnswer.isEmpty();
-        } else if (answer instanceof Object[] objectArrayAnswer) {
-            return objectArrayAnswer.length > 0;
-        } else if (answer instanceof Boolean booleanAnswer) {
-            return booleanAnswer;
+        if (answer instanceof Optional<?>) {
+            return ((Optional<?>) answer).isPresent();
+        } else if (answer instanceof Collection<?>) {
+            return !((Collection<?>) answer).isEmpty();
+        } else if (answer instanceof Map<?, ?>) {
+            return !((Map<?, ?>) answer).isEmpty();
+        } else if (answer instanceof Object[]) {
+            return ((Object[]) answer).length > 0;
+        } else if (answer instanceof Boolean) {
+            return (Boolean) answer;
         }
         return answer != null;
     }

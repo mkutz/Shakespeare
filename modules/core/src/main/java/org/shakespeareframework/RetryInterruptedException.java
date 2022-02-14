@@ -1,5 +1,7 @@
 package org.shakespeareframework;
 
+import static java.lang.String.format;
+
 /**
  * A {@link RetryInterruptedException} is thrown when an {@link Actor} get interrupted while retrying a
  * {@link Retryable}.
@@ -15,6 +17,6 @@ public class RetryInterruptedException extends RuntimeException {
      * @param cause     the {@link InterruptedException} which caused the interruption
      */
     public RetryInterruptedException(Actor actor, Retryable retryable, InterruptedException cause) {
-        super("%s was interrupted while retrying %s".formatted(actor, retryable), cause);
+        super(format("%s was interrupted while retrying %s", actor, retryable), cause);
     }
 }

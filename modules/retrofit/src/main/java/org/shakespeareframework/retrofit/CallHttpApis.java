@@ -11,7 +11,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * {@link Ability} to call RESTful APIs using {@link Retrofit}.
  */
-public record CallHttpApis() implements Ability {
+public class CallHttpApis implements Ability {
 
     /**
      * @return a new {@link Builder}
