@@ -66,3 +66,7 @@ signing {
     useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
     sign publishing.publications.mavenJava
 }
+
+pitest {
+    junit5PluginVersion = '0.15'
+}
