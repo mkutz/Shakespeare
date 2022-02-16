@@ -1,6 +1,7 @@
 package org.shakespeareframework.selenium;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.ImmutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -47,11 +48,12 @@ public enum BrowserType {
     SAFARI(org.openqa.selenium.safari.SafariDriver.class, new SafariOptions());
 
     private final Class<? extends WebDriver> webDriverClass;
-    private final Capabilities baseCapabilities;
+
+    private final ImmutableCapabilities baseCapabilities;
 
     BrowserType(Class<? extends WebDriver> webDriverClass, Capabilities baseCapabilities) {
         this.webDriverClass = webDriverClass;
-        this.baseCapabilities = baseCapabilities;
+        this.baseCapabilities = ImmutableCapabilities.copyOf(baseCapabilities);
     }
 
     /**
