@@ -15,6 +15,10 @@ public abstract class WebDriverSupplier implements Supplier<WebDriver>, AutoClos
     private final Capabilities capabilities;
 
     /**
+     * Creates a {@link WebDriverSupplier} for the given {@link BrowserType} with additional {@link Capabilities} that
+     * will be {@link Capabilities#merge(Capabilities) merged} with the
+     * {@link BrowserType#getBaseCapabilities BrowserType's baseCapabilities}.
+     *
      * @param browserType            the {@link BrowserType} to be setup
      * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
      */
@@ -26,6 +30,9 @@ public abstract class WebDriverSupplier implements Supplier<WebDriver>, AutoClos
     }
 
     /**
+     * Creates a {@link WebDriverSupplier} for the given {@link BrowserType} using the
+     * {@link BrowserType#getBaseCapabilities BrowserType's baseCapabilities}.
+     *
      * @return the {@link BrowserType}
      */
     public BrowserType getBrowserType() {
