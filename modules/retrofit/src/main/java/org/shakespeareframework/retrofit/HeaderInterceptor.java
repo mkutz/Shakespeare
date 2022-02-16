@@ -30,6 +30,8 @@ public class HeaderInterceptor implements Interceptor {
     }
 
     /**
+     * Adds a header that will be added to the intercepted request.
+     *
      * @param key   name of the header to be added
      * @param value value of the header to be added
      */
@@ -38,6 +40,8 @@ public class HeaderInterceptor implements Interceptor {
     }
 
     /**
+     * Removes a header that will no longer be added to the intercepted request.
+     *
      * @param key name of the header to be removed
      */
     public void remove(String key) {
