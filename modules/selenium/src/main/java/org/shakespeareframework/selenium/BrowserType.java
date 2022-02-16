@@ -57,6 +57,8 @@ public enum BrowserType {
     }
 
     /**
+     * Looks up the named {@link BrowserType}, ignoring case.
+     *
      * @param string the desired browser type as {@link String}
      * @return the desired {@link BrowserType} if known
      * @throws IllegalArgumentException if the given string does not equal any {@link BrowserType#name()}
