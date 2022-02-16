@@ -14,6 +14,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class CallHttpApis implements Ability {
 
     /**
+     * Creates a new {@link Builder}.
+     *
      * @return a new {@link Builder}
      */
     public Builder buildClient() {
@@ -32,8 +34,11 @@ public class CallHttpApis implements Ability {
         private Builder() {}
 
         /**
+         * Sets the base URL to the {@link #retrofitBuilder}.
+         *
          * @param baseUrl base URL of the API
          * @return the {@link Builder}
+         * @see Retrofit.Builder#baseUrl(String)
          */
         public Builder baseUrl(String baseUrl) {
             retrofitBuilder.baseUrl(baseUrl);
@@ -41,6 +46,8 @@ public class CallHttpApis implements Ability {
         }
 
         /**
+         * Adds the given {@link Converter.Factory} to the {@link #retrofitBuilder}.
+         *
          * @param converterFactory a {@link Converter.Factory} to be added to the {@link #retrofitBuilder}
          * @return the {@link Builder}
          * @see Retrofit.Builder#addConverterFactory(Converter.Factory)
@@ -73,6 +80,8 @@ public class CallHttpApis implements Ability {
         }
 
         /**
+         * Adds the given {@link Interceptor} to the {@link #okHttpClientBuilder}.
+         *
          * @param interceptor an {@link Interceptor} to be added to the {@link #okHttpClientBuilder}
          * @return the {@link Builder}
          * @see OkHttpClient.Builder#addInterceptor(Interceptor)
@@ -83,9 +92,14 @@ public class CallHttpApis implements Ability {
         }
 
         /**
+         * Finalizes the build and returns the client.
+         *
          * @param clientClass the API client class
          * @param <C>         the type of the API client class
          * @return an instance of clientClass to interact with the API
+         * @see Retrofit.Builder#build()
+         * @see OkHttpClient.Builder#build()
+         * @see Retrofit#create(Class)
          */
         public <C> C build(Class<? extends C> clientClass) {
             return retrofitBuilder
