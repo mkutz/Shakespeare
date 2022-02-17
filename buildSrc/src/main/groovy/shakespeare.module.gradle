@@ -69,4 +69,6 @@ signing {
 
 pitest {
     junit5PluginVersion = '0.15'
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
 }
