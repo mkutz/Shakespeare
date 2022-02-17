@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - run: ./gradlew build jacocoTestReport pitest sonarqube
+      - run: ./gradlew build jacocoTestReport sonarqube
         if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
