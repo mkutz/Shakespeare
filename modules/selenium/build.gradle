@@ -9,7 +9,7 @@ dependencies {
     implementation platform('com.fasterxml.jackson:jackson-bom:2.13.1')
     implementation 'commons-io:commons-io:2.11.0'
 
-    api 'io.github.bonigarcia:webdrivermanager:5.0.3'
+    api 'io.github.bonigarcia:webdrivermanager:5.1.0'
 
     testImplementation platform('org.junit:junit-bom:5.8.2')
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
