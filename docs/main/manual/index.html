@@ -639,7 +639,7 @@ implementation <span class="string"><span class="delimiter">'</span><span class=
 <div class="sect2">
 <h3 id="_actors"><a class="anchor" href="#_actors"></a><a class="link" href="#_actors">Actors</a></h3>
 <div class="paragraph">
-<p>The central object in a Screenplay and Shakespeare is the <a href="./javadoc/core/org/shakespeareframework/Actor.html">Actor</a>.
+<p>The central object in a Screenplay and Shakespeare is the <a href="../javadoc/core/org/shakespeareframework/Actor.html">Actor</a>.
 Actors represent something or someone that interacts with the system under test.</p>
 </div>
 <div class="paragraph">
@@ -663,7 +663,7 @@ The name can be explicitly given or will be randomly assigned.</p>
 <div class="sect2">
 <h3 id="_abilities"><a class="anchor" href="#_abilities"></a><a class="link" href="#_abilities">Abilities</a></h3>
 <div class="paragraph">
-<p>Actors may use <a href="./javadoc/core/org/shakespeareframework/Ability.html">Abilities</a> to interact with the system under test.</p>
+<p>Actors may use <a href="../javadoc/core/org/shakespeareframework/Ability.html">Abilities</a> to interact with the system under test.</p>
 </div>
 <div class="paragraph">
 <p>Ability is a simple marker interface.
@@ -688,7 +688,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 </div>
 </div>
 <div class="paragraph">
-<p>To allow Actors to use an Ability it needs to be given to them via the <a href="./javadoc/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability&#8230;&#8203;)"><code>can(Ability)</code> method</a>.</p>
+<p>To allow Actors to use an Ability it needs to be given to them via the <a href="../javadoc/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability&#8230;&#8203;)"><code>can(Ability)</code> method</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Give an Ability to an Actor</div>
@@ -698,7 +698,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 </div>
 </div>
 <div class="paragraph">
-<p>To get an Ability from an Actor, there&#8217;s the <a href="./javadoccore/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
+<p>To get an Ability from an Actor, there&#8217;s the <a href="../javadoccore/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Get an Ability from an Actor</div>
@@ -716,11 +716,11 @@ log.getLogger().info(<span class="string"><span class="delimiter">&quot;</span><
 <div class="sect2">
 <h3 id="_tasks"><a class="anchor" href="#_tasks"></a><a class="link" href="#_tasks">Tasks</a></h3>
 <div class="paragraph">
-<p><a href="./javadoc/core/org/shakespeareframework/Task.html">Tasks</a> can be done by an Actor.
-What the actor should do is defined in the <a href="./javadoc/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)">performAs(Actor) method</a> of the Task.</p>
+<p><a href="../javadoc/core/org/shakespeareframework/Task.html">Tasks</a> can be done by an Actor.
+What the actor should do is defined in the <a href="../javadoc/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)">performAs(Actor) method</a> of the Task.</p>
 </div>
 <div class="paragraph">
-<p>As the Actor is given as an argument, the Task implementation has access to the Actor&#8217;s Abilities via the <a href="./javadoccore/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
+<p>As the Actor is given as an argument, the Task implementation has access to the Actor&#8217;s Abilities via the <a href="../javadoccore/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">SayHelloWorld Task</div>
@@ -967,14 +967,14 @@ It is generally a bad idea to mix simple interactions with sub-tasks, as it make
 <div class="sect2">
 <h3 id="_questions"><a class="anchor" href="#_questions"></a><a class="link" href="#_questions">Questions</a></h3>
 <div class="paragraph">
-<p><a href="./javadoc/core/org/shakespeareframework/Question.html">Questions</a> are pretty similar to <a href="#_tasks">Tasks</a>, but may return an answer.</p>
+<p><a href="../javadoc/core/org/shakespeareframework/Question.html">Questions</a> are pretty similar to <a href="#_tasks">Tasks</a>, but may return an answer.</p>
 </div>
 <div class="paragraph">
 <p>They can be checked (answered) by an Actor.
-How the Actor finds the answer to a Question is defined in the <a href="./javadoc/core/org/shakespeareframework/Question.html#answerAs(org.shakespeareframework.Actor)">answerAs(Actor) method</a> of the Question.</p>
+How the Actor finds the answer to a Question is defined in the <a href="../javadoc/core/org/shakespeareframework/Question.html#answerAs(org.shakespeareframework.Actor)">answerAs(Actor) method</a> of the Question.</p>
 </div>
 <div class="paragraph">
-<p>Similar to the <a href="./javadoc/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)">performAs(Actor) method</a> of the Task, the Actor is given as an argument, so a Question can use all the Actor&#8217;s Abilities to find the answer.</p>
+<p>Similar to the <a href="../javadoc/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)">performAs(Actor) method</a> of the Task, the Actor is given as an argument, so a Question can use all the Actor&#8217;s Abilities to find the answer.</p>
 </div>
 <div class="listingblock">
 <div class="title">LoggedInState Question</div>
@@ -1066,7 +1066,7 @@ Using such questions requires to check the state in following Tasks or Questions
 <div id="footer">
 <div id="footer-text">
 Version 0.3-SNAPSHOT<br>
-Last updated 2022-02-22 10:36:46 UTC
+Last updated 2022-02-22 10:38:51 UTC
 </div>
 </div>
 <style>
