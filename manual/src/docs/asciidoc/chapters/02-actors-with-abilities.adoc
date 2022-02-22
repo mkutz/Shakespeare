@@ -2,7 +2,7 @@
 
 == Actors
 
-The central object in a Screenplay and Shakespeare is the https://{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor].
+The central object in a Screenplay and Shakespeare is the link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor].
 Actors represent something or someone that interacts with the system under test.
 
 There can be any number of Actors in a Screenplay (Test).
@@ -23,7 +23,7 @@ include::../../../test/java/ActorDocTest.java[tag=create-actor-random-name]
 
 == Abilities
 
-Actors may use https://{javadoc-url}/core/org/shakespeareframework/Ability.html[Abilities] to interact with the system under test.
+Actors may use link:{javadoc-url}/core/org/shakespeareframework/Ability.html[Abilities] to interact with the system under test.
 
 Ability is a simple marker interface.
 Implementations should provide methods providing an object which allows interaction with the system under test.
@@ -35,7 +35,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 include::../../../test/java/Log.java[tag=ability]
 ----
 
-To allow Actors to use an Ability it needs to be given to them via the https://{javadoc-url}/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability...)[`can(Ability)` method].
+To allow Actors to use an Ability it needs to be given to them via the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability...)[`can(Ability)` method].
 
 .Give an Ability to an Actor
 [source,java,indent=0]
@@ -43,7 +43,7 @@ To allow Actors to use an Ability it needs to be given to them via the https://{
 include::../../../test/java/AbilityDocTest.java[tag=can]
 ----
 
-To get an Ability from an Actor, there's the https://{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
+To get an Ability from an Actor, there's the link:{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
 
 .Get an Ability from an Actor
 [source,java,indent=0]

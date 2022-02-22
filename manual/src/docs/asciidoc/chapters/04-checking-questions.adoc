@@ -2,12 +2,12 @@
 
 == Questions
 
-https://{javadoc-url}/core/org/shakespeareframework/Question.html[Questions] are pretty similar to <<Tasks>>, but may return an answer.
+link:{javadoc-url}/core/org/shakespeareframework/Question.html[Questions] are pretty similar to <<Tasks>>, but may return an answer.
 
 They can be checked (answered) by an Actor.
-How the Actor finds the answer to a Question is defined in the https://{javadoc-url}/core/org/shakespeareframework/Question.html#answerAs(org.shakespeareframework.Actor)[answerAs(Actor) method] of the Question.
+How the Actor finds the answer to a Question is defined in the link:{javadoc-url}/core/org/shakespeareframework/Question.html#answerAs(org.shakespeareframework.Actor)[answerAs(Actor) method] of the Question.
 
-Similar to the https://{javadoc-url}/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)[performAs(Actor) method] of the Task, the Actor is given as an argument, so a Question can use all the Actor's Abilities to find the answer.
+Similar to the link:{javadoc-url}/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)[performAs(Actor) method] of the Task, the Actor is given as an argument, so a Question can use all the Actor's Abilities to find the answer.
 
 .LoggedInState Question
 [source,java,indent=0]

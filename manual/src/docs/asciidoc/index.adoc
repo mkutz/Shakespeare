@@ -5,7 +5,7 @@ Michael Kutz <mail@michael-kutz.de>
 :sectlinks:
 :sectanchors:
 :source-highlighter: coderay
-:javadoc-url: shakespeareframework.org/javadoc
+:javadoc-url: ../javadoc
 :hide-uri-scheme:
 
 include::chapters/00-introduction.adoc[leveloffset=1]
