@@ -480,6 +480,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_questions">Questions</a></li>
 </ul>
 </li>
+<li><a href="#_retryables">Retryables</a>
+<ul class="sectlevel2">
+<li><a href="#_retryable_tasks">Retryable Tasks</a></li>
+<li><a href="#_retryable_questions">Retryable Questions</a></li>
+</ul>
+</li>
 <li><a href="#_learning_remembering_facts">Learning &amp; Remembering Facts</a>
 <ul class="sectlevel2">
 <li><a href="#_relearning_facts">Relearning Facts</a></li>
@@ -1072,6 +1078,79 @@ Using such questions requires to check the state in following Tasks or Questions
 </div>
 </div>
 <div class="sect1">
+<h2 id="_retryables"><a class="anchor" href="#_retryables"></a><a class="link" href="#_retryables">Retryables</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some things take time.
+E.g. after creating an account, it might take some time for a confirmation email to arrive.</p>
+</div>
+<div class="paragraph">
+<p>Shakespeare provides a generic way to wait for things to succeed: <a href="../javadoc/core/org/shakespeareframework/Retryable.html">Retryables</a>.</p>
+</div>
+<div class="paragraph">
+<p>They can be used just like regular Tasks and Questions, but they additionally have a defined timeout after which an Actor will give up and an interval in which an Actor will retry.
+The default timeout is 2 seconds, the default interval is the 10th of the timeout.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Shakespeare&#8217;s Retryables are meant for things that a human user would need to retry as well.
+To wait for UI elements to show up, there are better usually more efficient ways available (e.g. in Selenium, Cypress etc.).
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_retryable_tasks"><a class="anchor" href="#_retryable_tasks"></a><a class="link" href="#_retryable_tasks">Retryable Tasks</a></h3>
+<div class="paragraph">
+<p>A <a href="../javadoc/core/org/shakespeareframework/RetryableTask.html">RetryableTask</a> also has a set of acknowledged exceptions.
+By default, an Actor will ignore all Exceptions thrown in retries, but will immediately fail if it is an instance of an acknowledged Exception.</p>
+</div>
+<div class="paragraph">
+<p>E.g. you might expect a NotFoundException but not a AuthorizationFailedException.
+So you can just add the latter to the acknowledgedExceptions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_retryable_questions"><a class="anchor" href="#_retryable_questions"></a><a class="link" href="#_retryable_questions">Retryable Questions</a></h3>
+<div class="paragraph">
+<p>A <a href="../javadoc/core/org/shakespeareframework/RetryableQuestion.html">RetryableQuestion</a> has a set of ignored Exceptions and an acceptable method.
+While any Exception thrown that is not in the set of ignored exceptions will break the retrying loop, the acceptable method will be called for each yielded answer.
+Only if the acceptable method returns true, the retrying will stop and return the (accepted) answer.</p>
+</div>
+<div class="paragraph">
+<p>There is a default implementation of acceptable, which will a number of possible answers:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Optionals that are present,</p>
+</li>
+<li>
+<p>non-empty Collections, Maps or Arrays,</p>
+</li>
+<li>
+<p>any Boolean answer, and</p>
+</li>
+<li>
+<p>anything that not null.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Checked in that order.</p>
+</div>
+<div class="paragraph">
+<p>This default implementation might suit your needs already, but you can always override it with your own logic.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_learning_remembering_facts"><a class="anchor" href="#_learning_remembering_facts"></a><a class="link" href="#_learning_remembering_facts">Learning &amp; Remembering Facts</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1232,7 +1311,7 @@ Side effects are not easy to keep track of,
 <div id="footer">
 <div id="footer-text">
 Version 0.3-SNAPSHOT<br>
-Last updated 2022-02-23 18:29:57 UTC
+Last updated 2022-02-23 18:31:26 UTC
 </div>
 </div>
 <style>
