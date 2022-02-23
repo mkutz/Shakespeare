@@ -480,6 +480,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_questions">Questions</a></li>
 </ul>
 </li>
+<li><a href="#_learning_remembering_facts">Learning &amp; Remembering Facts</a>
+<ul class="sectlevel2">
+<li><a href="#_relearning_facts">Relearning Facts</a></li>
+<li><a href="#_poly_facts">Poly Facts</a></li>
+<li><a href="#_facts_with_defaults_and_generators">Facts with Defaults and Generators</a></li>
+<li><a href="#_personalized_tasksquestions">Personalized Tasks/Questions</a></li>
+<li><a href="#_learning_by_doing">Learning by Doing</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1062,11 +1071,168 @@ Using such questions requires to check the state in following Tasks or Questions
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_learning_remembering_facts"><a class="anchor" href="#_learning_remembering_facts"></a><a class="link" href="#_learning_remembering_facts">Learning &amp; Remembering Facts</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="../../javadoc/core/org/shakespeareframework/Fact.html">Facts</a> are a way to add data to the <a href="../../javadoc/core/org/shakespeareframework/Actor.html">Actor</a>.
+After a Fact was <a href="../../javadoc/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact&#8230;&#8203;)">learned</a>, it can always be <a href="../../javadoccore/org/shakespeareframework/Actor.html#remembers(java.lang.Class)">remembered</a> by its class and be used to do Tasks or answer Questions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Learn and remember Facts</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">kate.learns(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+49 0180 4 100 100</span><span class="delimiter">&quot;</span></span>));
+
+PhoneNumber katesPhoneNumber = kate.remembers(PhoneNumber.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Fact classes only need to implement the (empty) Fact marker interface.
+Apart from that they can be basically anything but should be immutable value objects or records.</p>
+</div>
+<div class="listingblock">
+<div class="title">PhoneNumber Fact</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">record PhoneNumber(<span class="predefined-type">String</span> number) <span class="directive">implements</span> Fact {}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_relearning_facts"><a class="anchor" href="#_relearning_facts"></a><a class="link" href="#_relearning_facts">Relearning Facts</a></h3>
+<div class="paragraph">
+<p>Note that an Actor cannot remember multiple instances of a Fact.
+When you call remember with two different instances of the same Fact class, the older one is being forgotten and replaced by the new one.</p>
+</div>
+<div class="listingblock">
+<div class="title">Learn and remember Facts</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">kate.learns(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+49 0180 4 100 100</span><span class="delimiter">&quot;</span></span>));
+
+kate.learns(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+1 (303) 499-7111</span><span class="delimiter">&quot;</span></span>));
+
+PhoneNumber katesNewPhoneNumber = kate.remembers(PhoneNumber.class);
+assertThat(katesNewPhoneNumber)
+        .isEqualTo(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+1 (303) 499-7111</span><span class="delimiter">&quot;</span></span>));</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_poly_facts"><a class="anchor" href="#_poly_facts"></a><a class="link" href="#_poly_facts">Poly Facts</a></h3>
+<div class="paragraph">
+<p>One way to achieve something similar are Poly Facts: Simply Facts with multiple fields.</p>
+</div>
+<div class="paragraph">
+<p>E.g. a PhoneNumbers Fact might contain a field for a work phone number and one for a home phone number:</p>
+</div>
+<div class="listingblock">
+<div class="title">PhoneNumbers Poly Fact</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">record PhoneNumbers(<span class="predefined-type">String</span> home, <span class="predefined-type">String</span> work) <span class="directive">implements</span> Fact {}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Learn and remember Poly Facts</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">robin.learns(<span class="keyword">new</span> PhoneNumbers(<span class="string"><span class="delimiter">&quot;</span><span class="content">+49 0180 4 100 100</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+1 (303) 499-7111</span><span class="delimiter">&quot;</span></span>));
+
+var robinsPhoneNumbers = robin.remembers(PhoneNumbers.class);
+var robinsHomePhoneNumber = robinsPhoneNumbers.home();
+var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_facts_with_defaults_and_generators"><a class="anchor" href="#_facts_with_defaults_and_generators"></a><a class="link" href="#_facts_with_defaults_and_generators">Facts with Defaults and Generators</a></h3>
+<div class="paragraph">
+<p>One great advantage of Fact classes is the possibility of adding static fields and methods.</p>
+</div>
+<div class="paragraph">
+<p>E.g. you can put that one valid test credit card number in a <code>public static CreditCard DEFAULT</code> in your <code>CreditCard</code> Fact class:</p>
+</div>
+<div class="listingblock">
+<div class="title">CreditCard Fact with default</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">record CreditCard(<span class="predefined-type">String</span> type, <span class="predefined-type">String</span> number, YearMonth expiration) <span class="directive">implements</span> Fact {
+    <span class="directive">public</span> <span class="directive">static</span> CreditCard DEFAULT_VISA =
+            <span class="keyword">new</span> CreditCard(<span class="string"><span class="delimiter">&quot;</span><span class="content">visa</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">4111111111111111</span><span class="delimiter">&quot;</span></span>, YearMonth.of(<span class="integer">2026</span>, <span class="integer">10</span>));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or you can add a method to generate valid unique random email addresses to your <code>EmailAddress</code> Fact class:</p>
+</div>
+<div class="listingblock">
+<div class="title">EmailAddress with random generator</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">record EmailAddress(<span class="predefined-type">String</span> address) <span class="directive">implements</span> Fact {
+    <span class="directive">public</span> <span class="directive">static</span> EmailAddress random() {
+        <span class="keyword">return</span> <span class="keyword">new</span> EmailAddress(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s@shakespeareframework.org</span><span class="delimiter">&quot;</span></span>.formatted(<span class="predefined-type">UUID</span>.randomUUID()));
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_personalized_tasksquestions"><a class="anchor" href="#_personalized_tasksquestions"></a><a class="link" href="#_personalized_tasksquestions">Personalized Tasks/Questions</a></h3>
+<div class="paragraph">
+<p>Facts can be used to provide an Actor with necessary information for certain Tasks and Questions instead of using <a href="#_tasks_with_parameters">Tasks with Parameters</a>.</p>
+</div>
+<div class="paragraph">
+<p>By doing so, we can instruct an Actors to do something with their memory as context.</p>
+</div>
+<div class="paragraph">
+<p>For example, to create an account we usually require a lot of personal information.
+To human testers, I can say "go create an account", and they will use their own data to do that.
+Using Facts we can achieve the same feel of a personal context.</p>
+</div>
+<div class="paragraph">
+<p>In that case, an Actors learn their facts in the setup phase of a test.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Using Facts in your Tasks and Questions can be a really nice experience.
+You don&#8217;t need to keep your test data at hand in you test code, but can confine it in the test&#8217;s setup phase.
+However, by doing so you might end up scrolling back and forth in order to understand a failing test.
+So you really want to limit this to data that is really <em>owned</em> by an Actor.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_learning_by_doing"><a class="anchor" href="#_learning_by_doing"></a><a class="link" href="#_learning_by_doing">Learning by Doing</a></h3>
+<div class="paragraph">
+<p>Another possible use case for Facts is to learn things while doing things.
+E.g. after finishing a shop&#8217;s checkout process it might be useful to remember the displayed order number.</p>
+</div>
+<div class="paragraph">
+<p>In that case the Facts are learned as a side effect of a Task or a Question.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Don&#8217;t overdo this!
+Side effects are not easy to keep track of,
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.3-SNAPSHOT<br>
-Last updated 2022-02-23 17:07:46 UTC
+Last updated 2022-02-23 17:13:50 UTC
 </div>
 </div>
 <style>
