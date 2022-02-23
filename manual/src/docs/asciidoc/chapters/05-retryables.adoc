@@ -1,0 +1,37 @@
+= Retryables
+
+Some things take time.
+E.g. after creating an account, it might take some time for a confirmation email to arrive.
+
+Shakespeare provides a generic way to wait for things to succeed: link:{javadoc-url}/core/org/shakespeareframework/Retryable.html[Retryables].
+
+They can be used just like regular Tasks and Questions, but they additionally have a defined timeout after which an Actor will give up and an interval in which an Actor will retry.
+The default timeout is 2 seconds, the default interval is the 10th of the timeout.
+
+NOTE: Shakespeare's Retryables are meant for things that a human user would need to retry as well.
+To wait for UI elements to show up, there are better usually more efficient ways available (e.g. in Selenium, Cypress etc.).
+
+== Retryable Tasks
+
+A link:{javadoc-url}/core/org/shakespeareframework/RetryableTask.html[RetryableTask] also has a set of acknowledged exceptions.
+By default, an Actor will ignore all Exceptions thrown in retries, but will immediately fail if it is an instance of an acknowledged Exception.
+
+E.g. you might expect a NotFoundException but not a AuthorizationFailedException.
+So you can just add the latter to the acknowledgedExceptions.
+
+== Retryable Questions
+
+A link:{javadoc-url}/core/org/shakespeareframework/RetryableQuestion.html[RetryableQuestion] has a set of ignored Exceptions and an acceptable method.
+While any Exception thrown that is not in the set of ignored exceptions will break the retrying loop, the acceptable method will be called for each yielded answer.
+Only if the acceptable method returns true, the retrying will stop and return the (accepted) answer.
+
+There is a default implementation of acceptable, which will a number of possible answers:
+
+1. Optionals that are present,
+2. non-empty Collections, Maps or Arrays,
+3. any Boolean answer, and
+4. anything that not null.
+
+Checked in that order.
+
+This default implementation might suit your needs already, but you can always override it with your own logic.
