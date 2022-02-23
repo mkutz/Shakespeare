@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Actors with Abilities</title>
+<title>Learning &amp; Remembering Facts</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,85 +438,175 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Actors with Abilities</h1>
+<h1>Learning &amp; Remembering Facts</h1>
 <div class="details">
 <span id="revnumber">version 0.3-SNAPSHOT</span>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_actors">Actors</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The central object in a Screenplay and Shakespeare is the <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html">Actor</a>.
-Actors represent something or someone that interacts with the system under test.</p>
+<p><a href="{javadoc-url}/core/org/shakespeareframework/Fact.html">Facts</a> are a way to add data to the <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html">Actor</a>.
+After a Fact was <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact&#8230;&#8203;)">learned</a>, it can always be <a href="{javadoc-url}core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)">remembered</a> by its class and be used to do Tasks or answer Questions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Learn and remember Facts</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
+
+PhoneNumber katesPhoneNumber = kate.remembers(PhoneNumber.class);</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>There can be any number of Actors in a Screenplay (Test).
-To make different Actors easily identifiable, they have a name.
-The name can be explicitly given or will be randomly assigned.</p>
+<p>Fact classes only need to implement the (empty) Fact marker interface.
+Apart from that they can be basically anything but should be immutable value objects or records.</p>
 </div>
 <div class="listingblock">
-<div class="title">Actor with explicitly given name</div>
+<div class="title">PhoneNumber Fact</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var robin = new Actor("Robin");</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Actor with random name</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var user = new Actor();</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record PhoneNumber(String number) implements Fact {}</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_abilities">Abilities</h2>
+<h2 id="_relearning_facts">Relearning Facts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Actors may use <a href="{javadoc-url}/core/org/shakespeareframework/Ability.html">Abilities</a> to interact with the system under test.</p>
-</div>
-<div class="paragraph">
-<p>Ability is a simple marker interface.
-Implementations should provide methods providing an object which allows interaction with the system under test.
-If that object is being generated on demand or simply wrapped by the Ability is up to the implementation.</p>
+<p>Note that an Actor cannot remember multiple instances of a Fact.
+When you call remember with two different instances of the same Fact class, the older one is being forgotten and replaced by the new one.</p>
 </div>
 <div class="listingblock">
-<div class="title">A simple example for an Ability implementation</div>
+<div class="title">Learn and remember Facts</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class Log implements Ability {
+<pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
 
-    private final Logger logger;
+kate.learns(new PhoneNumber("+1 (303) 499-7111"));
 
-    Log(String name) {
-        this.logger = Logger.getLogger(name);
-    }
+PhoneNumber katesNewPhoneNumber = kate.remembers(PhoneNumber.class);
+assertThat(katesNewPhoneNumber)
+        .isEqualTo(new PhoneNumber("+1 (303) 499-7111"));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_poly_facts">Poly Facts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One way to achieve something similar are Poly Facts: Simply Facts with multiple fields.</p>
+</div>
+<div class="paragraph">
+<p>E.g. a PhoneNumbers Fact might contain a field for a work phone number and one for a home phone number:</p>
+</div>
+<div class="listingblock">
+<div class="title">PhoneNumbers Poly Fact</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">record PhoneNumbers(String home, String work) implements Fact {}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Learn and remember Poly Facts</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">robin.learns(new PhoneNumbers("+49 0180 4 100 100", "+1 (303) 499-7111"));
 
-    public Logger getLogger() {
-        return logger;
-    }
+var robinsPhoneNumbers = robin.remembers(PhoneNumbers.class);
+var robinsHomePhoneNumber = robinsPhoneNumbers.home();
+var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_facts_with_defaults_and_generators">Facts with Defaults and Generators</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One great advantage of Fact classes is the possibility of adding static fields and methods.</p>
+</div>
+<div class="paragraph">
+<p>E.g. you can put that one valid test credit card number in a <code>public static CreditCard DEFAULT</code> in your <code>CreditCard</code> Fact class:</p>
+</div>
+<div class="listingblock">
+<div class="title">CreditCard Fact with default</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">record CreditCard(String type, String number, YearMonth expiration) implements Fact {
+    public static CreditCard DEFAULT_VISA =
+            new CreditCard("visa", "4111111111111111", YearMonth.of(2026, 10));
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To allow Actors to use an Ability it needs to be given to them via the <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability&#8230;&#8203;)"><code>can(Ability)</code> method</a>.</p>
+<p>Or you can add a method to generate valid unique random email addresses to your <code>EmailAddress</code> Fact class:</p>
 </div>
 <div class="listingblock">
-<div class="title">Give an Ability to an Actor</div>
+<div class="title">EmailAddress with random generator</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var anna = new Actor("Anna")
-        .can(new Log("Anna"));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record EmailAddress(String address) implements Fact {
+    public static EmailAddress random() {
+        return new EmailAddress("%s@shakespeareframework.org".formatted(UUID.randomUUID()));
+    }
+}</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_personalized_tasksquestions">Personalized Tasks/Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Facts can be used to provide an Actor with necessary information for certain Tasks and Questions instead of using <a href="#Tasks with Parameters">[Tasks with Parameters]</a>.</p>
 </div>
 <div class="paragraph">
-<p>To get an Ability from an Actor, there&#8217;s the <a href="{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
+<p>By doing so, we can instruct an Actors to do something with their memory as context.</p>
 </div>
-<div class="listingblock">
-<div class="title">Get an Ability from an Actor</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var log = anna.uses(Log.class);
-log.getLogger().info("Hello World");</code></pre>
+<div class="paragraph">
+<p>For example, to create an account we usually require a lot of personal information.
+To human testers, I can say "go create an account", and they will use their own data to do that.
+Using Facts we can achieve the same feel of a personal context.</p>
 </div>
+<div class="paragraph">
+<p>In that case, an Actors learn their facts in the setup phase of a test.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Using Facts in your Tasks and Questions can be a really nice experience.
+You don&#8217;t need to keep your test data at hand in you test code, but can confine it in the test&#8217;s setup phase.
+However, by doing so you might end up scrolling back and forth in order to understand a failing test.
+So you really want to limit this to data that is really <em>owned</em> by an Actor.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_learning_by_doing">Learning by Doing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another possible use case for Facts is to learn things while doing things.
+E.g. after finishing a shop&#8217;s checkout process it might be useful to remember the displayed order number.</p>
+</div>
+<div class="paragraph">
+<p>In that case the Facts are learned as a side effect of a Task or a Question.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Don&#8217;t overdo this!
+Side effects are not easy to keep track of,
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
