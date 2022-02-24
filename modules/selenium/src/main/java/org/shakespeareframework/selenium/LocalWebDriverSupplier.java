@@ -8,20 +8,15 @@ import org.openqa.selenium.WebDriver;
  * A {@link WebDriverSupplier} for locally installed browser instances. Uses {@link WebDriverManager} to set up the
  * local binary and create the {@link WebDriver}.
  */
-public class LocalWebDriverSupplier extends WebDriverSupplier {
-
-    private final WebDriverManager webDriverManager;
-    private WebDriver webDriver;
+public class LocalWebDriverSupplier extends WebDriverManagerWebDriverSupplier {
 
     /**
      * @param browserType            the {@link BrowserType} to be setup
      * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
      */
     public LocalWebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
-        super(browserType, additionalCapabilities);
-        this.webDriverManager = WebDriverManager
-                .getInstance(browserType.getWebDriverClass())
-                .capabilities(getCapabilities());
+        super(WebDriverManager.getInstance(browserType.getWebDriverClass()),
+                browserType, additionalCapabilities);
     }
 
     /**
@@ -29,19 +24,5 @@ public class LocalWebDriverSupplier extends WebDriverSupplier {
      */
     public LocalWebDriverSupplier(BrowserType browserType) {
         this(browserType, null);
-    }
-
-    @Override
-    public WebDriver get() {
-        if (webDriver == null) {
-            webDriver = webDriverManager.create();
-        }
-        return webDriver;
-    }
-
-    @Override
-    public void close() {
-        webDriverManager.quit();
-        webDriver = null;
     }
 }
