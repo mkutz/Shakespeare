@@ -45,7 +45,9 @@ class SeleniumDocTest {
     }
 
     @Test
-    void act3() {
+    void act3() throws IOException, InterruptedException {
+        assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
+
         // tag::docker[]
         var jodie = new Actor("Jodie")
                 .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));
@@ -57,7 +59,9 @@ class SeleniumDocTest {
     }
 
     @Test
-    void act4() {
+    void act4() throws IOException, InterruptedException {
+        assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
+
         // tag::web-driver-manager[]
         var webDriverManager = WebDriverManager
                 .edgedriver()
