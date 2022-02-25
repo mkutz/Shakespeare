@@ -15,11 +15,11 @@ class SeleniumDocTest {
 
     @Test
     void act1() throws IOException, InterruptedException {
-        assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor()).isEqualTo(0);
+        assumeThat(new ProcessBuilder("which", "firefox").start().waitFor()).isEqualTo(0);
 
         // tag::local[]
         var tim = new Actor("Tim")
-                .can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.CHROME)));
+                .can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));
         // end::local[]
 
         var latestRelease = tim.checks(new LatestShakespeareReleaseVersion());
@@ -29,12 +29,12 @@ class SeleniumDocTest {
 
     @Test
     void act2() throws IOException, InterruptedException {
-        assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor()).isEqualTo(0);
+        assumeThat(new ProcessBuilder("which", "firefox").start().waitFor()).isEqualTo(0);
 
         // tag::additional-capabilities[]
         var cameron = new Actor("Cameron")
                 .can(new BrowseTheWeb(new LocalWebDriverSupplier(
-                        BrowserType.CHROME,
+                        BrowserType.FIREFOX,
                         new ImmutableCapabilities("headless", "true")))
                 );
         // end::additional-capabilities[]
