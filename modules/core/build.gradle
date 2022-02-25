@@ -3,10 +3,9 @@ plugins {
 }
 
 dependencies {
-    api 'org.slf4j:slf4j-api:1.7.36'
-
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
+    testImplementation 'org.slf4j:slf4j-api:1.7.36'
     testImplementation 'ch.qos.logback:logback-classic:1.2.10'
 
     testImplementation platform('org.junit:junit-bom:5.8.2')
