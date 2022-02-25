@@ -1,2 +1,55 @@
 = Browser Automation with Selenium
 
+The Selenium Module provides the link:{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html[BrowseTheWeb Ability], which basically provides a managed https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver].
+
+The Ability not only warps a WebDriver, but also manages it using a link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html[WebDriverSupplier] which comes in different flavors for different scenarios (e.g. local debugging or continuous integration).
+
+== Setup
+
+=== For Local Development
+
+When you write your UI tests locally, it is quite useful (and also satisfying) to be able to watch the automation work in a local browser, checking the browser's developer and logs.
+For this Shakespeare comes with the link:{javadoc-url}/selenium/org/shakespeareframework/selenium/LocalWebDriverSupplier.html[LocalWebDriverSupplier], which relies on a local installation of the browser.
+
+It does take care of downloading the required binary, starting the browser as soon as the Actor actually uses it and closing it after the test case.
+
+.Setup for local development
+[source,java,indent=0]
+----
+include::../../../test/java/SeleniumDocTest.java[tag=local]
+----
+
+=== For Continuous Integration with Docker
+
+Continuous integration (CI) environments usually don't have a viewport and sometimes not even any browsers installed.
+For such scenarios Shakespeare comes with the link:{javadoc-url}/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html[DockerWebDriverSupplier].
+
+As the name suggests, it requires Docker to be available on the CI system and uses it to provide a container with the desired browser installed.
+
+.Setup for Docker Continuous Integration with Docker
+[source,java,indent=0]
+----
+include::../../../test/java/SeleniumDocTest.java[tag=docker]
+----
+
+=== Using WebDriverManager
+
+Both of the above variants rely on the https://bonigarcia.dev/webdrivermanager/[WebDriverManager] internally.
+
+link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html[WebDriverManagerWebDriverSupplier] allows to use it directly and thereby use all of its features.
+
+.Setup with WebDriverManager
+[source,java,indent=0]
+----
+include::../../../test/java/SeleniumDocTest.java[tag=web-driver-manager]
+----
+
+== Additional Capabilities
+
+All link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html[WebDriverSuppliers] provide a constructor, which allows configuring additional Capabilities.
+
+.Additional Capabilities in a LocalWebDriverSupplier
+[source,java,indent=0]
+----
+include::../../../test/java/SeleniumDocTest.java[tag=additional-capabilities]
+----

@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assumptions.assumeThat;
 class DockerWebDriverSupplierTest {
 
     @ParameterizedTest(name = "get works for {0}")
-    @EnumSource(value = BrowserType.class, names = {"CHROME", "FIREFOX"})
+    @EnumSource(value = BrowserType.class, names = {"CHROME", "FIREFOX", "EDGE", "OPERA", "SAFARI"})
     void getTest1(BrowserType browserType) throws IOException, InterruptedException {
         assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
