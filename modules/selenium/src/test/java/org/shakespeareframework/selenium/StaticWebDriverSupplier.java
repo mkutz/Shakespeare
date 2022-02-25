@@ -26,8 +26,4 @@ class StaticWebDriverSupplier extends WebDriverSupplier {
     public boolean isClosed() {
         return closed;
     }
-
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
 }
