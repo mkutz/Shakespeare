@@ -17,6 +17,7 @@ class SeleniumDocTest {
 
     @Test
     void act1() throws IOException, InterruptedException {
+        assumeThat(System.getenv("CI")).isNull();
         assumeThat(new ProcessBuilder("which", "firefox").start().waitFor()).isEqualTo(0);
 
         // tag::local[]
