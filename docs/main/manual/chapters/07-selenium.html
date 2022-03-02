@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Checking Questions</title>
+<title>Browser Automation with Selenium</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,106 +438,94 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Checking Questions</h1>
+<h1>Browser Automation with Selenium</h1>
 <div class="details">
 <span id="revnumber">version 0.3-SNAPSHOT</span>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_questions">Questions</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="{javadoc-url}/core/org/shakespeareframework/Question.html">Questions</a> are pretty similar to <a href="#Tasks">[Tasks]</a>, but may return an answer.</p>
+<p>The Selenium Module provides the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html">BrowseTheWeb Ability</a>, which basically provides a managed <a href="https://www.selenium.dev/documentation/webdriver/">Selenium WebDriver</a>.</p>
 </div>
 <div class="paragraph">
-<p>They can be checked (answered) by an Actor.
-How the Actor finds the answer to a Question is defined in the <a href="{javadoc-url}/core/org/shakespeareframework/Question.html#answerAs(org.shakespeareframework.Actor)">answerAs(Actor) method</a> of the Question.</p>
+<p>The Ability not only warps a WebDriver, but also manages it using a <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html">WebDriverSupplier</a> which comes in different flavors for different scenarios (e.g. local debugging or continuous integration).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup">Setup</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_for_local_development">For Local Development</h3>
+<div class="paragraph">
+<p>When you write your UI tests locally, it is quite useful (and also satisfying) to be able to watch the automation work in a local browser, checking the browser&#8217;s developer and logs.
+For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/LocalWebDriverSupplier.html">LocalWebDriverSupplier</a>, which relies on a local installation of the browser.</p>
 </div>
 <div class="paragraph">
-<p>Similar to the <a href="{javadoc-url}/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)">performAs(Actor) method</a> of the Task, the Actor is given as an argument, so a Question can use all the Actor&#8217;s Abilities to find the answer.</p>
+<p>It does take care of downloading the required binary, starting the browser as soon as the Actor actually uses it and closing it after the test case.</p>
 </div>
 <div class="listingblock">
-<div class="title">LoggedInState Question</div>
+<div class="title">Setup for local development</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class LoggedInState implements Question&lt;Boolean&gt; {
-
-    @Override
-    public Boolean answerAs(Actor actor) {
-        var webDriver = actor.uses(BrowseTheWeb.class)
-                .getWebDriver();
-
-        return webDriver.findElement(By.linkText("Log Out"))
-                .isDisplayed();
-    }
-
-    @Override
-    public String toString() {
-        return "login state";
-    }
-}</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var tim = new Actor("Tim")
+        .can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>While it is possible to put complex interactions in Questions it is generally advisable to keep them simple and independent.</p>
-</div>
-<div class="sect2">
-<h3 id="_good_questions">Good Questions</h3>
-<div class="paragraph">
-<p>Undoubtedly good questions do not change the state of the system under test in any way</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Checking a web element is present,</p>
-</li>
-<li>
-<p>performing a GET call on an HTTP API and return its body,</p>
-</li>
-<li>
-<p>fetching email and retuning its content.</p>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ugly_questions">Ugly Questions</h3>
+<h3 id="_for_continuous_integration_with_docker">For Continuous Integration with Docker</h3>
 <div class="paragraph">
-<p>Doubtfully ugly questions don&#8217;t change the persisted state of the system under test, but change the local state.
-For example the current displayed view.
-Using such questions requires to check the state in following Tasks or Questions.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Navigate to the user&#8217;s profile page to check for data that is only visible there,</p>
-</li>
-<li>
-<p>checking available products by switching to the search results page.</p>
-</li>
-</ul>
+<p>Continuous integration (CI) environments usually don&#8217;t have a viewport and sometimes not even any browsers installed.
+For such scenarios Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html">DockerWebDriverSupplier</a>.</p>
 </div>
 <div class="paragraph">
-<p>Especially in web applications this type of Questions are often unavoidable, but should be kept to a minimum.</p>
+<p>As the name suggests, it requires Docker to be available on the CI system and uses it to provide a container with the desired browser installed.</p>
+</div>
+<div class="listingblock">
+<div class="title">Setup for Docker Continuous Integration with Docker</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var jodie = new Actor("Jodie")
+        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bad_questions">Bad Questions</h3>
+<h3 id="_using_webdrivermanager">Using WebDriverManager</h3>
 <div class="paragraph">
-<p>Changing the persistent state of the system under test should genrally be avoided and be left to Tasks.</p>
+<p>Both of the above variants rely on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Sending data to a backend API,</p>
-</li>
-<li>
-<p>login to a web application,</p>
-</li>
-<li>
-<p>deleting email.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html">WebDriverManagerWebDriverSupplier</a> allows to use it directly and thereby use all of its features.</p>
+</div>
+<div class="listingblock">
+<div class="title">Setup with WebDriverManager</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var webDriverManager = WebDriverManager
+        .edgedriver()
+        .browserInDocker();
+var alex = new Actor("Alex")
+        .can(new BrowseTheWeb(new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_additional_capabilities">Additional Capabilities</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html">WebDriverSuppliers</a> provide a constructor, which allows configuring additional Capabilities.</p>
+</div>
+<div class="listingblock">
+<div class="title">Additional Capabilities in a LocalWebDriverSupplier</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var cameron = new Actor("Cameron")
+        .can(new BrowseTheWeb(new LocalWebDriverSupplier(
+                BrowserType.FIREFOX,
+                new FirefoxOptions().setHeadless(true)))
+        );</code></pre>
 </div>
 </div>
 </div>
