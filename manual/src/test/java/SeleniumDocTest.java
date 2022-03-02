@@ -1,7 +1,9 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ImmutableCapabilities;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.selenium.*;
@@ -35,7 +37,7 @@ class SeleniumDocTest {
         var cameron = new Actor("Cameron")
                 .can(new BrowseTheWeb(new LocalWebDriverSupplier(
                         BrowserType.FIREFOX,
-                        new ImmutableCapabilities("headless", "true")))
+                        new FirefoxOptions().setHeadless(true)))
                 );
         // end::additional-capabilities[]
 
