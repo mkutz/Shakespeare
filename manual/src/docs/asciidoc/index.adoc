@@ -18,4 +18,4 @@ include::chapters/06-learning-remembering-facts.adoc[leveloffset=1]
 
 == Additional Modules
 
-include::chapters/07-selenium.adoc[leveloffset=1]
+include::chapters/07-selenium.adoc[leveloffset=2]
