@@ -4,6 +4,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A {@link WebDriverSupplier} based on {@link WebDriverManager}.
  */
@@ -34,9 +36,11 @@ public class WebDriverManagerWebDriverSupplier extends WebDriverSupplier {
     @Override
     public WebDriver get() {
         if (webDriver == null) {
-            webDriver = webDriverManager
-                    .capabilities(getCapabilities())
-                    .create();
+            webDriver = requireNonNull(
+                    webDriverManager
+                            .capabilities(getCapabilities())
+                            .create(),
+                    "Creating the WebDriver failed");
         }
         return webDriver;
     }
