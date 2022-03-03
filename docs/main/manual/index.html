@@ -495,11 +495,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_learning_by_doing">Learning by Doing</a></li>
 </ul>
 </li>
-<li><a href="#_additional_modules">Additional Modules</a></li>
-<li><a href="#_browser_automation_with_selenium">Browser Automation with Selenium</a>
+<li><a href="#_additional_modules">Additional Modules</a>
 <ul class="sectlevel2">
-<li><a href="#_setup">Setup</a></li>
-<li><a href="#_additional_capabilities">Additional Capabilities</a></li>
+<li><a href="#_browser_automation_with_selenium">Browser Automation with Selenium</a></li>
 </ul>
 </li>
 </ul>
@@ -1317,22 +1315,18 @@ Side effects are not easy to keep track of,
 <div class="sect1">
 <h2 id="_additional_modules"><a class="anchor" href="#_additional_modules"></a><a class="link" href="#_additional_modules">Additional Modules</a></h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_browser_automation_with_selenium"><a class="anchor" href="#_browser_automation_with_selenium"></a><a class="link" href="#_browser_automation_with_selenium">Browser Automation with Selenium</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_browser_automation_with_selenium"><a class="anchor" href="#_browser_automation_with_selenium"></a><a class="link" href="#_browser_automation_with_selenium">Browser Automation with Selenium</a></h3>
 <div class="paragraph">
 <p>The Selenium Module provides the <a href="../javadoc/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html">BrowseTheWeb Ability</a>, which basically provides a managed <a href="https://www.selenium.dev/documentation/webdriver/">Selenium WebDriver</a>.</p>
 </div>
 <div class="paragraph">
 <p>The Ability not only warps a WebDriver, but also manages it using a <a href="../javadoc/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html">WebDriverSupplier</a> which comes in different flavors for different scenarios (e.g. local debugging or continuous integration).</p>
 </div>
-<div class="sect2">
-<h3 id="_setup"><a class="anchor" href="#_setup"></a><a class="link" href="#_setup">Setup</a></h3>
 <div class="sect3">
-<h4 id="_for_local_development"><a class="anchor" href="#_for_local_development"></a><a class="link" href="#_for_local_development">For Local Development</a></h4>
+<h4 id="_setup"><a class="anchor" href="#_setup"></a><a class="link" href="#_setup">Setup</a></h4>
+<div class="sect4">
+<h5 id="_for_local_development"><a class="anchor" href="#_for_local_development"></a><a class="link" href="#_for_local_development">For Local Development</a></h5>
 <div class="paragraph">
 <p>When you write your UI tests locally, it is quite useful (and also satisfying) to be able to watch the automation work in a local browser, checking the browser&#8217;s developer and logs.
 For this Shakespeare comes with the <a href="../javadoc/selenium/org/shakespeareframework/selenium/LocalWebDriverSupplier.html">LocalWebDriverSupplier</a>, which relies on a local installation of the browser.</p>
@@ -1348,8 +1342,8 @@ For this Shakespeare comes with the <a href="../javadoc/selenium/org/shakespeare
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_for_continuous_integration_with_docker"><a class="anchor" href="#_for_continuous_integration_with_docker"></a><a class="link" href="#_for_continuous_integration_with_docker">For Continuous Integration with Docker</a></h4>
+<div class="sect4">
+<h5 id="_for_continuous_integration_with_docker"><a class="anchor" href="#_for_continuous_integration_with_docker"></a><a class="link" href="#_for_continuous_integration_with_docker">For Continuous Integration with Docker</a></h5>
 <div class="paragraph">
 <p>Continuous integration (CI) environments usually don&#8217;t have a viewport and sometimes not even any browsers installed.
 For such scenarios Shakespeare comes with the <a href="../javadoc/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html">DockerWebDriverSupplier</a>.</p>
@@ -1365,8 +1359,8 @@ For such scenarios Shakespeare comes with the <a href="../javadoc/selenium/org/s
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_using_webdrivermanager"><a class="anchor" href="#_using_webdrivermanager"></a><a class="link" href="#_using_webdrivermanager">Using WebDriverManager</a></h4>
+<div class="sect4">
+<h5 id="_using_webdrivermanager"><a class="anchor" href="#_using_webdrivermanager"></a><a class="link" href="#_using_webdrivermanager">Using WebDriverManager</a></h5>
 <div class="paragraph">
 <p>Both of the above variants rely on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
 </div>
@@ -1385,8 +1379,8 @@ var alex = <span class="keyword">new</span> Actor(<span class="string"><span cla
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_additional_capabilities"><a class="anchor" href="#_additional_capabilities"></a><a class="link" href="#_additional_capabilities">Additional Capabilities</a></h3>
+<div class="sect3">
+<h4 id="_additional_capabilities"><a class="anchor" href="#_additional_capabilities"></a><a class="link" href="#_additional_capabilities">Additional Capabilities</a></h4>
 <div class="paragraph">
 <p>All <a href="../javadoc/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html">WebDriverSuppliers</a> provide a constructor, which allows configuring additional Capabilities.</p>
 </div>
@@ -1404,10 +1398,11 @@ var alex = <span class="keyword">new</span> Actor(<span class="string"><span cla
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
 Version 0.3-SNAPSHOT<br>
-Last updated 2022-03-02 09:07:22 UTC
+Last updated 2022-03-03 12:16:28 UTC
 </div>
 </div>
 <style>
