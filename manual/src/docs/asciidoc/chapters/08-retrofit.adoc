@@ -1,0 +1,47 @@
+= HTTP API Testing with Retrofit
+
+The Retrofit Module provides the link:{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.html[CallHttpApis Ability], which allows building Retrofit-based HTTP API clients.
+
+== Declaring the API
+
+In order to create a client, Retrofit requires an interface, which describes the API.
+For this, please follow the instructions in the https://square.github.io/retrofit/#api-declaration[Retrofit "API Declaration" documentation chapter].
+
+.API declaration example
+[source,java,indent=0]
+----
+include::../../../test/java/RetrofitDocTest.java[tag=test-api]
+----
+
+== Building the Client
+
+Once the API interface is declared, the client can be build.
+
+=== For Scalar Bodies (Strings, Integers, Floats)
+
+.Example for scalar bodies
+[source,java,indent=0]
+----
+include::../../../test/java/RetrofitDocTest.java[tag=scalars-example]
+----
+<1> The `getClient` method returns a link:{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html[CallHttpApis.Builder]],
+<2> configure the base URL of the service--it will be put in front of the relative URLs in the API annotations,
+<3> add needed ConverterFactory to convert response/request bodies,
+<4> build the client for the given API declaration.
+
+=== For JSON Bodies
+
+.Example for JSON bodies
+[source,java,indent=0]
+----
+include::../../../test/java/RetrofitDocTest.java[tag=jackson-example]
+----
+<1> By adding the JacksonConverterFactory, the client will be able to parse the JSON body
+<2> into an instance of ActorInfo.
+
+=== Other Converters
+
+Retrofit provides a https://square.github.io/retrofit/#restadapter-configuration[number of other converters].
+
+Shakespeare currently ships only with Jackson and Scalars, but you can add other ones.
+To do so, add the required dependency to your project, and use the generic link:{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html#addConverterFactory(retrofit2.Converter.Factory)[addConverterFactory method] to add it to your client.
