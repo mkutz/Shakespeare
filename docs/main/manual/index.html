@@ -498,6 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_additional_modules">Additional Modules</a>
 <ul class="sectlevel2">
 <li><a href="#_browser_automation_with_selenium">Browser Automation with Selenium</a></li>
+<li><a href="#_http_api_testing_with_retrofit">HTTP API Testing with Retrofit</a></li>
 </ul>
 </li>
 </ul>
@@ -1396,13 +1397,137 @@ var alex = <span class="keyword">new</span> Actor(<span class="string"><span cla
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_http_api_testing_with_retrofit"><a class="anchor" href="#_http_api_testing_with_retrofit"></a><a class="link" href="#_http_api_testing_with_retrofit">HTTP API Testing with Retrofit</a></h3>
+<div class="paragraph">
+<p>The Retrofit Module provides the <a href="../javadoc/retrofit/org/shakespeareframework/retrofit/CallHttpApis.html">CallHttpApis Ability</a>, which allows building Retrofit-based HTTP API clients.</p>
+</div>
+<div class="sect3">
+<h4 id="_declaring_the_api"><a class="anchor" href="#_declaring_the_api"></a><a class="link" href="#_declaring_the_api">Declaring the API</a></h4>
+<div class="paragraph">
+<p>In order to create a client, Retrofit requires an interface, which describes the API.
+For this, please follow the instructions in the <a href="https://square.github.io/retrofit/#api-declaration">Retrofit "API Declaration" documentation chapter</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">API declaration example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">interface</span> <span class="class">ActorsApi</span> {
+
+    <span class="annotation">@GET</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/actors</span><span class="delimiter">&quot;</span></span>)
+    Call&lt;<span class="predefined-type">List</span>&lt;ActorInfo&gt;&gt; getActors();
+
+    <span class="annotation">@GET</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/actors/{id}/name</span><span class="delimiter">&quot;</span></span>)
+    Call&lt;<span class="predefined-type">String</span>&gt; getActorName(<span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>) <span class="predefined-type">String</span> id);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_the_client"><a class="anchor" href="#_building_the_client"></a><a class="link" href="#_building_the_client">Building the Client</a></h4>
+<div class="paragraph">
+<p>Once the API interface is declared, the client can be build.</p>
+</div>
+<div class="sect4">
+<h5 id="_for_scalar_bodies_strings_integers_floats"><a class="anchor" href="#_for_scalar_bodies_strings_integers_floats"></a><a class="link" href="#_for_scalar_bodies_strings_integers_floats">For Scalar Bodies (Strings, Integers, Floats)</a></h5>
+<div class="listingblock">
+<div class="title">Example for scalar bodies</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">record ActorName(<span class="predefined-type">String</span> id) <span class="directive">implements</span> Question&lt;<span class="predefined-type">String</span>&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> answerAs(Actor actor) {
+        var actorsApiClient = actor.uses(CallHttpApis.class)
+                .buildClient()<i class="conum" data-value="1"></i><b>(1)</b>
+                .baseUrl(ACTORS_SERVICE_URL) <i class="conum" data-value="2"></i><b>(2)</b>
+                .addScalarsConverterFactory() <i class="conum" data-value="3"></i><b>(3)</b>
+                .build(ActorsApi.class); <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="keyword">try</span> {
+            <span class="keyword">return</span> actorsApiClient.getActorName(id).execute().body();
+        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s failed</span><span class="delimiter">&quot;</span></span>.formatted(<span class="local-variable">this</span>), e);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>getClient</code> method returns a <a href="../javadoc/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html">CallHttpApis.Builder</a>],</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>configure the base URL of the service&#8212;&#8203;it will be put in front of the relative URLs in the API annotations,</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>add needed ConverterFactory to convert response/request bodies,</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>build the client for the given API declaration.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_for_json_bodies"><a class="anchor" href="#_for_json_bodies"></a><a class="link" href="#_for_json_bodies">For JSON Bodies</a></h5>
+<div class="listingblock">
+<div class="title">Example for JSON bodies</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">record AllActors() <span class="directive">implements</span> Question&lt;<span class="predefined-type">List</span>&lt;ActorInfo&gt;&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;ActorInfo&gt; answerAs(Actor actor) {
+        var actorsApiClient = actor.uses(CallHttpApis.class)
+                .buildClient()
+                .baseUrl(ACTORS_SERVICE_URL)
+                .addJacksonConverterFactory() <i class="conum" data-value="1"></i><b>(1)</b>
+                .build(ActorsApi.class);
+        <span class="keyword">try</span> {
+            <span class="keyword">return</span> actorsApiClient.getActors().execute().body();
+        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s failed</span><span class="delimiter">&quot;</span></span>.formatted(<span class="local-variable">this</span>), e);
+        }
+    }
+}
+
+record ActorInfo(<span class="predefined-type">String</span> id, <span class="predefined-type">String</span> name) {} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>By adding the JacksonConverterFactory, the client will be able to parse the JSON body</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>into an instance of ActorInfo.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_other_converters"><a class="anchor" href="#_other_converters"></a><a class="link" href="#_other_converters">Other Converters</a></h5>
+<div class="paragraph">
+<p>Retrofit provides a <a href="https://square.github.io/retrofit/#restadapter-configuration">number of other converters</a>.</p>
+</div>
+<div class="paragraph">
+<p>Shakespeare currently ships only with Jackson and Scalars, but you can add other ones.
+To do so, add the required dependency to your project, and use the generic <a href="../javadoc/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html#addConverterFactory(retrofit2.Converter.Factory)">addConverterFactory method</a> to add it to your client.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.3-SNAPSHOT<br>
-Last updated 2022-03-03 12:16:28 UTC
+Last updated 2022-03-05 09:19:10 UTC
 </div>
 </div>
 <style>
