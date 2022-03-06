@@ -2,6 +2,7 @@ name: Udpate Pages
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
@@ -37,6 +38,13 @@ jobs:
           mv modules/core/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/core
           mv modules/retrofit/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/retrofit
           mv modules/selenium/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/selenium
+
+      - name: Update "latest" Alias
+        if: github.ref_type == 'tag'
+        run: |
+          rm -f docs/latest
+          ln -s docs/${{ github.ref_name }} docs/latest
+        working-directory: pages
 
       - name: Push changes
         run: |
