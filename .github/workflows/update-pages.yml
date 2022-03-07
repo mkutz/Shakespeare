@@ -24,6 +24,9 @@ jobs:
           ref: pages
           path: pages
 
+      - name: Create base directory
+        run: mkdir pages/docs/${{ github.ref_name }}
+
       - name: Update AsciiDoc
         run: |
           ./gradlew asciidoc
