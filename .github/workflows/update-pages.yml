@@ -25,7 +25,7 @@ jobs:
           path: pages
 
       - name: Create base directory
-        run: mkdir pages/docs/${{ github.ref_name }}
+        run: mkdir docs/${{ github.ref_name }}
 
       - name: Update AsciiDoc
         run: |
