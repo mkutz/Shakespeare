@@ -46,7 +46,7 @@ jobs:
         if: github.ref_type == 'tag'
         run: |
           rm -f docs/latest
-          ln -s docs/${{ github.ref_name }} docs/latest
+          ln -s ./${{ github.ref_name }} docs/latest
         working-directory: pages
 
       - name: Push changes
