@@ -27,7 +27,7 @@ class SeleniumDocTest {
 
         var latestRelease = tim.checks(new LatestShakespeareReleaseVersion());
 
-        assertThat(latestRelease).endsWith("0.3-SNAPSHOT");
+        assertThat(latestRelease).matches("Version \\d+\\.\\d+(\\.\\d+)?");
     }
 
     @Test
@@ -44,7 +44,7 @@ class SeleniumDocTest {
 
         var latestRelease = cameron.checks(new LatestShakespeareReleaseVersion());
 
-        assertThat(latestRelease).endsWith("0.3-SNAPSHOT");
+        assertThat(latestRelease).matches("Version \\d+\\.\\d+(\\.\\d+)?");
     }
 
     @Test
@@ -58,7 +58,7 @@ class SeleniumDocTest {
 
         var latestRelease = jodie.checks(new LatestShakespeareReleaseVersion());
 
-        assertThat(latestRelease).endsWith("0.3-SNAPSHOT");
+        assertThat(latestRelease).matches("Version \\d+\\.\\d+(\\.\\d+)?");
     }
 
     @Test
@@ -75,7 +75,7 @@ class SeleniumDocTest {
 
         var latestRelease = alex.checks(new LatestShakespeareReleaseVersion());
 
-        assertThat(latestRelease).endsWith("0.3-SNAPSHOT");
+        assertThat(latestRelease).matches("Version \\d+\\.\\d+(\\.\\d+)?");
     }
 
     // tag::example-question[]
@@ -84,7 +84,7 @@ class SeleniumDocTest {
         @Override
         public String answerAs(Actor actor) {
             final var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
-            webDriver.get("https://shakespeareframework.org/main/manual");
+            webDriver.get("https://shakespeareframework.org/latest/manual");
             return webDriver
                     .findElement(By.id("revnumber"))
                     .getText();
