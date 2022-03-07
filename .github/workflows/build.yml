@@ -32,8 +32,16 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - run: ./gradlew build jacocoTestReport sonarqube --info
+      - run: ./gradlew build jacocoTestReport sonarqube
         if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Publish Unit Test Results
+        uses: enricomi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: |
+            modules/*/build/test-results/test/TEST-*.xml
+            manual/build/test-results/test/TEST-*.xml

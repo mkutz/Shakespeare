@@ -2,6 +2,7 @@ name: Udpate Pages
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
@@ -11,20 +12,6 @@ jobs:
     steps:
 
       - uses: actions/checkout@v2
-        with:
-          ref: pages
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config user.name "Documentor"
-          git config user.email "mail@michael-kutz.de"
-
-      - name: Rebase main
-        run: |
-          git rebase origin/main
-          git pull --rebase
-          git push
 
       - uses: actions/setup-java@v2
         with:
@@ -32,23 +19,38 @@ jobs:
           distribution: temurin
           cache: gradle
 
-      - name: Generate manual
+      - uses: actions/checkout@v2
+        with:
+          ref: pages
+          path: pages
+
+      - name: Update AsciiDoc
         run: |
           ./gradlew asciidoc
-          rm -rf docs/manual
-          cp -r manual/build/docs/asciidoc docs/manual
+          rm -rf pages/docs/${{ github.ref_name }}/manual
+          mv manual/build/docs/asciidoc pages/docs/${{ github.ref_name }}/manual
 
-      - name: Generate javadocs
+      - name: Update JavaDoc
         run: |
           ./gradlew javadoc
-          rm -rf docs/javadoc
-          mkdir docs/javadoc
-          cp -r modules/core/build/docs/javadoc docs/javadoc/core
-          cp -r modules/selenium/build/docs/javadoc docs/javadoc/selenium
-          cp -r modules/retrofit/build/docs/javadoc docs/javadoc/retrofit
+          rm -rf pages/docs/${{ github.ref_name }}/javadoc
+          mkdir pages/docs/${{ github.ref_name }}/javadoc
+          mv modules/core/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/core
+          mv modules/retrofit/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/retrofit
+          mv modules/selenium/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/selenium
+
+      - name: Update "latest" Alias
+        if: github.ref_type == 'tag'
+        run: |
+          rm -f docs/latest
+          ln -s docs/${{ github.ref_name }} docs/latest
+        working-directory: pages
 
       - name: Push changes
         run: |
+          git config user.name "Documentor"
+          git config user.email "mail@michael-kutz.de"
           git add docs
-          git commit -m "Update docs"
+          git commit -m "Update docs for ${{ github.ref_name }}" -m "[skip ci]"
           git push
+        working-directory: pages
