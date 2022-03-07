@@ -190,7 +190,7 @@ public final class Actor {
     }
 
     /**
-     * @return #name
+     * @return {@link #name}
      */
     public String getName() {
         return name;
