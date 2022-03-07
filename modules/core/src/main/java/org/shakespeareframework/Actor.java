@@ -36,6 +36,11 @@ public final class Actor {
     private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
 
     /**
+     * A {@link List} of {@link Reporter}s the {@link Actor} informs in the lists order.
+     */
+    private final List<Reporter> reporters = new ArrayList<>();
+
+    /**
      * @param name a name used for logging and reporting
      */
     public Actor(String name) {
@@ -54,7 +59,13 @@ public final class Actor {
      * @return this {@link Actor}
      */
     public Actor does(Task task) {
-        task.performAs(this);
+        reporters.forEach(reporter -> reporter.start(task));
+        try {
+            task.performAs(this);
+        } catch (Exception e) {
+            reporters.forEach(reporter -> reporter.failure(e));
+        }
+        reporters.forEach(Reporter::success);
         return this;
     }
 
@@ -64,6 +75,8 @@ public final class Actor {
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
     public Actor does(RetryableTask task) {
+        reporters.forEach(reporter -> reporter.start(task));
+
         final var timeout = task.getTimeout();
         final var intervalMillis = task.getInterval().toMillis();
         final var end = now().plus(timeout);
@@ -77,12 +90,16 @@ public final class Actor {
             } catch (Exception e) {
                 lastException = e;
                 if (task.getAcknowledgedExceptions().stream().anyMatch(acknowledge -> acknowledge.isInstance(e))) {
+                    reporters.forEach(reporter -> reporter.failure(e));
                     throw e;
                 }
+                reporters.forEach(reporter -> reporter.retry(e));
             }
 
             if (now().isAfter(end)) {
-                throw new TimeoutException(this, task, lastException);
+                TimeoutException timeoutException = new TimeoutException(this, task, lastException);
+                reporters.forEach(reporter -> reporter.failure(timeoutException));
+                throw timeoutException;
             }
 
             try {
@@ -100,7 +117,15 @@ public final class Actor {
      * @return the answer to the given Question
      */
     public <A> A checks(Question<A> question) {
-        return question.answerAs(this);
+        reporters.forEach(reporter -> reporter.start(question));
+        try {
+            final var answer = question.answerAs(this);
+            reporters.forEach(reporter -> reporter.success(answer));
+            return answer;
+        } catch (Exception e) {
+            reporters.forEach(reporter -> reporter.failure(e));
+            throw e;
+        }
     }
 
     /**
@@ -110,6 +135,8 @@ public final class Actor {
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
     public <A> A checks(RetryableQuestion<A> question) {
+        reporters.forEach(reporter -> reporter.start(question));
+
         final var timeout = question.getTimeout();
         final var intervalMillis = question.getInterval().toMillis();
         final var end = now().plus(timeout);
@@ -123,17 +150,23 @@ public final class Actor {
                 lastException = null;
 
                 if (question.acceptable(lastAnswer)) {
-                    return lastAnswer;
+                    final var answer = lastAnswer;
+                    reporters.forEach(reporter -> reporter.success(answer));
+                    return answer;
                 }
             } catch (Exception e) {
                 lastException = e;
                 if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
+                    reporters.forEach(reporter -> reporter.failure(e));
                     throw e;
                 }
+                reporters.forEach(reporter -> reporter.retry(e));
             }
 
             if (now().isAfter(end)) {
-                throw new TimeoutException(this, question, lastException);
+                TimeoutException timeoutException = new TimeoutException(this, question, lastException);
+                reporters.forEach(reporter -> reporter.failure(timeoutException));
+                throw timeoutException;
             }
 
             try {
@@ -187,6 +220,15 @@ public final class Actor {
         return Optional.ofNullable(facts.get(factClass))
                 .map(factClass::cast)
                 .orElseThrow(() -> new MissingFactException(this, factClass));
+    }
+
+    /**
+     * @param reporters {@link Reporter}s that should be informed
+     * @return the {@link Actor}
+     */
+    public Actor informs(Reporter... reporters) {
+        Collections.addAll(this.reporters, reporters);
+        return this;
     }
 
     /**
