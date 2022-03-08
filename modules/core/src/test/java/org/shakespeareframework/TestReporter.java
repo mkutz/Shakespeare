@@ -7,42 +7,37 @@ final class TestReporter implements Reporter {
     private final Stack<Report<?>> reports = new Stack<>();
 
     @Override
-    public void start(Task task) {
+    public void start(Actor actor, Task task) {
         reports.push(new Report<>(task));
     }
 
     @Override
-    public void start(Question<?> question) {
+    public void start(Actor actor, Question<?> question) {
         reports.push(new Report<>(question));
     }
 
     @Override
-    public void retry(Exception cause) {
+    public void retry(Actor actor, Exception cause) {
         reports.peek().retry();
     }
 
     @Override
-    public void retry(Object answer) {
+    public void retry(Actor actor, Object answer) {
         reports.peek().retry();
     }
 
     @Override
-    public void success() {
+    public void success(Actor actor) {
         reports.peek().success();
     }
 
     @Override
-    public void success(Object answer) {
+    public void success(Actor actor, Object answer) {
         reports.peek().success(answer);
     }
 
     @Override
-    public void failure() {
-        reports.peek().failure(null);
-    }
-
-    @Override
-    public void failure(Exception cause) {
+    public void failure(Actor actor, Exception cause) {
         reports.peek().failure(cause);
     }
 
