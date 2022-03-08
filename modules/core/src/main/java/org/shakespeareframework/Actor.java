@@ -64,6 +64,7 @@ public final class Actor {
             task.performAs(this);
         } catch (Exception e) {
             reporters.forEach(reporter -> reporter.failure(e));
+            throw e;
         }
         reporters.forEach(Reporter::success);
         return this;
