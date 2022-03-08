@@ -87,6 +87,7 @@ public final class Actor {
         while (true) {
             try {
                 task.performAs(this);
+                reporters.forEach(Reporter::success);
                 return this;
             } catch (Exception e) {
                 lastException = e;
