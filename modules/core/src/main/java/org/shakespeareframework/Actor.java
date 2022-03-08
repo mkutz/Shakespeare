@@ -148,21 +148,22 @@ public final class Actor {
 
         while (true) {
             try {
-                lastAnswer = question.answerAs(this);
+                final A answer = question.answerAs(this);
+
+                lastAnswer = answer;
                 lastException = null;
 
                 if (question.acceptable(lastAnswer)) {
-                    final var answer = lastAnswer;
                     reporters.forEach(reporter -> reporter.success(answer));
                     return answer;
                 }
+                reporters.forEach(reporter -> reporter.retry(answer));
             } catch (Exception e) {
                 lastException = e;
                 if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
                     reporters.forEach(reporter -> reporter.failure(e));
                     throw e;
                 }
-                reporters.forEach(reporter -> reporter.retry(e));
             }
 
             if (now().isAfter(end)) {

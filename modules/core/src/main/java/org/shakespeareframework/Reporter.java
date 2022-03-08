@@ -10,50 +10,50 @@ public interface Reporter {
      *
      * @param task the started {@link Task}
      */
-    default void start(Task task) {
-    }
+    default void start(Task task) {}
 
     /**
      * Reports the start of checking the given {@link Question}.
      *
      * @param question the started {@link Question}
      */
-    default void start(Question<?> question) {
-    }
+    default void start(Question<?> question) {}
 
     /**
      * Reports the retry of the latest started {@link Retryable}.
      *
      * @param cause the cause for the retry.
      */
-    default void retry(Exception cause) {
-    }
+    default void retry(Exception cause) {}
+
+    /**
+     * Reports the retry of the latest started {@link RetryableQuestion}.
+     *
+     * @param answer the current unacceptable answer.
+     */
+    default void retry(Object answer) {}
 
     /**
      * Reports the successful finishing of the latest started {@link Task}.
      */
-    default void success() {
-    }
+    default void success() {}
 
     /**
      * Reports the successful finishing of the lastest started {@link Question}.
      *
      * @param answer the found answer.
      */
-    default void success(Object answer) {
-    }
+    default void success(Object answer) {}
 
     /**
      * Reports the unsuccessful finishing of the latest started {@link Task} or {@link Question}.
      */
-    default void failure() {
-    }
+    default void failure() {}
 
     /**
      * Reports the unsuccessful finishing of the latest started {@link Task} or {@link Question}.
      *
      * @param cause the cause of the failure.
      */
-    default void failure(Exception cause) {
-    }
+    default void failure(Exception cause) {}
 }
