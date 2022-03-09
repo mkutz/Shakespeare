@@ -99,7 +99,7 @@ public final class Actor {
             }
 
             if (now().isAfter(end)) {
-                TimeoutException timeoutException = new TimeoutException(this, task, lastException);
+                final var timeoutException = new TimeoutException(this, task, lastException);
                 reporters.forEach(reporter -> reporter.failure(this, timeoutException));
                 throw timeoutException;
             }
@@ -168,7 +168,7 @@ public final class Actor {
             }
 
             if (now().isAfter(end)) {
-                TimeoutException timeoutException = new TimeoutException(this, question, lastException);
+                final var timeoutException = new TimeoutException(this, question, lastException);
                 reporters.forEach(reporter -> reporter.failure(this, timeoutException));
                 throw timeoutException;
             }
