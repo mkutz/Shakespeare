@@ -72,7 +72,7 @@ class ActorReportingTest {
                 .hasCause(cause);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(timeoutRetryableTask);
         assertThat(report.isSuccess()).isFalse();
         assertThat(report.getCause())
@@ -86,13 +86,13 @@ class ActorReportingTest {
     void doesTest5() {
         var cause = new RuntimeException("Failed!");
         var failingRetryableTask = new RetryableTestTaskBuilder()
-                .acknowledgedExceptions(Set.of(RuntimeException.class))
+                .acknowledgedExceptions(Set.of(cause.getClass()))
                 .perform(actor -> { throw cause; });
 
         assertThatThrownBy(() -> actor.does(failingRetryableTask)).isEqualTo(cause);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(failingRetryableTask);
         assertThat(report.isSuccess()).isFalse();
         assertThat(report.getCause()).isEqualTo(cause);
@@ -108,7 +108,7 @@ class ActorReportingTest {
         actor.checks(question);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(question);
         assertThat(report.isSuccess()).isTrue();
         assertThat(report.getAnswer()).isEqualTo(answer);
@@ -123,7 +123,7 @@ class ActorReportingTest {
         assertThatThrownBy(() -> actor.checks(failingQuestion)).isEqualTo(cause);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(failingQuestion);
         assertThat(report.isSuccess()).isFalse();
         assertThat(report.getCause()).isEqualTo(cause);
@@ -144,14 +144,14 @@ class ActorReportingTest {
         actor.checks(retryableQuestion);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(retryableQuestion);
         assertThat(report.isSuccess()).isTrue();
         assertThat(report.getRetries()).isEqualTo(1);
     }
 
     @Test
-    @DisplayName("checks is reported on retry timeout")
+    @DisplayName("checks is reported on retry timeout due to answer")
     void checksTest4() {
         var timeoutRetryableQuestion = new RetryableTestQuestionBuilder<String>()
                 .acceptable(answer -> false)
@@ -161,15 +161,39 @@ class ActorReportingTest {
                 .isInstanceOf(TimeoutException.class);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(timeoutRetryableQuestion);
         assertThat(report.isSuccess()).isFalse();
+        assertThat(report.getCause())
+                .isInstanceOf(TimeoutException.class);
         assertThat(report.getRetries()).isCloseTo(10, within(1));
     }
 
     @Test
-    @DisplayName("check is reported on retry failure")
+    @DisplayName("checks is reported on retry timeout due to exception")
     void checksTest5() {
+        var cause = new RuntimeException("Failed!");
+        var failingRetryableQuestion = new RetryableTestQuestionBuilder<String>()
+                .ignoredExceptions(Set.of(cause.getClass()))
+                .answer(actor -> { throw cause; });
+
+        assertThatThrownBy(() -> actor.checks(failingRetryableQuestion))
+                .isInstanceOf(TimeoutException.class)
+                .hasCause(cause);
+
+        assertThat(testReporter.getReports()).hasSize(1);
+        var report = testReporter.getReports().pop();
+        assertThat(report.getSubject()).isEqualTo(failingRetryableQuestion);
+        assertThat(report.isSuccess()).isFalse();
+        assertThat(report.getCause())
+                .isInstanceOf(TimeoutException.class)
+                .hasCause(cause);
+        assertThat(report.getRetries()).isCloseTo(10, within(1));
+    }
+
+    @Test
+    @DisplayName("checks is reported on retry failure")
+    void doesTest6() {
         var cause = new RuntimeException("Failed!");
         var failingRetryableQuestion = new RetryableTestQuestionBuilder<String>()
                 .answer(actor -> { throw cause; });
@@ -177,7 +201,7 @@ class ActorReportingTest {
         assertThatThrownBy(() -> actor.checks(failingRetryableQuestion)).isEqualTo(cause);
 
         assertThat(testReporter.getReports()).hasSize(1);
-        TestReporter.Report<?> report = testReporter.getReports().pop();
+        var report = testReporter.getReports().pop();
         assertThat(report.getSubject()).isEqualTo(failingRetryableQuestion);
         assertThat(report.isSuccess()).isFalse();
         assertThat(report.getCause()).isEqualTo(cause);
