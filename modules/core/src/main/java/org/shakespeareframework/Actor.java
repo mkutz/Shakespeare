@@ -164,6 +164,7 @@ public final class Actor {
                     reporters.forEach(reporter -> reporter.failure(this, e));
                     throw e;
                 }
+                reporters.forEach(reporter -> reporter.retry(this, e));
             }
 
             if (now().isAfter(end)) {
