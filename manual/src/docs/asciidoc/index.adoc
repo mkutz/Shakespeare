@@ -1,5 +1,6 @@
 = Shakespeare Framework
 Michael Kutz <mail@michael-kutz.de>
+:favicon: ./images/favicon.png
 :toc: left
 :icons: font
 :sectlinks:
