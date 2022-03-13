@@ -1,4 +1,8 @@
-package org.shakespeareframework;
+package org.shakespeareframework.reporting;
+
+import org.shakespeareframework.Actor;
+import org.shakespeareframework.Question;
+import org.shakespeareframework.Task;
 
 import java.util.Stack;
 

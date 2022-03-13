@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import static java.time.Duration.ofMillis;
 
-final class RetryableTestTaskBuilder {
+public final class RetryableTestTaskBuilder {
 
     private Duration timeout = ofMillis(100);
     private Duration interval = ofMillis(10);

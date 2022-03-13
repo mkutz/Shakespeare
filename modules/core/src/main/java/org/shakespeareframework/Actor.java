@@ -1,5 +1,7 @@
 package org.shakespeareframework;
 
+import org.shakespeareframework.reporting.Reporter;
+
 import java.security.SecureRandom;
 import java.util.*;
 

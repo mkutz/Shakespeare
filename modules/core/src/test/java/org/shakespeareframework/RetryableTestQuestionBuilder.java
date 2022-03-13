@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 import static java.time.Duration.ofMillis;
 
-final class RetryableTestQuestionBuilder<A> {
+public final class RetryableTestQuestionBuilder<A> {
 
     private Duration timeout = ofMillis(100);
     private Duration interval = ofMillis(10);

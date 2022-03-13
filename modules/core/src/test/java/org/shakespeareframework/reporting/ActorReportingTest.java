@@ -1,7 +1,8 @@
-package org.shakespeareframework;
+package org.shakespeareframework.reporting;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.shakespeareframework.*;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;

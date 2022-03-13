@@ -1,4 +1,6 @@
-package org.shakespeareframework;
+package org.shakespeareframework.reporting;
+
+import org.shakespeareframework.*;
 
 /**
  * A {@link Reporter} to be {@link Actor#informs informed} by {@link Actor}s about their actions.
@@ -43,7 +45,7 @@ public interface Reporter {
      *
      * @param answer the found answer.
      */
-    default void success(Actor actor, Object answer) {}
+    default <A> void success(Actor actor, A answer) {}
 
     /**
      * Reports the unsuccessful finishing of the latest started {@link Task} or {@link Question}.
