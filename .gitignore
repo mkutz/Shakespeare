@@ -6,3 +6,4 @@ gradle-app.setting
 .gradletasknamecache
 .idea
 docs/**
+.jqwik-database
