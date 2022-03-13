@@ -14,6 +14,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
     testImplementation 'org.assertj:assertj-core:3.22.0'
+
+    testImplementation 'net.jqwik:jqwik:1.6.5'
 }
 
 publishing {
