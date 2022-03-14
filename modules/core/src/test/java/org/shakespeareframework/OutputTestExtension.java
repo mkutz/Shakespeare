@@ -1,4 +1,4 @@
-package org.shakespeareframework.reporting;
+package org.shakespeareframework;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
