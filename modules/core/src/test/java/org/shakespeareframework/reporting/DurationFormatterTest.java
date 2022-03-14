@@ -31,8 +31,10 @@ class DurationFormatterTest {
     private enum FormattedDurationExamples {
 
         ZERO(Duration.ofSeconds(0), "<1ms"),
+        NANOS_999(Duration.ofNanos(999), "<1ms"),
         MILLIS_1(Duration.ofMillis(1), "1ms"),
         SECONDS_1(Duration.ofSeconds(1), "1s"),
+        SECONDS_90(Duration.ofSeconds(90), "1m30s"),
         MINUTES_1(Duration.ofMinutes(1), "1m"),
         HOURS_1(Duration.ofHours(1), "1h"),
         DAYS_1(Duration.ofDays(1), "1d"),
