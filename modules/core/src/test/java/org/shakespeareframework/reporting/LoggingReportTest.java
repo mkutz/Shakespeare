@@ -64,43 +64,49 @@ class LoggingReportTest {
     @Test
     @DisplayName("toString sub report")
     void test7() {
-        var subReport = new LoggingReport("Logan does some task")
+        var subReport = new LoggingReport("Logan does some sub task")
                 .success();
         var report = new LoggingReport("Logan does some task")
                 .addSubReport(subReport)
                 .success();
 
-        assertThat(report).hasToString(report + "\n└── " + subReport);
+        assertThat(report.toString()).matches("Logan does some task ✓ (\\d+s)?(<?\\d+ms)\n└── " + subReport);
     }
 
     @Test
     @DisplayName("toString sub sub report")
     void test8() {
-        var subSubReport = new LoggingReport("Logan does some task")
+        var subSubReport = new LoggingReport("Logan does some sub sub task")
                 .success();
-        var subReport = new LoggingReport("Logan checks some question")
+        var subReport = new LoggingReport("Logan checks some sub question")
                 .addSubReport(subSubReport)
                 .success("→ answer");
         var report = new LoggingReport("Logan does some task")
                 .addSubReport(subReport)
                 .failure("cause");
 
-        assertThat(report).hasToString(report + "\n└── " + subReport + "\n    └── " + subSubReport);
+        assertThat(report.toString()).matches(
+                "Logan does some task ✗ (\\d+s)?(<?\\d+ms) cause\n" +
+                "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n" +
+                "    └── Logan does some sub sub task ✓ (\\d+s)?(<?\\d+ms)");
     }
 
     @Test
     @DisplayName("toString multiple sub reports")
     void test9() {
-        var firstSubReport = new LoggingReport("Logan does some task")
+        var firstSubReport = new LoggingReport("Logan does some sub task")
                 .success();
-        var secondSubReport = new LoggingReport("Logan checks some question")
+        var secondSubReport = new LoggingReport("Logan checks some sub question")
                 .success("→ answer");
         var report = new LoggingReport("Logan does some task")
                 .addSubReport(firstSubReport)
                 .addSubReport(secondSubReport)
                 .success();
 
-        assertThat(report).hasToString(report + "\n├── " + secondSubReport + "\n└── " + firstSubReport);
+        assertThat(report.toString()).matches(
+                "Logan does some task ✓ (\\d+s)?(<?\\d+ms)\n" +
+                "├── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)\n" +
+                "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer");
     }
 
     @Test

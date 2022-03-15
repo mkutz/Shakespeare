@@ -7,8 +7,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
+import static java.lang.String.join;
 import static java.time.Instant.now;
 
 /**
@@ -112,13 +114,25 @@ class LoggingReport {
     }
 
     public String toString(String prefix) {
-        return format("%s%s %s%c %s%s",
+        var subReportsString = "";
+        if (!subReports.isEmpty()) {
+            final var subIndentation = " ".repeat(prefix.length());
+            final var lastSubReport = subReports.getFirst();
+            final var subReportsStrings = subReports.stream()
+                    .filter(report -> !report.equals(lastSubReport))
+                    .map(subReport -> subReport.toString(subIndentation + "├── "))
+                    .collect(Collectors.toList());
+            subReportsStrings.add(lastSubReport.toString(subIndentation + "└── "));
+            subReportsString = "\n" + join("\n", subReportsStrings);
+        }
+        return format("%s%s %s%c %s%s%s",
                 prefix,
                 subject,
                 "•".repeat(retries),
                 status.getSymbol(),
                 DurationFormatter.format(getDuration()),
-                supplementBuilder.length() > 0 ? " " + supplementBuilder : "");
+                supplementBuilder.length() > 0 ? " " + supplementBuilder : "",
+                subReportsString);
     }
 
     @Override
