@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 import static java.time.Duration.ofMillis;
 
-public final class RetryableTestQuestionBuilder<A> {
+public final class RetryableTestQuestionBuilder<A> extends TestQuestionBuilder<A> {
 
     private Duration timeout = ofMillis(100);
     private Duration interval = ofMillis(10);
@@ -33,6 +33,7 @@ public final class RetryableTestQuestionBuilder<A> {
         return this;
     }
 
+    @Override
     public RetryableQuestion<A> answer(Function<Actor, A> answer) {
         return new RetryableQuestion<>() {
 
@@ -59,6 +60,11 @@ public final class RetryableTestQuestionBuilder<A> {
             @Override
             public Set<Class<? extends Exception>> getIgnoredExceptions() {
                 return ignoredExceptions;
+            }
+
+            @Override
+            public String toString() {
+                return string;
             }
         };
     }

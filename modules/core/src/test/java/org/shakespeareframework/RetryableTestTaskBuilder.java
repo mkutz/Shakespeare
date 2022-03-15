@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import static java.time.Duration.ofMillis;
 
-public final class RetryableTestTaskBuilder {
+public final class RetryableTestTaskBuilder extends TestTaskBuilder {
 
     private Duration timeout = ofMillis(100);
     private Duration interval = ofMillis(10);
@@ -27,6 +27,7 @@ public final class RetryableTestTaskBuilder {
         return this;
     }
 
+    @Override
     public RetryableTask perform(Consumer<Actor> perform) {
         return new RetryableTask() {
 
@@ -48,6 +49,11 @@ public final class RetryableTestTaskBuilder {
             @Override
             public Set<Class<? extends Exception>> getAcknowledgedExceptions() {
                 return acknowledgedExceptions;
+            }
+
+            @Override
+            public String toString() {
+                return string;
             }
         };
     }
