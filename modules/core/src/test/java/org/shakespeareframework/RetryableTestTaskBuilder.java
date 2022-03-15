@@ -28,6 +28,12 @@ public final class RetryableTestTaskBuilder extends TestTaskBuilder {
     }
 
     @Override
+    public RetryableTestTaskBuilder string(String string) {
+        super.string(string);
+        return this;
+    }
+
+    @Override
     public RetryableTask perform(Consumer<Actor> perform) {
         return new RetryableTask() {
 

@@ -34,6 +34,12 @@ public final class RetryableTestQuestionBuilder<A> extends TestQuestionBuilder<A
     }
 
     @Override
+    public TestQuestionBuilder<A> string(String string) {
+        super.string(string);
+        return this;
+    }
+
+    @Override
     public RetryableQuestion<A> answer(Function<Actor, A> answer) {
         return new RetryableQuestion<>() {
 
