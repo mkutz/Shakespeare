@@ -58,7 +58,7 @@ class Slf4jReporterTest {
         reporter.failure(logan, new RuntimeException("Fail"));
 
         assertThat(output.getOut())
-                .contains("INFO")
+                .contains("WARN")
                 .contains(format("%s does %s", logan.getName(), task));
     }
 }
