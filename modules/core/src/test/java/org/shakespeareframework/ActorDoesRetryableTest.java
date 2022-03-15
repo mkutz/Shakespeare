@@ -17,8 +17,8 @@ class ActorDoesRetryableTest {
     @Test
     @DisplayName("does calls the task's performAs until its timeout")
     void doesRetryableTest1() {
-        final var called = new AtomicInteger(0);
-        final var retryableTask = new RetryableTestTaskBuilder()
+        var called = new AtomicInteger(0);
+        var retryableTask = new RetryableTestTaskBuilder()
                 .timeout(ofMillis(100))
                 .interval(ofMillis(10))
                 .perform(actor -> {
@@ -35,8 +35,8 @@ class ActorDoesRetryableTest {
     @Test
     @DisplayName("does returns immediately after success")
     void doesRetryableTest2() {
-        final var called = new AtomicInteger(0);
-        final var retryableTask = new RetryableTestTaskBuilder()
+        var called = new AtomicInteger(0);
+        var retryableTask = new RetryableTestTaskBuilder()
                 .perform(actor -> called.incrementAndGet());
 
         actor.does(retryableTask);
@@ -47,8 +47,8 @@ class ActorDoesRetryableTest {
     @Test
     @DisplayName("does throws acknowledged exceptions immediately")
     void doesRetryableTest3() {
-        final var called = new AtomicInteger(0);
-        final var retryableTask = new RetryableTestTaskBuilder()
+        var called = new AtomicInteger(0);
+        var retryableTask = new RetryableTestTaskBuilder()
                 .acknowledgedExceptions(Set.of(IllegalStateException.class))
                 .perform(actor -> {
                     called.incrementAndGet();
