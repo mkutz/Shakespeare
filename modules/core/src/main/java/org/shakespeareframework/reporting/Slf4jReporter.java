@@ -20,7 +20,7 @@ public class Slf4jReporter implements LoggingReporter {
 
     @Override
     public void start(Actor actor, Question<?> question) {
-        final var report = new LoggingReport(format("%s does %s", actor.getName(), question));
+        final var report = new LoggingReport(format("%s checks %s", actor.getName(), question));
         if (currentRootReport == null) currentRootReport = report;
         else currentRootReport.addSubReport(report);
     }
