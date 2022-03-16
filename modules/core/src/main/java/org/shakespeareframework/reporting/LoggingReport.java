@@ -97,6 +97,15 @@ class LoggingReport {
     }
 
     /**
+     * @return true, if this {@link LoggingReport} and all its {@link #subReports} are not
+     * {@link Status#STARTED started}
+     */
+    boolean isFinished() {
+        return status != Status.STARTED && subReports.parallelStream()
+                .noneMatch(subReport -> subReport.status == Status.STARTED);
+    }
+
+    /**
      * @param subReport the sub {@link LoggingReport}
      * @return this {@link LoggingReport}
      */

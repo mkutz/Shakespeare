@@ -124,7 +124,7 @@ class Slf4jReporterTest {
     }
 
     @Test
-    @DisplayName("retried and finished task is logged as warning")
+    @DisplayName("retried and unsuccessfully finished question is logged as warning")
     void test8() {
         var reporter = new Slf4jReporter();
         var logan = new Actor("Logan");
@@ -133,11 +133,59 @@ class Slf4jReporterTest {
                 .answer(actor -> "answer");
 
         reporter.start(logan, question);
-        reporter.retry(logan, new RuntimeException("Retry failed"));
+        reporter.retry(logan, "unaccepted answer");
         reporter.failure(logan, new RuntimeException("Fail"));
 
         assertThat(output.getOut())
                 .contains("WARN")
                 .containsPattern("Logan checks some question •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+    }
+
+    @Test
+    @DisplayName("successful task with sub question is logged as info")
+    void test9() {
+        var reporter = new Slf4jReporter();
+        var logan = new Actor("Logan");
+        var rootTask = new TestTaskBuilder()
+                .string("some root task")
+                .perform(actor -> {});
+        var subQuestion = new TestQuestionBuilder<String>()
+                .string("some sub question")
+                .answer(actor -> "answer");
+
+        reporter.start(logan, rootTask);
+        reporter.start(logan, subQuestion);
+        reporter.success(logan, "answer");
+        reporter.success(logan);
+
+        assertThat(output.getOut())
+                .contains("INFO")
+                .containsPattern(
+                        "Logan does some root task ✓ (\\d+s)?(<?\\d+ms)\n" +
+                        "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer");
+    }
+
+    @Test
+    @DisplayName("unsuccessful question with sub task is logged as warning")
+    void test10() {
+        var reporter = new Slf4jReporter();
+        var logan = new Actor("Logan");
+        var rootQuestion = new TestQuestionBuilder<String>()
+                .string("some root question")
+                .answer(actor -> "answer");
+        var subTask = new TestTaskBuilder()
+                .string("some sub task")
+                .perform(actor -> {});
+
+        reporter.start(logan, rootQuestion);
+        reporter.start(logan, subTask);
+        reporter.success(logan, "answer");
+        reporter.failure(logan, new RuntimeException("Fail!"));
+
+        assertThat(output.getOut())
+                .contains("WARN")
+                .containsPattern(
+                        "Logan checks some root question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n" +
+                        "└── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)");
     }
 }

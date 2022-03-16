@@ -2,6 +2,8 @@ package org.shakespeareframework.reporting;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -166,5 +168,39 @@ class LoggingReportTest {
                 .addSubReport(subReport);
 
         assertThat(report.getCurrentReport()).hasSameHashCodeAs(subSubReport);
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @EnumSource(FinishedExamples.class)
+    void test15(FinishedExamples example) {
+        assertThat(example.report.isFinished()).isEqualTo(example.finished);
+    }
+
+    enum FinishedExamples {
+        SUCCESSFUL(new LoggingReport("Logan does some task").success(), true),
+        SUCCESSFUL_WITH_SUCCESSFUL_SUB_REPORT(new LoggingReport("Logan does some task")
+                .addSubReport(new LoggingReport("Logan checks some sub question").success())
+                .success(), true),
+        SUCCESSFUL_WITH_STARTED_SUB_REPORT(new LoggingReport("Logan does some task")
+                .addSubReport(new LoggingReport("Logan checks some sub question"))
+                .success(), false),
+        FAILED(new LoggingReport("Logan does some task").failure(), true),
+        STARTED(new LoggingReport("Logan does some task"), false),
+        STARTED_WITH_SUCCESSFUL_SUB_REPORT(new LoggingReport("Logan does some task")
+                .addSubReport(new LoggingReport("Logan checks some sub question").success()), false);
+
+        private final LoggingReport report;
+        private final boolean finished;
+
+        FinishedExamples(LoggingReport report, boolean finished) {
+            this.report = report;
+            this.finished = finished;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s is %s finished",
+                    name().toLowerCase().replace('_', ' '), finished ? "" : "not ");
+        }
     }
 }

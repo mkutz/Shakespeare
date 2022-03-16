@@ -27,42 +27,38 @@ public class Slf4jReporter implements LoggingReporter {
 
     @Override
     public void retry(Actor actor, Exception cause) {
-        getCurrentRootReport().retry();
+        currentRootReport.getCurrentReport().retry();
     }
 
     @Override
     public void retry(Actor actor, Object answer) {
-        getCurrentRootReport().retry();
+        currentRootReport.getCurrentReport().retry();
     }
 
     @Override
     public void success(Actor actor) {
         final var logger = getLogger(actor.getName());
-        if (logger.isInfoEnabled()) {
-            logger.info(getCurrentRootReport().success().toString());
+        currentRootReport.getCurrentReport().success();
+        if (logger.isInfoEnabled() && currentRootReport.isFinished()) {
+            logger.info(currentRootReport.success().toString());
         }
     }
 
     @Override
     public <A> void success(Actor actor, A answer) {
         final var logger = getLogger(actor.getName());
-        if (logger.isInfoEnabled()) {
-            logger.info(getCurrentRootReport().success(format("→ %s", answer)).toString());
+        currentRootReport.getCurrentReport().success(format("→ %s", answer));
+        if (logger.isInfoEnabled() && currentRootReport.isFinished()) {
+            logger.info(currentRootReport.toString());
         }
     }
 
     @Override
     public void failure(Actor actor, Exception cause) {
         final var logger = getLogger(actor.getName());
-        if (logger.isWarnEnabled()) {
-            logger.warn(getCurrentRootReport().failure(cause.getClass().getSimpleName()).toString());
+        currentRootReport.getCurrentReport().failure(cause.getClass().getSimpleName());
+        if (logger.isWarnEnabled() && currentRootReport.isFinished()) {
+            logger.warn(currentRootReport.toString());
         }
-    }
-
-    private LoggingReport getCurrentRootReport() {
-        if (currentRootReport == null) {
-            throw new IllegalStateException("There is not current report");
-        }
-        return currentRootReport.getCurrentReport();
     }
 }
