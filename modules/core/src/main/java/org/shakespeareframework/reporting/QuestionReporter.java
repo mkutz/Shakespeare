@@ -1,6 +1,8 @@
 package org.shakespeareframework.reporting;
 
-import org.shakespeareframework.*;
+import org.shakespeareframework.Actor;
+import org.shakespeareframework.Question;
+import org.shakespeareframework.RetryableQuestion;
 
 /**
  * A {@link QuestionReporter} to be {@link Actor#informs informed} by {@link Actor}s about their actions.
@@ -27,9 +29,10 @@ public interface QuestionReporter {
     /**
      * Reports the retry of the latest started {@link RetryableQuestion} due to an unacceptable answer.
      *
-     * @param actor the acting {@link Actor}
+     * @param actor    the acting {@link Actor}
      * @param question the retried question
-     * @param answer the current unacceptable answer
+     * @param answer   the current unacceptable answer
+     * @param <A>      the type of the given answer
      */
     default <A> void retry(Actor actor, RetryableQuestion<A> question, A answer) {}
 
@@ -39,7 +42,7 @@ public interface QuestionReporter {
      * @param actor the acting {@link Actor}
      * @param question the successfully finished {@link Question}
      * @param answer the found answer
-     * @param <A> the type of the given answer.
+     * @param <A> the type of the given answer
      */
     default <A> void success(Actor actor, Question<A> question, A answer) {}
 
@@ -56,7 +59,9 @@ public interface QuestionReporter {
      * Reports the unsuccessful finishing of the latest started {@link RetryableQuestion} due to an unacceptable answer.
      *
      * @param actor the acting {@link Actor}
+     * @param question the unsuccessfully finished {@link Question}
      * @param answer the found answer
+     * @param <A> the type of the given answer
      */
     default <A> void failure(Actor actor, Question<A> question, A answer) {}
 }
