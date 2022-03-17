@@ -125,13 +125,16 @@ class LoggingReport {
     public String toString(String prefix) {
         var subReportsString = "";
         if (!subReports.isEmpty()) {
-            final var subIndentation = " ".repeat(prefix.length());
+            final var subPrefix = prefix
+                    .replace('├', '│')
+                    .replace('└', ' ')
+                    .replace('─', ' ');
             final var lastSubReport = subReports.getFirst();
             final var subReportsStrings = subReports.stream()
                     .filter(report -> !report.equals(lastSubReport))
-                    .map(subReport -> subReport.toString(subIndentation + "├── "))
+                    .map(subReport -> subReport.toString(subPrefix + "├── "))
                     .collect(Collectors.toList());
-            subReportsStrings.add(lastSubReport.toString(subIndentation + "└── "));
+            subReportsStrings.add(lastSubReport.toString(subPrefix + "└── "));
             subReportsString = "\n" + join("\n", subReportsStrings);
         }
         return format("%s%s %s%c %s%s%s",

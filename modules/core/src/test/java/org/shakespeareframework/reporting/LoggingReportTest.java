@@ -11,7 +11,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString started")
-    void test1() {
+    void toStringTest1() {
         var report = new LoggingReport("Logan does some task");
 
         assertThat(report.toString())
@@ -20,7 +20,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString finished success")
-    void test2() {
+    void toStringTest2() {
         var report = new LoggingReport("Logan does some task").success();
 
         assertThat(report.toString())
@@ -29,7 +29,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString finished success with supplement")
-    void test3() {
+    void toStringTest3() {
         var report = new LoggingReport("Logan checks some question").success("→ answer");
 
         assertThat(report.toString())
@@ -38,7 +38,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString finished failure")
-    void test4() {
+    void toStringTest4() {
         var report = new LoggingReport("Logan does some task").failure("cause");
 
         assertThat(report.toString())
@@ -47,7 +47,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString finished with supplement")
-    void test5() {
+    void toStringTest5() {
         var report = new LoggingReport("Logan does some task").failure("cause");
 
         assertThat(report.toString())
@@ -56,7 +56,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString retry")
-    void test6() {
+    void toStringTest6() {
         var report = new LoggingReport("Logan does some task").retry();
 
         assertThat(report.toString())
@@ -65,7 +65,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString sub report")
-    void test7() {
+    void toStringTest7() {
         var subReport = new LoggingReport("Logan does some sub task")
                 .success();
         var report = new LoggingReport("Logan does some task")
@@ -77,7 +77,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString sub sub report")
-    void test8() {
+    void toStringTest8() {
         var subSubReport = new LoggingReport("Logan does some sub sub task")
                 .success();
         var subReport = new LoggingReport("Logan checks some sub question")
@@ -95,7 +95,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("toString multiple sub reports")
-    void test9() {
+    void toStringTest9() {
         var firstSubReport = new LoggingReport("Logan does some sub task")
                 .success();
         var secondSubReport = new LoggingReport("Logan checks some sub question")
@@ -113,7 +113,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("getCurrentReport returns the report if there are no sub reports")
-    void test10() {
+    void getCurrentReportTest1() {
         var report = new LoggingReport("Logan does some task");
 
         assertThat(report.getCurrentReport()).hasSameHashCodeAs(report);
@@ -121,7 +121,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("getCurrentReport returns latest unfinished sub report")
-    void test11() {
+    void getCurrentReportTest2() {
         var firstSubReport = new LoggingReport("Logan checks some sub question");
         var secondSubReport = new LoggingReport("Logan checks another sub question");
         var report = new LoggingReport("Logan does some task")
@@ -133,7 +133,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("getCurrentReport does not return finished sub reports")
-    void test12() {
+    void getCurrentReportTest3() {
         var firstSubReport = new LoggingReport("Logan checks some sub question");
         var secondFinishedSubReport = new LoggingReport("Logan checks some sub question").success();
         var report = new LoggingReport("Logan does some task")
@@ -145,7 +145,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("getCurrentReport returns the report if all reports are finished")
-    void test13() {
+    void getCurrentReportTest4() {
         var firstFinishedSubReport = new LoggingReport("Logan checks some sub question")
                 .failure("some cause");
         var secondFinishedSubReport = new LoggingReport("Logan checks some sub question")
@@ -160,7 +160,7 @@ class LoggingReportTest {
 
     @Test
     @DisplayName("getCurrentReport returns sub sub report")
-    void test14() {
+    void getCurrentReportTest5() {
         var subSubReport = new LoggingReport("Logan checks some sub sub question");
         var subReport = new LoggingReport("Logan does some sub task")
                 .addSubReport(subSubReport);
@@ -172,7 +172,7 @@ class LoggingReportTest {
 
     @ParameterizedTest(name = "{0}")
     @EnumSource(FinishedExamples.class)
-    void test15(FinishedExamples example) {
+    void isFinishedTest1(FinishedExamples example) {
         assertThat(example.report.isFinished()).isEqualTo(example.finished);
     }
 
