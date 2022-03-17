@@ -1,0 +1,40 @@
+= Reporting
+
+link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor]s can report actions and their outcome via link:{javadoc-url}/core/org/shakespeareframework/reporting/Reporter.html[Reporter]s that can be added using the link:{javadoc-url}core/org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...))[`informs(Reporter...)` method.
+
+Actors call each of their Reporters in the declared order for the following events:
+
+- When starting to do a Task or answer a Question,
+- when retrying a RetryableTask or RetryableQuestion,
+- when successfully finishing a Task or successfully answering a Question,
+- when failing to do a Task or answer a Question.
+
+== Built-In Reporters
+
+=== The link:{javadoc-url}/core/org/shakespeareframework/reporting/Slf4jReporter.html[Slf4jReporter]
+
+Uses the Slf4j Logger to print each action of the Actor.
+Successful actions will be logged as info, failure as warnings.
+Note that actions are only logged after finishing.
+
+Each action is printed with
+
+- the Actor's name,
+- the Task's/Question's toString output,
+- the result (success = `✓`, failure = `✗`, each retry = `•`),
+- the action's duration (e.g. 245ms),
+- in case of a failure the causing exception's simple class name (e.g. `ElementNotFoundException`),
+- in case of a successful question the given answer (e.g. `→ answer`)
+
+Sub Tasks and Questions are printed as a hierarchic tree.
+
+.Slf4jReporter example output
+[source]
+----
+19:45:18.359 [Test worker] WARN Logan - Logan does login ✓ 1s15ms
+├── Logan does enter username ✓ 312ms
+├── Logan does enter password ✓ 432ms
+└── Logan does submit login form ✓ 43ms
+    └── Logan does confirm terms and conditions •✗ 245ms ElementNotFoundException
+19:45:19.876 [Test worker] INFO Logan - Logan checks login state ✓ 1s15ms → false
+----
