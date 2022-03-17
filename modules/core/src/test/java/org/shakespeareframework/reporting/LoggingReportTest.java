@@ -112,6 +112,32 @@ class LoggingReportTest {
     }
 
     @Test
+    @DisplayName("toString multiple sub reports with sub reports")
+    void toStringTest10() {
+        var firstSubSubReport = new LoggingReport("Logan checks some sub sub question")
+                .success("→ answer");
+        var firstSubReport = new LoggingReport("Logan does some sub task")
+                .addSubReport(firstSubSubReport)
+                .success();
+        var secondSubSubReport = new LoggingReport("Logan does some sub sub task")
+                .success();
+        var secondSubReport = new LoggingReport("Logan checks some sub question")
+                .addSubReport(secondSubSubReport)
+                .success("→ answer");
+        var report = new LoggingReport("Logan does some root task")
+                .addSubReport(firstSubReport)
+                .addSubReport(secondSubReport)
+                .success();
+
+        assertThat(report.toString()).matches(
+                "Logan does some root task ✓ (\\d+s)?(<?\\d+ms)\n" +
+                "├── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)\n" +
+                "│   └── Logan checks some sub sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n" +
+                "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n" +
+                "    └── Logan does some sub sub task ✓ (\\d+s)?(<?\\d+ms)");
+    }
+
+    @Test
     @DisplayName("getCurrentReport returns the report if there are no sub reports")
     void getCurrentReportTest1() {
         var report = new LoggingReport("Logan does some task");
