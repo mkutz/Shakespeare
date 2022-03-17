@@ -7,7 +7,7 @@ permissions:
 jobs:
   handle:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
 
       - name: Fetch metadata
@@ -15,8 +15,6 @@ jobs:
         uses: dependabot/fetch-metadata@v1.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          alert-lookup: true
-          compat-lookup: true
 
       - name: Apply update type label
         if: startsWith(steps.metadata.outputs.update-type, 'version-update:semver-')
@@ -39,11 +37,10 @@ jobs:
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr review --approve "$PR_URL"
+        run: gh pr review --approve "$PR_URL"
 
       - name: Enable auto-merge for Dependabot PRs
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge --auto --merge "$PR_URL"
+        run: gh pr merge --auto --rebase --delete-branch "$PR_URL"
