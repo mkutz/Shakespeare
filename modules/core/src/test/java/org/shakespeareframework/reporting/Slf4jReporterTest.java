@@ -133,12 +133,13 @@ class Slf4jReporterTest {
                 .answer(actor -> "answer");
 
         reporter.start(logan, retryableQuestion);
-        reporter.retry(logan, retryableQuestion, "unaccepted answer");
-        reporter.failure(logan, retryableQuestion, new RuntimeException("Fail"));
+        reporter.retry(logan, retryableQuestion, new RuntimeException("Intermediate failure!"));
+        reporter.retry(logan, retryableQuestion, "intermediate answer");
+        reporter.failure(logan, retryableQuestion, "unaccepted answer");
 
         assertThat(output.getOut())
                 .contains("WARN")
-                .containsPattern("Logan checks some retryable question •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+                .containsPattern("Logan checks some retryable question ••✗ (\\d+s)?(<?\\d+ms) → unaccepted answer");
     }
 
     @Test
