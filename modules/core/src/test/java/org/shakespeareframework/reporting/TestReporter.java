@@ -1,8 +1,6 @@
 package org.shakespeareframework.reporting;
 
-import org.shakespeareframework.Actor;
-import org.shakespeareframework.Question;
-import org.shakespeareframework.Task;
+import org.shakespeareframework.*;
 
 import java.util.Stack;
 
@@ -21,28 +19,43 @@ final class TestReporter implements Reporter {
     }
 
     @Override
-    public void retry(Actor actor, Exception cause) {
+    public void retry(Actor actor, RetryableTask task, Exception cause) {
         reports.peek().retry();
     }
 
     @Override
-    public void retry(Actor actor, Object answer) {
+    public <A> void retry(Actor actor, RetryableQuestion<A> question, A answer) {
         reports.peek().retry();
     }
 
     @Override
-    public void success(Actor actor) {
+    public void retry(Actor actor, RetryableQuestion<?> question, Exception cause) {
+        reports.peek().retry();
+    }
+
+    @Override
+    public void success(Actor actor, Task task) {
         reports.peek().success();
     }
 
     @Override
-    public void success(Actor actor, Object answer) {
+    public <A> void success(Actor actor, Question<A> question, A answer) {
         reports.peek().success(answer);
     }
 
     @Override
-    public void failure(Actor actor, Exception cause) {
+    public void failure(Actor actor, Task task, Exception cause) {
         reports.peek().failure(cause);
+    }
+
+    @Override
+    public void failure(Actor actor, Question<?> question, Exception cause) {
+        reports.peek().failure(cause);
+    }
+
+    @Override
+    public <A> void failure(Actor actor, Question<A> question, A answer) {
+        reports.peek().failure(answer);
     }
 
     public Stack<Report<?>> getReports() {
@@ -77,6 +90,11 @@ final class TestReporter implements Reporter {
         public void failure(Exception cause) {
             this.success = false;
             this.cause = cause;
+        }
+
+        public void failure(Object answer) {
+            this.success = false;
+            this.answer = answer;
         }
 
         public T getSubject() {

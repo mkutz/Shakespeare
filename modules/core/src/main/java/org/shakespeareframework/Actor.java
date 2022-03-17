@@ -65,10 +65,10 @@ public final class Actor {
         try {
             task.performAs(this);
         } catch (Exception e) {
-            reporters.forEach(reporter -> reporter.failure(this, e));
+            reporters.forEach(reporter -> reporter.failure(this, task, e));
             throw e;
         }
-        reporters.forEach(reporter -> reporter.success(this));
+        reporters.forEach(reporter -> reporter.success(this, task));
         return this;
     }
 
@@ -89,20 +89,20 @@ public final class Actor {
         while (true) {
             try {
                 task.performAs(this);
-                reporters.forEach(reporter -> reporter.success(this));
+                reporters.forEach(reporter -> reporter.success(this, task));
                 return this;
             } catch (Exception e) {
                 lastException = e;
                 if (task.getAcknowledgedExceptions().stream().anyMatch(acknowledge -> acknowledge.isInstance(e))) {
-                    reporters.forEach(reporter -> reporter.failure(this, e));
+                    reporters.forEach(reporter -> reporter.failure(this, task, e));
                     throw e;
                 }
-                reporters.forEach(reporter -> reporter.retry(this, e));
+                reporters.forEach(reporter -> reporter.retry(this, task, e));
             }
 
             if (now().isAfter(end)) {
                 final var timeoutException = new TimeoutException(this, task, lastException);
-                reporters.forEach(reporter -> reporter.failure(this, timeoutException));
+                reporters.forEach(reporter -> reporter.failure(this, task, timeoutException));
                 throw timeoutException;
             }
 
@@ -124,10 +124,10 @@ public final class Actor {
         reporters.forEach(reporter -> reporter.start(this, question));
         try {
             final var answer = question.answerAs(this);
-            reporters.forEach(reporter -> reporter.success(this, answer));
+            reporters.forEach(reporter -> reporter.success(this, question, answer));
             return answer;
         } catch (Exception e) {
-            reporters.forEach(reporter -> reporter.failure(this, e));
+            reporters.forEach(reporter -> reporter.failure(this, question, e));
             throw e;
         }
     }
@@ -156,22 +156,22 @@ public final class Actor {
                 lastException = null;
 
                 if (question.acceptable(lastAnswer)) {
-                    reporters.forEach(reporter -> reporter.success(this, answer));
+                    reporters.forEach(reporter -> reporter.success(this, question, answer));
                     return answer;
                 }
-                reporters.forEach(reporter -> reporter.retry(this, answer));
+                reporters.forEach(reporter -> reporter.retry(this, question, answer));
             } catch (Exception e) {
                 lastException = e;
                 if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
-                    reporters.forEach(reporter -> reporter.failure(this, e));
+                    reporters.forEach(reporter -> reporter.failure(this, question, e));
                     throw e;
                 }
-                reporters.forEach(reporter -> reporter.retry(this, e));
+                reporters.forEach(reporter -> reporter.retry(this, question, e));
             }
 
             if (now().isAfter(end)) {
                 final var timeoutException = new TimeoutException(this, question, lastException);
-                reporters.forEach(reporter -> reporter.failure(this, timeoutException));
+                reporters.forEach(reporter -> reporter.failure(this, question, timeoutException));
                 throw timeoutException;
             }
 
@@ -229,8 +229,8 @@ public final class Actor {
     }
 
     /**
-     * @param reporters {@link Reporter}s that should be informed
-     * @return the {@link Actor}
+     * @param reporters {@link Reporter}s that should be informed in the order they should be informed
+     * @return this {@link Actor}
      */
     public Actor informs(Reporter... reporters) {
         Collections.addAll(this.reporters, reporters);

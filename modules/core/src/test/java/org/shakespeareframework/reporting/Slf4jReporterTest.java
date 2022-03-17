@@ -35,7 +35,7 @@ class Slf4jReporterTest {
                 .perform(actor -> {});
 
         reporter.start(logan, task);
-        reporter.success(logan);
+        reporter.success(logan, task);
 
         assertThat(output.getOut())
                 .contains("INFO")
@@ -52,7 +52,7 @@ class Slf4jReporterTest {
                 .perform(actor -> {});
 
         reporter.start(logan, task);
-        reporter.failure(logan, new RuntimeException("Fail"));
+        reporter.failure(logan, task, new RuntimeException("Fail"));
 
         assertThat(output.getOut())
                 .contains("WARN")
@@ -64,17 +64,17 @@ class Slf4jReporterTest {
     void test4() {
         var reporter = new Slf4jReporter();
         var logan = new Actor("Logan");
-        var task = new TestTaskBuilder()
-                .string("some task")
+        var retryableTask = new RetryableTestTaskBuilder()
+                .string("some retryable task")
                 .perform(actor -> {});
 
-        reporter.start(logan, task);
-        reporter.retry(logan, new RuntimeException("Retry failed"));
-        reporter.failure(logan, new RuntimeException("Fail"));
+        reporter.start(logan, retryableTask);
+        reporter.retry(logan, retryableTask, new RuntimeException("Retry failed"));
+        reporter.failure(logan, retryableTask, new RuntimeException("Fail"));
 
         assertThat(output.getOut())
                 .contains("WARN")
-                .containsPattern("Logan does some task •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+                .containsPattern("Logan does some retryable task •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
     }
 
     @Test
@@ -99,7 +99,7 @@ class Slf4jReporterTest {
                 .answer(actor -> "answer");
 
         reporter.start(logan, question);
-        reporter.success(logan, "answer");
+        reporter.success(logan, question, "answer");
 
         assertThat(output.getOut())
                 .contains("INFO")
@@ -116,7 +116,7 @@ class Slf4jReporterTest {
                 .answer(actor -> "answer");
 
         reporter.start(logan, question);
-        reporter.failure(logan, new RuntimeException("Fail"));
+        reporter.failure(logan, question, new RuntimeException("Fail"));
 
         assertThat(output.getOut())
                 .contains("WARN")
@@ -128,17 +128,17 @@ class Slf4jReporterTest {
     void test8() {
         var reporter = new Slf4jReporter();
         var logan = new Actor("Logan");
-        var question = new TestQuestionBuilder<String>()
-                .string("some question")
+        var retryableQuestion = new RetryableTestQuestionBuilder<String>()
+                .string("some retryable question")
                 .answer(actor -> "answer");
 
-        reporter.start(logan, question);
-        reporter.retry(logan, "unaccepted answer");
-        reporter.failure(logan, new RuntimeException("Fail"));
+        reporter.start(logan, retryableQuestion);
+        reporter.retry(logan, retryableQuestion, "unaccepted answer");
+        reporter.failure(logan, retryableQuestion, new RuntimeException("Fail"));
 
         assertThat(output.getOut())
                 .contains("WARN")
-                .containsPattern("Logan checks some question •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+                .containsPattern("Logan checks some retryable question •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
     }
 
     @Test
@@ -155,8 +155,8 @@ class Slf4jReporterTest {
 
         reporter.start(logan, rootTask);
         reporter.start(logan, subQuestion);
-        reporter.success(logan, "answer");
-        reporter.success(logan);
+        reporter.success(logan, subQuestion, "answer");
+        reporter.success(logan, rootTask);
 
         assertThat(output.getOut())
                 .contains("INFO")
@@ -179,8 +179,8 @@ class Slf4jReporterTest {
 
         reporter.start(logan, rootQuestion);
         reporter.start(logan, subTask);
-        reporter.success(logan, "answer");
-        reporter.failure(logan, new RuntimeException("Fail!"));
+        reporter.success(logan, subTask);
+        reporter.failure(logan, rootQuestion, new RuntimeException("Fail!"));
 
         assertThat(output.getOut())
                 .contains("WARN")
