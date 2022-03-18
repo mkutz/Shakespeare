@@ -44,7 +44,8 @@ loadScripts(document, 'script');</script>
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="org/shakespeareframework/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="deprecated-list.html">Deprecated</a></li>
@@ -90,7 +91,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </nav>
 </header>
 <main role="main">
-<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
+<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
 <!--   -->
 </a>
 <h2 class="title">A</h2>
@@ -162,6 +163,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">A <a href="org/shakespeareframework/Fact.html" title="interface in org.shakespeareframework"><code>Fact</code></a> to be <a href="org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact...)"><code>learned</code></a> and <a href="org/shakespeareframework/Actor.html#remembers(java.lang.Class)"><code>remembered</code></a> by an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/QuestionReporter.html#failure(org.shakespeareframework.Actor,org.shakespeareframework.Question,java.lang.Exception)">failure(Actor, Question&lt;?&gt;, Exception)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></dt>
+<dd>
+<div class="block">Reports the unsuccessful finishing of the latest started <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> due to an acknowledged exception.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#failure(org.shakespeareframework.Actor,org.shakespeareframework.Question,java.lang.Exception)">failure(Actor, Question&lt;?&gt;, Exception)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/QuestionReporter.html#failure(org.shakespeareframework.Actor,org.shakespeareframework.Question,A)">failure(Actor, Question&lt;A&gt;, A)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></dt>
+<dd>
+<div class="block">Reports the unsuccessful finishing of the latest started <a href="org/shakespeareframework/RetryableQuestion.html" title="interface in org.shakespeareframework"><code>RetryableQuestion</code></a> due to an unacceptable answer.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#failure(org.shakespeareframework.Actor,org.shakespeareframework.Question,A)">failure(Actor, Question&lt;A&gt;, A)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#failure(org.shakespeareframework.Actor,org.shakespeareframework.Task,java.lang.Exception)">failure(Actor, Task, Exception)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/TaskReporter.html#failure(org.shakespeareframework.Actor,org.shakespeareframework.Task,java.lang.Exception)">failure(Actor, Task, Exception)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting">TaskReporter</a></dt>
+<dd>
+<div class="block">Reports the unsuccessful finishing of the latest started <a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> or <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a>.</div>
+</dd>
 </dl>
 <a id="I:G">
 <!--   -->
@@ -187,6 +206,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/Actor.html#hashCode()">hashCode()</a></span> - Method in class org.shakespeareframework.<a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework">Actor</a></dt>
 <dd>&nbsp;</dd>
 </dl>
+<a id="I:I">
+<!--   -->
+</a>
+<h2 class="title">I</h2>
+<dl>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)">informs(Reporter...)</a></span> - Method in class org.shakespeareframework.<a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework">Actor</a></dt>
+<dd>&nbsp;</dd>
+</dl>
 <a id="I:L">
 <!--   -->
 </a>
@@ -194,6 +221,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact...)">learns(Fact...)</a></span> - Method in class org.shakespeareframework.<a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework">Actor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org/shakespeareframework/reporting/LoggingReporter.html" title="interface in org.shakespeareframework.reporting"><span class="typeNameLink">LoggingReporter</span></a> - Interface in <a href="org/shakespeareframework/reporting/package-summary.html">org.shakespeareframework.reporting</a></dt>
+<dd>
+<div class="block">A <a href="org/shakespeareframework/reporting/Reporter.html" title="interface in org.shakespeareframework.reporting"><code>Reporter</code></a> using a given Logger.</div>
+</dd>
 </dl>
 <a id="I:M">
 <!--   -->
@@ -222,6 +253,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><a href="org/shakespeareframework/package-summary.html">org.shakespeareframework</a> - package org.shakespeareframework</dt>
 <dd>&nbsp;</dd>
+<dt><a href="org/shakespeareframework/reporting/package-summary.html">org.shakespeareframework.reporting</a> - package org.shakespeareframework.reporting</dt>
+<dd>&nbsp;</dd>
 </dl>
 <a id="I:P">
 <!--   -->
@@ -242,6 +275,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">A <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> can be <a href="org/shakespeareframework/Actor.html#checks(org.shakespeareframework.Question)"><code>checked</code></a> by an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a></div>
 </dd>
+<dt><a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting"><span class="typeNameLink">QuestionReporter</span></a> - Interface in <a href="org/shakespeareframework/reporting/package-summary.html">org.shakespeareframework.reporting</a></dt>
+<dd>
+<div class="block">A <a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting"><code>QuestionReporter</code></a> to be <a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)"><code>informed</code></a> by <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>s about their actions.</div>
+</dd>
 </dl>
 <a id="I:R">
 <!--   -->
@@ -250,6 +287,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/Actor.html#remembers(java.lang.Class)">remembers(Class&lt;F&gt;)</a></span> - Method in class org.shakespeareframework.<a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework">Actor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org/shakespeareframework/reporting/Reporter.html" title="interface in org.shakespeareframework.reporting"><span class="typeNameLink">Reporter</span></a> - Interface in <a href="org/shakespeareframework/reporting/package-summary.html">org.shakespeareframework.reporting</a></dt>
+<dd>
+<div class="block">A <a href="org/shakespeareframework/reporting/Reporter.html" title="interface in org.shakespeareframework.reporting"><code>Reporter</code></a> to be <a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)"><code>informed</code></a> by
+ <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>s about their actions.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/QuestionReporter.html#retry(org.shakespeareframework.Actor,org.shakespeareframework.RetryableQuestion,java.lang.Exception)">retry(Actor, RetryableQuestion&lt;?&gt;, Exception)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></dt>
+<dd>
+<div class="block">Reports the retry of the latest started <a href="org/shakespeareframework/RetryableQuestion.html" title="interface in org.shakespeareframework"><code>RetryableQuestion</code></a> due to an ignored exception.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#retry(org.shakespeareframework.Actor,org.shakespeareframework.RetryableQuestion,java.lang.Exception)">retry(Actor, RetryableQuestion&lt;?&gt;, Exception)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/QuestionReporter.html#retry(org.shakespeareframework.Actor,org.shakespeareframework.RetryableQuestion,A)">retry(Actor, RetryableQuestion&lt;A&gt;, A)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></dt>
+<dd>
+<div class="block">Reports the retry of the latest started <a href="org/shakespeareframework/RetryableQuestion.html" title="interface in org.shakespeareframework"><code>RetryableQuestion</code></a> due to an unacceptable answer.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#retry(org.shakespeareframework.Actor,org.shakespeareframework.RetryableQuestion,A)">retry(Actor, RetryableQuestion&lt;A&gt;, A)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#retry(org.shakespeareframework.Actor,org.shakespeareframework.RetryableTask,java.lang.Exception)">retry(Actor, RetryableTask, Exception)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/TaskReporter.html#retry(org.shakespeareframework.Actor,org.shakespeareframework.RetryableTask,java.lang.Exception)">retry(Actor, RetryableTask, Exception)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting">TaskReporter</a></dt>
+<dd>
+<div class="block">Reports the retry of the latest started <a href="org/shakespeareframework/RetryableTask.html" title="interface in org.shakespeareframework"><code>RetryableTask</code></a>.</div>
+</dd>
 <dt><a href="org/shakespeareframework/Retryable.html" title="interface in org.shakespeareframework"><span class="typeNameLink">Retryable</span></a> - Interface in <a href="org/shakespeareframework/package-summary.html">org.shakespeareframework</a></dt>
 <dd>
 <div class="block"><a href="org/shakespeareframework/Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> is something an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> may retry every <a href="org/shakespeareframework/Retryable.html#getInterval()"><code>interval</code></a> until it succeeds or
@@ -272,6 +332,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/RetryInterruptedException.html#%3Cinit%3E(org.shakespeareframework.Actor,org.shakespeareframework.Retryable,java.lang.InterruptedException)">RetryInterruptedException(Actor, Retryable, InterruptedException)</a></span> - Constructor for exception org.shakespeareframework.<a href="org/shakespeareframework/RetryInterruptedException.html" title="class in org.shakespeareframework">RetryInterruptedException</a></dt>
 <dd>&nbsp;</dd>
 </dl>
+<a id="I:S">
+<!--   -->
+</a>
+<h2 class="title">S</h2>
+<dl>
+<dt><a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting"><span class="typeNameLink">Slf4jReporter</span></a> - Class in <a href="org/shakespeareframework/reporting/package-summary.html">org.shakespeareframework.reporting</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#%3Cinit%3E()">Slf4jReporter()</a></span> - Constructor for class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/QuestionReporter.html#start(org.shakespeareframework.Actor,org.shakespeareframework.Question)">start(Actor, Question&lt;?&gt;)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></dt>
+<dd>
+<div class="block">Reports the start of checking the given <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#start(org.shakespeareframework.Actor,org.shakespeareframework.Question)">start(Actor, Question&lt;?&gt;)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#start(org.shakespeareframework.Actor,org.shakespeareframework.Task)">start(Actor, Task)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/TaskReporter.html#start(org.shakespeareframework.Actor,org.shakespeareframework.Task)">start(Actor, Task)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting">TaskReporter</a></dt>
+<dd>
+<div class="block">Reports the start of doing the given <a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><code>Task</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/QuestionReporter.html#success(org.shakespeareframework.Actor,org.shakespeareframework.Question,A)">success(Actor, Question&lt;A&gt;, A)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></dt>
+<dd>
+<div class="block">Reports the successful finishing of the lastest started <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#success(org.shakespeareframework.Actor,org.shakespeareframework.Question,A)">success(Actor, Question&lt;A&gt;, A)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/Slf4jReporter.html#success(org.shakespeareframework.Actor,org.shakespeareframework.Task)">success(Actor, Task)</a></span> - Method in class org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/shakespeareframework/reporting/TaskReporter.html#success(org.shakespeareframework.Actor,org.shakespeareframework.Task)">success(Actor, Task)</a></span> - Method in interface org.shakespeareframework.reporting.<a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting">TaskReporter</a></dt>
+<dd>
+<div class="block">Reports the successful finishing of the latest started <a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><code>Task</code></a>.</div>
+</dd>
+</dl>
 <a id="I:T">
 <!--   -->
 </a>
@@ -280,6 +374,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><span class="typeNameLink">Task</span></a> - Interface in <a href="org/shakespeareframework/package-summary.html">org.shakespeareframework</a></dt>
 <dd>
 <div class="block">A <a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> can be <a href="org/shakespeareframework/Actor.html#does(org.shakespeareframework.Task)"><code>done</code></a> by an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>.</div>
+</dd>
+<dt><a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting"><span class="typeNameLink">TaskReporter</span></a> - Interface in <a href="org/shakespeareframework/reporting/package-summary.html">org.shakespeareframework.reporting</a></dt>
+<dd>
+<div class="block">A <a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting"><code>TaskReporter</code></a> to be <a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)"><code>informed</code></a> by <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>s about their actions.</div>
 </dd>
 <dt><a href="org/shakespeareframework/TimeoutException.html" title="class in org.shakespeareframework"><span class="typeNameLink">TimeoutException</span></a> - Exception in <a href="org/shakespeareframework/package-summary.html">org.shakespeareframework</a></dt>
 <dd>
@@ -299,7 +397,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/Actor.html#uses(java.lang.Class)">uses(Class&lt;A&gt;)</a></span> - Method in class org.shakespeareframework.<a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework">Actor</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
 </main>
 <footer role="contentinfo">
 <nav role="navigation">
@@ -312,7 +410,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="org/shakespeareframework/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="deprecated-list.html">Deprecated</a></li>

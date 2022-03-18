@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -50,6 +50,7 @@ loadScripts(document, 'script');</script>
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
+<li><a href="../../index.html">Overview</a></li>
 <li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
@@ -222,20 +223,25 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="Actor.html" title="class in org.shakespeareframework">Actor</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#learns(org.shakespeareframework.Fact...)">learns</a></span>&#8203;(<a href="Fact.html" title="interface in org.shakespeareframework">Fact</a>...&nbsp;facts)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#informs(org.shakespeareframework.reporting.Reporter...)">informs</a></span>&#8203;(<a href="reporting/Reporter.html" title="interface in org.shakespeareframework.reporting">Reporter</a>...&nbsp;reporters)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code><a href="Actor.html" title="class in org.shakespeareframework">Actor</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#learns(org.shakespeareframework.Fact...)">learns</a></span>&#8203;(<a href="Fact.html" title="interface in org.shakespeareframework">Fact</a>...&nbsp;facts)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>&lt;F extends <a href="Fact.html" title="interface in org.shakespeareframework">Fact</a>&gt;<br>F</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remembers(java.lang.Class)">remembers</a></span>&#8203;(java.lang.Class&lt;F&gt;&nbsp;factClass)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>&lt;A extends <a href="Ability.html" title="interface in org.shakespeareframework">Ability</a>&gt;<br>A</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uses(java.lang.Class)">uses</a></span>&#8203;(java.lang.Class&lt;A&gt;&nbsp;abilityClass)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -435,6 +441,21 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="informs(org.shakespeareframework.reporting.Reporter...)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>informs</h4>
+<pre class="methodSignature">public&nbsp;<a href="Actor.html" title="class in org.shakespeareframework">Actor</a>&nbsp;informs&#8203;(<a href="reporting/Reporter.html" title="interface in org.shakespeareframework.reporting">Reporter</a>...&nbsp;reporters)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>reporters</code> - <a href="reporting/Reporter.html" title="interface in org.shakespeareframework.reporting"><code>Reporter</code></a>s that should be informed in the order they should be informed</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="getName()">
 <!--   -->
 </a>
@@ -507,6 +528,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
+<li><a href="../../index.html">Overview</a></li>
 <li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>

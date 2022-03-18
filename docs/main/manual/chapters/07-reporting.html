@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Browser Automation with Selenium</title>
+<title>Reporting</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Browser Automation with Selenium</h1>
+<h1>Reporting</h1>
 <div class="details">
 <span id="revnumber">version 0.4-SNAPSHOT</span>
 </div>
@@ -447,85 +447,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Selenium Module provides the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html">BrowseTheWeb Ability</a>, which basically provides a managed <a href="https://www.selenium.dev/documentation/webdriver/">Selenium WebDriver</a>.</p>
+<p><a href="{javadoc-url}/core/org/shakespeareframework/Actor.html">Actor</a>s can report actions and their outcome via <a href="{javadoc-url}/core/org/shakespeareframework/reporting/Reporter.html">Reporter</a>s that can be added using the link:{javadoc-url}core/org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter&#8230;&#8203;))[<code>informs(Reporter&#8230;&#8203;)</code> method.</p>
 </div>
 <div class="paragraph">
-<p>The Ability not only warps a WebDriver, but also manages it using a <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html">WebDriverSupplier</a> which comes in different flavors for different scenarios (e.g. local debugging or continuous integration).</p>
+<p>Actors call each of their Reporters in the declared order for the following events:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When starting to do a Task or answer a Question,</p>
+</li>
+<li>
+<p>when retrying a RetryableTask or RetryableQuestion,</p>
+</li>
+<li>
+<p>when successfully finishing a Task or successfully answering a Question,</p>
+</li>
+<li>
+<p>when failing to do a Task or answer a Question.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup">Setup</h2>
+<h2 id="_built_in_reporters">Built-In Reporters</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_for_local_development">For Local Development</h3>
+<h3 id="_the_slf4jreporter">The <a href="{javadoc-url}/core/org/shakespeareframework/reporting/Slf4jReporter.html">Slf4jReporter</a></h3>
 <div class="paragraph">
-<p>When you write your UI tests locally, it is quite useful (and also satisfying) to be able to watch the automation work in a local browser, checking the browser&#8217;s developer and logs.
-For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/LocalWebDriverSupplier.html">LocalWebDriverSupplier</a>, which relies on a local installation of the browser.</p>
+<p>Uses the Slf4j Logger to print each action of the Actor.
+Successful actions will be logged as info, failure as warnings.
+Note that actions are only logged after finishing.</p>
 </div>
 <div class="paragraph">
-<p>It does take care of downloading the required binary, starting the browser as soon as the Actor actually uses it and closing it after the test case.</p>
+<p>Each action is printed with</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the Actor&#8217;s name,</p>
+</li>
+<li>
+<p>the Task&#8217;s/Question&#8217;s toString output,</p>
+</li>
+<li>
+<p>the result (success = <code>✓</code>, failure = <code>✗</code>, each retry = <code>•</code>),</p>
+</li>
+<li>
+<p>the action&#8217;s duration (e.g. 245ms),</p>
+</li>
+<li>
+<p>in case of a failure the causing exception&#8217;s simple class name (e.g. <code>ElementNotFoundException</code>),</p>
+</li>
+<li>
+<p>in case of a successful question the given answer (e.g. <code>→ answer</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sub Tasks and Questions are printed as a hierarchic tree.</p>
 </div>
 <div class="listingblock">
-<div class="title">Setup for local development</div>
+<div class="title">Slf4jReporter example output</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var tim = new Actor("Tim")
-        .can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+<pre class="highlight"><code>19:45:18.359 [Test worker] WARN Logan - Logan does login ✓ 1s15ms
+├── Logan does enter username ✓ 312ms
+├── Logan does enter password ✓ 432ms
+└── Logan does submit login form ✓ 43ms
+    └── Logan does confirm terms and conditions •✗ 245ms ElementNotFoundException
+19:45:19.876 [Test worker] INFO Logan - Logan checks login state ✓ 1s15ms → false</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_for_continuous_integration_with_docker">For Continuous Integration with Docker</h3>
-<div class="paragraph">
-<p>Continuous integration (CI) environments usually don&#8217;t have a viewport and sometimes not even any browsers installed.
-For such scenarios Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html">DockerWebDriverSupplier</a>.</p>
-</div>
-<div class="paragraph">
-<p>As the name suggests, it requires Docker to be available on the CI system and uses it to provide a container with the desired browser installed.</p>
-</div>
-<div class="listingblock">
-<div class="title">Setup for Docker Continuous Integration with Docker</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var jodie = new Actor("Jodie")
-        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_using_webdrivermanager">Using WebDriverManager</h3>
-<div class="paragraph">
-<p>Both of the above variants rely on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
-</div>
-<div class="paragraph">
-<p><a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html">WebDriverManagerWebDriverSupplier</a> allows to use it directly and thereby use all of its features.</p>
-</div>
-<div class="listingblock">
-<div class="title">Setup with WebDriverManager</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var webDriverManager = WebDriverManager
-        .edgedriver()
-        .browserInDocker();
-var alex = new Actor("Alex")
-        .can(new BrowseTheWeb(new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_additional_capabilities">Additional Capabilities</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>All <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html">WebDriverSuppliers</a> provide a constructor, which allows configuring additional Capabilities.</p>
-</div>
-<div class="listingblock">
-<div class="title">Additional Capabilities in a LocalWebDriverSupplier</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var cameron = new Actor("Cameron")
-        .can(new BrowseTheWeb(new LocalWebDriverSupplier(
-                BrowserType.FIREFOX,
-                new FirefoxOptions().setHeadless(true)))
-        );</code></pre>
 </div>
 </div>
 </div>
@@ -534,7 +526,7 @@ var alex = new Actor("Alex")
 <div id="footer">
 <div id="footer-text">
 Version 0.4-SNAPSHOT<br>
-Last updated 2022-03-17 18:26:00 UTC
+Last updated 2022-03-18 10:53:25 UTC
 </div>
 </div>
 </body>

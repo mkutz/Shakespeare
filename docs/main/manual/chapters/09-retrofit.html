@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Retryables</title>
+<title>HTTP API Testing with Retrofit</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Retryables</h1>
+<h1>HTTP API Testing with Retrofit</h1>
 <div class="details">
 <span id="revnumber">version 0.4-SNAPSHOT</span>
 </div>
@@ -447,76 +447,123 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Some things take time.
-E.g. after creating an account, it might take some time for a confirmation email to arrive.</p>
-</div>
-<div class="paragraph">
-<p>Shakespeare provides a generic way to wait for things to succeed: <a href="{javadoc-url}/core/org/shakespeareframework/Retryable.html">Retryables</a>.</p>
-</div>
-<div class="paragraph">
-<p>They can be used just like regular Tasks and Questions, but they additionally have a defined timeout after which an Actor will give up and an interval in which an Actor will retry.
-The default timeout is 2 seconds, the default interval is the 10th of the timeout.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Shakespeare&#8217;s Retryables are meant for things that a human user would need to retry as well.
-To wait for UI elements to show up, there are better usually more efficient ways available (e.g. in Selenium, Cypress etc.).
-</td>
-</tr>
-</table>
+<p>The Retrofit Module provides the <a href="{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.html">CallHttpApis Ability</a>, which allows building Retrofit-based HTTP API clients.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_retryable_tasks">Retryable Tasks</h2>
+<h2 id="_declaring_the_api">Declaring the API</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <a href="{javadoc-url}/core/org/shakespeareframework/RetryableTask.html">RetryableTask</a> also has a set of acknowledged exceptions.
-By default, an Actor will ignore all Exceptions thrown in retries, but will immediately fail if it is an instance of an acknowledged Exception.</p>
+<p>In order to create a client, Retrofit requires an interface, which describes the API.
+For this, please follow the instructions in the <a href="https://square.github.io/retrofit/#api-declaration">Retrofit "API Declaration" documentation chapter</a>.</p>
 </div>
-<div class="paragraph">
-<p>E.g. you might expect a NotFoundException but not a AuthorizationFailedException.
-So you can just add the latter to the acknowledgedExceptions.</p>
+<div class="listingblock">
+<div class="title">API declaration example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">interface ActorsApi {
+
+    @GET("/actors")
+    Call&lt;List&lt;ActorInfo&gt;&gt; getActors();
+
+    @GET("/actors/{id}/name")
+    Call&lt;String&gt; getActorName(@Path("id") String id);
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_retryable_questions">Retryable Questions</h2>
+<h2 id="_building_the_client">Building the Client</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <a href="{javadoc-url}/core/org/shakespeareframework/RetryableQuestion.html">RetryableQuestion</a> has a set of ignored Exceptions and an acceptable method.
-While any Exception thrown that is not in the set of ignored exceptions will break the retrying loop, the acceptable method will be called for each yielded answer.
-Only if the acceptable method returns true, the retrying will stop and return the (accepted) answer.</p>
+<p>Once the API interface is declared, the client can be build.</p>
 </div>
-<div class="paragraph">
-<p>There is a default implementation of acceptable, which will a number of possible answers:</p>
+<div class="sect2">
+<h3 id="_for_scalar_bodies_strings_integers_floats">For Scalar Bodies (Strings, Integers, Floats)</h3>
+<div class="listingblock">
+<div class="title">Example for scalar bodies</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">record ActorName(String id) implements Question&lt;String&gt; {
+
+    @Override
+    public String answerAs(Actor actor) {
+        var actorsApiClient = actor.uses(CallHttpApis.class)
+                .buildClient()// <b class="conum">(1)</b>
+                .baseUrl(ACTORS_SERVICE_URL) // <b class="conum">(2)</b>
+                .addScalarsConverterFactory() // <b class="conum">(3)</b>
+                .build(ActorsApi.class); // <b class="conum">(4)</b>
+        try {
+            return actorsApiClient.getActorName(id).execute().body();
+        } catch (IOException e) {
+            throw new RuntimeException("%s failed".formatted(this), e);
+        }
+    }
+}</code></pre>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</div>
+<div class="colist arabic">
+<ol>
 <li>
-<p>Optionals that are present,</p>
+<p>The <code>getClient</code> method returns a <a href="{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html">CallHttpApis.Builder</a>],</p>
 </li>
 <li>
-<p>non-empty Collections, Maps or Arrays,</p>
+<p>configure the base URL of the service&#8212;&#8203;it will be put in front of the relative URLs in the API annotations,</p>
 </li>
 <li>
-<p>any Boolean answer, and</p>
+<p>add needed ConverterFactory to convert response/request bodies,</p>
 </li>
 <li>
-<p>anything that not null.</p>
+<p>build the client for the given API declaration.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_for_json_bodies">For JSON Bodies</h3>
+<div class="listingblock">
+<div class="title">Example for JSON bodies</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">record AllActors() implements Question&lt;List&lt;ActorInfo&gt;&gt; {
+
+    @Override
+    public List&lt;ActorInfo&gt; answerAs(Actor actor) {
+        var actorsApiClient = actor.uses(CallHttpApis.class)
+                .buildClient()
+                .baseUrl(ACTORS_SERVICE_URL)
+                .addJacksonConverterFactory() // <b class="conum">(1)</b>
+                .build(ActorsApi.class);
+        try {
+            return actorsApiClient.getActors().execute().body();
+        } catch (IOException e) {
+            throw new RuntimeException("%s failed".formatted(this), e);
+        }
+    }
+}
+
+record ActorInfo(String id, String name) {} // <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>By adding the JacksonConverterFactory, the client will be able to parse the JSON body</p>
+</li>
+<li>
+<p>into an instance of ActorInfo.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other_converters">Other Converters</h3>
 <div class="paragraph">
-<p>Checked in that order.</p>
+<p>Retrofit provides a <a href="https://square.github.io/retrofit/#restadapter-configuration">number of other converters</a>.</p>
 </div>
 <div class="paragraph">
-<p>This default implementation might suit your needs already, but you can always override it with your own logic.</p>
+<p>Shakespeare currently ships only with Jackson and Scalars, but you can add other ones.
+To do so, add the required dependency to your project, and use the generic <a href="{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html#addConverterFactory(retrofit2.Converter.Factory)">addConverterFactory method</a> to add it to your client.</p>
+</div>
 </div>
 </div>
 </div>

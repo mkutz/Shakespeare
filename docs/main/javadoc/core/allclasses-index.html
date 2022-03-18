@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":1,"i1":2,"i2":1,"i3":8,"i4":8,"i5":1,"i6":1,"i7":1,"i8":1,"i9":8,"i10":1,"i11":8};
+var data = {"i0":1,"i1":2,"i2":1,"i3":1,"i4":8,"i5":8,"i6":1,"i7":1,"i8":1,"i9":1,"i10":1,"i11":1,"i12":8,"i13":2,"i14":1,"i15":1,"i16":8};
 var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"],8:["t4","Exception Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -50,7 +50,8 @@ loadScripts(document, 'script');</script>
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="org/shakespeareframework/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="deprecated-list.html">Deprecated</a></li>
@@ -128,59 +129,88 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><a href="org/shakespeareframework/reporting/LoggingReporter.html" title="interface in org.shakespeareframework.reporting">LoggingReporter</a></td>
+<th class="colLast" scope="row">
+<div class="block">A <a href="org/shakespeareframework/reporting/Reporter.html" title="interface in org.shakespeareframework.reporting"><code>Reporter</code></a> using a given Logger.</div>
+</th>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><a href="org/shakespeareframework/MissingAbilityException.html" title="class in org.shakespeareframework">MissingAbilityException</a></td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/MissingAbilityException.html" title="class in org.shakespeareframework"><code>MissingAbilityException</code></a> is thrown in case an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> cannot <a href="org/shakespeareframework/Actor.html#uses(java.lang.Class)"><code>Actor.uses(java.lang.Class&lt;A&gt;)</code></a> a required
  <a href="org/shakespeareframework/Ability.html" title="interface in org.shakespeareframework"><code>Ability</code></a> <code>Class</code>.</div>
 </th>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><a href="org/shakespeareframework/MissingFactException.html" title="class in org.shakespeareframework">MissingFactException</a></td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/MissingFactException.html" title="class in org.shakespeareframework"><code>MissingFactException</code></a> is thrown in case an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> cannot <a href="org/shakespeareframework/Actor.html#remembers(java.lang.Class)"><code>Actor.remembers(java.lang.Class&lt;F&gt;)</code></a> a required
  <a href="org/shakespeareframework/Fact.html" title="interface in org.shakespeareframework"><code>Fact</code></a> <code>Class</code>.</div>
 </th>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework">Question</a>&lt;<a href="org/shakespeareframework/Question.html" title="type parameter in Question">A</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> can be <a href="org/shakespeareframework/Actor.html#checks(org.shakespeareframework.Question)"><code>checked</code></a> by an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a></div>
 </th>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
+<td class="colFirst"><a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting">QuestionReporter</a></td>
+<th class="colLast" scope="row">
+<div class="block">A <a href="org/shakespeareframework/reporting/QuestionReporter.html" title="interface in org.shakespeareframework.reporting"><code>QuestionReporter</code></a> to be <a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)"><code>informed</code></a> by <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>s about their actions.</div>
+</th>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><a href="org/shakespeareframework/reporting/Reporter.html" title="interface in org.shakespeareframework.reporting">Reporter</a></td>
+<th class="colLast" scope="row">
+<div class="block">A <a href="org/shakespeareframework/reporting/Reporter.html" title="interface in org.shakespeareframework.reporting"><code>Reporter</code></a> to be <a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)"><code>informed</code></a> by
+ <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>s about their actions.</div>
+</th>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><a href="org/shakespeareframework/Retryable.html" title="interface in org.shakespeareframework">Retryable</a></td>
 <th class="colLast" scope="row">
 <div class="block"><a href="org/shakespeareframework/Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> is something an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> may retry every <a href="org/shakespeareframework/Retryable.html#getInterval()"><code>interval</code></a> until it succeeds or
  the <a href="org/shakespeareframework/Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
 </th>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><a href="org/shakespeareframework/RetryableQuestion.html" title="interface in org.shakespeareframework">RetryableQuestion</a>&lt;<a href="org/shakespeareframework/RetryableQuestion.html" title="type parameter in RetryableQuestion">A</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> that will be retried until it yields an answer deemed <a href="org/shakespeareframework/RetryableQuestion.html#acceptable(A)"><code>RetryableQuestion.acceptable(A)</code></a> or the
  <a href="org/shakespeareframework/Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
 </th>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><a href="org/shakespeareframework/RetryableTask.html" title="interface in org.shakespeareframework">RetryableTask</a></td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> that will be retried until it succeeds or the <a href="org/shakespeareframework/Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
 </th>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><a href="org/shakespeareframework/RetryInterruptedException.html" title="class in org.shakespeareframework">RetryInterruptedException</a></td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/RetryInterruptedException.html" title="class in org.shakespeareframework"><code>RetryInterruptedException</code></a> is thrown when an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> get interrupted while retrying a
  <a href="org/shakespeareframework/Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a>.</div>
 </th>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i13" class="rowColor">
+<td class="colFirst"><a href="org/shakespeareframework/reporting/Slf4jReporter.html" title="class in org.shakespeareframework.reporting">Slf4jReporter</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework">Task</a></td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> can be <a href="org/shakespeareframework/Actor.html#does(org.shakespeareframework.Task)"><code>done</code></a> by an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>.</div>
 </th>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i15" class="rowColor">
+<td class="colFirst"><a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting">TaskReporter</a></td>
+<th class="colLast" scope="row">
+<div class="block">A <a href="org/shakespeareframework/reporting/TaskReporter.html" title="interface in org.shakespeareframework.reporting"><code>TaskReporter</code></a> to be <a href="org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...)"><code>informed</code></a> by <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>s about their actions.</div>
+</th>
+</tr>
+<tr id="i16" class="altColor">
 <td class="colFirst"><a href="org/shakespeareframework/TimeoutException.html" title="class in org.shakespeareframework">TimeoutException</a></td>
 <th class="colLast" scope="row">
 <div class="block">A <a href="org/shakespeareframework/TimeoutException.html" title="class in org.shakespeareframework"><code>TimeoutException</code></a> is thrown in case an <a href="org/shakespeareframework/Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> does not succeed on a <a href="org/shakespeareframework/Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> before its
@@ -203,7 +233,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="org/shakespeareframework/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="deprecated-list.html">Deprecated</a></li>
