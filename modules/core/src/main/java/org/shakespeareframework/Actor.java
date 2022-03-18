@@ -1,5 +1,7 @@
 package org.shakespeareframework;
 
+import org.shakespeareframework.reporting.Reporter;
+
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -36,6 +38,11 @@ public final class Actor {
     private final Map<Class<? extends Fact>, Fact> facts = new HashMap<>();
 
     /**
+     * A {@link List} of {@link Reporter}s the {@link Actor} informs in the lists order.
+     */
+    private final List<Reporter> reporters = new ArrayList<>();
+
+    /**
      * @param name a name used for logging and reporting
      */
     public Actor(String name) {
@@ -54,7 +61,14 @@ public final class Actor {
      * @return this {@link Actor}
      */
     public Actor does(Task task) {
-        task.performAs(this);
+        reporters.forEach(reporter -> reporter.start(this, task));
+        try {
+            task.performAs(this);
+        } catch (Exception e) {
+            reporters.forEach(reporter -> reporter.failure(this, task, e));
+            throw e;
+        }
+        reporters.forEach(reporter -> reporter.success(this, task));
         return this;
     }
 
@@ -64,6 +78,8 @@ public final class Actor {
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
     public Actor does(RetryableTask task) {
+        reporters.forEach(reporter -> reporter.start(this, task));
+
         final var timeout = task.getTimeout();
         final var intervalMillis = task.getInterval().toMillis();
         final var end = now().plus(timeout);
@@ -73,16 +89,21 @@ public final class Actor {
         while (true) {
             try {
                 task.performAs(this);
+                reporters.forEach(reporter -> reporter.success(this, task));
                 return this;
             } catch (Exception e) {
                 lastException = e;
                 if (task.getAcknowledgedExceptions().stream().anyMatch(acknowledge -> acknowledge.isInstance(e))) {
+                    reporters.forEach(reporter -> reporter.failure(this, task, e));
                     throw e;
                 }
+                reporters.forEach(reporter -> reporter.retry(this, task, e));
             }
 
             if (now().isAfter(end)) {
-                throw new TimeoutException(this, task, lastException);
+                final var timeoutException = new TimeoutException(this, task, lastException);
+                reporters.forEach(reporter -> reporter.failure(this, task, timeoutException));
+                throw timeoutException;
             }
 
             try {
@@ -100,7 +121,15 @@ public final class Actor {
      * @return the answer to the given Question
      */
     public <A> A checks(Question<A> question) {
-        return question.answerAs(this);
+        reporters.forEach(reporter -> reporter.start(this, question));
+        try {
+            final var answer = question.answerAs(this);
+            reporters.forEach(reporter -> reporter.success(this, question, answer));
+            return answer;
+        } catch (Exception e) {
+            reporters.forEach(reporter -> reporter.failure(this, question, e));
+            throw e;
+        }
     }
 
     /**
@@ -110,6 +139,8 @@ public final class Actor {
      * @throws TimeoutException if no acceptable answer is given when the question's timeout is reached
      */
     public <A> A checks(RetryableQuestion<A> question) {
+        reporters.forEach(reporter -> reporter.start(this, question));
+
         final var timeout = question.getTimeout();
         final var intervalMillis = question.getInterval().toMillis();
         final var end = now().plus(timeout);
@@ -119,21 +150,29 @@ public final class Actor {
 
         while (true) {
             try {
-                lastAnswer = question.answerAs(this);
+                final A answer = question.answerAs(this);
+
+                lastAnswer = answer;
                 lastException = null;
 
                 if (question.acceptable(lastAnswer)) {
-                    return lastAnswer;
+                    reporters.forEach(reporter -> reporter.success(this, question, answer));
+                    return answer;
                 }
+                reporters.forEach(reporter -> reporter.retry(this, question, answer));
             } catch (Exception e) {
                 lastException = e;
                 if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
+                    reporters.forEach(reporter -> reporter.failure(this, question, e));
                     throw e;
                 }
+                reporters.forEach(reporter -> reporter.retry(this, question, e));
             }
 
             if (now().isAfter(end)) {
-                throw new TimeoutException(this, question, lastException);
+                final var timeoutException = new TimeoutException(this, question, lastException);
+                reporters.forEach(reporter -> reporter.failure(this, question, timeoutException));
+                throw timeoutException;
             }
 
             try {
@@ -187,6 +226,15 @@ public final class Actor {
         return Optional.ofNullable(facts.get(factClass))
                 .map(factClass::cast)
                 .orElseThrow(() -> new MissingFactException(this, factClass));
+    }
+
+    /**
+     * @param reporters {@link Reporter}s that should be informed in the order they should be informed
+     * @return this {@link Actor}
+     */
+    public Actor informs(Reporter... reporters) {
+        Collections.addAll(this.reporters, reporters);
+        return this;
     }
 
     /**

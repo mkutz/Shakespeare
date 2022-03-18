@@ -29,7 +29,7 @@ class RetryableQuestionTest {
     }
 
     static Object[] acceptableAnswers() {
-        final var something = new Object();
+        var something = new Object();
         return new Object[]{
                 Optional.of(something),
                 List.of(something),

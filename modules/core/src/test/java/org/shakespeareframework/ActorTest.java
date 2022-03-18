@@ -15,8 +15,8 @@ class ActorTest {
     @Test
     @DisplayName("does calls the task's performAs")
     void doesTest1() {
-        final var called = new AtomicBoolean(false);
-        final Task task = (actor) -> called.set(true);
+        var called = new AtomicBoolean(false);
+        var task = new TestTaskBuilder().perform(actor -> called.set(true));
 
         actor.does(task);
 
@@ -26,12 +26,12 @@ class ActorTest {
     @Test
     @DisplayName("answers calls the question's answerAs")
     void answersTest1() {
-        final var called = new AtomicBoolean(false);
-        final var answer = "Answer";
-        final Question<String> question = (actor) -> {
+        var called = new AtomicBoolean(false);
+        var answer = "Answer";
+        var question = new TestQuestionBuilder<String>().answer(actor -> {
             called.set(true);
             return answer;
-        };
+        });
 
         assertThat(actor.checks(question)).isEqualTo(answer);
 
@@ -41,8 +41,8 @@ class ActorTest {
     @Test
     @DisplayName("can allows the actor to use the ability")
     void canTest1() {
-        final class TestAbility implements Ability {}
-        final var ability = new TestAbility();
+        class TestAbility implements Ability {}
+        var ability = new TestAbility();
 
         assertThat(actor.can(ability).uses(TestAbility.class))
                 .isEqualTo(ability);
@@ -51,7 +51,7 @@ class ActorTest {
     @Test
     @DisplayName("uses throws a MissingAbilityException")
     void usesTest1() {
-        final class TestAbility implements Ability {}
+        class TestAbility implements Ability {}
 
         assertThatExceptionOfType(MissingAbilityException.class)
                 .isThrownBy(() -> actor.uses(TestAbility.class));
@@ -60,8 +60,8 @@ class ActorTest {
     @Test
     @DisplayName("learns makes the actor remember a fact")
     void learnsTest1() {
-        final class TestFact implements Fact {}
-        final var fact = new TestFact();
+        class TestFact implements Fact {}
+        var fact = new TestFact();
 
         actor.learns(fact);
 
@@ -72,7 +72,7 @@ class ActorTest {
     @Test
     @DisplayName("remembers throws a MissingFactException")
     void remembersTest1() {
-        final class TestFact implements Fact {}
+        class TestFact implements Fact {}
 
         assertThatExceptionOfType(MissingFactException.class)
                 .isThrownBy(() -> actor.remembers(TestFact.class));
@@ -81,8 +81,8 @@ class ActorTest {
     @Test
     @DisplayName("equals and hashCode work as expected")
     void equalsTest1() {
-        final var equalActor = new Actor(actor.getName());
-        final var unequalActor = new Actor("Jane");
+        var equalActor = new Actor(actor.getName());
+        var unequalActor = new Actor("Jane");
 
         assertThat(equalActor.equals(actor))
                 .isTrue();
