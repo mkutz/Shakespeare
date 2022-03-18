@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'info.solidsoft.pitest'
+    id 'com.diffplug.spotless'
 }
 
 repositories {
@@ -71,4 +72,11 @@ pitest {
     junit5PluginVersion = '0.15'
     outputFormats = ['XML', 'HTML']
     timestampedReports = false
+}
+
+spotless {
+    java {
+        removeUnusedImports()
+        googleJavaFormat()
+    }
 }
