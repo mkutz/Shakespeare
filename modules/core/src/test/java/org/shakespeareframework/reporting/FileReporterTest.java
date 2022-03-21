@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.shakespeareframework.*;
+import org.shakespeareframework.testing.TestQuestionBuilder;
+import org.shakespeareframework.testing.TestTaskBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class FileReporterTest {
 
-    public static final Path reportsPath = Path.of("build", "reports", "shakespeare");
+    Path reportsPath = Path.of("build", "reports", "shakespeare");
 
     @BeforeEach
     @AfterEach
@@ -40,9 +42,9 @@ class FileReporterTest {
     @DisplayName("write task file reports")
     void test2() {
         var testFileReporter = new TestFileReporter(reportsPath);
-        var task = new RetryableTestTaskBuilder()
+        var task = new TestTaskBuilder()
                 .string("some task")
-                .perform(actor -> {});
+                .buildRetryable();
         var fiona = new Actor("Fiona");
 
         testFileReporter.start(fiona, task);
@@ -62,9 +64,10 @@ class FileReporterTest {
     @DisplayName("write question file reports")
     void test3() {
         var testFileReporter = new TestFileReporter(reportsPath);
-        var question = new RetryableTestQuestionBuilder<String>()
+        var question = new TestQuestionBuilder<String>()
                 .string("some question")
-                .answer(actor -> "answer");
+                .answer(actor -> "answer")
+                .buildRetryable();
         var fiona = new Actor("Fiona");
 
         testFileReporter.start(fiona, question);
