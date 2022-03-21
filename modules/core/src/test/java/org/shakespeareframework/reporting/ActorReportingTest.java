@@ -3,6 +3,8 @@ package org.shakespeareframework.reporting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.shakespeareframework.*;
+import org.shakespeareframework.testing.TestQuestionBuilder;
+import org.shakespeareframework.testing.TestTaskBuilder;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,8 +51,9 @@ class ActorReportingTest {
     void doesTest3() {
         var called = new AtomicInteger(0);
         var cause = new RuntimeException("Failed!");
-        var retryableTask = new RetryableTestTaskBuilder()
-                .perform(actor -> { if (called.incrementAndGet() < 2) throw cause; });
+        var retryableTask = new TestTaskBuilder()
+                .perform(actor -> { if (called.incrementAndGet() < 2) throw cause; })
+                .buildRetryable();
 
         actor.does(retryableTask);
 
@@ -65,8 +68,9 @@ class ActorReportingTest {
     @DisplayName("does is reported on retry timeout")
     void doesTest4() {
         var cause = new RuntimeException("Failed!");
-        var timeoutRetryableTask = new RetryableTestTaskBuilder()
-                .perform(actor -> { throw cause; });
+        var timeoutRetryableTask = new TestTaskBuilder()
+                .perform(actor -> { throw cause; })
+                .buildRetryable();
 
         assertThatThrownBy(() -> actor.does(timeoutRetryableTask))
                 .isInstanceOf(TimeoutException.class)
@@ -86,9 +90,10 @@ class ActorReportingTest {
     @DisplayName("does is reported on retry failure")
     void doesTest5() {
         var cause = new RuntimeException("Failed!");
-        var failingRetryableTask = new RetryableTestTaskBuilder()
-                .acknowledgedExceptions(Set.of(cause.getClass()))
-                .perform(actor -> { throw cause; });
+        var failingRetryableTask = new TestTaskBuilder()
+                .acknowledgedExceptions(cause.getClass())
+                .perform(actor -> { throw cause; })
+                .buildRetryable();
 
         assertThatThrownBy(() -> actor.does(failingRetryableTask)).isEqualTo(cause);
 
@@ -135,12 +140,13 @@ class ActorReportingTest {
     void checksTest3() {
         var called = new AtomicInteger(0);
         var answer = "answer";
-        var retryableQuestion = new RetryableTestQuestionBuilder<String>()
+        var retryableQuestion = new TestQuestionBuilder<String>()
                 .acceptable(string -> string.equals(answer))
                 .answer(actor -> {
                     if (called.incrementAndGet() < 2) return "unacceptable";
                     return answer;
-                });
+                })
+                .buildRetryable();
 
         actor.checks(retryableQuestion);
 
@@ -154,9 +160,10 @@ class ActorReportingTest {
     @Test
     @DisplayName("checks is reported on retry timeout due to answer")
     void checksTest4() {
-        var timeoutRetryableQuestion = new RetryableTestQuestionBuilder<String>()
+        var timeoutRetryableQuestion = new TestQuestionBuilder<String>()
                 .acceptable(answer -> false)
-                .answer(actor -> "unacceptable");
+                .answer(actor -> "unacceptable")
+                .buildRetryable();
 
         assertThatThrownBy(() -> actor.checks(timeoutRetryableQuestion))
                 .isInstanceOf(TimeoutException.class);
@@ -174,9 +181,10 @@ class ActorReportingTest {
     @DisplayName("checks is reported on retry timeout due to exception")
     void checksTest5() {
         var cause = new RuntimeException("Failed!");
-        var failingRetryableQuestion = new RetryableTestQuestionBuilder<String>()
-                .ignoredExceptions(Set.of(cause.getClass()))
-                .answer(actor -> { throw cause; });
+        var failingRetryableQuestion = new TestQuestionBuilder<String>()
+                .ignoredExceptions(cause.getClass())
+                .answer(actor -> { throw cause; })
+                .buildRetryable();
 
         assertThatThrownBy(() -> actor.checks(failingRetryableQuestion))
                 .isInstanceOf(TimeoutException.class)
@@ -196,8 +204,9 @@ class ActorReportingTest {
     @DisplayName("checks is reported on retry failure")
     void doesTest6() {
         var cause = new RuntimeException("Failed!");
-        var failingRetryableQuestion = new RetryableTestQuestionBuilder<String>()
-                .answer(actor -> { throw cause; });
+        var failingRetryableQuestion = new TestQuestionBuilder<String>()
+                .answer(actor -> { throw cause; })
+                .buildRetryable();
 
         assertThatThrownBy(() -> actor.checks(failingRetryableQuestion)).isEqualTo(cause);
 

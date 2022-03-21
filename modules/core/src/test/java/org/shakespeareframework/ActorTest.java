@@ -2,6 +2,8 @@ package org.shakespeareframework;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.shakespeareframework.testing.TestQuestionBuilder;
+import org.shakespeareframework.testing.TestTaskBuilder;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -16,7 +18,9 @@ class ActorTest {
     @DisplayName("does calls the task's performAs")
     void doesTest1() {
         var called = new AtomicBoolean(false);
-        var task = new TestTaskBuilder().perform(actor -> called.set(true));
+        var task = new TestTaskBuilder()
+                .perform(actor -> called.set(true))
+                .build();
 
         actor.does(task);
 
@@ -28,10 +32,12 @@ class ActorTest {
     void answersTest1() {
         var called = new AtomicBoolean(false);
         var answer = "Answer";
-        var question = new TestQuestionBuilder<String>().answer(actor -> {
-            called.set(true);
-            return answer;
-        });
+        var question = new TestQuestionBuilder<String>()
+                .answer(actor -> {
+                    called.set(true);
+                    return answer;
+                })
+                .build();
 
         assertThat(actor.checks(question)).isEqualTo(answer);
 

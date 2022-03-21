@@ -2,6 +2,7 @@ package org.shakespeareframework;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.shakespeareframework.testing.TestTaskBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +14,7 @@ class RetryInterruptedExceptionTest {
         var cause = new InterruptedException("Something went wrong");
         var retryInterruptedException = new RetryInterruptedException(
                 new Actor("Erika"),
-                new RetryableTestTaskBuilder().string("some task").perform(actor -> {}),
+                new TestTaskBuilder().string("some task").buildRetryable(),
                 cause);
 
         assertThat(retryInterruptedException)

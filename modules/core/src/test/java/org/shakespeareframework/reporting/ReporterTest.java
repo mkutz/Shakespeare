@@ -3,6 +3,8 @@ package org.shakespeareframework.reporting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.shakespeareframework.*;
+import org.shakespeareframework.testing.TestQuestionBuilder;
+import org.shakespeareframework.testing.TestTaskBuilder;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
@@ -13,8 +15,8 @@ class ReporterTest {
     void test1() {
         var defaultReporter = new TaskReporter() {};
         var rachel = new Actor("Rachel");
-        var task = new TestTaskBuilder().perform(actor -> {});
-        var retryableTask = new RetryableTestTaskBuilder().perform(actor -> {});
+        var task = new TestTaskBuilder().build();
+        var retryableTask = new TestTaskBuilder().buildRetryable();
 
         assertThatCode(() -> {
                     defaultReporter.start(rachel, task);
@@ -30,8 +32,12 @@ class ReporterTest {
     void test2() {
         var defaultReporter = new QuestionReporter() {};
         var rachel = new Actor("Rachel");
-        var question = new TestQuestionBuilder<String>().answer(actor -> "answer");
-        var retryableQuestion = new RetryableTestQuestionBuilder<String>().answer(actor -> "answer");
+        var question = new TestQuestionBuilder<String>()
+                .answer(actor -> "answer")
+                .build();
+        var retryableQuestion = new TestQuestionBuilder<String>()
+                .answer(actor -> "answer")
+                .buildRetryable();
 
         assertThatCode(() -> {
                     defaultReporter.start(rachel, question);

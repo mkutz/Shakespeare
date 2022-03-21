@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.shakespeareframework.*;
+import org.shakespeareframework.testing.TestQuestionBuilder;
+import org.shakespeareframework.testing.TestTaskBuilder;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +21,7 @@ class Slf4jReporterTest {
         var reporter = new Slf4jReporter();
         var task = new TestTaskBuilder()
                 .string("some task")
-                .perform(actor -> {});
+                .build();
         reporter.start(new Actor("Logan"), task);
 
         assertThat(output.getOut()).isEmpty();
@@ -32,7 +34,7 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var task = new TestTaskBuilder()
                 .string("some task")
-                .perform(actor -> {});
+                .build();
 
         reporter.start(logan, task);
         reporter.success(logan, task);
@@ -49,7 +51,7 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var task = new TestTaskBuilder()
                 .string("some task")
-                .perform(actor -> {});
+                .build();
 
         reporter.start(logan, task);
         reporter.failure(logan, task, new RuntimeException("Fail"));
@@ -64,9 +66,9 @@ class Slf4jReporterTest {
     void test4() {
         var reporter = new Slf4jReporter();
         var logan = new Actor("Logan");
-        var retryableTask = new RetryableTestTaskBuilder()
+        var retryableTask = new TestTaskBuilder()
                 .string("some retryable task")
-                .perform(actor -> {});
+                .buildRetryable();
 
         reporter.start(logan, retryableTask);
         reporter.retry(logan, retryableTask, new RuntimeException("Retry failed"));
@@ -82,8 +84,8 @@ class Slf4jReporterTest {
     void test5() {
         var reporter = new Slf4jReporter();
         var question = new TestQuestionBuilder<String>()
-                .string("some question")
-                .answer(actor -> "answer");
+                .answer(actor -> "answer")
+                .build();
         reporter.start(new Actor("Logan"), question);
 
         assertThat(output.getOut()).isEmpty();
@@ -96,7 +98,8 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var question = new TestQuestionBuilder<String>()
                 .string("some question")
-                .answer(actor -> "answer");
+                .answer(actor -> "answer")
+                .build();
 
         reporter.start(logan, question);
         reporter.success(logan, question, "answer");
@@ -113,7 +116,8 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var question = new TestQuestionBuilder<String>()
                 .string("some question")
-                .answer(actor -> "answer");
+                .answer(actor -> "answer")
+                .build();
 
         reporter.start(logan, question);
         reporter.failure(logan, question, new RuntimeException("Fail"));
@@ -128,9 +132,10 @@ class Slf4jReporterTest {
     void test8() {
         var reporter = new Slf4jReporter();
         var logan = new Actor("Logan");
-        var retryableQuestion = new RetryableTestQuestionBuilder<String>()
+        var retryableQuestion = new TestQuestionBuilder<String>()
                 .string("some retryable question")
-                .answer(actor -> "answer");
+                .answer(actor -> "answer")
+                .buildRetryable();
 
         reporter.start(logan, retryableQuestion);
         reporter.retry(logan, retryableQuestion, new RuntimeException("Intermediate failure!"));
@@ -149,10 +154,10 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var rootTask = new TestTaskBuilder()
                 .string("some root task")
-                .perform(actor -> {});
+                .build();
         var subQuestion = new TestQuestionBuilder<String>()
                 .string("some sub question")
-                .answer(actor -> "answer");
+                .build();
 
         reporter.start(logan, rootTask);
         reporter.start(logan, subQuestion);
@@ -173,10 +178,11 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var rootQuestion = new TestQuestionBuilder<String>()
                 .string("some root question")
-                .answer(actor -> "answer");
+                .answer(actor -> "answer")
+                .build();
         var subTask = new TestTaskBuilder()
                 .string("some sub task")
-                .perform(actor -> {});
+                .build();
 
         reporter.start(logan, rootQuestion);
         reporter.start(logan, subTask);
