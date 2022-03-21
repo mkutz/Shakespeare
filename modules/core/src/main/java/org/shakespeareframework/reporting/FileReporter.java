@@ -26,15 +26,14 @@ public abstract class FileReporter implements Reporter {
      * automatically created if necessary.
      *
      * @param actor             the acting {@link Actor}
-     * @param what              a short description what the report is about (e.g. a "failure", "success", "start", "retry")
+     * @param reportType        the {@link ReportType}
      * @param activity          the {@link org.shakespeareframework.Task} or {@link org.shakespeareframework.Question}
      *                          this report is about.
      * @param fileNameExtension The file name extension for the report file
      * @param content           the content to write
-     * @return the {@link Path} of the new report file
      * @throws RuntimeException if creating the {@link #reportsDirectory} or writing the file fails
      */
-    protected Path writeReport(Actor actor, String what, Object activity, String fileNameExtension, byte[] content) {
+    protected void writeReport(Actor actor, ReportType reportType, Object activity, String fileNameExtension,byte[] content) {
         try {
             createDirectories(reportsDirectory);
         } catch (IOException e) {
@@ -43,13 +42,22 @@ public abstract class FileReporter implements Reporter {
         final var reportPath = reportsDirectory.resolve(format("%03d-%s-%s-%s.%s",
                 ++counter,
                 actor.getName().toLowerCase(Locale.ROOT),
-                what.replaceAll("[^\\w]+", "_"),
+                reportType,
                 activity.toString().replaceAll("[^\\w]+", "_"),
                 fileNameExtension));
         try {
-            return write(reportPath, content, CREATE, TRUNCATE_EXISTING);
+            write(reportPath, content, CREATE, TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(format("Failed create report file %s", reportPath), e);
+        }
+    }
+
+    public enum ReportType {
+        START, RETRY, SUCCESS, FAILURE;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase(Locale.ROOT);
         }
     }
 }
