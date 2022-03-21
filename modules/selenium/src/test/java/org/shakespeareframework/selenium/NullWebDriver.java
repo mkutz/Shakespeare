@@ -1,13 +1,12 @@
 package org.shakespeareframework.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 
-class NullWebDriver implements WebDriver {
+class NullWebDriver implements WebDriver, TakesScreenshot {
 
     private boolean closed = false;
     private boolean quit = false;
@@ -82,5 +81,10 @@ class NullWebDriver implements WebDriver {
     @Override
     public Options manage() {
         return null;
+    }
+
+    @Override
+    public <X> X getScreenshotAs(OutputType<X> target) throws WebDriverException {
+        return target.convertFromPngBytes("png".getBytes(StandardCharsets.UTF_8));
     }
 }
