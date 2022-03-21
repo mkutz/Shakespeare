@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.shakespeareframework.reporting.FileReporter.ReportType.*;
 
 class FileReporterTest {
 
@@ -95,52 +96,52 @@ class FileReporterTest {
 
         @Override
         public void start(Actor actor, Task task) {
-            writeReport(actor, "start", task, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, START, task, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public void retry(Actor actor, RetryableTask task, Exception cause) {
-            writeReport(actor, "retry", task, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, RETRY, task, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public void success(Actor actor, Task task) {
-            writeReport(actor, "success", task, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, SUCCESS, task, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public void failure(Actor actor, Task task, Exception cause) {
-            writeReport(actor, "failure", task, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, FAILURE, task, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public void start(Actor actor, Question<?> question) {
-            writeReport(actor, "start", question, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, START, question, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public void retry(Actor actor, RetryableQuestion<?> question, Exception cause) {
-            writeReport(actor, "retry", question, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, RETRY, question, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public <A> void retry(Actor actor, RetryableQuestion<A> question, A answer) {
-            writeReport(actor, "retry", question, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, RETRY, question, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public <A> void success(Actor actor, Question<A> question, A answer) {
-            writeReport(actor, "success", question, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, SUCCESS, question, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public void failure(Actor actor, Question<?> question, Exception cause) {
-            writeReport(actor, "failure", question, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, FAILURE, question, "txt", "some test content".getBytes(UTF_8));
         }
 
         @Override
         public <A> void failure(Actor actor, Question<A> question, A answer) {
-            writeReport(actor, "failure", question, "txt", "some test content".getBytes(UTF_8));
+            writeReport(actor, FAILURE, question, "txt", "some test content".getBytes(UTF_8));
         }
     }
 }
