@@ -33,10 +33,8 @@ class ReporterTest {
         var defaultReporter = new QuestionReporter() {};
         var rachel = new Actor("Rachel");
         var question = new TestQuestionBuilder<String>()
-                .answer(actor -> "answer")
                 .build();
         var retryableQuestion = new TestQuestionBuilder<String>()
-                .answer(actor -> "answer")
                 .buildRetryable();
 
         assertThatCode(() -> {
