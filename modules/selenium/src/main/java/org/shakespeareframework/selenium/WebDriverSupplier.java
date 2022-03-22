@@ -40,8 +40,10 @@ public abstract class WebDriverSupplier implements Supplier<WebDriver>, AutoClos
     }
 
     /**
-     * @return {@link Capabilities} for the {@link WebDriver}, merged from the
+     * Returns the {@link Capabilities} for the {@link WebDriver}, merged from the
      * {@link BrowserType#getBaseCapabilities BrowserType's baseCapabilities} and additional capabilities.
+     *
+     * @return the {@link Capabilities} that will be used for the supplied {@link WebDriver}
      */
     public Capabilities getCapabilities() {
         return capabilities;

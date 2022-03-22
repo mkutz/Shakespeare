@@ -59,7 +59,7 @@ public class TestTaskBuilder {
     }
 
     /**
-     * Sets the {@link Task#toString()}.
+     * Sets the string returned by the {@link Task}'s {@link Object#toString() toString method}.
      *
      * @param string the desired string.
      * @return this {@link TestTaskBuilder}
@@ -81,6 +81,8 @@ public class TestTaskBuilder {
     }
 
     /**
+     * Creates an anonymous {@link Task} according to the current settings.
+     *
      * @return a {@link Task} according to the current settings
      */
     public Task build() {
@@ -98,7 +100,9 @@ public class TestTaskBuilder {
     }
 
     /**
-     * @return a {@link RetryableTask} according to the current settings
+     * Creates an anonymous {@link RetryableTask} according to the current settings.
+     *
+     * @return the built {@link RetryableTask}
      */
     public RetryableTask buildRetryable() {
         return new RetryableTask() {

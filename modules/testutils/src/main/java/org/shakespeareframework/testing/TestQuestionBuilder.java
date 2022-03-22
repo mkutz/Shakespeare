@@ -74,7 +74,7 @@ public class TestQuestionBuilder<A> {
     }
 
     /**
-     * Sets the {@link Question#toString()}.
+     * Sets the string returned by the {@link Question}'s {@link Object#toString() toString method}.
      *
      * @param string the desired string.
      * @return this {@link TestQuestionBuilder}
@@ -96,7 +96,9 @@ public class TestQuestionBuilder<A> {
     }
 
     /**
-     * @return a {@link Question} according to the current settings
+     * Builds an anonymous {@link Question} according to the current settings.
+     *
+     * @return the built {@link Question}
      */
     public Question<A> build() {
         return new Question<>() {
@@ -114,7 +116,9 @@ public class TestQuestionBuilder<A> {
     }
 
     /**
-     * @return a {@link RetryableQuestion} according to the current settings
+     * Builds an anonymous {@link RetryableQuestion} according to the current settings.
+     *
+     * @return the build {@link RetryableQuestion}
      */
     public RetryableQuestion<A> buildRetryable() {
         return new RetryableQuestion<>() {
