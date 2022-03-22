@@ -8,7 +8,7 @@ import java.io.IOException;
 public class WriteReportFileException extends RuntimeException {
 
     /**
-     * @param message the {@link super#getMessage() message}
+     * @param message the message
      * @param cause   the causing {@link IOException}
      */
     public WriteReportFileException(String message, IOException cause) {
