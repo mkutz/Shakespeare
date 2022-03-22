@@ -1334,7 +1334,7 @@ Side effects are not easy to keep track of,
 <h2 id="_reporting"><a class="anchor" href="#_reporting"></a><a class="link" href="#_reporting">Reporting</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="../javadoc/core/org/shakespeareframework/Actor.html">Actor</a>s can report actions and their outcome via <a href="../javadoc/core/org/shakespeareframework/reporting/Reporter.html">Reporter</a>s that can be added using the link:../javadoccore/org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter&#8230;&#8203;))[<code>informs(Reporter&#8230;&#8203;)</code> method.</p>
+<p><a href="../javadoc/core/org/shakespeareframework/Actor.html">Actor</a>s can report actions and their outcome via <a href="../javadoc/core/org/shakespeareframework/reporting/Reporter.html">Reporter</a>s that can be added using the link:../javadoc/core/org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter&#8230;&#8203;))[<code>informs(Reporter&#8230;&#8203;)</code> method.</p>
 </div>
 <div class="paragraph">
 <p>Actors call each of their Reporters in the declared order for the following events:</p>
@@ -1487,6 +1487,54 @@ var alex = <span class="keyword">new</span> Actor(<span class="string"><span cla
                 BrowserType.FIREFOX,
                 <span class="keyword">new</span> FirefoxOptions().setHeadless(<span class="predefined-constant">true</span>)))
         );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selenium_reporting"><a class="anchor" href="#_selenium_reporting"></a><a class="link" href="#_selenium_reporting">Selenium Reporting</a></h4>
+<div class="sect4">
+<h5 id="_screenshot_reporting"><a class="anchor" href="#_screenshot_reporting"></a><a class="link" href="#_screenshot_reporting">Screenshot Reporting</a></h5>
+<div class="paragraph">
+<p>An actor can be instructed to inform <a href="../javadoc/selenium/org/shakespeareframework/selenium/ScreenshotReporter.html">ScreenshotReporter</a> (see <a href="#_reporting">Reporting</a>).
+By default, this will create a screenshot of the current page whenever doing a Task or answering a Question needs to be retried or fails, but it can also be configured to report successes.</p>
+</div>
+<div class="paragraph">
+<p>The screenshots can then be found at the configured reports path and are named <code>&lt;counter&gt;-&lt;actor&gt;-&lt;retry|failure|success&gt;-&lt;task|question string&gt;.png</code>, where the <code>&lt;task|question string&gt;</code> is a file system friendly version of the Task&#8217;s or Question&#8217;s <code>toString()</code>.
+E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Using a ScreenshotReporter</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">var reportsPath = Path.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">shakespeare</span><span class="delimiter">&quot;</span></span>);
+var imogen = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Imogen</span><span class="delimiter">&quot;</span></span>)
+    .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
+    .informs(<span class="keyword">new</span> ScreenshotReporter(reportsPath, <span class="predefined-constant">true</span>));
+
+imogen.checks(<span class="keyword">new</span> LatestShakespeareReleaseVersion());
+
+assertThat(reportsPath.resolve(<span class="string"><span class="delimiter">&quot;</span><span class="content">001-imogen-success-latest_shakespeare_release_version.png</span><span class="delimiter">&quot;</span></span>))
+    .isNotEmptyFile();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_html_snapshot_reports"><a class="anchor" href="#_html_snapshot_reports"></a><a class="link" href="#_html_snapshot_reports">HTML Snapshot Reports</a></h5>
+<div class="paragraph">
+<p>Similar to the <a href="#_screenshot_reporting">Screenshot Reporting</a> there&#8217;s also a <a href="../javadoc/selenium/org/shakespeareframework/selenium/HtmlSnapshotReporter.html">HtmlSnapshotReporter</a>, which captures the current page&#8217;s HTML snapshot.</p>
+</div>
+<div class="listingblock">
+<div class="title">Using a HtmlSnapshotReporter</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">var reportsPath = Path.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">shakespeare</span><span class="delimiter">&quot;</span></span>);
+var tim = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tim</span><span class="delimiter">&quot;</span></span>)
+        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .informs(<span class="keyword">new</span> HtmlSnapshotReporter(reportsPath, <span class="predefined-constant">true</span>));
+
+tim.checks(<span class="keyword">new</span> LatestShakespeareReleaseVersion());
+
+assertThat(reportsPath.resolve(<span class="string"><span class="delimiter">&quot;</span><span class="content">001-tim-success-latest_shakespeare_release_version.html</span><span class="delimiter">&quot;</span></span>))
+        .isNotEmptyFile();</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1772,7 +1820,7 @@ Translations are available at
 <div id="footer">
 <div id="footer-text">
 Version 0.4-SNAPSHOT<br>
-Last updated 2022-03-18 10:53:25 UTC
+Last updated 2022-03-22 17:14:01 UTC
 </div>
 </div>
 <style>

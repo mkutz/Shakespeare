@@ -530,11 +530,61 @@ var alex = new Actor("Alex")
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_selenium_reporting">Selenium Reporting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_screenshot_reporting">Screenshot Reporting</h3>
+<div class="paragraph">
+<p>An actor can be instructed to inform <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/ScreenshotReporter.html">ScreenshotReporter</a> (see <a href="#Reporting">[Reporting]</a>).
+By default, this will create a screenshot of the current page whenever doing a Task or answering a Question needs to be retried or fails, but it can also be configured to report successes.</p>
+</div>
+<div class="paragraph">
+<p>The screenshots can then be found at the configured reports path and are named <code>&lt;counter&gt;-&lt;actor&gt;-&lt;retry|failure|success&gt;-&lt;task|question string&gt;.png</code>, where the <code>&lt;task|question string&gt;</code> is a file system friendly version of the Task&#8217;s or Question&#8217;s <code>toString()</code>.
+E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Using a ScreenshotReporter</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
+var imogen = new Actor("Imogen")
+    .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+    .informs(new ScreenshotReporter(reportsPath, true));
+
+imogen.checks(new LatestShakespeareReleaseVersion());
+
+assertThat(reportsPath.resolve("001-imogen-success-latest_shakespeare_release_version.png"))
+    .isNotEmptyFile();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_html_snapshot_reports">HTML Snapshot Reports</h3>
+<div class="paragraph">
+<p>Similar to the <a href="#_screenshot_reporting">Screenshot Reporting</a> there&#8217;s also a <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/HtmlSnapshotReporter.html">HtmlSnapshotReporter</a>, which captures the current page&#8217;s HTML snapshot.</p>
+</div>
+<div class="listingblock">
+<div class="title">Using a HtmlSnapshotReporter</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
+var tim = new Actor("Tim")
+        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .informs(new HtmlSnapshotReporter(reportsPath, true));
+
+tim.checks(new LatestShakespeareReleaseVersion());
+
+assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_version.html"))
+        .isNotEmptyFile();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.4-SNAPSHOT<br>
-Last updated 2022-03-18 10:53:25 UTC
+Last updated 2022-03-22 17:14:01 UTC
 </div>
 </div>
 </body>

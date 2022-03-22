@@ -201,7 +201,10 @@ implements java.util.function.Supplier&lt;org.openqa.selenium.WebDriver&gt;, jav
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>org.openqa.selenium.Capabilities</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCapabilities()">getCapabilities</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the <code>Capabilities</code> for the <code>WebDriver</code>, merged from the
+ <a href="BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a> and additional capabilities.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
@@ -296,10 +299,11 @@ implements java.util.function.Supplier&lt;org.openqa.selenium.WebDriver&gt;, jav
 <li class="blockList">
 <h4>getCapabilities</h4>
 <pre class="methodSignature">public&nbsp;org.openqa.selenium.Capabilities&nbsp;getCapabilities()</pre>
+<div class="block">Returns the <code>Capabilities</code> for the <code>WebDriver</code>, merged from the
+ <a href="BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a> and additional capabilities.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd><code>Capabilities</code> for the <code>WebDriver</code>, merged from the
- <a href="BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a> and additional capabilities.</dd>
+<dd>the <code>Capabilities</code> that will be used for the supplied <code>WebDriver</code></dd>
 </dl>
 </li>
 </ul>
