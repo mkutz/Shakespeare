@@ -94,6 +94,24 @@ class SeleniumDocTest {
         // end::screenshot-reporter[]
     }
 
+
+    @Test
+    void act6() throws IOException, InterruptedException {
+        assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
+
+        // tag::html-snapshot-reporter[]
+        var reportsPath = Path.of("build", "reports", "shakespeare");
+        var tim = new Actor("Tim")
+                .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+                .informs(new HtmlSnapshotReporter(reportsPath, true));
+
+        tim.checks(new LatestShakespeareReleaseVersion());
+
+        assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_version.html"))
+                .isNotEmptyFile();
+        // end::html-snapshot-reporter[]
+    }
+
     // tag::example-question[]
     record LatestShakespeareReleaseVersion() implements Question<String> {
 
