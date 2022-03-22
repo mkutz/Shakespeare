@@ -1,6 +1,6 @@
 = Reporting
 
-link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor]s can report actions and their outcome via link:{javadoc-url}/core/org/shakespeareframework/reporting/Reporter.html[Reporter]s that can be added using the link:{javadoc-url}core/org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...))[`informs(Reporter...)` method.
+link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor]s can report actions and their outcome via link:{javadoc-url}/core/org/shakespeareframework/reporting/Reporter.html[Reporter]s that can be added using the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#informs(org.shakespeareframework.reporting.Reporter...))[`informs(Reporter...)` method.
 
 Actors call each of their Reporters in the declared order for the following events:
 
