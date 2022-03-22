@@ -3,12 +3,7 @@ plugins {
     id 'jacoco'
     id 'maven-publish'
     id 'signing'
-    id 'info.solidsoft.pitest'
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
+    id 'shakespeare.style'
 }
 
 java {
@@ -16,16 +11,6 @@ java {
     withSourcesJar()
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
-    }
-}
-
-test {
-    useJUnitPlatform()
-}
-
-jacocoTestReport {
-    reports {
-        xml.required = true
     }
 }
 
@@ -65,10 +50,4 @@ artifacts {
 signing {
     useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
     sign publishing.publications.mavenJava
-}
-
-pitest {
-    junit5PluginVersion = '0.15'
-    outputFormats = ['XML', 'HTML']
-    timestampedReports = false
 }
