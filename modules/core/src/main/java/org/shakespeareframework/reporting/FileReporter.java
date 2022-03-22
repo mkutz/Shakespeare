@@ -45,7 +45,7 @@ public abstract class FileReporter implements Reporter {
         try {
             createDirectories(reportsPath);
         } catch (IOException e) {
-            throw new RuntimeException(format("Failed create reports directory %s", reportsPath), e);
+            throw new WriteReportFileException(format("Failed create reports directory %s", reportsPath), e);
         }
         final var reportPath = reportsPath.resolve(format("%03d-%s-%s-%s.%s",
                 ++counter,
@@ -56,7 +56,7 @@ public abstract class FileReporter implements Reporter {
         try {
             write(reportPath, content, CREATE, TRUNCATE_EXISTING);
         } catch (IOException e) {
-            throw new RuntimeException(format("Failed create report file %s", reportPath), e);
+            throw new WriteReportFileException(format("Failed create report file %s", reportPath), e);
         }
     }
 
