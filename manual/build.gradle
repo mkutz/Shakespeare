@@ -1,51 +1,59 @@
 plugins {
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
-    id 'java'
+  id 'org.asciidoctor.jvm.convert' version '3.3.2'
+  id 'java'
+  id 'com.diffplug.spotless'
 }
 
 dependencies {
-    testImplementation project(':modules:core')
-    testImplementation project(':modules:selenium')
-    testImplementation project(':modules:retrofit')
+  testImplementation project(':modules:core')
+  testImplementation project(':modules:selenium')
+  testImplementation project(':modules:retrofit')
 
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+  implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-    testImplementation 'org.slf4j:slf4j-api:1.7.36'
-    testImplementation 'ch.qos.logback:logback-classic:1.2.11'
+  testImplementation 'org.slf4j:slf4j-api:1.7.36'
+  testImplementation 'ch.qos.logback:logback-classic:1.2.11'
 
-    testImplementation platform('org.junit:junit-bom:5.8.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testImplementation platform('org.junit:junit-bom:5.8.2')
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    testImplementation 'org.assertj:assertj-core:3.22.0'
+  testImplementation 'org.assertj:assertj-core:3.22.0'
 
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3'
+  testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3'
 }
 
 java {
-    withJavadocJar()
-    withSourcesJar()
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+  withJavadocJar()
+  withSourcesJar()
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
 }
 
 test {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
 }
 
 asciidoctor {
-    baseDir = null
+  baseDir = null
 }
 
 asciidoctorj {
-    modules {
-        diagram.use()
-    }
+  modules {
+    diagram.use()
+  }
+}
+
+spotless {
+  java {
+    removeUnusedImports()
+    googleJavaFormat()
+  }
 }

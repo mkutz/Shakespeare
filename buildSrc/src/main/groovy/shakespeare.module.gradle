@@ -1,82 +1,82 @@
 plugins {
-    id 'java-library'
-    id 'jacoco'
-    id 'maven-publish'
-    id 'signing'
-    id 'info.solidsoft.pitest'
-    id 'com.diffplug.spotless'
+  id 'java-library'
+  id 'jacoco'
+  id 'maven-publish'
+  id 'signing'
+  id 'info.solidsoft.pitest'
+  id 'com.diffplug.spotless'
 }
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
 }
 
 java {
-    withJavadocJar()
-    withSourcesJar()
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
+  withJavadocJar()
+  withSourcesJar()
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(11)
+  }
 }
 
 test {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
 
 jacocoTestReport {
-    reports {
-        xml.required = true
-    }
+  reports {
+    xml.required = true
+  }
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            pom {
-                url = 'https://github.com/mkutz/shakespeare'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'mkutz'
-                        name = 'Michael Kutz'
-                        email = 'mail@michael-kutz.de'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/mkutz/shakespeare.git'
-                    developerConnection = 'scm:git:ssh://github.com/mkutz/shakespeare.git'
-                    url = 'https://github.com/mkutz/shakespeare'
-                }
-            }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      pom {
+        url = 'https://github.com/mkutz/shakespeare'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
         }
+        developers {
+          developer {
+            id = 'mkutz'
+            name = 'Michael Kutz'
+            email = 'mail@michael-kutz.de'
+          }
+        }
+        scm {
+          connection = 'scm:git:git://github.com/mkutz/shakespeare.git'
+          developerConnection = 'scm:git:ssh://github.com/mkutz/shakespeare.git'
+          url = 'https://github.com/mkutz/shakespeare'
+        }
+      }
     }
+  }
 }
 
 artifacts {
-    archives javadocJar, sourcesJar
+  archives javadocJar, sourcesJar
 }
 
 signing {
-    useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
-    sign publishing.publications.mavenJava
+  useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
+  sign publishing.publications.mavenJava
 }
 
 pitest {
-    junit5PluginVersion = '0.15'
-    outputFormats = ['XML', 'HTML']
-    timestampedReports = false
+  junit5PluginVersion = '0.15'
+  outputFormats = ['XML', 'HTML']
+  timestampedReports = false
 }
 
 spotless {
-    java {
-        removeUnusedImports()
-        googleJavaFormat()
-    }
+  java {
+    removeUnusedImports()
+    googleJavaFormat()
+  }
 }
