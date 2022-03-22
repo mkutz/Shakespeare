@@ -1,14 +1,13 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ImmutableCapabilities;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.selenium.*;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
@@ -78,6 +77,23 @@ class SeleniumDocTest {
         assertThat(latestRelease).matches("Version \\d+\\.\\d+(\\.\\d+)?");
     }
 
+    @Test
+    void act5() throws IOException, InterruptedException {
+        assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
+
+        // tag::screenshot-reporter[]
+        var reportsPath = Path.of("build", "reports", "shakespeare");
+        var imogen = new Actor("Imogen")
+            .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+            .informs(new ScreenshotReporter(reportsPath, true));
+
+        imogen.checks(new LatestShakespeareReleaseVersion());
+
+        assertThat(reportsPath.resolve("001-imogen-success-latest_shakespeare_release_version.png"))
+            .isNotEmptyFile();
+        // end::screenshot-reporter[]
+    }
+
     // tag::example-question[]
     record LatestShakespeareReleaseVersion() implements Question<String> {
 
@@ -88,6 +104,11 @@ class SeleniumDocTest {
             return webDriver
                     .findElement(By.id("revnumber"))
                     .getText();
+        }
+
+        @Override
+        public String toString() {
+            return "latest shakespeare release version";
         }
     }
     // tag::example-question[]
