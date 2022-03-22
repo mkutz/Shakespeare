@@ -17,17 +17,17 @@ class NullWebDriver implements WebDriver, TakesScreenshot {
 
     @Override
     public String getCurrentUrl() {
-        return null;
+        return "https://shakespeareframework.org";
     }
 
     @Override
     public String getTitle() {
-        return null;
+        return "Page";
     }
 
     @Override
     public List<WebElement> findElements(By by) {
-        return null;
+        return List.of();
     }
 
     @Override
@@ -37,7 +37,7 @@ class NullWebDriver implements WebDriver, TakesScreenshot {
 
     @Override
     public String getPageSource() {
-        return null;
+        return "<html/>";
     }
 
     @Override
@@ -60,12 +60,12 @@ class NullWebDriver implements WebDriver, TakesScreenshot {
 
     @Override
     public Set<String> getWindowHandles() {
-        return null;
+        return Set.of();
     }
 
     @Override
     public String getWindowHandle() {
-        return null;
+        return "window-handle";
     }
 
     @Override
