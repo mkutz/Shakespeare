@@ -71,6 +71,8 @@ public enum BrowserType {
     }
 
     /**
+     * Returns the {@link WebDriver} {@link Class} required to automate the {@link BrowserType}
+     *
      * @return the {@link WebDriver} {@link Class} required to automate the {@link BrowserType}
      */
     public Class<? extends WebDriver> getWebDriverClass() {
@@ -78,6 +80,8 @@ public enum BrowserType {
     }
 
     /**
+     * Returns the base {@link Capabilities} of the {@link BrowserType}.
+     *
      * @return the base {@link Capabilities} of the {@link BrowserType}
      */
     public Capabilities getBaseCapabilities() {

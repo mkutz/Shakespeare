@@ -21,7 +21,10 @@ public final class BrowseTheWeb implements Ability, AutoCloseable {
     }
 
     /**
+     * Gets the {@link WebDriver} from the {@link #webDriverSupplier} and returns it.
+     *
      * @return a {@link WebDriver} instance
+     * @see WebDriverSupplier#get()
      */
     public WebDriver getWebDriver() {
         return webDriverSupplier.get();
