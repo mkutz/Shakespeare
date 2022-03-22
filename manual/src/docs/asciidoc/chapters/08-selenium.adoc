@@ -53,3 +53,16 @@ All link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSuppl
 ----
 include::../../../test/java/SeleniumDocTest.java[tag=additional-capabilities]
 ----
+
+== Screenshot Reports
+
+An actor can be instructed to inform link:{javadoc-url}/selenium/org/shakespeareframework/selenium/ScreenshotReporter.html[ScreenshotReporter] (see <<Reporting>>).
+By default, this will create a screenshot of the current page whenever doing a Task or answering a Question needs to be retried or fails, but it can also be configured to report successes.
+
+The screenshots can then be found at the configured reports path and are named `<counter>-<actor>-<reportType>-<task|question>.png`, e.g. `001-imogen-success-latest_shakespeare_release_version.png`.
+
+.Using a ScreenshotReporter
+[source,java,indent=0]
+----
+include::../../../test/java/SeleniumDocTest.java[tag=screenshot-reporter]
+----
