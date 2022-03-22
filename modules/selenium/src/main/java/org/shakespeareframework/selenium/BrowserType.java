@@ -71,7 +71,7 @@ public enum BrowserType {
     }
 
     /**
-     * Returns the {@link WebDriver} {@link Class} required to automate the {@link BrowserType}
+     * Returns the {@link WebDriver} {@link Class} required to automate the {@link BrowserType}.
      *
      * @return the {@link WebDriver} {@link Class} required to automate the {@link BrowserType}
      */
