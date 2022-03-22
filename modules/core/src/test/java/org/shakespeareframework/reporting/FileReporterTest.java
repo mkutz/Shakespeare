@@ -67,7 +67,6 @@ class FileReporterTest {
         var testFileReporter = new TestFileReporter(reportsPath);
         var question = new TestQuestionBuilder<String>()
                 .string("some question")
-                .answer(actor -> "answer")
                 .buildRetryable();
         var fiona = new Actor("Fiona");
 

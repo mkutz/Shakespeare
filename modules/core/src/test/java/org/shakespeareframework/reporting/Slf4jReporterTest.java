@@ -84,7 +84,6 @@ class Slf4jReporterTest {
     void test5() {
         var reporter = new Slf4jReporter();
         var question = new TestQuestionBuilder<String>()
-                .answer(actor -> "answer")
                 .build();
         reporter.start(new Actor("Logan"), question);
 
@@ -116,11 +115,10 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var question = new TestQuestionBuilder<String>()
                 .string("some question")
-                .answer(actor -> "answer")
                 .build();
 
         reporter.start(logan, question);
-        reporter.failure(logan, question, new RuntimeException("Fail"));
+        reporter.failure(logan, question, new RuntimeException("Fail!"));
 
         assertThat(output.getOut())
                 .contains("WARN")
@@ -134,7 +132,6 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var retryableQuestion = new TestQuestionBuilder<String>()
                 .string("some retryable question")
-                .answer(actor -> "answer")
                 .buildRetryable();
 
         reporter.start(logan, retryableQuestion);
@@ -178,7 +175,6 @@ class Slf4jReporterTest {
         var logan = new Actor("Logan");
         var rootQuestion = new TestQuestionBuilder<String>()
                 .string("some root question")
-                .answer(actor -> "answer")
                 .build();
         var subTask = new TestTaskBuilder()
                 .string("some sub task")
