@@ -48,18 +48,19 @@ class ScreenshotReporterTest {
     }
 
     @Test
-    @DisplayName("successes are not reported if configured")
+    @DisplayName("successes are reported if configured")
     void test2() {
-        var screenshotReporter = new ScreenshotReporter(reportsPath);
+        var screenshotReporter = new ScreenshotReporter(reportsPath, true);
         var task = new TestTaskBuilder().string("test task").build();
         var question = new TestQuestionBuilder<String>().string("test question").build();
 
-        screenshotReporter.start(imogen, task);
         screenshotReporter.success(imogen, task);
-        screenshotReporter.start(imogen, question);
         screenshotReporter.success(imogen, question, "answer");
 
-        assertThat(reportsPath).doesNotExist();
+        assertThat(reportsPath)
+                .isDirectoryContaining("glob:build/reports/shakespeare/001-imogen-success-test_task.png")
+                .isDirectoryContaining("glob:build/reports/shakespeare/002-imogen-success-test_question.png");
+
     }
 
     @Test
