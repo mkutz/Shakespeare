@@ -36,7 +36,7 @@ publishing {
                 scm {
                     connection = 'scm:git:git://github.com/mkutz/shakespeare.git'
                     developerConnection = 'scm:git:ssh://github.com/mkutz/shakespeare.git'
-                    url = 'https://github.com/mkutz/shakespeare'
+                    url = 'https://shakespeareframework.org'
                 }
             }
         }
