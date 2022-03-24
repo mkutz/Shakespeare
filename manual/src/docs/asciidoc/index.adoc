@@ -23,4 +23,7 @@ include::chapters/07-reporting.adoc[leveloffset=1]
 include::chapters/08-selenium.adoc[leveloffset=2]
 include::chapters/09-retrofit.adoc[leveloffset=2]
 
-include::../../../../CODE_OF_CONDUCT.adoc[leveloffset=1]
+== Further Reading
+
+- link:{javadoc-url}[JavaDoc API documentation]
+- https://github.com/mkutz/shakespeare/blob/main/CODE_OF_CONDUCT.md[Code of Conduct]
