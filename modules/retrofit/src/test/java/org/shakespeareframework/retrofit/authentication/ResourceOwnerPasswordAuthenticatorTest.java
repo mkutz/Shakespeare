@@ -2,7 +2,6 @@ package org.shakespeareframework.retrofit.authentication;
 
 import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.util.UUID;
