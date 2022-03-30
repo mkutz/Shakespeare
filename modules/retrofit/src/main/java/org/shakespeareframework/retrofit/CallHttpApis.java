@@ -11,13 +11,20 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /** {@link Ability} to call RESTful APIs using {@link Retrofit}. */
 public class CallHttpApis implements Ability {
 
+  private final HeaderInterceptor headerInterceptor = new HeaderInterceptor();
+
   /**
    * Creates a new {@link Builder}.
    *
    * @return a new {@link Builder}
    */
   public Builder buildClient() {
-    return new Builder();
+    return new Builder().addInterceptor(headerInterceptor);
+  }
+
+  public CallHttpApis addStandardHeader(String key, String value) {
+    headerInterceptor.add(key, value);
+    return this;
   }
 
   /**

@@ -35,7 +35,7 @@ public class HeaderInterceptor implements Interceptor {
    * @param value value of the header to be added
    */
   public void add(String key, String value) {
-    this.headers.put(key, value);
+    headers.put(key, value);
   }
 
   /**
