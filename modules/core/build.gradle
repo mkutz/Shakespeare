@@ -1,32 +1,32 @@
 plugins {
-    id 'shakespeare.module'
+  id 'shakespeare.module'
 }
 
 dependencies {
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+  implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-    implementation 'org.slf4j:slf4j-api:1.7.36'
+  implementation 'org.slf4j:slf4j-api:1.7.36'
 
-    testImplementation project(':modules:testutils')
-    testImplementation 'ch.qos.logback:logback-classic:1.2.11'
+  testImplementation project(':modules:testutils')
+  testImplementation 'ch.qos.logback:logback-classic:1.2.11'
 
-    testImplementation platform('org.junit:junit-bom:5.8.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testImplementation platform('org.junit:junit-bom:5.8.2')
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    testImplementation 'org.assertj:assertj-core:3.22.0'
+  testImplementation 'org.assertj:assertj-core:3.22.0'
 
-    testImplementation 'net.jqwik:jqwik:1.6.5'
+  testImplementation 'net.jqwik:jqwik:1.6.5'
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            pom {
-                name = 'Shakespeare Core'
-                description = 'Core components of the Shakespeare framework.'
-            }
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      pom {
+        name = 'Shakespeare Core'
+        description = 'Core components of the Shakespeare framework.'
+      }
     }
+  }
 }

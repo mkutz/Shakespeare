@@ -8,11 +8,11 @@ package org.shakespeareframework;
 @FunctionalInterface
 public interface Question<A> {
 
-    /**
-     * Answer this {@link Question} as the given {@link Actor}.
-     *
-     * @param actor the {@link Actor} to answer this {@link Question}
-     * @return the answer to this {@link Question}
-     */
-    A answerAs(Actor actor);
+  /**
+   * Answer this {@link Question} as the given {@link Actor}.
+   *
+   * @param actor the {@link Actor} to answer this {@link Question}
+   * @return the answer to this {@link Question}
+   */
+  A answerAs(Actor actor);
 }

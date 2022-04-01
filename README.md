@@ -40,10 +40,10 @@ import org.shakespeareframework.Actor;
 
 class MyScreenplay {
 
-    @Test
-    void act1() {
-        actor.does(they -> System.out.println("Hello World!"));
-    }
+  @Test
+  void act1() {
+    actor.does(they -> System.out.println("Hello World!"));
+  }
 }
 ```
 

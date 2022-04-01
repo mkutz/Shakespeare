@@ -1,37 +1,37 @@
 plugins {
-    id 'shakespeare.module'
+  id 'shakespeare.module'
 }
 
 dependencies {
-    api project(':modules:core')
+  api project(':modules:core')
 
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'com.squareup.retrofit2:converter-jackson:2.9.0'
-    implementation platform('com.fasterxml.jackson:jackson-bom:2.13.2.20220328')
-    api 'com.squareup.retrofit2:converter-scalars:2.9.0'
+  api 'com.squareup.retrofit2:retrofit:2.9.0'
+  api 'com.squareup.retrofit2:converter-jackson:2.9.0'
+  implementation platform('com.fasterxml.jackson:jackson-bom:2.13.2.20220328')
+  api 'com.squareup.retrofit2:converter-scalars:2.9.0'
 
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3'
+  testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3'
 
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+  implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-    testImplementation 'org.slf4j:slf4j-api:1.7.36'
-    testImplementation 'ch.qos.logback:logback-classic:1.2.11'
+  testImplementation 'org.slf4j:slf4j-api:1.7.36'
+  testImplementation 'ch.qos.logback:logback-classic:1.2.11'
 
-    testImplementation platform('org.junit:junit-bom:5.8.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testImplementation platform('org.junit:junit-bom:5.8.2')
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    testImplementation 'org.assertj:assertj-core:3.22.0'
+  testImplementation 'org.assertj:assertj-core:3.22.0'
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            pom {
-                name = 'Shakespeare Retrofit HTTP'
-                description = 'Module for calling HTTP APIs via Retrofit.'
-            }
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      pom {
+        name = 'Shakespeare Retrofit HTTP'
+        description = 'Module for calling HTTP APIs via Retrofit.'
+      }
     }
+  }
 }

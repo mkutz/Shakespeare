@@ -1,0 +1,25 @@
+plugins {
+  id 'jacoco'
+  id 'info.solidsoft.pitest'
+  id 'java'
+}
+
+repositories {
+  mavenCentral()
+}
+
+test {
+  useJUnitPlatform()
+}
+
+jacocoTestReport {
+  reports {
+    xml.required = true
+  }
+}
+
+pitest {
+  junit5PluginVersion = '0.15'
+  outputFormats = ['XML', 'HTML']
+  timestampedReports = false
+}
