@@ -16,6 +16,11 @@ spotless {
     endWithNewline()
   }
 
+  format('prettier') {
+    target '*.xml', '*.svg', '*.yml', '*.yaml', '*.json'
+    prettier().config(['tabWidth': 2])
+  }
+
   java {
     removeUnusedImports()
     googleJavaFormat()
