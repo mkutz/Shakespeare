@@ -5,11 +5,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.OutputTestExtension;
 import org.shakespeareframework.testing.TestQuestionBuilder;
 import org.shakespeareframework.testing.TestTaskBuilder;
 
+@Execution(ExecutionMode.SAME_THREAD)
 class Slf4jReporterTest {
 
   @RegisterExtension OutputTestExtension output = new OutputTestExtension();

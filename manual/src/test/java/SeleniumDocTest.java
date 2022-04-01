@@ -5,6 +5,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.shakespeareframework.Actor;
@@ -17,6 +19,7 @@ import org.shakespeareframework.selenium.LocalWebDriverSupplier;
 import org.shakespeareframework.selenium.ScreenshotReporter;
 import org.shakespeareframework.selenium.WebDriverManagerWebDriverSupplier;
 
+@Execution(ExecutionMode.SAME_THREAD)
 class SeleniumDocTest {
 
   @Test
