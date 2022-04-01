@@ -17,6 +17,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.RetryableQuestion;
@@ -25,6 +27,7 @@ import org.shakespeareframework.Task;
 import org.shakespeareframework.testing.TestQuestionBuilder;
 import org.shakespeareframework.testing.TestTaskBuilder;
 
+@Execution(ExecutionMode.SAME_THREAD)
 class FileReporterTest {
 
   Path reportsPath = Path.of("build", "reports", "shakespeare");
