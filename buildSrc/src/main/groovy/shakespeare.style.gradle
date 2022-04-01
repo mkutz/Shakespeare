@@ -18,7 +18,7 @@ spotless {
 
   format('prettier') {
     target '*.xml', '*.svg', '*.yml', '*.yaml', '*.json'
-    prettier().config(['tabWidth': 2])
+    prettier().config tabWidth: 2
   }
 
   java {
