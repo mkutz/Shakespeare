@@ -1,25 +1,27 @@
 plugins {
-    id 'java'
-    id 'jacoco'
-    id 'info.solidsoft.pitest'
+  id 'jacoco'
+  id 'info.solidsoft.pitest'
+  id 'com.diffplug.spotless'
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
-test {
-    useJUnitPlatform()
-}
+spotless {
+  format('misc') {
+    target '*.gradle', '*.adoc'
+    trimTrailingWhitespace()
+    indentWithSpaces(2)
+    endWithNewline()
+  }
 
-jacocoTestReport {
-    reports {
-        xml.required = true
-    }
-}
+  java {
+    removeUnusedImports()
+    googleJavaFormat()
+  }
 
-pitest {
-    junit5PluginVersion = '0.15'
-    outputFormats = ['XML', 'HTML']
-    timestampedReports = false
+  freshmark {
+    target '*.md'
+  }
 }

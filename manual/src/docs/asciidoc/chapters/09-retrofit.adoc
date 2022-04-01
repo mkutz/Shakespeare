@@ -24,6 +24,7 @@ Once the API interface is declared, the client can be build.
 ----
 include::../../../test/java/RetrofitDocTest.java[tag=scalars-example]
 ----
+
 <1> The `getClient` method returns a link:{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html[CallHttpApis.Builder],
 <2> configure the base URL of the service--it will be put in front of the relative URLs in the API annotations,
 <3> add needed ConverterFactory to convert response/request bodies,
@@ -36,6 +37,7 @@ include::../../../test/java/RetrofitDocTest.java[tag=scalars-example]
 ----
 include::../../../test/java/RetrofitDocTest.java[tag=jackson-example]
 ----
+
 <1> By adding the JacksonConverterFactory, the client will be able to parse the JSON body
 <2> into an instance of ActorInfo.
 

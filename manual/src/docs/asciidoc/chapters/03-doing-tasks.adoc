@@ -80,6 +80,7 @@ This might consist of the following interactions with the website:
 ----
 include::../../../test/java/GroupingInteractionsDocTest.java[tag=task]
 ----
+
 <1> Navigate to the website,
 <2> find the "username" input field,
 <3> write "john" into it,

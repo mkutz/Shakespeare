@@ -1,53 +1,53 @@
 package org.shakespeareframework.selenium;
 
+import static java.util.Objects.requireNonNull;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
-import static java.util.Objects.requireNonNull;
-
-/**
- * A {@link WebDriverSupplier} based on {@link WebDriverManager}.
- */
+/** A {@link WebDriverSupplier} based on {@link WebDriverManager}. */
 public class WebDriverManagerWebDriverSupplier extends WebDriverSupplier {
 
-    private final WebDriverManager webDriverManager;
-    private WebDriver webDriver;
+  private final WebDriverManager webDriverManager;
+  private WebDriver webDriver;
 
-    /**
-     * @param webDriverManager the {@link WebDriverManager} that will be used to create the WebDriver
-     * @param browserType the {@link BrowserType} to be setup
-     * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
-     */
-    public WebDriverManagerWebDriverSupplier(WebDriverManager webDriverManager,
-            BrowserType browserType, Capabilities additionalCapabilities) {
-        super(browserType, additionalCapabilities);
-        this.webDriverManager = webDriverManager;
-    }
+  /**
+   * @param webDriverManager the {@link WebDriverManager} that will be used to create the WebDriver
+   * @param browserType the {@link BrowserType} to be setup
+   * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
+   */
+  public WebDriverManagerWebDriverSupplier(
+      WebDriverManager webDriverManager,
+      BrowserType browserType,
+      Capabilities additionalCapabilities) {
+    super(browserType, additionalCapabilities);
+    this.webDriverManager = webDriverManager;
+  }
 
-    /**
-     * @param webDriverManager the {@link WebDriverManager} that will be used to create the WebDriver
-     * @param browserType the {@link BrowserType} to be setup
-     */
-    public WebDriverManagerWebDriverSupplier(WebDriverManager webDriverManager, BrowserType browserType) {
-        this(webDriverManager, browserType, null);
-    }
+  /**
+   * @param webDriverManager the {@link WebDriverManager} that will be used to create the WebDriver
+   * @param browserType the {@link BrowserType} to be setup
+   */
+  public WebDriverManagerWebDriverSupplier(
+      WebDriverManager webDriverManager, BrowserType browserType) {
+    this(webDriverManager, browserType, null);
+  }
 
-    @Override
-    public WebDriver get() {
-        if (webDriver == null) {
-            webDriver = requireNonNull(
-                    webDriverManager
-                            .capabilities(getCapabilities())
-                            .create(),
-                    "Creating the WebDriver failed");
-        }
-        return webDriver;
+  @Override
+  public WebDriver get() {
+    if (webDriver == null) {
+      webDriver =
+          requireNonNull(
+              webDriverManager.capabilities(getCapabilities()).create(),
+              "Creating the WebDriver failed");
     }
+    return webDriver;
+  }
 
-    @Override
-    public void close() {
-        webDriverManager.quit();
-        webDriver = null;
-    }
+  @Override
+  public void close() {
+    webDriverManager.quit();
+    webDriver = null;
+  }
 }
