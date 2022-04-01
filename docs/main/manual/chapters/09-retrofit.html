@@ -463,11 +463,11 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">interface ActorsApi {
 
-    @GET("/actors")
-    Call&lt;List&lt;ActorInfo&gt;&gt; getActors();
+  @GET("/actors")
+  Call&lt;List&lt;ActorInfo&gt;&gt; getActors();
 
-    @GET("/actors/{id}/name")
-    Call&lt;String&gt; getActorName(@Path("id") String id);
+  @GET("/actors/{id}/name")
+  Call&lt;String&gt; getActorName(@Path("id") String id);
 }</code></pre>
 </div>
 </div>
@@ -486,19 +486,21 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record ActorName(String id) implements Question&lt;String&gt; {
 
-    @Override
-    public String answerAs(Actor actor) {
-        var actorsApiClient = actor.uses(CallHttpApis.class)
-                .buildClient()// <b class="conum">(1)</b>
-                .baseUrl(ACTORS_SERVICE_URL) // <b class="conum">(2)</b>
-                .addScalarsConverterFactory() // <b class="conum">(3)</b>
-                .build(ActorsApi.class); // <b class="conum">(4)</b>
-        try {
-            return actorsApiClient.getActorName(id).execute().body();
-        } catch (IOException e) {
-            throw new RuntimeException("%s failed".formatted(this), e);
-        }
+  @Override
+  public String answerAs(Actor actor) {
+    var actorsApiClient =
+        actor
+            .uses(CallHttpApis.class)
+            .buildClient() // <b class="conum">(1)</b>
+            .baseUrl(ACTORS_SERVICE_URL) // <b class="conum">(2)</b>
+            .addScalarsConverterFactory() // <b class="conum">(3)</b>
+            .build(ActorsApi.class); // <b class="conum">(4)</b>
+    try {
+      return actorsApiClient.getActorName(id).execute().body();
+    } catch (IOException e) {
+      throw new RuntimeException("%s failed".formatted(this), e);
     }
+  }
 }</code></pre>
 </div>
 </div>
@@ -526,19 +528,21 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record AllActors() implements Question&lt;List&lt;ActorInfo&gt;&gt; {
 
-    @Override
-    public List&lt;ActorInfo&gt; answerAs(Actor actor) {
-        var actorsApiClient = actor.uses(CallHttpApis.class)
-                .buildClient()
-                .baseUrl(ACTORS_SERVICE_URL)
-                .addJacksonConverterFactory() // <b class="conum">(1)</b>
-                .build(ActorsApi.class);
-        try {
-            return actorsApiClient.getActors().execute().body();
-        } catch (IOException e) {
-            throw new RuntimeException("%s failed".formatted(this), e);
-        }
+  @Override
+  public List&lt;ActorInfo&gt; answerAs(Actor actor) {
+    var actorsApiClient =
+        actor
+            .uses(CallHttpApis.class)
+            .buildClient()
+            .baseUrl(ACTORS_SERVICE_URL)
+            .addJacksonConverterFactory() // <b class="conum">(1)</b>
+            .build(ActorsApi.class);
+    try {
+      return actorsApiClient.getActors().execute().body();
+    } catch (IOException e) {
+      throw new RuntimeException("%s failed".formatted(this), e);
     }
+  }
 }
 
 record ActorInfo(String id, String name) {} // <b class="conum">(2)</b></code></pre>
@@ -571,7 +575,7 @@ To do so, add the required dependency to your project, and use the generic <a hr
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 </body>

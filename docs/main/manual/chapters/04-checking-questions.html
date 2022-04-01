@@ -462,19 +462,17 @@ How the Actor finds the answer to a Question is defined in the <a href="{javadoc
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class LoggedInState implements Question&lt;Boolean&gt; {
 
-    @Override
-    public Boolean answerAs(Actor actor) {
-        var webDriver = actor.uses(BrowseTheWeb.class)
-                .getWebDriver();
+  @Override
+  public Boolean answerAs(Actor actor) {
+    var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-        return webDriver.findElement(By.linkText("Log Out"))
-                .isDisplayed();
-    }
+    return webDriver.findElement(By.linkText("Log Out")).isDisplayed();
+  }
 
-    @Override
-    public String toString() {
-        return "login state";
-    }
+  @Override
+  public String toString() {
+    return "login state";
+  }
 }</code></pre>
 </div>
 </div>
@@ -546,7 +544,7 @@ Using such questions requires to check the state in following Tasks or Questions
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 </body>

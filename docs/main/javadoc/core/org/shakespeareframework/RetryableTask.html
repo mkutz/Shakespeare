@@ -128,9 +128,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public interface <span class="typeNameLabel">RetryableTask</span>
 extends <a href="Task.html" title="interface in org.shakespeareframework">Task</a>, <a href="Retryable.html" title="interface in org.shakespeareframework">Retryable</a></pre>
-<div class="block">A <a href="Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> that will be retried until it succeeds or the <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached.
- <code>Exception</code>s thrown will be ignored by default unless they are contained in the
- <a href="#getAcknowledgedExceptions()"><code>acknowledgedExceptions</code></a>.</div>
+<div class="block">A <a href="Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> that will be retried until it succeeds or the <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached. <code>Exception</code>s thrown will be ignored by default unless they are
+ contained in the <a href="#getAcknowledgedExceptions()"><code>acknowledgedExceptions</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -213,7 +212,8 @@ extends <a href="Task.html" title="interface in org.shakespeareframework">Task</
 <pre class="methodSignature">default&nbsp;java.util.Set&lt;java.lang.Class&lt;? extends java.lang.Exception&gt;&gt;&nbsp;getAcknowledgedExceptions()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the <code>Set</code> of <code>Exception</code> classes that won't be ignored when thrown in a retry</dd>
+<dd>the <code>Set</code> of <code>Exception</code> classes that won't be ignored when thrown in a
+     retry</dd>
 </dl>
 </li>
 </ul>

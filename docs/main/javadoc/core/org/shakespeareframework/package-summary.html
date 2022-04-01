@@ -107,14 +107,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="Ability.html" title="interface in org.shakespeareframework">Ability</a></th>
 <td class="colLast">
-<div class="block">An <a href="Ability.html" title="interface in org.shakespeareframework"><code>Ability</code></a> can be <a href="Actor.html#uses(java.lang.Class)"><code>used</code></a> by an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> to <a href="Actor.html#does(org.shakespeareframework.Task)"><code>perform</code></a> a
- <a href="Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> or <a href="Actor.html#checks(org.shakespeareframework.Question)"><code>answer</code></a> a <a href="Question.html" title="interface in org.shakespeareframework"><code>Question</code></a>.</div>
+<div class="block">An <a href="Ability.html" title="interface in org.shakespeareframework"><code>Ability</code></a> can be <a href="Actor.html#uses(java.lang.Class)"><code>used</code></a> by an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> to <a href="Actor.html#does(org.shakespeareframework.Task)"><code>perform</code></a> a <a href="Task.html" title="interface in org.shakespeareframework"><code>Task</code></a> or <a href="Actor.html#checks(org.shakespeareframework.Question)"><code>answer</code></a> a <a href="Question.html" title="interface in org.shakespeareframework"><code>Question</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="Fact.html" title="interface in org.shakespeareframework">Fact</a></th>
 <td class="colLast">
-<div class="block">A <a href="Fact.html" title="interface in org.shakespeareframework"><code>Fact</code></a> to be <a href="Actor.html#learns(org.shakespeareframework.Fact...)"><code>learned</code></a> and <a href="Actor.html#remembers(java.lang.Class)"><code>remembered</code></a> by an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>.</div>
+<div class="block">A <a href="Fact.html" title="interface in org.shakespeareframework"><code>Fact</code></a> to be <a href="Actor.html#learns(org.shakespeareframework.Fact...)"><code>learned</code></a> and <a href="Actor.html#remembers(java.lang.Class)"><code>remembered</code></a> by an
+ <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a>.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -126,15 +126,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="Retryable.html" title="interface in org.shakespeareframework">Retryable</a></th>
 <td class="colLast">
-<div class="block"><a href="Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> is something an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> may retry every <a href="Retryable.html#getInterval()"><code>interval</code></a> until it succeeds or
- the <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
+<div class="block"><a href="Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> is something an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> may retry every <a href="Retryable.html#getInterval()"><code>interval</code></a>
+ until it succeeds or the <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
 </td>
 </tr>
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="RetryableQuestion.html" title="interface in org.shakespeareframework">RetryableQuestion</a>&lt;A&gt;</th>
 <td class="colLast">
-<div class="block">A <a href="Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> that will be retried until it yields an answer deemed <a href="RetryableQuestion.html#acceptable(A)"><code>RetryableQuestion.acceptable(A)</code></a> or the
- <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
+<div class="block">A <a href="Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> that will be retried until it yields an answer deemed <a href="RetryableQuestion.html#acceptable(A)"><code>RetryableQuestion.acceptable(A)</code></a> or
+ the <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -180,29 +180,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="MissingAbilityException.html" title="class in org.shakespeareframework">MissingAbilityException</a></th>
 <td class="colLast">
-<div class="block">A <a href="MissingAbilityException.html" title="class in org.shakespeareframework"><code>MissingAbilityException</code></a> is thrown in case an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> cannot <a href="Actor.html#uses(java.lang.Class)"><code>Actor.uses(java.lang.Class&lt;A&gt;)</code></a> a required
- <a href="Ability.html" title="interface in org.shakespeareframework"><code>Ability</code></a> <code>Class</code>.</div>
+<div class="block">A <a href="MissingAbilityException.html" title="class in org.shakespeareframework"><code>MissingAbilityException</code></a> is thrown in case an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> cannot <a href="Actor.html#uses(java.lang.Class)"><code>Actor.uses(java.lang.Class&lt;A&gt;)</code></a> a
+ required <a href="Ability.html" title="interface in org.shakespeareframework"><code>Ability</code></a> <code>Class</code>.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="MissingFactException.html" title="class in org.shakespeareframework">MissingFactException</a></th>
 <td class="colLast">
-<div class="block">A <a href="MissingFactException.html" title="class in org.shakespeareframework"><code>MissingFactException</code></a> is thrown in case an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> cannot <a href="Actor.html#remembers(java.lang.Class)"><code>Actor.remembers(java.lang.Class&lt;F&gt;)</code></a> a required
- <a href="Fact.html" title="interface in org.shakespeareframework"><code>Fact</code></a> <code>Class</code>.</div>
+<div class="block">A <a href="MissingFactException.html" title="class in org.shakespeareframework"><code>MissingFactException</code></a> is thrown in case an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> cannot <a href="Actor.html#remembers(java.lang.Class)"><code>Actor.remembers(java.lang.Class&lt;F&gt;)</code></a>
+ a required <a href="Fact.html" title="interface in org.shakespeareframework"><code>Fact</code></a> <code>Class</code>.</div>
 </td>
 </tr>
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="RetryInterruptedException.html" title="class in org.shakespeareframework">RetryInterruptedException</a></th>
 <td class="colLast">
-<div class="block">A <a href="RetryInterruptedException.html" title="class in org.shakespeareframework"><code>RetryInterruptedException</code></a> is thrown when an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> get interrupted while retrying a
- <a href="Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a>.</div>
+<div class="block">A <a href="RetryInterruptedException.html" title="class in org.shakespeareframework"><code>RetryInterruptedException</code></a> is thrown when an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> get interrupted while
+ retrying a <a href="Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="TimeoutException.html" title="class in org.shakespeareframework">TimeoutException</a></th>
 <td class="colLast">
-<div class="block">A <a href="TimeoutException.html" title="class in org.shakespeareframework"><code>TimeoutException</code></a> is thrown in case an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> does not succeed on a <a href="Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> before its
- timeout is reached.</div>
+<div class="block">A <a href="TimeoutException.html" title="class in org.shakespeareframework"><code>TimeoutException</code></a> is thrown in case an <a href="Actor.html" title="class in org.shakespeareframework"><code>Actor</code></a> does not succeed on a <a href="Retryable.html" title="interface in org.shakespeareframework"><code>Retryable</code></a> before its timeout is reached.</div>
 </td>
 </tr>
 </tbody>

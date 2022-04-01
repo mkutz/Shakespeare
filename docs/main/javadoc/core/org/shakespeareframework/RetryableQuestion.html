@@ -128,9 +128,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public interface <span class="typeNameLabel">RetryableQuestion&lt;A&gt;</span>
 extends <a href="Question.html" title="interface in org.shakespeareframework">Question</a>&lt;A&gt;, <a href="Retryable.html" title="interface in org.shakespeareframework">Retryable</a></pre>
-<div class="block">A <a href="Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> that will be retried until it yields an answer deemed <a href="#acceptable(A)"><code>acceptable(A)</code></a> or the
- <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached. <code>Exception</code>s thrown will be ignored if they are contained in
- <a href="#getIgnoredExceptions()"><code>ignoredExceptions</code></a>.</div>
+<div class="block">A <a href="Question.html" title="interface in org.shakespeareframework"><code>Question</code></a> that will be retried until it yields an answer deemed <a href="#acceptable(A)"><code>acceptable(A)</code></a> or
+ the <a href="Retryable.html#getTimeout()"><code>timeout</code></a> is reached. <code>Exception</code>s thrown will be ignored
+ if they are contained in <a href="#getIgnoredExceptions()"><code>ignoredExceptions</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -220,7 +220,8 @@ extends <a href="Question.html" title="interface in org.shakespeareframework">Qu
 <pre class="methodSignature">default&nbsp;java.util.Set&lt;java.lang.Class&lt;? extends java.lang.Exception&gt;&gt;&nbsp;getIgnoredExceptions()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the <code>Set</code> of <code>Exception</code> classes that will be ignored when thrown in a retry</dd>
+<dd>the <code>Set</code> of <code>Exception</code> classes that will be ignored when thrown in a
+     retry</dd>
 </dl>
 </li>
 </ul>
@@ -233,17 +234,17 @@ extends <a href="Question.html" title="interface in org.shakespeareframework">Qu
 <li class="blockList">
 <h4>acceptable</h4>
 <pre class="methodSignature">default&nbsp;boolean&nbsp;acceptable&#8203;(<a href="RetryableQuestion.html" title="type parameter in RetryableQuestion">A</a>&nbsp;answer)</pre>
-<div class="block"><p>This determines if a given answer is acceptable. In that case the retrying will be stopped and the answer is
- returned.</p>
+<div class="block">This determines if a given answer is acceptable. In that case the retrying will be stopped and
+ the answer is returned.
 
- <p>By default this will accept</p>
+ <p>By default this will accept
 
  <ul>
-     <li>a <code>Optional.isPresent()</code>,</li>
-     <li>a !<code>Collection.isEmpty()</code>,</li>
-     <li>a !<code>Map.isEmpty()</code>,</li>
-     <li>an array with length &gt; 0, and</li>
-     <li>a <code>Boolean.TRUE</code>.</li>
+   <li>a <code>Optional.isPresent()</code>,
+   <li>a !<code>Collection.isEmpty()</code>,
+   <li>a !<code>Map.isEmpty()</code>,
+   <li>an array with length &gt; 0, and
+   <li>a <code>Boolean.TRUE</code>.
  </ul></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

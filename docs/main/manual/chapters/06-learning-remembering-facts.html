@@ -485,8 +485,7 @@ When you call remember with two different instances of the same Fact class, the 
 kate.learns(new PhoneNumber("+1 (303) 499-7111"));
 
 PhoneNumber katesNewPhoneNumber = kate.remembers(PhoneNumber.class);
-assertThat(katesNewPhoneNumber)
-        .isEqualTo(new PhoneNumber("+1 (303) 499-7111"));</code></pre>
+assertThat(katesNewPhoneNumber).isEqualTo(new PhoneNumber("+1 (303) 499-7111"));</code></pre>
 </div>
 </div>
 </div>
@@ -531,8 +530,8 @@ var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 <div class="title">CreditCard Fact with default</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record CreditCard(String type, String number, YearMonth expiration) implements Fact {
-    public static CreditCard DEFAULT_VISA =
-            new CreditCard("visa", "4111111111111111", YearMonth.of(2026, 10));
+  public static CreditCard DEFAULT_VISA =
+      new CreditCard("visa", "4111111111111111", YearMonth.of(2026, 10));
 }</code></pre>
 </div>
 </div>
@@ -543,9 +542,9 @@ var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 <div class="title">EmailAddress with random generator</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record EmailAddress(String address) implements Fact {
-    public static EmailAddress random() {
-        return new EmailAddress("%s@shakespeareframework.org".formatted(UUID.randomUUID()));
-    }
+  public static EmailAddress random() {
+    return new EmailAddress("%s@shakespeareframework.org".formatted(UUID.randomUUID()));
+  }
 }</code></pre>
 </div>
 </div>
@@ -614,7 +613,7 @@ Side effects are not easy to keep track of,
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 </body>

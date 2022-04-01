@@ -469,8 +469,8 @@ For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespe
 <div class="listingblock">
 <div class="title">Setup for local development</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var tim = new Actor("Tim")
-        .can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var tim =
+    new Actor("Tim").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
 </div>
 </div>
 </div>
@@ -486,8 +486,8 @@ For such scenarios Shakespeare comes with the <a href="{javadoc-url}/selenium/or
 <div class="listingblock">
 <div class="title">Setup for Docker Continuous Integration with Docker</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var jodie = new Actor("Jodie")
-        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var jodie =
+    new Actor("Jodie").can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
 </div>
 </div>
 </div>
@@ -502,11 +502,12 @@ For such scenarios Shakespeare comes with the <a href="{javadoc-url}/selenium/or
 <div class="listingblock">
 <div class="title">Setup with WebDriverManager</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var webDriverManager = WebDriverManager
-        .edgedriver()
-        .browserInDocker();
-var alex = new Actor("Alex")
-        .can(new BrowseTheWeb(new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var webDriverManager = WebDriverManager.edgedriver().browserInDocker();
+var alex =
+    new Actor("Alex")
+        .can(
+            new BrowseTheWeb(
+                new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));</code></pre>
 </div>
 </div>
 </div>
@@ -521,11 +522,12 @@ var alex = new Actor("Alex")
 <div class="listingblock">
 <div class="title">Additional Capabilities in a LocalWebDriverSupplier</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var cameron = new Actor("Cameron")
-        .can(new BrowseTheWeb(new LocalWebDriverSupplier(
-                BrowserType.FIREFOX,
-                new FirefoxOptions().setHeadless(true)))
-        );</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var cameron =
+    new Actor("Cameron")
+        .can(
+            new BrowseTheWeb(
+                new LocalWebDriverSupplier(
+                    BrowserType.FIREFOX, new FirefoxOptions().setHeadless(true))));</code></pre>
 </div>
 </div>
 </div>
@@ -547,9 +549,10 @@ E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
 <div class="title">Using a ScreenshotReporter</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
-var imogen = new Actor("Imogen")
-    .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
-    .informs(new ScreenshotReporter(reportsPath, true));
+var imogen =
+    new Actor("Imogen")
+        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .informs(new ScreenshotReporter(reportsPath, true));
 
 imogen.checks(new LatestShakespeareReleaseVersion());
 
@@ -567,14 +570,15 @@ assertThat(reportsPath.resolve("001-imogen-success-latest_shakespeare_release_ve
 <div class="title">Using a HtmlSnapshotReporter</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
-var tim = new Actor("Tim")
+var tim =
+    new Actor("Tim")
         .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
         .informs(new HtmlSnapshotReporter(reportsPath, true));
 
 tim.checks(new LatestShakespeareReleaseVersion());
 
 assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_version.html"))
-        .isNotEmptyFile();</code></pre>
+    .isNotEmptyFile();</code></pre>
 </div>
 </div>
 </div>
@@ -584,7 +588,7 @@ assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_versi
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 </body>

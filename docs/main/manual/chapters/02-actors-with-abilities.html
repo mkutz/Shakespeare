@@ -486,15 +486,15 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class Log implements Ability {
 
-    private final Logger logger;
+  private final Logger logger;
 
-    Log(String name) {
-        this.logger = Logger.getLogger(name);
-    }
+  Log(String name) {
+    this.logger = Logger.getLogger(name);
+  }
 
-    public Logger getLogger() {
-        return logger;
-    }
+  public Logger getLogger() {
+    return logger;
+  }
 }</code></pre>
 </div>
 </div>
@@ -504,8 +504,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="listingblock">
 <div class="title">Give an Ability to an Actor</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var anna = new Actor("Anna")
-        .can(new Log("Anna"));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var anna = new Actor("Anna").can(new Log("Anna"));</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -524,7 +523,7 @@ log.getLogger().info("Hello World");</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 </body>

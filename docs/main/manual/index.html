@@ -703,15 +703,15 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">Log</span> <span class="directive">implements</span> Ability {
 
-    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">Logger</span> logger;
+  <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">Logger</span> logger;
 
-    Log(<span class="predefined-type">String</span> name) {
-        <span class="local-variable">this</span>.logger = <span class="predefined-type">Logger</span>.getLogger(name);
-    }
+  Log(<span class="predefined-type">String</span> name) {
+    <span class="local-variable">this</span>.logger = <span class="predefined-type">Logger</span>.getLogger(name);
+  }
 
-    <span class="directive">public</span> <span class="predefined-type">Logger</span> getLogger() {
-        <span class="keyword">return</span> logger;
-    }
+  <span class="directive">public</span> <span class="predefined-type">Logger</span> getLogger() {
+    <span class="keyword">return</span> logger;
+  }
 }</code></pre>
 </div>
 </div>
@@ -721,8 +721,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="listingblock">
 <div class="title">Give an Ability to an Actor</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">var anna = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Anna</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> Log(<span class="string"><span class="delimiter">&quot;</span><span class="content">Anna</span><span class="delimiter">&quot;</span></span>));</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">var anna = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Anna</span><span class="delimiter">&quot;</span></span>).can(<span class="keyword">new</span> Log(<span class="string"><span class="delimiter">&quot;</span><span class="content">Anna</span><span class="delimiter">&quot;</span></span>));</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -755,11 +754,11 @@ What the actor should do is defined in the <a href="../javadoc/core/org/shakespe
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">SayHelloWorld</span> <span class="directive">implements</span> Task {
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
-        var logger = actor.uses(Log.class).getLogger();
-        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World</span><span class="delimiter">&quot;</span></span>);
-    }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World</span><span class="delimiter">&quot;</span></span>);
+  }
 }</code></pre>
 </div>
 </div>
@@ -784,17 +783,17 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">SayHello</span> <span class="directive">implements</span> Task {
 
-    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> to;
+  <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> to;
 
-    <span class="directive">public</span> SayHello(<span class="predefined-type">String</span> to) {
-        <span class="local-variable">this</span>.to = to;
-    }
+  <span class="directive">public</span> SayHello(<span class="predefined-type">String</span> to) {
+    <span class="local-variable">this</span>.to = to;
+  }
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
-        var logger = actor.uses(Log.class).getLogger();
-        logger.info(<span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello %s</span><span class="delimiter">&quot;</span></span>, to));
-    }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(<span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello %s</span><span class="delimiter">&quot;</span></span>, to));
+  }
 }</code></pre>
 </div>
 </div>
@@ -809,11 +808,11 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">record SayHelloAsRecord(<span class="predefined-type">String</span> to) <span class="directive">implements</span> Task {
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
-        var logger = actor.uses(Log.class).getLogger();
-        logger.info(<span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello %s</span><span class="delimiter">&quot;</span></span>, to));
-    }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(<span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello %s</span><span class="delimiter">&quot;</span></span>, to));
+  }
 }</code></pre>
 </div>
 </div>
@@ -833,10 +832,7 @@ alex.does(<span class="keyword">new</span> SayHelloAsRecord(<span class="string"
 <div class="listingblock">
 <div class="title">Simple parameterized Task</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">mila.does(she -&gt;
-        she.uses(Log.class)
-                .getLogger()
-                .info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hi</span><span class="delimiter">&quot;</span></span>));</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">mila.does(she -&gt; she.uses(Log.class).getLogger().info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hi</span><span class="delimiter">&quot;</span></span>));</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -875,33 +871,35 @@ This might consist of the following interactions with the website:</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">Login</span> <span class="directive">implements</span> Task {
 
-    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> username;
-    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> password;
+  <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> username;
+  <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> password;
 
-    Login(<span class="predefined-type">String</span> username, <span class="predefined-type">String</span> password) {
-        <span class="local-variable">this</span>.username = username;
-        <span class="local-variable">this</span>.password = password;
-    }
+  Login(<span class="predefined-type">String</span> username, <span class="predefined-type">String</span> password) {
+    <span class="local-variable">this</span>.username = username;
+    <span class="local-variable">this</span>.password = password;
+  }
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
-        var webDriver = actor.uses(BrowseTheWeb.class)
-                .getWebDriver();
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
+    var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-        webDriver.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">https://parabank.parasoft.com/</span><span class="delimiter">&quot;</span></span>); <i class="conum" data-value="1"></i><b>(1)</b>
+    webDriver.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">https://parabank.parasoft.com/</span><span class="delimiter">&quot;</span></span>); <i class="conum" data-value="1"></i><b>(1)</b>
 
-        webDriver.findElement(By.name(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="2"></i><b>(2)</b>
-                .sendKeys(username); <i class="conum" data-value="3"></i><b>(3)</b>
-        webDriver.findElement(By.name(<span class="string"><span class="delimiter">&quot;</span><span class="content">password</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="4"></i><b>(4)</b>
-                .sendKeys(password); <i class="conum" data-value="5"></i><b>(5)</b>
-        webDriver.findElement(By.cssSelector(<span class="string"><span class="delimiter">&quot;</span><span class="content">.login input.button</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="6"></i><b>(6)</b>
-                .click(); <i class="conum" data-value="7"></i><b>(7)</b>
-    }
+    webDriver
+        .findElement(By.name(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="2"></i><b>(2)</b>
+        .sendKeys(username); <i class="conum" data-value="3"></i><b>(3)</b>
+    webDriver
+        .findElement(By.name(<span class="string"><span class="delimiter">&quot;</span><span class="content">password</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="4"></i><b>(4)</b>
+        .sendKeys(password); <i class="conum" data-value="5"></i><b>(5)</b>
+    webDriver
+        .findElement(By.cssSelector(<span class="string"><span class="delimiter">&quot;</span><span class="content">.login input.button</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="6"></i><b>(6)</b>
+        .click(); <i class="conum" data-value="7"></i><b>(7)</b>
+  }
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
-        <span class="keyword">return</span> <span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">login as %s</span><span class="delimiter">&quot;</span></span>, username);
-    }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+    <span class="keyword">return</span> <span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">login as %s</span><span class="delimiter">&quot;</span></span>, username);
+  }
 }</code></pre>
 </div>
 </div>
@@ -1009,19 +1007,17 @@ How the Actor finds the answer to a Question is defined in the <a href="../javad
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">LoggedInState</span> <span class="directive">implements</span> Question&lt;<span class="predefined-type">Boolean</span>&gt; {
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">Boolean</span> answerAs(Actor actor) {
-        var webDriver = actor.uses(BrowseTheWeb.class)
-                .getWebDriver();
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="predefined-type">Boolean</span> answerAs(Actor actor) {
+    var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-        <span class="keyword">return</span> webDriver.findElement(By.linkText(<span class="string"><span class="delimiter">&quot;</span><span class="content">Log Out</span><span class="delimiter">&quot;</span></span>))
-                .isDisplayed();
-    }
+    <span class="keyword">return</span> webDriver.findElement(By.linkText(<span class="string"><span class="delimiter">&quot;</span><span class="content">Log Out</span><span class="delimiter">&quot;</span></span>)).isDisplayed();
+  }
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
-        <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">login state</span><span class="delimiter">&quot;</span></span>;
-    }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+    <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">login state</span><span class="delimiter">&quot;</span></span>;
+  }
 }</code></pre>
 </div>
 </div>
@@ -1202,8 +1198,7 @@ When you call remember with two different instances of the same Fact class, the 
 kate.learns(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+1 (303) 499-7111</span><span class="delimiter">&quot;</span></span>));
 
 PhoneNumber katesNewPhoneNumber = kate.remembers(PhoneNumber.class);
-assertThat(katesNewPhoneNumber)
-        .isEqualTo(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+1 (303) 499-7111</span><span class="delimiter">&quot;</span></span>));</code></pre>
+assertThat(katesNewPhoneNumber).isEqualTo(<span class="keyword">new</span> PhoneNumber(<span class="string"><span class="delimiter">&quot;</span><span class="content">+1 (303) 499-7111</span><span class="delimiter">&quot;</span></span>));</code></pre>
 </div>
 </div>
 </div>
@@ -1244,8 +1239,8 @@ var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 <div class="title">CreditCard Fact with default</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">record CreditCard(<span class="predefined-type">String</span> type, <span class="predefined-type">String</span> number, YearMonth expiration) <span class="directive">implements</span> Fact {
-    <span class="directive">public</span> <span class="directive">static</span> CreditCard DEFAULT_VISA =
-            <span class="keyword">new</span> CreditCard(<span class="string"><span class="delimiter">&quot;</span><span class="content">visa</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">4111111111111111</span><span class="delimiter">&quot;</span></span>, YearMonth.of(<span class="integer">2026</span>, <span class="integer">10</span>));
+  <span class="directive">public</span> <span class="directive">static</span> CreditCard DEFAULT_VISA =
+      <span class="keyword">new</span> CreditCard(<span class="string"><span class="delimiter">&quot;</span><span class="content">visa</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">4111111111111111</span><span class="delimiter">&quot;</span></span>, YearMonth.of(<span class="integer">2026</span>, <span class="integer">10</span>));
 }</code></pre>
 </div>
 </div>
@@ -1256,9 +1251,9 @@ var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 <div class="title">EmailAddress with random generator</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">record EmailAddress(<span class="predefined-type">String</span> address) <span class="directive">implements</span> Fact {
-    <span class="directive">public</span> <span class="directive">static</span> EmailAddress random() {
-        <span class="keyword">return</span> <span class="keyword">new</span> EmailAddress(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s@shakespeareframework.org</span><span class="delimiter">&quot;</span></span>.formatted(<span class="predefined-type">UUID</span>.randomUUID()));
-    }
+  <span class="directive">public</span> <span class="directive">static</span> EmailAddress random() {
+    <span class="keyword">return</span> <span class="keyword">new</span> EmailAddress(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s@shakespeareframework.org</span><span class="delimiter">&quot;</span></span>.formatted(<span class="predefined-type">UUID</span>.randomUUID()));
+  }
 }</code></pre>
 </div>
 </div>
@@ -1422,8 +1417,8 @@ For this Shakespeare comes with the <a href="../javadoc/selenium/org/shakespeare
 <div class="listingblock">
 <div class="title">Setup for local development</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">var tim = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tim</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">var tim =
+    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tim</span><span class="delimiter">&quot;</span></span>).can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
 </div>
 </div>
 </div>
@@ -1439,8 +1434,8 @@ For such scenarios Shakespeare comes with the <a href="../javadoc/selenium/org/s
 <div class="listingblock">
 <div class="title">Setup for Docker Continuous Integration with Docker</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">var jodie = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Jodie</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">var jodie =
+    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Jodie</span><span class="delimiter">&quot;</span></span>).can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
 </div>
 </div>
 </div>
@@ -1455,11 +1450,12 @@ For such scenarios Shakespeare comes with the <a href="../javadoc/selenium/org/s
 <div class="listingblock">
 <div class="title">Setup with WebDriverManager</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">var webDriverManager = WebDriverManager
-        .edgedriver()
-        .browserInDocker();
-var alex = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Alex</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">var webDriverManager = WebDriverManager.edgedriver().browserInDocker();
+var alex =
+    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Alex</span><span class="delimiter">&quot;</span></span>)
+        .can(
+            <span class="keyword">new</span> BrowseTheWeb(
+                <span class="keyword">new</span> WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));</code></pre>
 </div>
 </div>
 </div>
@@ -1472,11 +1468,12 @@ var alex = <span class="keyword">new</span> Actor(<span class="string"><span cla
 <div class="listingblock">
 <div class="title">Additional Capabilities in a LocalWebDriverSupplier</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">var cameron = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Cameron</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> LocalWebDriverSupplier(
-                BrowserType.FIREFOX,
-                <span class="keyword">new</span> FirefoxOptions().setHeadless(<span class="predefined-constant">true</span>)))
-        );</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">var cameron =
+    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Cameron</span><span class="delimiter">&quot;</span></span>)
+        .can(
+            <span class="keyword">new</span> BrowseTheWeb(
+                <span class="keyword">new</span> LocalWebDriverSupplier(
+                    BrowserType.FIREFOX, <span class="keyword">new</span> FirefoxOptions().setHeadless(<span class="predefined-constant">true</span>))));</code></pre>
 </div>
 </div>
 </div>
@@ -1496,9 +1493,10 @@ E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
 <div class="title">Using a ScreenshotReporter</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">var reportsPath = Path.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">shakespeare</span><span class="delimiter">&quot;</span></span>);
-var imogen = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Imogen</span><span class="delimiter">&quot;</span></span>)
-    .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
-    .informs(<span class="keyword">new</span> ScreenshotReporter(reportsPath, <span class="predefined-constant">true</span>));
+var imogen =
+    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Imogen</span><span class="delimiter">&quot;</span></span>)
+        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .informs(<span class="keyword">new</span> ScreenshotReporter(reportsPath, <span class="predefined-constant">true</span>));
 
 imogen.checks(<span class="keyword">new</span> LatestShakespeareReleaseVersion());
 
@@ -1516,14 +1514,15 @@ assertThat(reportsPath.resolve(<span class="string"><span class="delimiter">&quo
 <div class="title">Using a HtmlSnapshotReporter</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">var reportsPath = Path.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">shakespeare</span><span class="delimiter">&quot;</span></span>);
-var tim = <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tim</span><span class="delimiter">&quot;</span></span>)
+var tim =
+    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tim</span><span class="delimiter">&quot;</span></span>)
         .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
         .informs(<span class="keyword">new</span> HtmlSnapshotReporter(reportsPath, <span class="predefined-constant">true</span>));
 
 tim.checks(<span class="keyword">new</span> LatestShakespeareReleaseVersion());
 
 assertThat(reportsPath.resolve(<span class="string"><span class="delimiter">&quot;</span><span class="content">001-tim-success-latest_shakespeare_release_version.html</span><span class="delimiter">&quot;</span></span>))
-        .isNotEmptyFile();</code></pre>
+    .isNotEmptyFile();</code></pre>
 </div>
 </div>
 </div>
@@ -1545,11 +1544,11 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">interface</span> <span class="class">ActorsApi</span> {
 
-    <span class="annotation">@GET</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/actors</span><span class="delimiter">&quot;</span></span>)
-    Call&lt;<span class="predefined-type">List</span>&lt;ActorInfo&gt;&gt; getActors();
+  <span class="annotation">@GET</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/actors</span><span class="delimiter">&quot;</span></span>)
+  Call&lt;<span class="predefined-type">List</span>&lt;ActorInfo&gt;&gt; getActors();
 
-    <span class="annotation">@GET</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/actors/{id}/name</span><span class="delimiter">&quot;</span></span>)
-    Call&lt;<span class="predefined-type">String</span>&gt; getActorName(<span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>) <span class="predefined-type">String</span> id);
+  <span class="annotation">@GET</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/actors/{id}/name</span><span class="delimiter">&quot;</span></span>)
+  Call&lt;<span class="predefined-type">String</span>&gt; getActorName(<span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>) <span class="predefined-type">String</span> id);
 }</code></pre>
 </div>
 </div>
@@ -1566,19 +1565,21 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">record ActorName(<span class="predefined-type">String</span> id) <span class="directive">implements</span> Question&lt;<span class="predefined-type">String</span>&gt; {
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">String</span> answerAs(Actor actor) {
-        var actorsApiClient = actor.uses(CallHttpApis.class)
-                .buildClient()<i class="conum" data-value="1"></i><b>(1)</b>
-                .baseUrl(ACTORS_SERVICE_URL) <i class="conum" data-value="2"></i><b>(2)</b>
-                .addScalarsConverterFactory() <i class="conum" data-value="3"></i><b>(3)</b>
-                .build(ActorsApi.class); <i class="conum" data-value="4"></i><b>(4)</b>
-        <span class="keyword">try</span> {
-            <span class="keyword">return</span> actorsApiClient.getActorName(id).execute().body();
-        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
-            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s failed</span><span class="delimiter">&quot;</span></span>.formatted(<span class="local-variable">this</span>), e);
-        }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="predefined-type">String</span> answerAs(Actor actor) {
+    var actorsApiClient =
+        actor
+            .uses(CallHttpApis.class)
+            .buildClient() <i class="conum" data-value="1"></i><b>(1)</b>
+            .baseUrl(ACTORS_SERVICE_URL) <i class="conum" data-value="2"></i><b>(2)</b>
+            .addScalarsConverterFactory() <i class="conum" data-value="3"></i><b>(3)</b>
+            .build(ActorsApi.class); <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="keyword">try</span> {
+      <span class="keyword">return</span> actorsApiClient.getActorName(id).execute().body();
+    } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s failed</span><span class="delimiter">&quot;</span></span>.formatted(<span class="local-variable">this</span>), e);
     }
+  }
 }</code></pre>
 </div>
 </div>
@@ -1610,19 +1611,21 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">record AllActors() <span class="directive">implements</span> Question&lt;<span class="predefined-type">List</span>&lt;ActorInfo&gt;&gt; {
 
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;ActorInfo&gt; answerAs(Actor actor) {
-        var actorsApiClient = actor.uses(CallHttpApis.class)
-                .buildClient()
-                .baseUrl(ACTORS_SERVICE_URL)
-                .addJacksonConverterFactory() <i class="conum" data-value="1"></i><b>(1)</b>
-                .build(ActorsApi.class);
-        <span class="keyword">try</span> {
-            <span class="keyword">return</span> actorsApiClient.getActors().execute().body();
-        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
-            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s failed</span><span class="delimiter">&quot;</span></span>.formatted(<span class="local-variable">this</span>), e);
-        }
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="predefined-type">List</span>&lt;ActorInfo&gt; answerAs(Actor actor) {
+    var actorsApiClient =
+        actor
+            .uses(CallHttpApis.class)
+            .buildClient()
+            .baseUrl(ACTORS_SERVICE_URL)
+            .addJacksonConverterFactory() <i class="conum" data-value="1"></i><b>(1)</b>
+            .build(ActorsApi.class);
+    <span class="keyword">try</span> {
+      <span class="keyword">return</span> actorsApiClient.getActors().execute().body();
+    } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">%s failed</span><span class="delimiter">&quot;</span></span>.formatted(<span class="local-variable">this</span>), e);
     }
+  }
 }
 
 record ActorInfo(<span class="predefined-type">String</span> id, <span class="predefined-type">String</span> name) {} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
@@ -1674,7 +1677,7 @@ To do so, add the required dependency to your project, and use the generic <a hr
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 <style>

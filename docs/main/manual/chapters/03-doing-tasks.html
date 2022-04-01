@@ -459,11 +459,11 @@ What the actor should do is defined in the <a href="{javadoc-url}/core/org/shake
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class SayHelloWorld implements Task {
 
-    @Override
-    public void performAs(Actor actor) {
-        var logger = actor.uses(Log.class).getLogger();
-        logger.info("Hello World");
-    }
+  @Override
+  public void performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info("Hello World");
+  }
 }</code></pre>
 </div>
 </div>
@@ -490,17 +490,17 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class SayHello implements Task {
 
-    private final String to;
+  private final String to;
 
-    public SayHello(String to) {
-        this.to = to;
-    }
+  public SayHello(String to) {
+    this.to = to;
+  }
 
-    @Override
-    public void performAs(Actor actor) {
-        var logger = actor.uses(Log.class).getLogger();
-        logger.info(String.format("Hello %s", to));
-    }
+  @Override
+  public void performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(String.format("Hello %s", to));
+  }
 }</code></pre>
 </div>
 </div>
@@ -515,11 +515,11 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record SayHelloAsRecord(String to) implements Task {
 
-    @Override
-    public void performAs(Actor actor) {
-        var logger = actor.uses(Log.class).getLogger();
-        logger.info(String.format("Hello %s", to));
-    }
+  @Override
+  public void performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(String.format("Hello %s", to));
+  }
 }</code></pre>
 </div>
 </div>
@@ -541,10 +541,7 @@ alex.does(new SayHelloAsRecord("Shakespeare"));</code></pre>
 <div class="listingblock">
 <div class="title">Simple parameterized Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">mila.does(she -&gt;
-        she.uses(Log.class)
-                .getLogger()
-                .info("Hi"));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">mila.does(she -&gt; she.uses(Log.class).getLogger().info("Hi"));</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -585,33 +582,35 @@ This might consist of the following interactions with the website:</p>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class Login implements Task {
 
-    private final String username;
-    private final String password;
+  private final String username;
+  private final String password;
 
-    Login(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+  Login(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 
-    @Override
-    public void performAs(Actor actor) {
-        var webDriver = actor.uses(BrowseTheWeb.class)
-                .getWebDriver();
+  @Override
+  public void performAs(Actor actor) {
+    var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-        webDriver.get("https://parabank.parasoft.com/"); // <b class="conum">(1)</b>
+    webDriver.get("https://parabank.parasoft.com/"); // <b class="conum">(1)</b>
 
-        webDriver.findElement(By.name("username")) // <b class="conum">(2)</b>
-                .sendKeys(username); // <b class="conum">(3)</b>
-        webDriver.findElement(By.name("password")) // <b class="conum">(4)</b>
-                .sendKeys(password); // <b class="conum">(5)</b>
-        webDriver.findElement(By.cssSelector(".login input.button")) // <b class="conum">(6)</b>
-                .click(); // <b class="conum">(7)</b>
-    }
+    webDriver
+        .findElement(By.name("username")) // <b class="conum">(2)</b>
+        .sendKeys(username); // <b class="conum">(3)</b>
+    webDriver
+        .findElement(By.name("password")) // <b class="conum">(4)</b>
+        .sendKeys(password); // <b class="conum">(5)</b>
+    webDriver
+        .findElement(By.cssSelector(".login input.button")) // <b class="conum">(6)</b>
+        .click(); // <b class="conum">(7)</b>
+  }
 
-    @Override
-    public String toString() {
-        return String.format("login as %s", username);
-    }
+  @Override
+  public String toString() {
+    return String.format("login as %s", username);
+  }
 }</code></pre>
 </div>
 </div>
@@ -695,7 +694,7 @@ It is generally a bad idea to mix simple interactions with sub-tasks, as it make
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2022-03-24 15:11:55 UTC
+Last updated 2022-04-01 15:42:53 UTC
 </div>
 </div>
 </body>

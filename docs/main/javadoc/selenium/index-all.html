@@ -183,13 +183,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/WebDriverSupplier.html#getBrowserType()">getBrowserType()</a></span> - Method in class org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a></dt>
 <dd>
-<div class="block">Creates a <a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> for the given <a href="org/shakespeareframework/selenium/BrowserType.html" title="enum in org.shakespeareframework.selenium"><code>BrowserType</code></a> using the
- <a href="org/shakespeareframework/selenium/BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a>.</div>
+<div class="block">Creates a <a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> for the given <a href="org/shakespeareframework/selenium/BrowserType.html" title="enum in org.shakespeareframework.selenium"><code>BrowserType</code></a> using the <a href="org/shakespeareframework/selenium/BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/WebDriverSupplier.html#getCapabilities()">getCapabilities()</a></span> - Method in class org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a></dt>
 <dd>
-<div class="block">Returns the <code>Capabilities</code> for the <code>WebDriver</code>, merged from the
- <a href="org/shakespeareframework/selenium/BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a> and additional capabilities.</div>
+<div class="block">Returns the <code>Capabilities</code> for the <code>WebDriver</code>, merged from the <a href="org/shakespeareframework/selenium/BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a> and additional capabilities.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()">getWebDriver()</a></span> - Method in class org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/BrowseTheWeb.html" title="class in org.shakespeareframework.selenium">BrowseTheWeb</a></dt>
 <dd>
@@ -207,8 +205,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><a href="org/shakespeareframework/selenium/HtmlSnapshotReporter.html" title="class in org.shakespeareframework.selenium"><span class="typeNameLink">HtmlSnapshotReporter</span></a> - Class in <a href="org/shakespeareframework/selenium/package-summary.html">org.shakespeareframework.selenium</a></dt>
 <dd>
-<div class="block">Reporter using the <code>Actor</code>'s <a href="org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()"><code>BrowseTheWeb.getWebDriver()</code></a> to take an HTML snapshot of the currently
- displayed site.</div>
+<div class="block">Reporter using the <code>Actor</code>'s <a href="org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()"><code>BrowseTheWeb.getWebDriver()</code></a> to take an HTML snapshot
+ of the currently displayed site.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/HtmlSnapshotReporter.html#%3Cinit%3E(java.nio.file.Path)">HtmlSnapshotReporter(Path)</a></span> - Constructor for class org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/HtmlSnapshotReporter.html" title="class in org.shakespeareframework.selenium">HtmlSnapshotReporter</a></dt>
 <dd>
@@ -282,8 +280,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="org/shakespeareframework/selenium/ScreenshotReporter.html" title="class in org.shakespeareframework.selenium"><span class="typeNameLink">ScreenshotReporter</span></a> - Class in <a href="org/shakespeareframework/selenium/package-summary.html">org.shakespeareframework.selenium</a></dt>
 <dd>
-<div class="block">Reporter using the <code>Actor</code>'s <a href="org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()"><code>BrowseTheWeb.getWebDriver()</code></a> as <code>TakesScreenshot</code> to take a
- screenshot of the currently displayed site.</div>
+<div class="block">Reporter using the <code>Actor</code>'s <a href="org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()"><code>BrowseTheWeb.getWebDriver()</code></a> as <code>TakesScreenshot</code>
+ to take a screenshot of the currently displayed site.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/ScreenshotReporter.html#%3Cinit%3E(java.nio.file.Path)">ScreenshotReporter(Path)</a></span> - Constructor for class org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/ScreenshotReporter.html" title="class in org.shakespeareframework.selenium">ScreenshotReporter</a></dt>
 <dd>
@@ -352,21 +350,17 @@ the order they are declared.</div>
 <dd>&nbsp;</dd>
 <dt><a href="org/shakespeareframework/selenium/WebDriverSetupFailedException.html" title="class in org.shakespeareframework.selenium"><span class="typeNameLink">WebDriverSetupFailedException</span></a> - Exception in <a href="org/shakespeareframework/selenium/package-summary.html">org.shakespeareframework.selenium</a></dt>
 <dd>
-<div class="block"><code>RuntimeException</code> to be thrown when a <a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> failed to setup the
- <code>WebDriver</code>.</div>
+<div class="block"><code>RuntimeException</code> to be thrown when a <a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> failed to setup the <code>WebDriver</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/WebDriverSetupFailedException.html#%3Cinit%3E(java.lang.Exception)">WebDriverSetupFailedException(Exception)</a></span> - Constructor for exception org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/WebDriverSetupFailedException.html" title="class in org.shakespeareframework.selenium">WebDriverSetupFailedException</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><span class="typeNameLink">WebDriverSupplier</span></a> - Class in <a href="org/shakespeareframework/selenium/package-summary.html">org.shakespeareframework.selenium</a></dt>
 <dd>
-<div class="block">A <code>Supplier</code> for <code>WebDriver</code>, which also takes care of <code>quitting</code> the
- <code>WebDriver</code>.</div>
+<div class="block">A <code>Supplier</code> for <code>WebDriver</code>, which also takes care of <code>quitting</code> the <code>WebDriver</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/shakespeareframework/selenium/WebDriverSupplier.html#%3Cinit%3E(org.shakespeareframework.selenium.BrowserType,org.openqa.selenium.Capabilities)">WebDriverSupplier(BrowserType, Capabilities)</a></span> - Constructor for class org.shakespeareframework.selenium.<a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a></dt>
 <dd>
-<div class="block">Creates a <a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> for the given <a href="org/shakespeareframework/selenium/BrowserType.html" title="enum in org.shakespeareframework.selenium"><code>BrowserType</code></a> with additional <code>Capabilities</code> that
- will be <code>merged</code> with the
- <a href="org/shakespeareframework/selenium/BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a>.</div>
+<div class="block">Creates a <a href="org/shakespeareframework/selenium/WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> for the given <a href="org/shakespeareframework/selenium/BrowserType.html" title="enum in org.shakespeareframework.selenium"><code>BrowserType</code></a> with additional <code>Capabilities</code> that will be <code>merged</code> with the <a href="org/shakespeareframework/selenium/BrowserType.html#getBaseCapabilities()"><code>BrowserType's baseCapabilities</code></a>.</div>
 </dd>
 </dl>
 <a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
