@@ -61,6 +61,22 @@ After you're done, please [open a new pull request](https://github.com/mkutz/sha
  
 ## Project Knowledge
 
+### Commit Messages
+
+Each commit message should follow the guidelines in @cbeams article on [How to Write a Git Commit Message](https://cbea.ms/git-commit/).
+
+Each commit message
+
+- is written in present tense ("Add something", not "Added something),
+- uses imperative mood ("Move stuff from A to B", not "Moves stuff from A to B"),
+- limits the first line (the subject) to 50 characters,
+- starts with a capital letter,
+- does not end the subject line with a period,
+- separates subject from the body (third line and following) with a blank line,
+- put any references to issues, pull requests or external links in the body,
+- wraps the body after 72 characters (exceptions for URLs or similar),
+- explains in the body _what_ and _why_, not _how_.
+
 ### Building
 
 The project uses [Gradle](https://gradle.org) for building.
