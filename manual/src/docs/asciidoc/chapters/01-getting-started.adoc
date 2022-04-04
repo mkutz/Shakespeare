@@ -18,9 +18,9 @@ implementation 'org.shakespeareframework:core:{revnumber}'
 [source,xml,subs=attributes+,role="secondary"]
 ----
 <dependency>
-    <groupId>org.shakespeareframework</groupId>
-    <artifactId>core</artifactId>
-    <version>{revnumber}</version>
+  <groupId>org.shakespeareframework</groupId>
+  <artifactId>core</artifactId>
+  <version>{revnumber}</version>
 </dependency>
 ----
 
@@ -43,29 +43,29 @@ implementation 'org.shakespeareframework:retrofit'
 [source,xml,subs=attributes+,role="secondary"]
 ----
 <project>
-    <!--…-->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.shakespeareframework</groupId>
-                <artifactId>bom</artifactId>
-                <version>{revnumber}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <!-- … -->
+  <!--…-->
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.shakespeareframework</groupId>
-            <artifactId>selenium</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.shakespeareframework</groupId>
-            <artifactId>retrofit</artifactId>
-        </dependency>
+      <dependency>
+        <groupId>org.shakespeareframework</groupId>
+        <artifactId>bom</artifactId>
+        <version>{revnumber}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
-    <!-- … -->
+  </dependencyManagement>
+  <!-- … -->
+  <dependencies>
+    <dependency>
+      <groupId>org.shakespeareframework</groupId>
+      <artifactId>selenium</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.shakespeareframework</groupId>
+      <artifactId>retrofit</artifactId>
+    </dependency>
+  </dependencies>
+  <!-- … -->
 </project>
 ----
