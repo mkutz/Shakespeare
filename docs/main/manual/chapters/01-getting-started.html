@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Getting Started</h1>
 <div class="details">
-<span id="revnumber">version 0.4</span>
+<span id="revnumber">version 0.4-SNAPSHOT</span>
 </div>
 </div>
 <div id="content">
@@ -461,16 +461,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock primary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation 'org.shakespeareframework:core:0.4'</code></pre>
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation 'org.shakespeareframework:core:0.4-SNAPSHOT'</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Maven</div>
 <div class="content">
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
-    &lt;artifactId&gt;core&lt;/artifactId&gt;
-    &lt;version&gt;0.4&lt;/version&gt;
+  &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
+  &lt;artifactId&gt;core&lt;/artifactId&gt;
+  &lt;version&gt;0.4-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -495,7 +495,7 @@ Hence, you don&#8217;t need to keep it once you add another module (e.g. <code>s
 <div class="listingblock primary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation platform('org.shakespeareframework:bom:0.4')
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation platform('org.shakespeareframework:bom:0.4-SNAPSHOT')
 implementation 'org.shakespeareframework:selenium'
 implementation 'org.shakespeareframework:retrofit'</code></pre>
 </div>
@@ -504,30 +504,30 @@ implementation 'org.shakespeareframework:retrofit'</code></pre>
 <div class="title">Maven</div>
 <div class="content">
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project&gt;
-    &lt;!--…--&gt;
-    &lt;dependencyManagement&gt;
-        &lt;dependencies&gt;
-            &lt;dependency&gt;
-                &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
-                &lt;artifactId&gt;bom&lt;/artifactId&gt;
-                &lt;version&gt;0.4&lt;/version&gt;
-                &lt;type&gt;pom&lt;/type&gt;
-                &lt;scope&gt;import&lt;/scope&gt;
-            &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-    &lt;/dependencyManagement&gt;
-    &lt;!-- … --&gt;
+  &lt;!--…--&gt;
+  &lt;dependencyManagement&gt;
     &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
-            &lt;artifactId&gt;selenium&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
-            &lt;artifactId&gt;retrofit&lt;/artifactId&gt;
-        &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
+        &lt;artifactId&gt;bom&lt;/artifactId&gt;
+        &lt;version&gt;0.4-SNAPSHOT&lt;/version&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+      &lt;/dependency&gt;
     &lt;/dependencies&gt;
-    &lt;!-- … --&gt;
+  &lt;/dependencyManagement&gt;
+  &lt;!-- … --&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
+      &lt;artifactId&gt;selenium&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
+      &lt;artifactId&gt;retrofit&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;!-- … --&gt;
 &lt;/project&gt;</code></pre>
 </div>
 </div>
@@ -537,8 +537,8 @@ implementation 'org.shakespeareframework:retrofit'</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.4<br>
-Last updated 2022-04-01 17:24:30 UTC
+Version 0.4-SNAPSHOT<br>
+Last updated 2022-04-04 15:17:55 UTC
 </div>
 </div>
 </body>
