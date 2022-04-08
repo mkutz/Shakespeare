@@ -61,6 +61,8 @@ After you're done, please [open a new pull request](https://github.com/mkutz/sha
  
 ## Project Knowledge
 
+In oder to prevent avoidable conflicts in pull requests, please read this in case you want to contribute any code to Shakespeare.
+
 ### Commit Messages
 
 Each commit message should follow the guidelines in @cbeams article on [How to Write a Git Commit Message](https://cbea.ms/git-commit/).
@@ -90,6 +92,10 @@ in the project's root folder.
 
 As continuous integration and deployment tool, the project uses [GitHub Actions](https://github.com/features/actions).
 All pipelines can be found in [.github/workflows](.github/workflows).
+
+### Versioning
+
+Shakespeare is using [SemVer 2.0](https://semver.org/spec/v2.0.0.html) but omits the patch digit in case it is 0.
 
 ### Project Structure
 
