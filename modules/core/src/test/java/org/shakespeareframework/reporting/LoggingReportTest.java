@@ -131,6 +131,59 @@ class LoggingReportTest {
   }
 
   @Test
+  @DisplayName("toString multi-line report")
+  void toStringTest11() {
+    var report = new LoggingReport("Logan checks some question\na second line").success("→ answer");
+
+    assertThat(report.toString())
+        .matches("Logan checks some question\na second line ✓ (\\d+s)?(<?\\d+ms) → answer");
+  }
+
+  @Test
+  @DisplayName("toString multi-line sub report")
+  void toStringTest12() {
+    var subReport =
+        new LoggingReport("Logan checks some question\na second line").success("→ answer");
+    var report =
+        new LoggingReport("Logan checks does some task\na second line\na third line")
+            .addSubReport(subReport)
+            .success();
+
+    assertThat(report.toString())
+        .matches(
+            "Logan does some root task"
+                + "a second line"
+                + "a third line ✓ (\\d+s)?(<?\\d+ms)\n"
+                + "└── Logan checks some question\n"
+                + "    a second line ✓ (\\d+s)?(<?\\d+ms) → answer");
+  }
+
+  @Test
+  @DisplayName("toString multiple multi-line sub reports")
+  void toStringTest13() {
+    var firstSubReport =
+        new LoggingReport("Logan checks some sub question\na second line\na third line")
+            .success("→ answer");
+    var secondReport =
+        new LoggingReport("Logan checks some other sub question\na second line")
+            .success("→ answer");
+    var report =
+        new LoggingReport("Logan does some root task")
+            .addSubReport(firstSubReport)
+            .addSubReport(secondReport)
+            .success();
+
+    assertThat(report.toString())
+        .matches(
+            "Logan does some root task ✓ (\\d+s)?(<?\\d+ms)\n"
+                + "├── Logan checks some sub question\n"
+                + "│   a second line\n"
+                + "│   a third line ✓ (\\d+s)?(<?\\d+ms) → answer\n"
+                + "└── Logan checks some other sub question\n"
+                + "    a second line ✓ (\\d+s)?(<?\\d+ms) → answer");
+  }
+
+  @Test
   @DisplayName("getCurrentReport returns the report if there are no sub reports")
   void getCurrentReportTest1() {
     var report = new LoggingReport("Logan does some task");

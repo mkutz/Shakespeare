@@ -3,12 +3,13 @@ package org.shakespeareframework.reporting;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.time.Instant.now;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.stream.Collectors;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
 
@@ -119,21 +120,27 @@ class LoggingReport {
 
   public String toString(String prefix) {
     var subReportsString = "";
+    final var subPrefix = prefix.replace('├', '│').replace('└', ' ').replace('─', ' ');
     if (!subReports.isEmpty()) {
-      final var subPrefix = prefix.replace('├', '│').replace('└', ' ').replace('─', ' ');
       final var lastSubReport = subReports.getFirst();
       final var subReportsStrings =
           subReports.stream()
               .filter(report -> !report.equals(lastSubReport))
               .map(subReport -> subReport.toString(subPrefix + "├── "))
-              .collect(Collectors.toList());
+              .collect(toList());
       subReportsStrings.add(lastSubReport.toString(subPrefix + "└── "));
       subReportsString = "\n" + join("\n", subReportsStrings);
     }
+    final var subjectString =
+        join(
+                "\n",
+                subject.lines().findFirst().orElse(""),
+                subject.lines().skip(1).map(line -> subPrefix + line).collect(joining("\n")))
+            .trim();
     return format(
         "%s%s %s%c %s%s%s",
         prefix,
-        subject,
+        subjectString,
         "•".repeat(retries),
         status.getSymbol(),
         DurationFormatter.format(getDuration()),
