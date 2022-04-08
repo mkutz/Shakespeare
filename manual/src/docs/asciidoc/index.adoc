@@ -27,3 +27,4 @@ include::chapters/09-retrofit.adoc[leveloffset=2]
 
 - link:{javadoc-url}[JavaDoc API documentation]
 - https://github.com/mkutz/shakespeare/blob/main/CODE_OF_CONDUCT.md[Code of Conduct]
+- https://github.com/mkutz/shakespeare/blob/main/CONTRIBUTING.md[Information for  Contributors]
