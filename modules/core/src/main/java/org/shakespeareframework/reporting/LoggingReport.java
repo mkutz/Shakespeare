@@ -132,11 +132,12 @@ class LoggingReport {
       subReportsString = "\n" + join("\n", subReportsStrings);
     }
     final var subjectString =
-        join(
+        subject.contains("\n")
+            ? join(
                 "\n",
-                subject.lines().findFirst().orElse(""),
+                subject.lines().limit(1).collect(joining()),
                 subject.lines().skip(1).map(line -> subPrefix + line).collect(joining("\n")))
-            .trim();
+            : subject;
     return format(
         "%s%s %s%c %s%s%s",
         prefix,
