@@ -9,5 +9,7 @@ It is based on the ideas from [Page Objects Refactored] by Antony Marcano, Andy 
 
 Please refer to the [Manual] for further information on how to use or extend Shakespeare.
 
+If you'd like to contribute to the project, please read the [contributing guide](CONTRIBUTING.md) and out [code of conduct](CODE_OF_CONDUCT.md).
+
 [Page Objects Refactored]: <https://ideas.riverglide.com/page-objects-refactored-12ec3541990#.ekkiguobe>
 [Manual]: <https://shakespeareframework.org/latest/manual>

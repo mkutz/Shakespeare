@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct
+# Shakespeare Contributor Code of Conduct
 
 ## Our Pledge
 
