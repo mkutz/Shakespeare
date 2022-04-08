@@ -145,14 +145,14 @@ class LoggingReportTest {
     var subReport =
         new LoggingReport("Logan checks some question\na second line").success("→ answer");
     var report =
-        new LoggingReport("Logan checks does some task\na second line\na third line")
+        new LoggingReport("Logan does some root task\na second line\na third line")
             .addSubReport(subReport)
             .success();
 
     assertThat(report.toString())
         .matches(
-            "Logan does some root task"
-                + "a second line"
+            "Logan does some root task\n"
+                + "a second line\n"
                 + "a third line ✓ (\\d+s)?(<?\\d+ms)\n"
                 + "└── Logan checks some question\n"
                 + "    a second line ✓ (\\d+s)?(<?\\d+ms) → answer");
