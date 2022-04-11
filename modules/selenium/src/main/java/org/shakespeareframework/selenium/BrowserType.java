@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.safari.SafariOptions;
 
 /** {@link Enum} of all browser types which are supported by {@link WebDriverSupplier}. */
@@ -20,9 +19,6 @@ public enum BrowserType {
 
   /** Mozilla Firefox */
   FIREFOX(org.openqa.selenium.firefox.FirefoxDriver.class, new FirefoxOptions()),
-
-  /** Opera */
-  OPERA(org.openqa.selenium.opera.OperaDriver.class, new OperaOptions()),
 
   /** Microsoft Edge */
   EDGE(org.openqa.selenium.edge.EdgeDriver.class, new EdgeOptions()),

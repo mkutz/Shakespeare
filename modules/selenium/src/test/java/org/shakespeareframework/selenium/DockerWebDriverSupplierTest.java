@@ -13,7 +13,7 @@ class DockerWebDriverSupplierTest {
   @ParameterizedTest(name = "get works for {0}")
   @EnumSource(
       value = BrowserType.class,
-      names = {"CHROME", "FIREFOX", "EDGE", "OPERA", "SAFARI"})
+      names = {"CHROME", "FIREFOX", "EDGE", "SAFARI"})
   void getTest1(BrowserType browserType) throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
