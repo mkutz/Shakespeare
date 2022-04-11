@@ -28,6 +28,6 @@
  * according to the implementation there.
  *
  * @see <a href="https://shakespeareframework.org/latest/manual/#_browser_automation_with_selenium">
- *   Manual on "Browser Automation with Selenium"</a>
+ *     Manual on "Browser Automation with Selenium"</a>
  */
 package org.shakespeareframework.selenium;

@@ -8,6 +8,6 @@
  * headers that will be added to any request. E.g. to add authentication headers.
  *
  * @see <a href="https://shakespeareframework.org/latest/manual/#_http_api_testing_with_retrofit">
- *   Manual on "HTTP API Testing with Retrofit"</a>
+ *     Manual on "HTTP API Testing with Retrofit"</a>
  */
 package org.shakespeareframework.retrofit;
