@@ -13,7 +13,6 @@ class BrowserTypeTest {
       strings = {
         "chrome", "CHROME", "Chrome",
         "firefox", "FIREFOX", "Firefox",
-        "opera", "OPERA", "Opera",
         "edge", "EDGE", "Edge",
         "iexplorer", "IEXPLORER", "IExplorer"
       })
