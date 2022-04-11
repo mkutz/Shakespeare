@@ -94,6 +94,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h1 title="Package" class="title">Package&nbsp;org.shakespeareframework.selenium</h1>
 </div>
 <div class="contentContainer">
+<section role="region"><a id="package.description">
+<!--   -->
+</a>
+<div class="block">The central class of the selenium package is the <a href="BrowseTheWeb.html" title="class in org.shakespeareframework.selenium"><code>BrowseTheWeb</code></a> Ability, which requires a <a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> to be instantiated.
+
+ <p>The following suppliers are available too:
+
+ <ul>
+   <li>the <a href="LocalWebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>LocalWebDriverSupplier</code></a> to use a pre-installed
+       local browser,
+   <li>the <a href="DockerWebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>DockerWebDriverSupplier</code></a> to use a browser from
+       an automatically downloaded and started Docker container, and
+   <li>the <a href="WebDriverManagerWebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverManagerWebDriverSupplier</code></a> to use a
+       self configured <code>WebDriverManager</code> (the other two extend
+       this but are pre-configured).
+ </ul>
+
+ <p>Additionally, the package contains some Reporters:
+
+ <ul>
+   <li>the <a href="ScreenshotReporter.html" title="class in org.shakespeareframework.selenium"><code>ScreenshotReporter</code></a> to take screenshots of the
+       current website, and
+   <li>the <a href="HtmlSnapshotReporter.html" title="class in org.shakespeareframework.selenium"><code>HtmlSnapshotReporter</code></a> to store an HTML
+       snapshot of the current website.
+ </ul>
+
+ <p>Both are <code>FileReporter</code>s and store the report files
+ according to the implementation there.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="https://shakespeareframework.org/latest/manual/#_browser_automation_with_selenium">
+     Manual on "Browser Automation with Selenium"</a></dd>
+</dl>
+</section>
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
