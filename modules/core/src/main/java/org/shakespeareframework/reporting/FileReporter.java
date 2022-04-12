@@ -36,7 +36,7 @@ public abstract class FileReporter implements Reporter {
    *     org.shakespeareframework.Question} this report is about.
    * @param fileNameExtension The file name extension for the report file
    * @param content the content to write
-   * @throws RuntimeException if creating the {@link #reportsPath} or writing the file fails
+   * @throws WriteReportFileException if creating the {@link #reportsPath} or writing the file fails
    */
   protected void writeReport(
       Actor actor,
@@ -68,9 +68,13 @@ public abstract class FileReporter implements Reporter {
 
   /** Possible types of reports. */
   public enum ReportType {
+    /** Report on starting something */
     START,
+    /** Report on retrying something */
     RETRY,
+    /** Report on finishing something successfully */
     SUCCESS,
+    /** Report on finishing something unsuccessfully */
     FAILURE;
 
     @Override
