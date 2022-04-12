@@ -9,6 +9,8 @@ import java.util.Set;
  * A {@link Question} that will be retried until it yields an answer deemed {@link #acceptable} or
  * the {@link Retryable#getTimeout() timeout} is reached. {@link Exception}s thrown will be ignored
  * if they are contained in {@link #getIgnoredExceptions() ignoredExceptions}.
+ *
+ * @param <A> the {@link Class} of the {@link RetryableQuestion}'s answer
  */
 public interface RetryableQuestion<A> extends Question<A>, Retryable {
 
