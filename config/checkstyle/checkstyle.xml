@@ -8,5 +8,31 @@
     <module name="AvoidStarImport"/>
     <module name="ConstantName"/>
     <module name="EmptyBlock"/>
+
+    <module name="AbbreviationAsWordInName"/>
+
+    <module name="InvalidJavadocPosition"/>
+    <module name="JavadocBlockTagLocation"/>
+    <module name="JavadocContentLocationCheck"/>
+    <module name="JavadocMethod">
+      <property name="validateThrows" value="true"/>
+    </module>
+    <!--module name="JavadocMissingLeadingAsterisk"/-->
+    <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+    <module name="JavadocParagraph"/>
+    <module name="JavadocStyle">
+      <property name="tokens" value="ANNOTATION_DEF , ANNOTATION_FIELD_DEF , CLASS_DEF , CTOR_DEF ,
+        ENUM_DEF , INTERFACE_DEF , METHOD_DEF , PACKAGE_DEF , RECORD_DEF , COMPACT_CTOR_DEF "/>
+    </module>
+    <module name="JavadocTagContinuationIndentation">
+      <property name="offset" value="2"/>
+    </module>
+    <module name="JavadocType">
+      <property name="scope" value="package"/>
+    </module>
+    <module name="JavadocVariable">
+      <property name="scope" value="protected"/>
+    </module>
   </module>
+  <module name="JavadocPackage"/>
 </module>
