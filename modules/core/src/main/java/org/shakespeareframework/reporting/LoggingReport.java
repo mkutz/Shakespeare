@@ -58,6 +58,7 @@ class LoggingReport {
   /**
    * Marks the report as finished successfully.
    *
+   * @param supplement a final supplement to be added
    * @return this {@link LoggingReport}
    */
   LoggingReport success(String supplement) {
