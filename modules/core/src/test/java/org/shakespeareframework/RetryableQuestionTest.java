@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class RetryableQuestionTest {
@@ -22,41 +23,58 @@ class RetryableQuestionTest {
   }
 
   @ParameterizedTest(name = "acceptable accepts {0} by default")
-  @MethodSource("acceptableAnswers")
-  void acceptableTest1(Object answer) {
-    assertThat(retryableQuestion.acceptable(answer)).isTrue();
+  @EnumSource(AcceptableAnswerExample.class)
+  void acceptableTest1(AcceptableAnswerExample example) {
+    assertThat(retryableQuestion.acceptable(example.value)).isTrue();
   }
 
-  static Object[] acceptableAnswers() {
-    var something = new Object();
-    return new Object[] {
-      Optional.of(something),
-      List.of(something),
-      Set.of(something),
-      Map.of("key", something),
-      new Object[] {something},
-      true,
-      Boolean.TRUE,
-      something,
-      "some string"
-    };
+  enum AcceptableAnswerExample {
+    SOMETHING(new Object()),
+    PRESENT_OPTIONAL(SOMETHING),
+    NON_EMPTY_LIST(List.of(SOMETHING)),
+    NON_EMPTY_SET(Set.of(SOMETHING)),
+    NON_EMPTY_MAP(Map.of("key", SOMETHING)),
+    NON_EMPTY_ARRAY(new Object[] {SOMETHING}),
+    SIMPLE_TRUE(true),
+    BOXED_TRUE(Boolean.TRUE),
+    SOME_STRING("some string");
+
+    final Object value;
+
+    AcceptableAnswerExample(Object value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return name().toLowerCase().replace('_', ' ');
+    }
   }
 
   @ParameterizedTest(name = "acceptable declines {0} by default")
-  @MethodSource("unacceptableAnswers")
-  void acceptableTest2(Object answer) {
-    assertThat(retryableQuestion.acceptable(answer)).isFalse();
+  @EnumSource(UnacceptableAnswerExample.class)
+  void acceptableTest2(UnacceptableAnswerExample example) {
+    assertThat(retryableQuestion.acceptable(example.value)).isFalse();
   }
 
-  static Object[] unacceptableAnswers() {
-    return new Object[] {
-      Optional.empty(), List.of(), Set.of(), Map.of(), false, Boolean.FALSE, null
-    };
-  }
+  enum UnacceptableAnswerExample {
+    NON_PRESENT_OPTIONAL(Optional.empty()),
+    EMPTY_LIST(List.of()),
+    EMPTY_SET(Set.of()),
+    EMPTY_MAP(Map.of()),
+    SIMPLY_FALSE(false),
+    BOXED_FALSE(Boolean.FALSE),
+    NULL(null);
 
-  @Test
-  @DisplayName("acceptable declines empty arrays by default")
-  void acceptableTest3() {
-    assertThat(retryableQuestion.acceptable(new Object[] {})).isFalse();
+    final Object value;
+
+    UnacceptableAnswerExample(Object value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return name().toLowerCase().replace('_', ' ');
+    }
   }
 }
