@@ -12,8 +12,7 @@ class BrowseTheWebTest {
   @DisplayName("getWebDriver uses the WebDriverSupplier")
   void getWebDriverTest1() {
     var nullWebDriver = new NullWebDriver();
-    var webDriverSupplier =
-        new StaticWebDriverSupplier(nullWebDriver, BrowserType.CHROME, null);
+    var webDriverSupplier = new StaticWebDriverSupplier(nullWebDriver, BrowserType.CHROME, null);
     var browserTheWeb = new BrowseTheWeb(webDriverSupplier);
 
     assertThat(browserTheWeb.getWebDriver()).isEqualTo(nullWebDriver);
@@ -38,5 +37,16 @@ class BrowseTheWebTest {
         new StaticWebDriverSupplier(new NullWebDriver(), BrowserType.CHROME, null);
     assertThat(new BrowseTheWeb(webDriverSupplierMock))
         .hasToString(format("browse the web using %s", webDriverSupplierMock));
+  }
+
+  @Test
+  @DisplayName("getWebDriver opens the base URL automatically")
+  void getWebDriverTest2() {
+    var nullWebDriver = new NullWebDriver();
+    var webDriverSupplier = new StaticWebDriverSupplier(nullWebDriver, BrowserType.CHROME, null);
+    var baseUrl = "https://shakespeareframework.org/somewhere/else";
+    var browserTheWeb = new BrowseTheWeb(webDriverSupplier, baseUrl);
+
+    assertThat(browserTheWeb.getWebDriver().getCurrentUrl()).isEqualTo(baseUrl);
   }
 }
