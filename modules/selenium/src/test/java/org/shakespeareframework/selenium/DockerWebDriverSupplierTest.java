@@ -17,7 +17,7 @@ class DockerWebDriverSupplierTest {
   void getTest1(BrowserType browserType) throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
-    final var dockerWebDriverSupplier = new DockerWebDriverSupplier(browserType);
+    var dockerWebDriverSupplier = new DockerWebDriverSupplier(browserType);
 
     assertThat(dockerWebDriverSupplier.get())
         .isNotNull()
