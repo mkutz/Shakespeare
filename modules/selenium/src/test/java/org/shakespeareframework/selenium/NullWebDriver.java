@@ -14,13 +14,16 @@ class NullWebDriver implements WebDriver, TakesScreenshot {
 
   private boolean closed = false;
   private boolean quit = false;
+  private String currentUrl = "";
 
   @Override
-  public void get(String url) {}
+  public void get(String url) {
+    currentUrl = url;
+  }
 
   @Override
   public String getCurrentUrl() {
-    return "https://shakespeareframework.org";
+    return currentUrl;
   }
 
   @Override

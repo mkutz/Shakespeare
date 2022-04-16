@@ -35,8 +35,7 @@ class LocalWebDriverSupplierTest {
     assumeThat(new ProcessBuilder("which", COMMANDS.get(browserType)).start().waitFor())
         .isEqualTo(0);
 
-    var localWebDriverSupplier =
-        new LocalWebDriverSupplier(browserType, HEADLESS.get(browserType));
+    var localWebDriverSupplier = new LocalWebDriverSupplier(browserType, HEADLESS.get(browserType));
 
     assertThat(localWebDriverSupplier.get())
         .isNotNull()
