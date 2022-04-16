@@ -44,6 +44,18 @@ link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWe
 include::../../../test/java/SeleniumDocTest.java[tag=web-driver-manager]
 ----
 
+== Base URL
+
+Usually you will be testing one specific web application.
+In order to reset the browser to the URL of that application, you can give that base URL as an additional parameter to the link:{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html#<init>(org.shakespeareframework.selenium.WebDriverSupplier,java.lang.String)[WebDriverManager].
+The URL will be automatically called when you call link:{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()[getWebDriver].
+
+.Configure a base URL
+[source,java,indent=0]
+----
+include::../../../test/java/SeleniumDocTest.java[tag=open-base-url]
+----
+
 == Additional Capabilities
 
 All link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html[WebDriverSuppliers] provide a constructor, which allows configuring additional Capabilities.

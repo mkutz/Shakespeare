@@ -90,6 +90,19 @@ class SeleniumDocTest {
   @Test
   void act5() throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
+    try (var webDriverSupplier = new DockerWebDriverSupplier(BrowserType.CHROME)) {
+      // tag::open-base-url[]
+      var browseTheWeb = new BrowseTheWeb(webDriverSupplier, "https://shakespeareframework.org");
+
+      assertThat(browseTheWeb.getWebDriver().getCurrentUrl())
+          .isEqualTo("https://shakespeareframework.org");
+      // end::open-base-url[]
+    }
+  }
+
+  @Test
+  void act6() throws IOException, InterruptedException {
+    assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
     // tag::screenshot-reporter[]
     var reportsPath = Path.of("build", "reports", "shakespeare");
@@ -106,7 +119,7 @@ class SeleniumDocTest {
   }
 
   @Test
-  void act6() throws IOException, InterruptedException {
+  void act7() throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
     // tag::html-snapshot-reporter[]
