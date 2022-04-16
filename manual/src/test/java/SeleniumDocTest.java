@@ -92,10 +92,10 @@ class SeleniumDocTest {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
     try (var webDriverSupplier = new DockerWebDriverSupplier(BrowserType.CHROME)) {
       // tag::open-base-url[]
-      var browseTheWeb = new BrowseTheWeb(webDriverSupplier, "https://shakespeareframework.org");
+      var browseTheWeb = new BrowseTheWeb(webDriverSupplier, "https://shakespeareframework.org/");
 
       assertThat(browseTheWeb.getWebDriver().getCurrentUrl())
-          .isEqualTo("https://shakespeareframework.org");
+          .isEqualTo("https://shakespeareframework.org/");
       // end::open-base-url[]
     }
   }
