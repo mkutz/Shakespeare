@@ -514,6 +514,25 @@ var alex =
 </div>
 </div>
 <div class="sect1">
+<h2 id="_base_url">Base URL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Usually you will be testing one specific web application.
+In order to reset the browser to the URL of that application, you can give that base URL as an additional parameter to the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html#&lt;init&gt;(org.shakespeareframework.selenium.WebDriverSupplier,java.lang.String)">WebDriverManager</a>.
+The URL will be automatically called when you call <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()">getWebDriver</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Configure a base URL</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var browseTheWeb = new BrowseTheWeb(webDriverSupplier, "https://shakespeareframework.org");
+
+assertThat(browseTheWeb.getWebDriver().getCurrentUrl())
+    .isEqualTo("https://shakespeareframework.org");</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_additional_capabilities">Additional Capabilities</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -588,7 +607,7 @@ assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_versi
 <div id="footer">
 <div id="footer-text">
 Version 0.4-SNAPSHOT<br>
-Last updated 2022-04-16 09:49:09 UTC
+Last updated 2022-04-16 10:06:26 UTC
 </div>
 </div>
 </body>
