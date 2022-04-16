@@ -35,7 +35,7 @@ class LocalWebDriverSupplierTest {
     assumeThat(new ProcessBuilder("which", COMMANDS.get(browserType)).start().waitFor())
         .isEqualTo(0);
 
-    final var localWebDriverSupplier =
+    var localWebDriverSupplier =
         new LocalWebDriverSupplier(browserType, HEADLESS.get(browserType));
 
     assertThat(localWebDriverSupplier.get())
@@ -51,9 +51,9 @@ class LocalWebDriverSupplierTest {
     assumeThat(COMMANDS).containsKey(FIREFOX);
     assumeThat(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor()).isEqualTo(0);
 
-    final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
+    var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
 
-    final var webDriver = localWebDriverSupplier.get();
+    var webDriver = localWebDriverSupplier.get();
     assertThat(webDriver).isSameAs(localWebDriverSupplier.get());
 
     localWebDriverSupplier.close();
@@ -65,10 +65,10 @@ class LocalWebDriverSupplierTest {
     assumeThat(COMMANDS).containsKey(FIREFOX);
     assumeThat(new ProcessBuilder("which", COMMANDS.get(FIREFOX)).start().waitFor()).isEqualTo(0);
 
-    final var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
+    var localWebDriverSupplier = new LocalWebDriverSupplier(FIREFOX, HEADLESS.get(FIREFOX));
 
-    final var webDriver = localWebDriverSupplier.get();
-    final var window = webDriver.manage().window();
+    var webDriver = localWebDriverSupplier.get();
+    var window = webDriver.manage().window();
 
     assertThatNoException().isThrownBy(window::getSize);
 

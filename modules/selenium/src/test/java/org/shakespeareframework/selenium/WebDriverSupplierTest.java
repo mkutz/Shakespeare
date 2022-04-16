@@ -12,10 +12,10 @@ class WebDriverSupplierTest {
   @ParameterizedTest(name = "getCapabilities merges additional and base capabilities of {0}")
   @EnumSource(BrowserType.class)
   void getCapabilitiesTest1(BrowserType browserType) {
-    final var additionalCapabilities =
+    var additionalCapabilities =
         new MutableCapabilities(Map.of("additionalCapability", "true"));
 
-    final var mockWebDriverSupplier =
+    var mockWebDriverSupplier =
         new StaticWebDriverSupplier(new NullWebDriver(), browserType, additionalCapabilities);
 
     assertThat(mockWebDriverSupplier.getCapabilities().getCapability("additionalCapability"))

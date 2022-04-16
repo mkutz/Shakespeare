@@ -11,10 +11,10 @@ class BrowseTheWebTest {
   @Test
   @DisplayName("getWebDriver uses the WebDriverSupplier")
   void getWebDriverTest1() {
-    final var nullWebDriver = new NullWebDriver();
-    final var webDriverSupplier =
+    var nullWebDriver = new NullWebDriver();
+    var webDriverSupplier =
         new StaticWebDriverSupplier(nullWebDriver, BrowserType.CHROME, null);
-    final var browserTheWeb = new BrowseTheWeb(webDriverSupplier);
+    var browserTheWeb = new BrowseTheWeb(webDriverSupplier);
 
     assertThat(browserTheWeb.getWebDriver()).isEqualTo(nullWebDriver);
   }
@@ -22,9 +22,9 @@ class BrowseTheWebTest {
   @Test
   @DisplayName("close closes the WebDriverSupplier")
   void closeTest1() throws Exception {
-    final var webDriverSupplier =
+    var webDriverSupplier =
         new StaticWebDriverSupplier(new NullWebDriver(), BrowserType.CHROME, null);
-    final var browserTheWeb = new BrowseTheWeb(webDriverSupplier);
+    var browserTheWeb = new BrowseTheWeb(webDriverSupplier);
 
     browserTheWeb.close();
 
@@ -34,7 +34,7 @@ class BrowseTheWebTest {
   @Test
   @DisplayName("toString returns a loggable string")
   void toStringTest() {
-    final var webDriverSupplierMock =
+    var webDriverSupplierMock =
         new StaticWebDriverSupplier(new NullWebDriver(), BrowserType.CHROME, null);
     assertThat(new BrowseTheWeb(webDriverSupplierMock))
         .hasToString(format("browse the web using %s", webDriverSupplierMock));
