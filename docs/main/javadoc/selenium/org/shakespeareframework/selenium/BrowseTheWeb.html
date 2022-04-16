@@ -160,6 +160,11 @@ implements org.shakespeareframework.Ability, java.lang.AutoCloseable</pre>
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.shakespeareframework.selenium.WebDriverSupplier)">BrowseTheWeb</a></span>&#8203;(<a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a>&nbsp;webDriverSupplier)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.shakespeareframework.selenium.WebDriverSupplier,java.lang.String)">BrowseTheWeb</a></span>&#8203;(<a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a>&nbsp;webDriverSupplier,
+            java.lang.String&nbsp;baseUrl)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -219,6 +224,21 @@ implements org.shakespeareframework.Ability, java.lang.AutoCloseable</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a id="&lt;init&gt;(org.shakespeareframework.selenium.WebDriverSupplier,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>BrowseTheWeb</h4>
+<pre>public&nbsp;BrowseTheWeb&#8203;(<a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a>&nbsp;webDriverSupplier,
+                    java.lang.String&nbsp;baseUrl)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>webDriverSupplier</code> - the <a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> used to setup the <code>WebDriver</code></dd>
+<dd><code>baseUrl</code> - a URL to be opened automatically</dd>
+</dl>
+</li>
+</ul>
 <a id="&lt;init&gt;(org.shakespeareframework.selenium.WebDriverSupplier)">
 <!--   -->
 </a>
@@ -249,10 +269,12 @@ implements org.shakespeareframework.Ability, java.lang.AutoCloseable</pre>
 <li class="blockList">
 <h4>getWebDriver</h4>
 <pre class="methodSignature">public&nbsp;org.openqa.selenium.WebDriver&nbsp;getWebDriver()</pre>
-<div class="block">Gets the <code>WebDriver</code> from the <a href="#webDriverSupplier"><code>webDriverSupplier</code></a> and returns it.</div>
+<div class="block">Gets the <code>WebDriver</code> from the <a href="#webDriverSupplier"><code>webDriverSupplier</code></a> and returns it.
+
+ <p>If a <a href="#baseUrl"><code>baseUrl</code></a> is given, it will be opened automatically.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a <code>WebDriver</code> instance</dd>
+<dd>a <code>WebDriver</code> instance.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>Supplier.get()</code></dd>
 </dl>
