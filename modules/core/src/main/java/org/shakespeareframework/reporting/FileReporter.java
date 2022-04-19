@@ -62,7 +62,7 @@ public abstract class FileReporter implements Reporter {
     final var reportPath =
         reportsPath.resolve(
             format(
-                "%03d-%.20s-%.7s-%.100s.%10s",
+                "%03d-%.20s-%.7s-%.100s.%.10s",
                 ++counter,
                 actor.getName().toLowerCase(Locale.ROOT),
                 reportType,
