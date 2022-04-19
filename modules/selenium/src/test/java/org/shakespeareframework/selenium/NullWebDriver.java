@@ -14,7 +14,7 @@ class NullWebDriver implements WebDriver, TakesScreenshot {
 
   private boolean closed = false;
   private boolean quit = false;
-  private String currentUrl = "";
+  private String currentUrl = "about:blank";
 
   @Override
   public void get(String url) {
