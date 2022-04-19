@@ -107,7 +107,8 @@ class FileReporterTest {
         .exists()
         .isDirectoryContaining(
             "regex:build/reports/shakespeare/"
-                + "(\\d{3})-([a-z]{20})-"
+                + "(\\d{3})-"
+                + "([a-z]{20})-"
                 + "(start|retry|success|failure)-"
                 + "([a-z]{100})."
                 + "(txt)");
