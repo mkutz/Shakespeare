@@ -36,7 +36,7 @@ public final class BrowseTheWeb implements Ability, AutoCloseable {
    */
   public WebDriver getWebDriver() {
     final var webDriver = webDriverSupplier.get();
-    if (baseUrl != null) {
+    if (baseUrl != null && !webDriver.getCurrentUrl().startsWith("http")) {
       webDriver.get(baseUrl);
     }
     return webDriver;

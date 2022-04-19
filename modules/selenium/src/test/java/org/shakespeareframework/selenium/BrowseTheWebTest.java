@@ -49,4 +49,17 @@ class BrowseTheWebTest {
 
     assertThat(browserTheWeb.getWebDriver().getCurrentUrl()).isEqualTo(baseUrl);
   }
+
+  @Test
+  @DisplayName("getWebDriver ignores the base URL if already navigated")
+  void getWebDriverTest3() {
+    var nullWebDriver = new NullWebDriver();
+    var webDriverSupplier = new StaticWebDriverSupplier(nullWebDriver, BrowserType.CHROME, null);
+    var baseUrl = "https://shakespeareframework.org/somewhere/else";
+    var currentUrl = "https://shakespeareframework.org/previous/navigation";
+    var browserTheWeb = new BrowseTheWeb(webDriverSupplier, baseUrl);
+
+    nullWebDriver.get(currentUrl);
+    assertThat(browserTheWeb.getWebDriver().getCurrentUrl()).isEqualTo(currentUrl);
+  }
 }
