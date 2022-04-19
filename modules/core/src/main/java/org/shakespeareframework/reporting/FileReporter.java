@@ -30,6 +30,15 @@ public abstract class FileReporter implements Reporter {
    * Writes the given content to a new file in the {@link #reportsPath}. The {@link #reportsPath} is
    * automatically created if necessary.
    *
+   * <p>The filename will be structured as follows:
+   *
+   * <p><code>
+   * [increased {@link #counter} with leading zeros]-[{@link Actor#getName() actor.name}]-
+   * [{@link ReportType reportType}]-[activity].[fileNameExtension]
+   * </code>
+   *
+   * <p>E.g. <code>001-fiona-start-some_question.txt</code>
+   *
    * @param actor the acting {@link Actor}
    * @param reportType the {@link ReportType}
    * @param activity the {@link org.shakespeareframework.Task} or {@link
@@ -53,11 +62,11 @@ public abstract class FileReporter implements Reporter {
     final var reportPath =
         reportsPath.resolve(
             format(
-                "%03d-%s-%s-%s.%s",
+                "%03d-%.20s-%.7s-%.100s.%10s",
                 ++counter,
                 actor.getName().toLowerCase(Locale.ROOT),
                 reportType,
-                activity.toString().replaceAll("[^\\w]+", "_"),
+                activity.toString().replaceAll("\\W+", "_"),
                 fileNameExtension));
     try {
       write(reportPath, content, CREATE, TRUNCATE_EXISTING);

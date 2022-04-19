@@ -93,6 +93,26 @@ class FileReporterTest {
             "glob:build/reports/shakespeare/006-fiona-failure-some_question.txt");
   }
 
+  @Test
+  @DisplayName("file names parts are shortened")
+  void test4() {
+    var testFileReporter = new TestFileReporter(reportsPath);
+    var longString = "abcdefghijklmnopqrstuvwxyz".repeat(10);
+    var taskWithLongToString = new TestTaskBuilder().string(longString).build();
+    var actorWithLongName = new Actor(longString);
+
+    testFileReporter.start(actorWithLongName, taskWithLongToString);
+
+    assertThat(reportsPath)
+        .exists()
+        .isDirectoryContaining(
+            "regex:build/reports/shakespeare/"
+                + "(\\d{3})-([a-z]{20})-"
+                + "(start|retry|success|failure)-"
+                + "([a-z]{100})."
+                + "(txt)");
+  }
+
   private static class TestFileReporter extends FileReporter {
 
     protected TestFileReporter(Path reportsDirectory) {
