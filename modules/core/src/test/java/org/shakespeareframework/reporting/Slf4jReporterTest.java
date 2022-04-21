@@ -38,8 +38,8 @@ class Slf4jReporterTest {
     reporter.success(logan, task);
 
     assertThat(output.getOut())
-        .contains("INFO")
-        .containsPattern("Logan does some task ✓ (\\d+s)?(<?\\d+ms)");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan does some task ✓ (\\d+s)?(<?\\d+ms)\n");
   }
 
   @Test
@@ -53,8 +53,8 @@ class Slf4jReporterTest {
     reporter.failure(logan, task, new RuntimeException("Fail"));
 
     assertThat(output.getOut())
-        .contains("WARN")
-        .containsPattern("Logan does some task ✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan does some task ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 
   @Test
@@ -69,8 +69,8 @@ class Slf4jReporterTest {
     reporter.failure(logan, retryableTask, new RuntimeException("Fail"));
 
     assertThat(output.getOut())
-        .contains("WARN")
-        .containsPattern("Logan does some retryable task •✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan does some retryable task •✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 
   @Test
@@ -95,8 +95,8 @@ class Slf4jReporterTest {
     reporter.success(logan, question, "answer");
 
     assertThat(output.getOut())
-        .contains("INFO")
-        .containsPattern("Logan checks some question ✓ (\\d+s)?(<?\\d+ms) → answer");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan checks some question ✓ (\\d+s)?(<?\\d+ms) → answer\n");
   }
 
   @Test
@@ -110,8 +110,8 @@ class Slf4jReporterTest {
     reporter.failure(logan, question, new RuntimeException("Fail!"));
 
     assertThat(output.getOut())
-        .contains("WARN")
-        .containsPattern("Logan checks some question ✗ (\\d+s)?(<?\\d+ms) RuntimeException");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 
   @Test
@@ -128,9 +128,8 @@ class Slf4jReporterTest {
     reporter.failure(logan, retryableQuestion, "unaccepted answer");
 
     assertThat(output.getOut())
-        .contains("WARN")
-        .containsPattern(
-            "Logan checks some retryable question ••✗ (\\d+s)?(<?\\d+ms) → unaccepted answer");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some retryable question ••✗ (\\d+s)?(<?\\d+ms) → unaccepted answer\n");
   }
 
   @Test
@@ -147,10 +146,9 @@ class Slf4jReporterTest {
     reporter.success(logan, rootTask);
 
     assertThat(output.getOut())
-        .contains("INFO")
-        .containsPattern(
-            "Logan does some root task ✓ (\\d+s)?(<?\\d+ms)\n"
-                + "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan does some root task ✓ (\\d+s)?(<?\\d+ms)\n"
+                + "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n");
   }
 
   @Test
@@ -167,9 +165,41 @@ class Slf4jReporterTest {
     reporter.failure(logan, rootQuestion, new RuntimeException("Fail!"));
 
     assertThat(output.getOut())
-        .contains("WARN")
-        .containsPattern(
-            "Logan checks some root question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n"
-                + "└── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)");
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some root question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n"
+                + "└── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)\n");
+  }
+
+  @Test
+  @DisplayName("multiple reports with sub reports")
+  void test11() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var secondRootQuestion = new TestQuestionBuilder<String>().string("some root question").build();
+    var firstSubTask = new TestTaskBuilder().string("first sub task").build();
+    var secondSubTask = new TestTaskBuilder().string("second sub task").build();
+
+    var firstRootTask = new TestTaskBuilder().string("some root task").build();
+    var firstSubQuestion = new TestQuestionBuilder<String>().string("first sub question").build();
+
+    reporter.start(logan, firstRootTask);
+    reporter.start(logan, firstSubQuestion);
+    reporter.success(logan, firstSubQuestion, "answer");
+    reporter.success(logan, firstRootTask);
+
+    reporter.start(logan, secondRootQuestion);
+    reporter.start(logan, firstSubTask);
+    reporter.success(logan, firstSubTask);
+    reporter.start(logan, secondSubTask);
+    reporter.failure(logan, secondSubTask, new RuntimeException("Second task failure"));
+    reporter.failure(logan, secondRootQuestion, new RuntimeException("Root question failure"));
+
+    assertThat(output.getOut())
+        .matches(
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan does some root task ✓ (\\d+s)?(<?\\d+ms)\n"
+                + "└── Logan checks first sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n"
+                + "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some root question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n"
+                + "├── Logan does first sub task ✓ (\\d+s)?(<?\\d+ms)\n"
+                + "└── Logan does second sub task ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 }
