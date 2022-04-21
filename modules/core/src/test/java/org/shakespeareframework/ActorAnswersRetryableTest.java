@@ -3,6 +3,7 @@ package org.shakespeareframework;
 import static java.time.Duration.ofMillis;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.data.Offset.offset;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.DisplayName;
@@ -61,7 +62,7 @@ class ActorAnswersRetryableTest {
         .isThrownBy(() -> actor.checks(retryableQuestion))
         .withCauseExactlyInstanceOf(IllegalStateException.class);
 
-    assertThat(called).hasValueGreaterThanOrEqualTo(10);
+    assertThat(called).hasValueCloseTo(10, offset(1));
   }
 
   @Test
