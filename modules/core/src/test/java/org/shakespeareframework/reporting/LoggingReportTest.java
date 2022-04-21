@@ -2,6 +2,7 @@ package org.shakespeareframework.reporting;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -196,6 +197,18 @@ class LoggingReportTest {
                 + "│   a third line ✓ (\\d+s)?(<?\\d+ms) → answer\n"
                 + "└── Logan checks some other sub question\n"
                 + "    a second line ✓ (\\d+s)?(<?\\d+ms) → answer");
+  }
+
+  @Test
+  @DisplayName("getNumber returns an incremented counter value")
+  void getNumberTest1() {
+    var firstReport = new LoggingReport("Logan does first task");
+    var secondReport = new LoggingReport("Logan does second task");
+    var thirdReport = new LoggingReport("Logan does third task");
+
+    assertThat(List.of(firstReport.getNumber(), secondReport.getNumber(), thirdReport.getNumber()))
+        .isSorted()
+        .doesNotHaveDuplicates();
   }
 
   @Test

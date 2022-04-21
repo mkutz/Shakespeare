@@ -9,6 +9,7 @@ import static java.util.stream.Collectors.toList;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
@@ -16,18 +17,26 @@ import org.shakespeareframework.Task;
 /** Report on a {@link Task} or {@link Question}. */
 class LoggingReport {
 
+  private static int counter = 0;
+
   private final String subject;
   private final Instant started;
-  private final StringBuilder supplementBuilder = new StringBuilder();
-  private final List<LoggingReport> subReports = new ArrayList<>();
-  private Status status = Status.STARTED;
+  private final int number;
+  private final StringBuilder supplementBuilder;
+  private final List<LoggingReport> subReports;
+  private Status status;
   private Duration duration;
-  private int retries = 0;
+  private int retries;
 
   /** @param subject a description what this is about */
   LoggingReport(String subject) {
     this.subject = subject;
-    this.started = now();
+    started = now();
+    number = counter++;
+    supplementBuilder = new StringBuilder();
+    subReports = new ArrayList<>();
+    status = Status.STARTED;
+    retries = 0;
   }
 
   /**
@@ -110,10 +119,14 @@ class LoggingReport {
     return this;
   }
 
+  public int getNumber() {
+    return number;
+  }
+
   LoggingReport getCurrentReport() {
     return subReports.stream()
         .filter(report -> report.status == Status.STARTED)
-        .findFirst()
+        .max(Comparator.comparingInt(LoggingReport::getNumber))
         .map(LoggingReport::getCurrentReport)
         .orElse(this);
   }
