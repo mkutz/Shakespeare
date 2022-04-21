@@ -8,8 +8,8 @@ import static java.util.stream.Collectors.toList;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
 
@@ -19,7 +19,7 @@ class LoggingReport {
   private final String subject;
   private final Instant started;
   private final StringBuilder supplementBuilder = new StringBuilder();
-  private final Deque<LoggingReport> subReports = new ArrayDeque<>();
+  private final List<LoggingReport> subReports = new ArrayList<>();
   private Status status = Status.STARTED;
   private Duration duration;
   private int retries = 0;
@@ -106,7 +106,7 @@ class LoggingReport {
    * @return this {@link LoggingReport}
    */
   LoggingReport addSubReport(LoggingReport subReport) {
-    this.subReports.push(subReport);
+    this.subReports.add(subReport);
     return this;
   }
 
@@ -122,7 +122,7 @@ class LoggingReport {
     var subReportsString = "";
     final var subPrefix = prefix.replace('├', '│').replace('└', ' ').replace('─', ' ');
     if (!subReports.isEmpty()) {
-      final var lastSubReport = subReports.getFirst();
+      final var lastSubReport = subReports.get(subReports.size() - 1);
       final var subReportsStrings =
           subReports.stream()
               .filter(report -> !report.equals(lastSubReport))

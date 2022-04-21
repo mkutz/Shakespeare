@@ -88,19 +88,34 @@ class LoggingReportTest {
   @Test
   @DisplayName("toString multiple sub reports")
   void toStringTest9() {
-    var firstSubReport = new LoggingReport("Logan does some sub task").success();
-    var secondSubReport = new LoggingReport("Logan checks some sub question").success("→ answer");
+    var firstSubReport =
+        new LoggingReport("Logan checks first sub question").success("→ answer A").success();
+    var secondSubReport =
+        new LoggingReport("Logan checks second sub question").success("→ answer B");
+    var thirdSubReport = new LoggingReport("Logan checks third sub question").success("→ answer C");
+    var fourthSubReport =
+        new LoggingReport("Logan checks fourth sub question").success("→ answer D");
+    var fifthSubReport = new LoggingReport("Logan checks fifth sub question").success("→ answer E");
+    var sixthSubReport = new LoggingReport("Logan checks sixth sub question").success("→ answer F");
     var report =
         new LoggingReport("Logan does some task")
             .addSubReport(firstSubReport)
             .addSubReport(secondSubReport)
+            .addSubReport(thirdSubReport)
+            .addSubReport(fourthSubReport)
+            .addSubReport(fifthSubReport)
+            .addSubReport(sixthSubReport)
             .success();
 
     assertThat(report.toString())
         .matches(
             "Logan does some task ✓ (\\d+s)?(<?\\d+ms)\n"
-                + "├── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)\n"
-                + "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer");
+                + "├── Logan checks first sub question ✓ (\\d+s)?(<?\\d+ms) → answer A\n"
+                + "├── Logan checks second sub question ✓ (\\d+s)?(<?\\d+ms) → answer B\n"
+                + "├── Logan checks third sub question ✓ (\\d+s)?(<?\\d+ms) → answer C\n"
+                + "├── Logan checks fourth sub question ✓ (\\d+s)?(<?\\d+ms) → answer D\n"
+                + "├── Logan checks fifth sub question ✓ (\\d+s)?(<?\\d+ms) → answer E\n"
+                + "└── Logan checks sixth sub question ✓ (\\d+s)?(<?\\d+ms) → answer F");
   }
 
   @Test
