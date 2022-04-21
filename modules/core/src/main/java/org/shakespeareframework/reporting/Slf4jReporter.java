@@ -51,6 +51,7 @@ public class Slf4jReporter implements LoggingReporter {
     currentRootReport.getCurrentReport().success();
     if (logger.isInfoEnabled() && currentRootReport.isFinished()) {
       logger.info(currentRootReport.success().toString());
+      currentRootReport = null;
     }
   }
 
@@ -64,7 +65,8 @@ public class Slf4jReporter implements LoggingReporter {
     final var logger = getLogger(actor.getName());
     currentRootReport.getCurrentReport().success(format("→ %s", answer));
     if (logger.isInfoEnabled() && currentRootReport.isFinished()) {
-      logger.info(currentRootReport.success(format("→ %s", answer)).toString());
+      logger.info(currentRootReport.toString());
+      currentRootReport = null;
     }
   }
 
@@ -73,6 +75,7 @@ public class Slf4jReporter implements LoggingReporter {
     currentRootReport.getCurrentReport().failure(cause.getClass().getSimpleName());
     if (logger.isWarnEnabled() && currentRootReport.isFinished()) {
       logger.warn(currentRootReport.toString());
+      currentRootReport = null;
     }
   }
 
@@ -92,6 +95,7 @@ public class Slf4jReporter implements LoggingReporter {
     currentRootReport.getCurrentReport().failure(format("→ %s", answer));
     if (logger.isWarnEnabled() && currentRootReport.isFinished()) {
       logger.warn(currentRootReport.toString());
+      currentRootReport = null;
     }
   }
 }
