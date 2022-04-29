@@ -1,14 +1,14 @@
 package org.shakespeareframework.retrofit.authentication;
 
+import static java.lang.String.format;
+import static java.util.UUID.randomUUID;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static java.lang.String.format;
-import static java.util.UUID.randomUUID;
-import static org.assertj.core.api.Assertions.assertThat;
 
 class RetryingTokenAuthenticatorTest {
 
@@ -63,12 +63,12 @@ class RetryingTokenAuthenticatorTest {
   void test3() {
     var originalRequest = new Request.Builder().url("http://localhost").build();
     var firstResponse =
-            new Response.Builder()
-                    .code(401)
-                    .message("Authentication failed")
-                    .request(originalRequest)
-                    .protocol(Protocol.HTTP_1_1)
-                    .build();
+        new Response.Builder()
+            .code(401)
+            .message("Authentication failed")
+            .request(originalRequest)
+            .protocol(Protocol.HTTP_1_1)
+            .build();
     var secondResponse = firstResponse.newBuilder().priorResponse(firstResponse).build();
     var thirdResponse = secondResponse.newBuilder().priorResponse(secondResponse).build();
     var fourthResponse = thirdResponse.newBuilder().priorResponse(thirdResponse).build();
