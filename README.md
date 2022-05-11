@@ -1,4 +1,4 @@
-# Shakespeare
+# <img alt="Shakespeare logo" src="logo.svg" style="width:1em;height:1em"/> Shakespeare
 [![Build](https://github.com/mkutz/shakespeare/actions/workflows/build.yml/badge.svg)](https://github.com/mkutz/shakespeare/actions/workflows/build.yml)
 [![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/mkutz_shakespeare?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=mkutz_shakespeare)
 [![Sonar Coverage](https://img.shields.io/sonar/coverage/mkutz_shakespeare?server=http%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=mkutz_shakespeare)
