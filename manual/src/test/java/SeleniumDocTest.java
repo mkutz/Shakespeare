@@ -25,11 +25,11 @@ class SeleniumDocTest {
   @Test
   void act1() throws IOException, InterruptedException {
     assumeThat(System.getenv("CI")).isNull();
-    assumeThat(new ProcessBuilder("which", "firefox").start().waitFor()).isEqualTo(0);
+    assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor()).isEqualTo(0);
 
     // tag::local[]
     var tim =
-        new Actor("Tim").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));
+        new Actor("Tim").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.CHROME)));
     // end::local[]
 
     var latestRelease = tim.checks(new LatestShakespeareReleaseVersion());
@@ -39,7 +39,7 @@ class SeleniumDocTest {
 
   @Test
   void act2() throws IOException, InterruptedException {
-    assumeThat(new ProcessBuilder("which", "firefox").start().waitFor()).isEqualTo(0);
+    assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor()).isEqualTo(0);
 
     // tag::additional-capabilities[]
     var cameron =
@@ -47,7 +47,7 @@ class SeleniumDocTest {
             .can(
                 new BrowseTheWeb(
                     new LocalWebDriverSupplier(
-                        BrowserType.FIREFOX, new FirefoxOptions().setHeadless(true))));
+                        BrowserType.CHROME, new FirefoxOptions().setHeadless(true))));
     // end::additional-capabilities[]
 
     var latestRelease = cameron.checks(new LatestShakespeareReleaseVersion());
