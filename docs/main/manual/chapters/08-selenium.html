@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Browser Automation with Selenium</h1>
 <div class="details">
-<span id="revnumber">version 0.4-SNAPSHOT</span>
+<span id="revnumber">version 0.6-SNAPSHOT</span>
 </div>
 </div>
 <div id="content">
@@ -470,7 +470,7 @@ For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespe
 <div class="title">Setup for local development</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">var tim =
-    new Actor("Tim").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
+    new Actor("Tim").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.CHROME)));</code></pre>
 </div>
 </div>
 </div>
@@ -546,7 +546,7 @@ assertThat(browseTheWeb.getWebDriver().getCurrentUrl())
         .can(
             new BrowseTheWeb(
                 new LocalWebDriverSupplier(
-                    BrowserType.FIREFOX, new FirefoxOptions().setHeadless(true))));</code></pre>
+                    BrowserType.CHROME, new ChromeOptions().setHeadless(true))));</code></pre>
 </div>
 </div>
 </div>
@@ -606,8 +606,8 @@ assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_versi
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.4-SNAPSHOT<br>
-Last updated 2022-04-16 10:17:24 UTC
+Version 0.6-SNAPSHOT<br>
+Last updated 2022-06-07 14:26:56 UTC
 </div>
 </div>
 </body>
