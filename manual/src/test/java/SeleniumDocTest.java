@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
@@ -47,7 +48,7 @@ class SeleniumDocTest {
             .can(
                 new BrowseTheWeb(
                     new LocalWebDriverSupplier(
-                        BrowserType.CHROME, new FirefoxOptions().setHeadless(true))));
+                        BrowserType.CHROME, new ChromeOptions().setHeadless(true))));
     // end::additional-capabilities[]
 
     var latestRelease = cameron.checks(new LatestShakespeareReleaseVersion());
