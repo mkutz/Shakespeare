@@ -1,0 +1,3 @@
+= Browser Automation with Playwrite
+
+The Playwrite Module provides the link:{javadoc-url}/selenium/org/shakespeareframework/playwrite/BrowseTheWeb.html[BrowseTheWeb Ability], which basically provides a managed https://playwright.dev/java/docs/intro[Playwrite Docs].

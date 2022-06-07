@@ -21,7 +21,8 @@ include::chapters/07-reporting.adoc[leveloffset=1]
 == Additional Modules
 
 include::chapters/08-selenium.adoc[leveloffset=2]
-include::chapters/09-retrofit.adoc[leveloffset=2]
+include::chapters/09-playwrite.adoc[leveloffset=2]
+include::chapters/10-retrofit.adoc[leveloffset=2]
 
 == Further Reading
 

@@ -1,0 +1,32 @@
+plugins {
+  id 'shakespeare.module'
+}
+
+dependencies {
+  api project(':modules:core')
+
+  implementation 'com.microsoft.playwright:playwright:1.17.1'
+
+  testImplementation 'org.slf4j:slf4j-api:1.7.36'
+  testImplementation 'ch.qos.logback:logback-classic:1.2.11'
+
+  testImplementation project(':modules:testutils')
+
+  testImplementation platform('org.junit:junit-bom:5.8.2')
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+  testImplementation 'org.assertj:assertj-core:3.22.0'
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      pom {
+        name = 'Shakespeare Playwrite'
+        description = 'Module for browser automation via Playwrite.'
+      }
+    }
+  }
+}
