@@ -5,7 +5,7 @@ plugins {
 dependencies {
   api project(':modules:core')
 
-  api 'org.seleniumhq.selenium:selenium-java:4.2.1'
+  api 'org.seleniumhq.selenium:selenium-java:4.2.2'
 
   api 'io.github.bonigarcia:webdrivermanager:5.2.0'
   implementation 'commons-io:commons-io:2.11.0'
