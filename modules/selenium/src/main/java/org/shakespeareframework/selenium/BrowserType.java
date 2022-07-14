@@ -3,7 +3,6 @@ package org.shakespeareframework.selenium;
 import static java.util.Arrays.stream;
 
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.ImmutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -31,11 +30,11 @@ public enum BrowserType {
 
   private final Class<? extends WebDriver> webDriverClass;
 
-  private final ImmutableCapabilities baseCapabilities;
+  private final Capabilities baseCapabilities;
 
   BrowserType(Class<? extends WebDriver> webDriverClass, Capabilities baseCapabilities) {
     this.webDriverClass = webDriverClass;
-    this.baseCapabilities = ImmutableCapabilities.copyOf(baseCapabilities);
+    this.baseCapabilities = baseCapabilities;
   }
 
   /**
