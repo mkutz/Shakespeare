@@ -1,6 +1,6 @@
 plugins {
   id 'jacoco'
-  id 'info.solidsoft.pitest'
+  id 'info.solidsoft.pitest' apply false
   id 'java'
 }
 
@@ -21,7 +21,7 @@ jacocoTestReport {
 }
 
 pitest {
-  junit5PluginVersion = '0.15'
+  junit5PluginVersion = '1.0.0'
   outputFormats = ['XML', 'HTML']
   timestampedReports = false
 }
