@@ -42,7 +42,9 @@ public final class Actor {
   /** A {@link List} of {@link Reporter}s the {@link Actor} informs in the lists order. */
   private final List<Reporter> reporters = new ArrayList<>();
 
-  /** @param name a name used for logging and reporting */
+  /**
+   * @param name a name used for logging and reporting
+   */
   public Actor(String name) {
     this.name = requireNonNull(name);
   }
@@ -236,7 +238,9 @@ public final class Actor {
     return this;
   }
 
-  /** @return {@link #name} */
+  /**
+   * @return {@link #name}
+   */
   public String getName() {
     return name;
   }

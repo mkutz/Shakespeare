@@ -28,7 +28,9 @@ class LoggingReport {
   private Duration duration;
   private int retries;
 
-  /** @param subject a description what this is about */
+  /**
+   * @param subject a description what this is about
+   */
   LoggingReport(String subject) {
     this.subject = subject;
     started = now();
