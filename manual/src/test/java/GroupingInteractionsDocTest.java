@@ -1,13 +1,14 @@
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assumptions.assumeThat;
 
 import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.assertj.core.api.Assumptions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
@@ -58,11 +59,12 @@ class GroupingInteractionsDocTest {
 
   @Test
   void act1() throws IOException, InterruptedException {
-    Assumptions.assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor())
-        .isEqualTo(0);
+    assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor()).isEqualTo(0);
+    final var browseTheWeb =
+        new BrowseTheWeb(
+            new LocalWebDriverSupplier(BrowserType.CHROME, new ChromeOptions().setHeadless(true)));
     // tag::create-actor[]
-    var john =
-        new Actor("John").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.CHROME)));
+    var john = new Actor("John").can(browseTheWeb);
     // end::create-actor[]
     // tag::do-task[]
     john.does(new Login("john", "demo"));
