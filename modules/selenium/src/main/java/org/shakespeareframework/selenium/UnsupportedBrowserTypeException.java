@@ -8,7 +8,9 @@ import static java.lang.String.format;
  */
 public class UnsupportedBrowserTypeException extends RuntimeException {
 
-  /** @param string the string not matching any {@link BrowserType} */
+  /**
+   * @param string the string not matching any {@link BrowserType}
+   */
   public UnsupportedBrowserTypeException(String string) {
     super(format("Unknown browser type \"%s\"", string));
   }

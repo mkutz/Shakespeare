@@ -6,7 +6,9 @@ package org.shakespeareframework.selenium;
  */
 public class WebDriverSetupFailedException extends RuntimeException {
 
-  /** @param cause the causing {@link Exception} */
+  /**
+   * @param cause the causing {@link Exception}
+   */
   public WebDriverSetupFailedException(Exception cause) {
     super(cause);
   }

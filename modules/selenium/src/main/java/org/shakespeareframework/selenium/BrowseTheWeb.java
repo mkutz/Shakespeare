@@ -21,7 +21,9 @@ public final class BrowseTheWeb implements Ability, AutoCloseable {
     this.baseUrl = baseUrl;
   }
 
-  /** @param webDriverSupplier the {@link WebDriverSupplier} used to setup the {@link WebDriver} */
+  /**
+   * @param webDriverSupplier the {@link WebDriverSupplier} used to setup the {@link WebDriver}
+   */
   public BrowseTheWeb(WebDriverSupplier webDriverSupplier) {
     this(webDriverSupplier, null);
   }

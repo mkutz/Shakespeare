@@ -21,7 +21,9 @@ public class LocalWebDriverSupplier extends WebDriverManagerWebDriverSupplier {
         additionalCapabilities);
   }
 
-  /** @param browserType the {@link BrowserType} to be setup */
+  /**
+   * @param browserType the {@link BrowserType} to be setup
+   */
   public LocalWebDriverSupplier(BrowserType browserType) {
     this(browserType, null);
   }

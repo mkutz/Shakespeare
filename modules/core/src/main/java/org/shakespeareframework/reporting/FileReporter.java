@@ -21,7 +21,9 @@ public abstract class FileReporter implements Reporter {
   private final Path reportsPath;
   private int counter = 0;
 
-  /** @param reportsPath path to the reports directory */
+  /**
+   * @param reportsPath path to the reports directory
+   */
   protected FileReporter(Path reportsPath) {
     this.reportsPath = reportsPath;
   }
