@@ -21,7 +21,9 @@ public class DockerWebDriverSupplier extends WebDriverManagerWebDriverSupplier {
         additionalCapabilities);
   }
 
-  /** @param browserType the {@link BrowserType} to be setup */
+  /**
+   * @param browserType the {@link BrowserType} to be setup
+   */
   public DockerWebDriverSupplier(BrowserType browserType) {
     this(browserType, null);
   }
