@@ -1,5 +1,11 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.assertj.core.api.Assumptions;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.shakespeareframework.Actor;
@@ -7,15 +13,56 @@ import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
 import org.shakespeareframework.selenium.BrowseTheWeb;
 import org.shakespeareframework.selenium.BrowserType;
-import org.shakespeareframework.selenium.DockerWebDriverSupplier;
+import org.shakespeareframework.selenium.LocalWebDriverSupplier;
 
 class GroupingInteractionsDocTest {
 
+  static String LOGIN_FORM_HTML =
+      """
+      <html>
+        <body>
+          <form class="login" action="/login" method="post">
+            <label for"username">Username: </label>
+            <input name="username" type="text"/>
+            <label for"username">Password: </label>
+            <input name="password" type="password"/>
+            <button type="submit">Login</button>
+          </form>
+        </body>
+      </html>
+      """;
+
+  static String LOGGED_IN_HTML =
+      """
+      <html>
+        <body>
+          <a href="/logout">Log Out</a>
+        </body>
+      </html>
+      """;
+
+  static MockWebServer mockWebServer = new MockWebServer();
+
+  @BeforeAll
+  static void initializeMockWebServer() throws IOException {
+    mockWebServer.enqueue(
+        new MockResponse().addHeader("Content-Type", "text/html").setBody(LOGIN_FORM_HTML));
+    mockWebServer.enqueue(new MockResponse().setBody(LOGGED_IN_HTML));
+    mockWebServer.start();
+  }
+
+  @AfterAll
+  static void shutdownMockWebServer() throws IOException {
+    mockWebServer.shutdown();
+  }
+
   @Test
-  void act1() {
+  void act1() throws IOException, InterruptedException {
+    Assumptions.assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor())
+        .isEqualTo(0);
     // tag::create-actor[]
     var john =
-        new Actor("John").can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.CHROME)));
+        new Actor("John").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.CHROME)));
     // end::create-actor[]
     // tag::do-task[]
     john.does(new Login("john", "demo"));
@@ -40,7 +87,7 @@ class GroupingInteractionsDocTest {
     public void performAs(Actor actor) {
       var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-      webDriver.get("https://parabank.parasoft.com/"); // <1>
+      webDriver.get(mockWebServer.url("/").toString()); // <1>
 
       webDriver
           .findElement(By.name("username")) // <2>
@@ -49,7 +96,7 @@ class GroupingInteractionsDocTest {
           .findElement(By.name("password")) // <4>
           .sendKeys(password); // <5>
       webDriver
-          .findElement(By.cssSelector(".login input.button")) // <6>
+          .findElement(By.cssSelector(".login button")) // <6>
           .click(); // <7>
     }
 
@@ -67,7 +114,7 @@ class GroupingInteractionsDocTest {
     public Boolean answerAs(Actor actor) {
       var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-      return webDriver.findElement(By.linkText("Log Out")).isDisplayed();
+      return !webDriver.findElements(By.linkText("Log Out")).isEmpty();
     }
 
     @Override
