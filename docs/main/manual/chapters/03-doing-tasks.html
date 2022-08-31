@@ -594,7 +594,7 @@ This might consist of the following interactions with the website:</p>
   public void performAs(Actor actor) {
     var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-    webDriver.get("https://parabank.parasoft.com/"); // <b class="conum">(1)</b>
+    webDriver.get(mockWebServer.url("/").toString()); // <b class="conum">(1)</b>
 
     webDriver
         .findElement(By.name("username")) // <b class="conum">(2)</b>
@@ -603,7 +603,7 @@ This might consist of the following interactions with the website:</p>
         .findElement(By.name("password")) // <b class="conum">(4)</b>
         .sendKeys(password); // <b class="conum">(5)</b>
     webDriver
-        .findElement(By.cssSelector(".login input.button")) // <b class="conum">(6)</b>
+        .findElement(By.cssSelector(".login button")) // <b class="conum">(6)</b>
         .click(); // <b class="conum">(7)</b>
   }
 
@@ -694,7 +694,7 @@ It is generally a bad idea to mix simple interactions with sub-tasks, as it make
 <div id="footer">
 <div id="footer-text">
 Version 0.6-SNAPSHOT<br>
-Last updated 2022-08-30 16:19:46 UTC
+Last updated 2022-08-31 06:21:52 UTC
 </div>
 </div>
 </body>

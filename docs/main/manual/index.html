@@ -883,7 +883,7 @@ This might consist of the following interactions with the website:</p>
   <span class="directive">public</span> <span class="type">void</span> performAs(Actor actor) {
     var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-    webDriver.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">https://parabank.parasoft.com/</span><span class="delimiter">&quot;</span></span>); <i class="conum" data-value="1"></i><b>(1)</b>
+    webDriver.get(mockWebServer.url(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>).toString()); <i class="conum" data-value="1"></i><b>(1)</b>
 
     webDriver
         .findElement(By.name(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="2"></i><b>(2)</b>
@@ -892,7 +892,7 @@ This might consist of the following interactions with the website:</p>
         .findElement(By.name(<span class="string"><span class="delimiter">&quot;</span><span class="content">password</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="4"></i><b>(4)</b>
         .sendKeys(password); <i class="conum" data-value="5"></i><b>(5)</b>
     webDriver
-        .findElement(By.cssSelector(<span class="string"><span class="delimiter">&quot;</span><span class="content">.login input.button</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="6"></i><b>(6)</b>
+        .findElement(By.cssSelector(<span class="string"><span class="delimiter">&quot;</span><span class="content">.login button</span><span class="delimiter">&quot;</span></span>)) <i class="conum" data-value="6"></i><b>(6)</b>
         .click(); <i class="conum" data-value="7"></i><b>(7)</b>
   }
 
@@ -1011,7 +1011,7 @@ How the Actor finds the answer to a Question is defined in the <a href="../javad
   <span class="directive">public</span> <span class="predefined-type">Boolean</span> answerAs(Actor actor) {
     var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
 
-    <span class="keyword">return</span> webDriver.findElement(By.linkText(<span class="string"><span class="delimiter">&quot;</span><span class="content">Log Out</span><span class="delimiter">&quot;</span></span>)).isDisplayed();
+    <span class="keyword">return</span> !webDriver.findElements(By.linkText(<span class="string"><span class="delimiter">&quot;</span><span class="content">Log Out</span><span class="delimiter">&quot;</span></span>)).isEmpty();
   }
 
   <span class="annotation">@Override</span>
@@ -1697,7 +1697,7 @@ To do so, add the required dependency to your project, and use the generic <a hr
 <div id="footer">
 <div id="footer-text">
 Version 0.6-SNAPSHOT<br>
-Last updated 2022-08-30 16:19:46 UTC
+Last updated 2022-08-31 06:21:52 UTC
 </div>
 </div>
 <style>
