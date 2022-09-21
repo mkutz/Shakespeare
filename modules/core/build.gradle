@@ -5,7 +5,7 @@ plugins {
 dependencies {
   implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-  implementation 'org.slf4j:slf4j-api:2.0.1'
+  implementation 'org.slf4j:slf4j-api:2.0.2'
 
   testImplementation project(':modules:testutils')
   testImplementation 'ch.qos.logback:logback-classic:1.4.1'
