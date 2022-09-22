@@ -1,4 +1,4 @@
-name: Update Pages
+name: Udpate Pages
 
 on:
   workflow_dispatch:
