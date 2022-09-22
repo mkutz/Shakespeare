@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 class ResourceOwnerPasswordAuthenticatorTest {
 
-  static MockOAuth2Server mockOAuth2Server = new MockOAuth2Server();
+  static final MockOAuth2Server mockOAuth2Server = new MockOAuth2Server();
   static final String username = UUID.randomUUID().toString();
   static final String password = UUID.randomUUID().toString();
   static final String clientId = UUID.randomUUID().toString();
@@ -61,7 +61,5 @@ class ResourceOwnerPasswordAuthenticatorTest {
 
   @Test
   @DisplayName("authenticate fails")
-  void test2() {
-    // TODO
-  }
+  void test2() {}
 }
