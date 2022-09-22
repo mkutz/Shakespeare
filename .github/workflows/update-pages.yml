@@ -74,12 +74,6 @@ jobs:
           git push
         working-directory: pages
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: docs
-          destination: docs
-
       - uses: actions/upload-pages-artifact@v1
         with:
           path: docs

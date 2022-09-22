@@ -6,4 +6,5 @@ gradle-app.setting
 .gradletasknamecache
 .idea
 !.idea/icon.png
+docs/**
 .jqwik-database
