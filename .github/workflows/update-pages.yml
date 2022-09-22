@@ -35,29 +35,44 @@ jobs:
           java-version: 17
           distribution: temurin
 
+      - uses: actions/checkout@v2
+        with:
+          ref: pages
+          path: pages
+
       - name: Create base directory
-        run: mkdir -p docs/${{ github.ref_name }}
+        run: mkdir -p pages/docs/${{ github.ref_name }}
 
       - name: Update AsciiDoc
         run: |
           ./gradlew asciidoc
-          rm -rf docs/${{ github.ref_name }}/manual
-          mv manual/build/docs/asciidoc docs/${{ github.ref_name }}/manual
+          rm -rf pages/docs/${{ github.ref_name }}/manual
+          mv manual/build/docs/asciidoc pages/docs/${{ github.ref_name }}/manual
 
       - name: Update JavaDoc
         run: |
           ./gradlew javadoc
-          rm -rf docs/${{ github.ref_name }}/javadoc
-          mkdir docs/${{ github.ref_name }}/javadoc
-          mv modules/core/build/docs/javadoc docs/${{ github.ref_name }}/javadoc/core
-          mv modules/retrofit/build/docs/javadoc docs/${{ github.ref_name }}/javadoc/retrofit
-          mv modules/selenium/build/docs/javadoc docs/${{ github.ref_name }}/javadoc/selenium
+          rm -rf pages/docs/${{ github.ref_name }}/javadoc
+          mkdir pages/docs/${{ github.ref_name }}/javadoc
+          mv modules/core/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/core
+          mv modules/retrofit/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/retrofit
+          mv modules/selenium/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/selenium
 
       - name: Update "latest" Alias
         if: github.ref_type == 'tag'
         run: |
           rm -f docs/latest
           ln -s ./${{ github.ref_name }} docs/latest
+        working-directory: pages
+
+      - name: Push changes
+        run: |
+          git config user.name "Documentor"
+          git config user.email "mail@michael-kutz.de"
+          git add docs
+          git commit -m "Update docs for ${{ github.ref_name }}" -m "[skip ci]"
+          git push
+        working-directory: pages
 
       - uses: actions/upload-pages-artifact@v1
         with:
