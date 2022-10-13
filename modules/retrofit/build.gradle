@@ -7,7 +7,7 @@ dependencies {
 
   api 'com.squareup.retrofit2:retrofit:2.9.0'
   api 'com.squareup.retrofit2:converter-jackson:2.9.0'
-  implementation platform('com.fasterxml.jackson:jackson-bom:2.13.4')
+  implementation platform('com.fasterxml.jackson:jackson-bom:2.13.4.20221012')
   api 'com.squareup.retrofit2:converter-scalars:2.9.0'
 
   testImplementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
