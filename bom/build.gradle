@@ -44,6 +44,7 @@ publishing {
 }
 
 signing {
+  required { !version.endsWith('SNAPSHOT') }
   useInMemoryPgpKeys(findProperty('signingKey'), findProperty('signingPassword'))
   sign publishing.publications.mavenJava
 }
