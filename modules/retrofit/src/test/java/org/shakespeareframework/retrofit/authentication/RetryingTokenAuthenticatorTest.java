@@ -85,7 +85,7 @@ class RetryingTokenAuthenticatorTest {
     final Oauth2Token token;
 
     protected StaticRetryingTokenAuthenticator() {
-      super("http://localhost", 2);
+      super("http://localhost", 3);
       token =
           new Oauth2Token(
               randomUUID().toString(),
