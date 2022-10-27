@@ -1,12 +1,11 @@
 package org.shakespeareframework.retrofit.oauth2;
 
+import static java.time.Instant.now;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.Instant;
-
-import static java.time.Instant.now;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Oauth2Token {
