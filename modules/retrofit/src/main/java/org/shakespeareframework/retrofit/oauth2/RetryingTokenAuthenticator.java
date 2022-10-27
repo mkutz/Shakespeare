@@ -1,14 +1,13 @@
 package org.shakespeareframework.retrofit.oauth2;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * {@link Authenticator} that will retry authentication at the #tokenServiceUrl for {@link
