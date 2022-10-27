@@ -1,10 +1,9 @@
-package org.shakespeareframework.retrofit.authentication;
+package org.shakespeareframework.retrofit.oauth2;
 
 import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
 import java.util.UUID;
 import no.nav.security.mock.oauth2.MockOAuth2Server;
 import okhttp3.Protocol;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.shakespeareframework.retrofit.oauth2.ResourceOwnerPasswordTokenAuthenticator;
 
 class ResourceOwnerPasswordAuthenticatorTest {
 
@@ -28,12 +26,12 @@ class ResourceOwnerPasswordAuthenticatorTest {
           mockOAuth2Server.baseUrl().toString(), username, password, clientId, clientSecret);
 
   @BeforeAll
-  static void startMockOAuth2Server() throws IOException {
+  static void startMockOAuth2Server() {
     mockOAuth2Server.start();
   }
 
   @AfterAll
-  static void shutdownMockOAuth2Server() throws IOException {
+  static void shutdownMockOAuth2Server() {
     mockOAuth2Server.shutdown();
   }
 
@@ -59,8 +57,4 @@ class ResourceOwnerPasswordAuthenticatorTest {
             format("client_secret=%s", clientSecret),
             "grant_type=password");
   }
-
-  @Test
-  @DisplayName("authenticate fails")
-  void test2() {}
 }
