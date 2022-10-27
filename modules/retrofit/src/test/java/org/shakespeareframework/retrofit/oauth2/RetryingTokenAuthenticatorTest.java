@@ -86,14 +86,7 @@ class RetryingTokenAuthenticatorTest {
 
     protected StaticRetryingTokenAuthenticator() {
       super("http://localhost", 3);
-      token =
-          new Oauth2Token(
-              randomUUID().toString(),
-              10000,
-              randomUUID().toString(),
-              1000000,
-              "some_scope",
-              randomUUID().toString());
+      token = new Oauth2Token(randomUUID().toString(), 10000);
     }
 
     @Override
