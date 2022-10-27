@@ -1,5 +1,6 @@
 package org.shakespeareframework.retrofit;
 
+import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.shakespeareframework.Ability;
@@ -11,13 +12,20 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /** {@link Ability} to call RESTful APIs using {@link Retrofit}. */
 public class CallHttpApis implements Ability {
 
+  private final HeaderInterceptor headerInterceptor = new HeaderInterceptor();
+
   /**
    * Creates a new {@link Builder}.
    *
    * @return a new {@link Builder}
    */
   public Builder buildClient() {
-    return new Builder();
+    return new Builder().addInterceptor(headerInterceptor);
+  }
+
+  public CallHttpApis addStandardHeader(String key, String value) {
+    headerInterceptor.add(key, value);
+    return this;
   }
 
   /**
@@ -87,6 +95,11 @@ public class CallHttpApis implements Ability {
      */
     public Builder addInterceptor(Interceptor interceptor) {
       okHttpClientBuilder.addInterceptor(interceptor);
+      return this;
+    }
+
+    public Builder authenticator(Authenticator authenticator) {
+      okHttpClientBuilder.authenticator(authenticator);
       return this;
     }
 
