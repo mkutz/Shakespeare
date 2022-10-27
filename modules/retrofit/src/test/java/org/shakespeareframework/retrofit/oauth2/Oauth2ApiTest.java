@@ -34,9 +34,15 @@ class Oauth2ApiTest {
             .build()
             .create(Oauth2Api.class);
 
-    var response = oauth2Api
-        .getToken(UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), "password")
-        .execute();
+    var response =
+        oauth2Api
+            .getToken(
+                UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
+                "password")
+            .execute();
 
     assertThat(response.code()).isEqualTo(200);
     assertThat(response.body()).isNotNull();
