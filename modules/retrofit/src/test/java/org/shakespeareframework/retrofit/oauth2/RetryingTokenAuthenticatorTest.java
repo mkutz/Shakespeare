@@ -1,4 +1,4 @@
-package org.shakespeareframework.retrofit.authentication;
+package org.shakespeareframework.retrofit.oauth2;
 
 import static java.lang.String.format;
 import static java.util.UUID.randomUUID;
@@ -9,8 +9,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.shakespeareframework.retrofit.oauth2.Oauth2Token;
-import org.shakespeareframework.retrofit.oauth2.RetryingTokenAuthenticator;
 
 class RetryingTokenAuthenticatorTest {
 
