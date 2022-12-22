@@ -1,12 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.adoc'
   pull_request:
     branches:
       - main
@@ -19,6 +13,7 @@ jobs:
     permissions:
       checks: write
       pull-requests: write
+      contents: write
 
     runs-on: ubuntu-latest
 
@@ -33,7 +28,7 @@ jobs:
           java-version: 17
           distribution: temurin
 
-      - run: ./gradlew build
+      - run: ./gradlew check
 
       - name: cache SonarCloud packages
         uses: actions/cache@v3
@@ -43,7 +38,15 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - run: ./gradlew build jacocoTestReport sonarqube
-        if: ${{ github.actor != 'dependabot[bot]' }}
+        if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Enable auto merge for Dependabot PRs  
+        run: |
+          gh pr review --approve "${{ github.event.pull_request.html_url }}"
+          gh pr merge --auto --rebase --delete-branch "${{ github.event.pull_request.html_url }}"
+        if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
