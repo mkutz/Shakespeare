@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assumptions.assumeThat;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.IOException;
 import java.nio.file.Path;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
