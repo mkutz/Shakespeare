@@ -8,8 +8,6 @@
  * <ul>
  *   <li>the {@link org.shakespeareframework.selenium.LocalWebDriverSupplier} to use a pre-installed
  *       local browser,
- *   <li>the {@link org.shakespeareframework.selenium.DockerWebDriverSupplier} to use a browser from
- *       an automatically downloaded and started Docker container, and
  *   <li>the {@link org.shakespeareframework.selenium.WebDriverManagerWebDriverSupplier} to use a
  *       self configured {@link io.github.bonigarcia.wdm.WebDriverManager} (the other two extend
  *       this but are pre-configured).
