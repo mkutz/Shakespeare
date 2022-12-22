@@ -475,26 +475,9 @@ For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespe
 </div>
 </div>
 <div class="sect2">
-<h3 id="_for_continuous_integration_with_docker">For Continuous Integration with Docker</h3>
-<div class="paragraph">
-<p>Continuous integration (CI) environments usually don&#8217;t have a viewport and sometimes not even any browsers installed.
-For such scenarios Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html">DockerWebDriverSupplier</a>.</p>
-</div>
-<div class="paragraph">
-<p>As the name suggests, it requires Docker to be available on the CI system and uses it to provide a container with the desired browser installed.</p>
-</div>
-<div class="listingblock">
-<div class="title">Setup for Docker Continuous Integration with Docker</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var jodie =
-    new Actor("Jodie").can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_using_webdrivermanager">Using WebDriverManager</h3>
 <div class="paragraph">
-<p>Both of the above variants rely on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
+<p>The above variant relies on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
 </div>
 <div class="paragraph">
 <p><a href="{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html">WebDriverManagerWebDriverSupplier</a> allows to use it directly and thereby use all of its features.</p>
@@ -570,7 +553,10 @@ E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
 <pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
 var imogen =
     new Actor("Imogen")
-        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .can(
+            new BrowseTheWeb(
+                new WebDriverManagerWebDriverSupplier(
+                    WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
         .informs(new ScreenshotReporter(reportsPath, true));
 
 imogen.checks(new LatestShakespeareReleaseVersion());
@@ -591,7 +577,10 @@ assertThat(reportsPath.resolve("001-imogen-success-latest_shakespeare_release_ve
 <pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
 var tim =
     new Actor("Tim")
-        .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .can(
+            new BrowseTheWeb(
+                new WebDriverManagerWebDriverSupplier(
+                    WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
         .informs(new HtmlSnapshotReporter(reportsPath, true));
 
 tim.checks(new LatestShakespeareReleaseVersion());
@@ -607,7 +596,7 @@ assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_versi
 <div id="footer">
 <div id="footer-text">
 Version 0.6-SNAPSHOT<br>
-Last updated 2022-12-22 15:22:14 UTC
+Last updated 2022-12-22 16:38:15 UTC
 </div>
 </div>
 </body>

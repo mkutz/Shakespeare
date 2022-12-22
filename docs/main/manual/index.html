@@ -1423,26 +1423,9 @@ For this Shakespeare comes with the <a href="../javadoc/selenium/org/shakespeare
 </div>
 </div>
 <div class="sect4">
-<h5 id="_for_continuous_integration_with_docker"><a class="anchor" href="#_for_continuous_integration_with_docker"></a><a class="link" href="#_for_continuous_integration_with_docker">For Continuous Integration with Docker</a></h5>
-<div class="paragraph">
-<p>Continuous integration (CI) environments usually don&#8217;t have a viewport and sometimes not even any browsers installed.
-For such scenarios Shakespeare comes with the <a href="../javadoc/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html">DockerWebDriverSupplier</a>.</p>
-</div>
-<div class="paragraph">
-<p>As the name suggests, it requires Docker to be available on the CI system and uses it to provide a container with the desired browser installed.</p>
-</div>
-<div class="listingblock">
-<div class="title">Setup for Docker Continuous Integration with Docker</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">var jodie =
-    <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Jodie</span><span class="delimiter">&quot;</span></span>).can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)));</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_using_webdrivermanager"><a class="anchor" href="#_using_webdrivermanager"></a><a class="link" href="#_using_webdrivermanager">Using WebDriverManager</a></h5>
 <div class="paragraph">
-<p>Both of the above variants rely on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
+<p>The above variant relies on the <a href="https://bonigarcia.dev/webdrivermanager/">WebDriverManager</a> internally.</p>
 </div>
 <div class="paragraph">
 <p><a href="../javadoc/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html">WebDriverManagerWebDriverSupplier</a> allows to use it directly and thereby use all of its features.</p>
@@ -1512,7 +1495,10 @@ E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
 <pre class="CodeRay highlight"><code data-lang="java">var reportsPath = Path.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">shakespeare</span><span class="delimiter">&quot;</span></span>);
 var imogen =
     <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Imogen</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .can(
+            <span class="keyword">new</span> BrowseTheWeb(
+                <span class="keyword">new</span> WebDriverManagerWebDriverSupplier(
+                    WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
         .informs(<span class="keyword">new</span> ScreenshotReporter(reportsPath, <span class="predefined-constant">true</span>));
 
 imogen.checks(<span class="keyword">new</span> LatestShakespeareReleaseVersion());
@@ -1533,7 +1519,10 @@ assertThat(reportsPath.resolve(<span class="string"><span class="delimiter">&quo
 <pre class="CodeRay highlight"><code data-lang="java">var reportsPath = Path.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">shakespeare</span><span class="delimiter">&quot;</span></span>);
 var tim =
     <span class="keyword">new</span> Actor(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tim</span><span class="delimiter">&quot;</span></span>)
-        .can(<span class="keyword">new</span> BrowseTheWeb(<span class="keyword">new</span> DockerWebDriverSupplier(BrowserType.FIREFOX)))
+        .can(
+            <span class="keyword">new</span> BrowseTheWeb(
+                <span class="keyword">new</span> WebDriverManagerWebDriverSupplier(
+                    WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
         .informs(<span class="keyword">new</span> HtmlSnapshotReporter(reportsPath, <span class="predefined-constant">true</span>));
 
 tim.checks(<span class="keyword">new</span> LatestShakespeareReleaseVersion());
@@ -1697,7 +1686,7 @@ To do so, add the required dependency to your project, and use the generic <a hr
 <div id="footer">
 <div id="footer-text">
 Version 0.6-SNAPSHOT<br>
-Last updated 2022-12-22 15:22:14 UTC
+Last updated 2022-12-22 16:38:15 UTC
 </div>
 </div>
 <style>

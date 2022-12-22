@@ -105,8 +105,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <ul>
    <li>the <a href="LocalWebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>LocalWebDriverSupplier</code></a> to use a pre-installed
        local browser,
-   <li>the <a href="DockerWebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>DockerWebDriverSupplier</code></a> to use a browser from
-       an automatically downloaded and started Docker container, and
    <li>the <a href="WebDriverManagerWebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverManagerWebDriverSupplier</code></a> to use a
        self configured <code>WebDriverManager</code> (the other two extend
        this but are pre-configured).
@@ -145,38 +143,32 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="DockerWebDriverSupplier.html" title="class in org.shakespeareframework.selenium">DockerWebDriverSupplier</a></th>
-<td class="colLast">
-<div class="block">A <a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> for Docker based browser instances.</div>
-</td>
-</tr>
-<tr class="altColor">
 <th class="colFirst" scope="row"><a href="HtmlSnapshotReporter.html" title="class in org.shakespeareframework.selenium">HtmlSnapshotReporter</a></th>
 <td class="colLast">
 <div class="block">Reporter using the <code>Actor</code>'s <a href="BrowseTheWeb.html#getWebDriver()"><code>BrowseTheWeb.getWebDriver()</code></a> to take an HTML snapshot
  of the currently displayed site.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LocalWebDriverSupplier.html" title="class in org.shakespeareframework.selenium">LocalWebDriverSupplier</a></th>
 <td class="colLast">
 <div class="block">A <a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> for locally installed browser instances.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="ScreenshotReporter.html" title="class in org.shakespeareframework.selenium">ScreenshotReporter</a></th>
 <td class="colLast">
 <div class="block">Reporter using the <code>Actor</code>'s <a href="BrowseTheWeb.html#getWebDriver()"><code>BrowseTheWeb.getWebDriver()</code></a> as <code>TakesScreenshot</code>
  to take a screenshot of the currently displayed site.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="WebDriverManagerWebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverManagerWebDriverSupplier</a></th>
 <td class="colLast">
 <div class="block">A <a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium"><code>WebDriverSupplier</code></a> based on <code>WebDriverManager</code>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="WebDriverSupplier.html" title="class in org.shakespeareframework.selenium">WebDriverSupplier</a></th>
 <td class="colLast">
 <div class="block">A <code>Supplier</code> for <code>WebDriver</code>, which also takes care of <code>quitting</code> the <code>WebDriver</code>.</div>
