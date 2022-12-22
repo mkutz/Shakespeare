@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.shakespeareframework.retrofit"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.shakespeareframework.retrofit"},{"l":"org.shakespeareframework.retrofit.oauth2"}]
