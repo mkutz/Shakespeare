@@ -19,22 +19,9 @@ It does take care of downloading the required binary, starting the browser as so
 include::../../../test/java/SeleniumDocTest.java[tag=local]
 ----
 
-=== For Continuous Integration with Docker
-
-Continuous integration (CI) environments usually don't have a viewport and sometimes not even any browsers installed.
-For such scenarios Shakespeare comes with the link:{javadoc-url}/selenium/org/shakespeareframework/selenium/DockerWebDriverSupplier.html[DockerWebDriverSupplier].
-
-As the name suggests, it requires Docker to be available on the CI system and uses it to provide a container with the desired browser installed.
-
-.Setup for Docker Continuous Integration with Docker
-[source,java,indent=0]
-----
-include::../../../test/java/SeleniumDocTest.java[tag=docker]
-----
-
 === Using WebDriverManager
 
-Both of the above variants rely on the https://bonigarcia.dev/webdrivermanager/[WebDriverManager] internally.
+The above variant relies on the https://bonigarcia.dev/webdrivermanager/[WebDriverManager] internally.
 
 link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html[WebDriverManagerWebDriverSupplier] allows to use it directly and thereby use all of its features.
 
