@@ -14,7 +14,6 @@ import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.selenium.BrowseTheWeb;
 import org.shakespeareframework.selenium.BrowserType;
-import org.shakespeareframework.selenium.DockerWebDriverSupplier;
 import org.shakespeareframework.selenium.HtmlSnapshotReporter;
 import org.shakespeareframework.selenium.LocalWebDriverSupplier;
 import org.shakespeareframework.selenium.ScreenshotReporter;
@@ -57,22 +56,8 @@ class SeleniumDocTest {
   }
 
   @Test
-  void act3() throws IOException, InterruptedException {
-    assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
-
-    // tag::docker[]
-    var jodie =
-        new Actor("Jodie").can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)));
-    // end::docker[]
-
-    var latestRelease = jodie.checks(new LatestShakespeareReleaseVersion());
-
-    assertThat(latestRelease).matches("Version \\d+\\.\\d+(\\.\\d+)?");
-  }
-
-  @Test
   @Disabled("fails with SessionNotCreatedException for no obvious reason")
-  void act4() throws IOException, InterruptedException {
+  void act3() throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
     // tag::web-driver-manager[]
@@ -90,9 +75,11 @@ class SeleniumDocTest {
   }
 
   @Test
-  void act5() throws IOException, InterruptedException {
+  void act4() throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
-    try (var webDriverSupplier = new DockerWebDriverSupplier(BrowserType.CHROME)) {
+    try (var webDriverSupplier =
+        new WebDriverManagerWebDriverSupplier(
+            WebDriverManager.chromedriver().browserInDocker(), BrowserType.CHROME)) {
       // tag::open-base-url[]
       var browseTheWeb = new BrowseTheWeb(webDriverSupplier, "https://shakespeareframework.org/");
 
@@ -103,14 +90,17 @@ class SeleniumDocTest {
   }
 
   @Test
-  void act6() throws IOException, InterruptedException {
+  void act5() throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
     // tag::screenshot-reporter[]
     var reportsPath = Path.of("build", "reports", "shakespeare");
     var imogen =
         new Actor("Imogen")
-            .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+            .can(
+                new BrowseTheWeb(
+                    new WebDriverManagerWebDriverSupplier(
+                        WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
             .informs(new ScreenshotReporter(reportsPath, true));
 
     imogen.checks(new LatestShakespeareReleaseVersion());
@@ -121,14 +111,17 @@ class SeleniumDocTest {
   }
 
   @Test
-  void act7() throws IOException, InterruptedException {
+  void act6() throws IOException, InterruptedException {
     assumeThat(new ProcessBuilder("which", "docker").start().waitFor()).isEqualTo(0);
 
     // tag::html-snapshot-reporter[]
     var reportsPath = Path.of("build", "reports", "shakespeare");
     var tim =
         new Actor("Tim")
-            .can(new BrowseTheWeb(new DockerWebDriverSupplier(BrowserType.FIREFOX)))
+            .can(
+                new BrowseTheWeb(
+                    new WebDriverManagerWebDriverSupplier(
+                        WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
             .informs(new HtmlSnapshotReporter(reportsPath, true));
 
     tim.checks(new LatestShakespeareReleaseVersion());
