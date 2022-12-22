@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
@@ -82,6 +83,29 @@ class CallHttpApisTest {
     headerInterceptor.remove("test-header");
     client.getString().execute();
     assertThat(serviceMock.takeRequest().getHeader("test")).isNull();
+  }
+
+  @Test
+  @DisplayName("buildClient authenticator")
+  void addStandardHeader() throws IOException, InterruptedException {
+    final var authenticatorWasCalled = new AtomicBoolean(false);
+    final var client =
+        callRestApis
+            .buildClient()
+            .authenticator(
+                (route, response) -> {
+                  authenticatorWasCalled.set(true);
+                  return null;
+                })
+            .addScalarsConverterFactory()
+            .baseUrl(serviceMock.url("/string/").toString())
+            .build(TestApi.class);
+
+    serviceMock.enqueue(new MockResponse().setResponseCode(401).setBody("Hello"));
+    client.getString().execute();
+    serviceMock.takeRequest();
+
+    assertThat(authenticatorWasCalled).isTrue();
   }
 
   @AfterEach
