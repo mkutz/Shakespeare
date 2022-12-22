@@ -66,7 +66,7 @@ class SeleniumDocTest {
         new Actor("Alex")
             .can(
                 new BrowseTheWeb(
-                    new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.EDGE)));
+                    new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.CHROME)));
     // end::web-driver-manager[]
 
     var latestRelease = alex.checks(new LatestShakespeareReleaseVersion());
