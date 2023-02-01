@@ -5,7 +5,7 @@
 link:{javadoc-url}/core/org/shakespeareframework/Task.html[Tasks] can be done by an Actor.
 What the actor should do is defined in the link:{javadoc-url}/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)[performAs(Actor) method] of the Task.
 
-As the Actor is given as an argument, the Task implementation has access to the Actor's Abilities via the link:{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
+As the Actor is given as an argument, the Task implementation has access to the Actor's Abilities via the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
 
 .SayHelloWorld Task
 [source,java,indent=0]

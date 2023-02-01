@@ -43,7 +43,7 @@ To allow Actors to use an Ability it needs to be given to them via the link:{jav
 include::../../../test/java/AbilityDocTest.java[tag=can]
 ----
 
-To get an Ability from an Actor, there's the link:{javadoc-url}core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
+To get an Ability from an Actor, there's the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
 
 .Get an Ability from an Actor
 [source,java,indent=0]

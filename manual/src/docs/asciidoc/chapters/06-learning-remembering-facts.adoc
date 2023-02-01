@@ -1,7 +1,7 @@
 = Learning & Remembering Facts
 
 link:{javadoc-url}/core/org/shakespeareframework/Fact.html[Facts] are a way to add data to the link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor].
-After a Fact was link:{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact...)[learned], it can always be link:{javadoc-url}core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)[remembered] by its class and be used to do Tasks or answer Questions.
+After a Fact was link:{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact...)[learned], it can always be link:{javadoc-url}/core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)[remembered] by its class and be used to do Tasks or answer Questions.
 
 .Learn and remember Facts
 [source,java,indent=0]
