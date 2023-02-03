@@ -1,15 +1,48 @@
 package org.shakespeareframework.playwrite;
 
-import com.microsoft.playwright.Browser;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class BrowseTheWebTest {
 
   @Test
-  void getBrowserTest1() {
-    var browseTheWeb = new BrowseTheWeb();
-    Browser browser = browseTheWeb.getBrowser();
-    browser.newContext().newPage().navigate("https://shakespeareframework.org");
-    browseTheWeb.close();
+  @DisplayName("firefox returns a working Browser instance")
+  void firefox() {
+    try (var browseTheWeb = new BrowseTheWeb()) {
+      var browser = browseTheWeb.firefox();
+      var page = browser.newPage();
+
+      page.navigate("https://shakespeareframework.org");
+
+      assertThat(page).hasTitle("Shakespeare Framework | Shakespeare");
+    }
+  }
+
+  @Test
+  @DisplayName("chromium returns a working Browser instance")
+  void chromium() {
+    try (var browseTheWeb = new BrowseTheWeb()) {
+      var browser = browseTheWeb.chromium();
+      var page = browser.newPage();
+
+      page.navigate("https://shakespeareframework.org");
+
+      assertThat(page).hasTitle("Shakespeare Framework | Shakespeare");
+    }
+  }
+
+  @Test
+  @DisplayName("webkit returns a working Browser instance")
+  void webkit() {
+    try (var browseTheWeb = new BrowseTheWeb()) {
+      var browser = browseTheWeb.webkit();
+      var page = browser.newPage();
+
+      page.navigate("https://shakespeareframework.org");
+
+      assertThat(page).hasTitle("Shakespeare Framework | Shakespeare");
+    }
   }
 }

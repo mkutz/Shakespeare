@@ -1,24 +1,24 @@
 package org.shakespeareframework.playwrite;
 
 import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.Playwright;
-import org.shakespeareframework.Ability;
 
-public class BrowseTheWeb implements Ability, AutoCloseable {
+/**
+ * {@link org.shakespeareframework.Ability Ability} to browse the web using a Playwrite {@link
+ * Browser}.
+ * 
+ * @see <a href="https://playwright.dev/java/docs/intro">Playwrite for Java docs</a>
+ */
+public class BrowseTheWeb extends UsePlaywrite {
 
-  private static final Playwright playwright = Playwright.create();
-
-  private Browser browser;
-
-  Browser getBrowser() {
-    if (browser == null) {
-      this.browser = playwright.firefox().launch();
-    }
-    return browser;
+  Browser firefox() {
+    return playwrite().firefox().launch();
   }
 
-  @Override
-  public void close() {
-    playwright.close();
+  Browser chromium() {
+    return playwrite().chromium().launch();
+  }
+
+  Browser webkit() {
+    return playwrite().webkit().launch();
   }
 }
