@@ -5,7 +5,7 @@ import org.shakespeareframework.Ability;
 
 /**
  * {@link Ability} to use Playwrite.
- * 
+ *
  * @see <a href="https://playwright.dev/java/docs/intro">Playwrite for Java docs</a>
  */
 public class UsePlaywrite implements Ability, AutoCloseable {

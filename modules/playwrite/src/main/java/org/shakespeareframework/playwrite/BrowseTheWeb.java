@@ -5,7 +5,7 @@ import com.microsoft.playwright.Browser;
 /**
  * {@link org.shakespeareframework.Ability Ability} to browse the web using a Playwrite {@link
  * Browser}.
- * 
+ *
  * @see <a href="https://playwright.dev/java/docs/intro">Playwrite for Java docs</a>
  */
 public class BrowseTheWeb extends UsePlaywrite {
