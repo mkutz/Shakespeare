@@ -16,7 +16,7 @@ spotless {
   }
 
   java {
-    target("**/.java")
+    target("**/*.java")
     targetExclude("**/build/**/*")
     googleJavaFormat().reflowLongStrings()
     removeUnusedImports()
