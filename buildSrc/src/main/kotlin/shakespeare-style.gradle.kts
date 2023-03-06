@@ -13,12 +13,6 @@ spotless {
     indentWithSpaces(2)
   }
 
-  format("prettier") {
-    target("**/*.xml", "**/*.svg", "**/*.yml", "**/*.yaml", "**/*.json")
-    targetExclude("**/build/**/*", "**/.idea/**")
-    prettier().config(mapOf("tabWidth" to 2))
-  }
-
   java {
     target("**/*.java")
     targetExclude("**/build/**/*")
