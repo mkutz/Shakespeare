@@ -10,8 +10,8 @@ publishing {
       from(components.findByName("java") ?: components.getByName("javaPlatform"))
       pom {
         project.properties["mavenPomName"]?.let { displayName -> name.set(displayName.toString()) }
-        project.properties["mavenPonDescription"]?.let { displayName -> description.set(displayName.toString()) }
-        url.set("https://github.com/mkutz/shakespeare")
+        project.properties["mavenPomDescription"]?.let { displayName -> description.set(displayName.toString()) }
+        url.set("https://shakespeareframework.org")
         licenses {
           license {
             name.set("The Apache License, Version 2.0")
@@ -28,7 +28,7 @@ publishing {
         scm {
           connection.set("scm:git:git://github.com/mkutz/shakespeare.git")
           developerConnection.set("scm:git:ssh://github.com/mkutz/shakespeare.git")
-          url.set("https://shakespeareframework.org")
+          url.set("https://github.com/mkutz/shakespeare")
         }
       }
     }

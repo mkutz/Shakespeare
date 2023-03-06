@@ -7,7 +7,7 @@ plugins {
 dependencies {
   constraints {
     (parent?.subprojects)
-      ?.filter { it == project }
+      ?.filter { it != project }
       ?.sortedBy { it.name }
       ?.forEach { api(it) }
   }
