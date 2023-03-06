@@ -469,8 +469,7 @@ For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespe
 <div class="listingblock">
 <div class="title">Setup for local development</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var tim =
-    new Actor("Tim").can(new BrowseTheWeb(new LocalWebDriverSupplier(BrowserType.CHROME)));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 08-selenium.adoc - include::../../../test/java/SeleniumDocTest.java[tag=local]</code></pre>
 </div>
 </div>
 </div>
@@ -485,12 +484,7 @@ For this Shakespeare comes with the <a href="{javadoc-url}/selenium/org/shakespe
 <div class="listingblock">
 <div class="title">Setup with WebDriverManager</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var webDriverManager = WebDriverManager.edgedriver().browserInDocker();
-var alex =
-    new Actor("Alex")
-        .can(
-            new BrowseTheWeb(
-                new WebDriverManagerWebDriverSupplier(webDriverManager, BrowserType.CHROME)));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 08-selenium.adoc - include::../../../test/java/SeleniumDocTest.java[tag=web-driver-manager]</code></pre>
 </div>
 </div>
 </div>
@@ -507,10 +501,7 @@ The URL will be automatically called when you call <a href="{javadoc-url}/seleni
 <div class="listingblock">
 <div class="title">Configure a base URL</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var browseTheWeb = new BrowseTheWeb(webDriverSupplier, "https://shakespeareframework.org/");
-
-assertThat(browseTheWeb.getWebDriver().getCurrentUrl())
-    .isEqualTo("https://shakespeareframework.org/");</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 08-selenium.adoc - include::../../../test/java/SeleniumDocTest.java[tag=open-base-url]</code></pre>
 </div>
 </div>
 </div>
@@ -524,12 +515,7 @@ assertThat(browseTheWeb.getWebDriver().getCurrentUrl())
 <div class="listingblock">
 <div class="title">Additional Capabilities in a LocalWebDriverSupplier</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var cameron =
-    new Actor("Cameron")
-        .can(
-            new BrowseTheWeb(
-                new LocalWebDriverSupplier(
-                    BrowserType.CHROME, new ChromeOptions().setHeadless(true))));</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 08-selenium.adoc - include::../../../test/java/SeleniumDocTest.java[tag=additional-capabilities]</code></pre>
 </div>
 </div>
 </div>
@@ -550,19 +536,7 @@ E.g. <code>001-imogen-success-latest_shakespeare_release_version.png</code>.</p>
 <div class="listingblock">
 <div class="title">Using a ScreenshotReporter</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
-var imogen =
-    new Actor("Imogen")
-        .can(
-            new BrowseTheWeb(
-                new WebDriverManagerWebDriverSupplier(
-                    WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
-        .informs(new ScreenshotReporter(reportsPath, true));
-
-imogen.checks(new LatestShakespeareReleaseVersion());
-
-assertThat(reportsPath.resolve("001-imogen-success-latest_shakespeare_release_version.png"))
-    .isNotEmptyFile();</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 08-selenium.adoc - include::../../../test/java/SeleniumDocTest.java[tag=screenshot-reporter]</code></pre>
 </div>
 </div>
 </div>
@@ -574,19 +548,7 @@ assertThat(reportsPath.resolve("001-imogen-success-latest_shakespeare_release_ve
 <div class="listingblock">
 <div class="title">Using a HtmlSnapshotReporter</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">var reportsPath = Path.of("build", "reports", "shakespeare");
-var tim =
-    new Actor("Tim")
-        .can(
-            new BrowseTheWeb(
-                new WebDriverManagerWebDriverSupplier(
-                    WebDriverManager.firefoxdriver().browserInDocker(), BrowserType.FIREFOX)))
-        .informs(new HtmlSnapshotReporter(reportsPath, true));
-
-tim.checks(new LatestShakespeareReleaseVersion());
-
-assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_version.html"))
-    .isNotEmptyFile();</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 08-selenium.adoc - include::../../../test/java/SeleniumDocTest.java[tag=html-snapshot-reporter]</code></pre>
 </div>
 </div>
 </div>
@@ -596,7 +558,7 @@ assertThat(reportsPath.resolve("001-tim-success-latest_shakespeare_release_versi
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2023-02-01 14:18:58 UTC
+Last updated 2023-03-06 15:56:57 UTC
 </div>
 </div>
 </body>

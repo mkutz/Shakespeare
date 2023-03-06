@@ -461,14 +461,7 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="listingblock">
 <div class="title">API declaration example</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">interface ActorsApi {
-
-  @GET("/actors")
-  Call&lt;List&lt;ActorInfo&gt;&gt; getActors();
-
-  @GET("/actors/{id}/name")
-  Call&lt;String&gt; getActorName(@Path("id") String id);
-}</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 09-retrofit.adoc - include::../../../test/java/RetrofitDocTest.java[tag=test-api]</code></pre>
 </div>
 </div>
 </div>
@@ -484,24 +477,7 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="listingblock">
 <div class="title">Example for scalar bodies</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">record ActorName(String id) implements Question&lt;String&gt; {
-
-  @Override
-  public String answerAs(Actor actor) {
-    var actorsApiClient =
-        actor
-            .uses(CallHttpApis.class)
-            .buildClient() // <b class="conum">(1)</b>
-            .baseUrl(ACTORS_SERVICE_URL) // <b class="conum">(2)</b>
-            .addScalarsConverterFactory() // <b class="conum">(3)</b>
-            .build(ActorsApi.class); // <b class="conum">(4)</b>
-    try {
-      return actorsApiClient.getActorName(id).execute().body();
-    } catch (IOException e) {
-      throw new RuntimeException("%s failed".formatted(this), e);
-    }
-  }
-}</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 09-retrofit.adoc - include::../../../test/java/RetrofitDocTest.java[tag=scalars-example]</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -526,26 +502,7 @@ For this, please follow the instructions in the <a href="https://square.github.i
 <div class="listingblock">
 <div class="title">Example for JSON bodies</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">record AllActors() implements Question&lt;List&lt;ActorInfo&gt;&gt; {
-
-  @Override
-  public List&lt;ActorInfo&gt; answerAs(Actor actor) {
-    var actorsApiClient =
-        actor
-            .uses(CallHttpApis.class)
-            .buildClient()
-            .baseUrl(ACTORS_SERVICE_URL)
-            .addJacksonConverterFactory() // <b class="conum">(1)</b>
-            .build(ActorsApi.class);
-    try {
-      return actorsApiClient.getActors().execute().body();
-    } catch (IOException e) {
-      throw new RuntimeException("%s failed".formatted(this), e);
-    }
-  }
-}
-
-record ActorInfo(String id, String name) {} // <b class="conum">(2)</b></code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 09-retrofit.adoc - include::../../../test/java/RetrofitDocTest.java[tag=jackson-example]</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -575,7 +532,7 @@ To do so, add the required dependency to your project, and use the generic <a hr
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2023-02-01 14:18:58 UTC
+Last updated 2023-03-06 15:56:57 UTC
 </div>
 </div>
 </body>
