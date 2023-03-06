@@ -6,7 +6,7 @@ plugins {
 publishing {
   publications {
     create<MavenPublication>(name) {
-      artifactId = "${rootProject.name}-${name}"
+      artifactId = name
       from(components.findByName("java") ?: components.getByName("javaPlatform"))
       pom {
         project.properties["mavenPomName"]?.let { displayName -> name.set(displayName.toString()) }
