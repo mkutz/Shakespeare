@@ -28,7 +28,6 @@ java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
 
 tasks.withType<Test> { useJUnitPlatform() }
 
-tasks.withType<org.asciidoctor.gradle.jvm.AsciidoctorTask> {
-  baseDirFollowsSourceFile()
-}
+tasks.withType<org.asciidoctor.gradle.jvm.AsciidoctorTask> { baseDirFollowsSourceFile() }
+
 asciidoctorj { modules { diagram.use() } }
