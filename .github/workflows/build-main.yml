@@ -36,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - run: ./gradlew build jacocoTestReport sonarqube
+      - run: ./gradlew build jacocoTestReport sonar
         if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
