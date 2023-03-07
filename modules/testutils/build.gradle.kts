@@ -2,6 +2,7 @@ plugins {
   `shakespeare-module`
   `shakespeare-publish`
   `shakespeare-style`
+  `shakespeare-testing`
 }
 
 repositories { mavenCentral() }
