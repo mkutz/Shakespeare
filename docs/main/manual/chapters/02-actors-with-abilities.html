@@ -459,13 +459,13 @@ The name can be explicitly given or will be randomly assigned.</p>
 <div class="listingblock">
 <div class="title">Actor with explicitly given name</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 02-actors-with-abilities.adoc - include::../../../test/java/ActorDocTest.java[tag=create-actor]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var robin = new Actor("Robin");</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Actor with random name</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 02-actors-with-abilities.adoc - include::../../../test/java/ActorDocTest.java[tag=create-actor-random-name]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var user = new Actor();</code></pre>
 </div>
 </div>
 </div>
@@ -484,7 +484,18 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="listingblock">
 <div class="title">A simple example for an Ability implementation</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 02-actors-with-abilities.adoc - include::../../../test/java/Log.java[tag=ability]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">class Log implements Ability {
+
+  private final Logger logger;
+
+  Log(String name) {
+    this.logger = Logger.getLogger(name);
+  }
+
+  public Logger getLogger() {
+    return logger;
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -493,7 +504,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="listingblock">
 <div class="title">Give an Ability to an Actor</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 02-actors-with-abilities.adoc - include::../../../test/java/AbilityDocTest.java[tag=can]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var anna = new Actor("Anna").can(new Log("Anna"));</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -502,7 +513,8 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div class="listingblock">
 <div class="title">Get an Ability from an Actor</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 02-actors-with-abilities.adoc - include::../../../test/java/AbilityDocTest.java[tag=uses]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var log = anna.uses(Log.class);
+log.getLogger().info("Hello World");</code></pre>
 </div>
 </div>
 </div>
@@ -511,7 +523,7 @@ If that object is being generated on demand or simply wrapped by the Ability is 
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2023-03-06 15:56:57 UTC
+Last updated 2023-03-07 07:16:43 UTC
 </div>
 </div>
 </body>

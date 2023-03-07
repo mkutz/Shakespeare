@@ -453,9 +453,9 @@ After a Fact was <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html
 <div class="listingblock">
 <div class="title">Learn and remember Facts</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=learn-fact]
+<pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
 
-Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=remember-fact]</code></pre>
+PhoneNumber katesPhoneNumber = kate.remembers(PhoneNumber.class);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -465,7 +465,7 @@ Apart from that they can be basically anything but should be immutable value obj
 <div class="listingblock">
 <div class="title">PhoneNumber Fact</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=fact]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record PhoneNumber(String number) implements Fact {}</code></pre>
 </div>
 </div>
 </div>
@@ -480,11 +480,12 @@ When you call remember with two different instances of the same Fact class, the 
 <div class="listingblock">
 <div class="title">Learn and remember Facts</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=learn-fact]
+<pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
 
-Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=relearn-fact]
+kate.learns(new PhoneNumber("+1 (303) 499-7111"));
 
-Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=remember-changed-fact]</code></pre>
+PhoneNumber katesNewPhoneNumber = kate.remembers(PhoneNumber.class);
+assertThat(katesNewPhoneNumber).isEqualTo(new PhoneNumber("+1 (303) 499-7111"));</code></pre>
 </div>
 </div>
 </div>
@@ -501,15 +502,17 @@ Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../t
 <div class="listingblock">
 <div class="title">PhoneNumbers Poly Fact</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=poly-fact]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record PhoneNumbers(String home, String work) implements Fact {}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Learn and remember Poly Facts</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=learn-poly-fact]
+<pre class="highlight"><code class="language-java" data-lang="java">robin.learns(new PhoneNumbers("+49 0180 4 100 100", "+1 (303) 499-7111"));
 
-Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=remember-poly-fact]</code></pre>
+var robinsPhoneNumbers = robin.remembers(PhoneNumbers.class);
+var robinsHomePhoneNumber = robinsPhoneNumbers.home();
+var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 </div>
 </div>
 </div>
@@ -526,7 +529,10 @@ Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../t
 <div class="listingblock">
 <div class="title">CreditCard Fact with default</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=fact-with-default]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record CreditCard(String type, String number, YearMonth expiration) implements Fact {
+  public static CreditCard DEFAULT_VISA =
+      new CreditCard("visa", "4111111111111111", YearMonth.of(2026, 10));
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -535,7 +541,11 @@ Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../t
 <div class="listingblock">
 <div class="title">EmailAddress with random generator</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 06-learning-remembering-facts.adoc - include::../../../test/java/FactDocTest.java[tag=fact-with-generator]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record EmailAddress(String address) implements Fact {
+  public static EmailAddress random() {
+    return new EmailAddress("%s@shakespeareframework.org".formatted(UUID.randomUUID()));
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -603,7 +613,7 @@ Side effects are not easy to keep track of,
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2023-03-06 15:56:57 UTC
+Last updated 2023-03-07 07:16:43 UTC
 </div>
 </div>
 </body>

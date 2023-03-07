@@ -457,13 +457,20 @@ What the actor should do is defined in the <a href="{javadoc-url}/core/org/shake
 <div class="listingblock">
 <div class="title">SayHelloWorld Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/TaskDocTest.java[tag=task]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">class SayHelloWorld implements Task {
+
+  @Override
+  public void performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info("Hello World");
+  }
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Doing SayHelloWorld Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/TaskDocTest.java[tag=does-task]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">tom.does(new SayHelloWorld());</code></pre>
 </div>
 </div>
 </div>
@@ -481,7 +488,20 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="listingblock">
 <div class="title">SayHello Parameterized Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/TaskDocTest.java[tag=task-with-parameter]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">class SayHello implements Task {
+
+  private final String to;
+
+  public SayHello(String to) {
+    this.to = to;
+  }
+
+  @Override
+  public void performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(String.format("Hello %s", to));
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -493,13 +513,21 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="listingblock">
 <div class="title">SayHelloAsRecord Parameterized Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/TaskDocTest.java[tags=task-as-record,does-task-as-record]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">record SayHelloAsRecord(String to) implements Task {
+
+  @Override
+  public void performAs(Actor actor) {
+    var logger = actor.uses(Log.class).getLogger();
+    logger.info(String.format("Hello %s", to));
+  }
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Doing SayHello Parameterized Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/TaskDocTest.java[tag=does-task-with-parameter]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">alex.does(new SayHello("Shakespeare"));
+alex.does(new SayHelloAsRecord("Shakespeare"));</code></pre>
 </div>
 </div>
 </div>
@@ -513,7 +541,7 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="listingblock">
 <div class="title">Simple parameterized Task</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/TaskDocTest.java[tag=does-lambda]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">mila.does(she -&gt; she.uses(Log.class).getLogger().info("Hi"));</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -552,7 +580,38 @@ This might consist of the following interactions with the website:</p>
 <div class="listingblock">
 <div class="title">LoginTask</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Unresolved directive in 03-doing-tasks.adoc - include::../../../test/java/GroupingInteractionsDocTest.java[tag=task]</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">class Login implements Task {
+
+  private final String username;
+  private final String password;
+
+  Login(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
+
+  @Override
+  public void performAs(Actor actor) {
+    var webDriver = actor.uses(BrowseTheWeb.class).getWebDriver();
+
+    webDriver.get(mockWebServer.url("/").toString()); // <b class="conum">(1)</b>
+
+    webDriver
+        .findElement(By.name("username")) // <b class="conum">(2)</b>
+        .sendKeys(username); // <b class="conum">(3)</b>
+    webDriver
+        .findElement(By.name("password")) // <b class="conum">(4)</b>
+        .sendKeys(password); // <b class="conum">(5)</b>
+    webDriver
+        .findElement(By.cssSelector(".login button")) // <b class="conum">(6)</b>
+        .click(); // <b class="conum">(7)</b>
+  }
+
+  @Override
+  public String toString() {
+    return String.format("login as %s", username);
+  }
+}</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -635,7 +694,7 @@ It is generally a bad idea to mix simple interactions with sub-tasks, as it make
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2023-03-06 15:56:57 UTC
+Last updated 2023-03-07 07:16:43 UTC
 </div>
 </div>
 </body>
