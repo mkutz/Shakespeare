@@ -17,7 +17,7 @@ dependencies {
   implementation(platform("com.fasterxml.jackson:jackson-bom:2.14.2"))
   implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
-  testImplementation("org.slf4j:slf4j-api:2.0.6")
+  testImplementation("org.slf4j:slf4j-api:2.0.7")
   testImplementation("ch.qos.logback:logback-classic:1.4.5")
 
   testImplementation(project(":modules:testutils"))
