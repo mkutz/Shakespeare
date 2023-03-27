@@ -10,7 +10,7 @@ repositories { mavenCentral() }
 dependencies {
   implementation("com.google.code.findbugs:jsr305:3.0.2")
 
-  implementation("org.slf4j:slf4j-api:2.0.6")
+  implementation("org.slf4j:slf4j-api:2.0.7")
 
   testImplementation(project(":modules:testutils"))
   testImplementation("ch.qos.logback:logback-classic:1.4.5")
