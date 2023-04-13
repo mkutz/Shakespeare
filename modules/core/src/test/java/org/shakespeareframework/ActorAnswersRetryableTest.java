@@ -29,7 +29,7 @@ class ActorAnswersRetryableTest {
     assertThatExceptionOfType(TimeoutException.class)
         .isThrownBy(() -> actor.checks(retryableQuestion));
 
-    assertThat(called).hasValueGreaterThanOrEqualTo(10);
+    assertThat(called).hasValueBetween(9, 11);
   }
 
   @Test
