@@ -39,7 +39,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan does some task ✓"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan -- Logan does some task ✓"
                 + " (\\d+s)?(<?\\d+ms)\n");
   }
 
@@ -55,7 +55,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan does some task ✗"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan -- Logan does some task ✗"
                 + " (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 
@@ -72,7 +72,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan does some retryable"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan -- Logan does some retryable"
                 + " task •✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 
@@ -99,7 +99,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan checks some question ✓"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan -- Logan checks some question ✓"
                 + " (\\d+s)?(<?\\d+ms) → answer\n");
   }
 
@@ -115,7 +115,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some question ✗"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan -- Logan checks some question ✗"
                 + " (\\d+s)?(<?\\d+ms) RuntimeException\n");
   }
 
@@ -134,7 +134,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some retryable"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan -- Logan checks some retryable"
                 + " question ••✗ (\\d+s)?(<?\\d+ms) → unaccepted answer\n");
   }
 
@@ -153,7 +153,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan does some root task ✓"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan -- Logan does some root task ✓"
                 + " (\\d+s)?(<?\\d+ms)\n"
                 + "└── Logan checks some sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n");
   }
@@ -173,7 +173,7 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some root"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan -- Logan checks some root"
                 + " question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n"
                 + "└── Logan does some sub task ✓ (\\d+s)?(<?\\d+ms)\n");
   }
@@ -204,10 +204,10 @@ class Slf4jReporterTest {
 
     assertThat(output.getOut())
         .matches(
-            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan - Logan does some root task ✓"
+            "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] INFO Logan -- Logan does some root task ✓"
                 + " (\\d+s)?(<?\\d+ms)\n"
                 + "└── Logan checks first sub question ✓ (\\d+s)?(<?\\d+ms) → answer\n"
-                + "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan - Logan checks some root"
+                + "\\d{2}:\\d{2}:\\d{2}\\.\\d{3} \\[[^\\\\]+\\] WARN Logan -- Logan checks some root"
                 + " question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n"
                 + "├── Logan does first sub task ✓ (\\d+s)?(<?\\d+ms)\n"
                 + "└── Logan does second sub task ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
