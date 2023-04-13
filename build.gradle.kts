@@ -5,6 +5,8 @@ plugins {
   id("info.solidsoft.pitest.aggregator")
 }
 
+repositories { mavenCentral() }
+
 sonar {
   properties {
     property("sonar.projectKey", "mkutz_shakespeare")
