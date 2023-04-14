@@ -87,6 +87,11 @@ public final class Actor {
 
     while (true) {
       try {
+        if (task.surpassesRetryLimit()){
+          reporters.forEach(reporter -> reporter.success(this, task));
+          return this;
+        }
+
         task.performAs(this);
         reporters.forEach(reporter -> reporter.success(this, task));
         return this;
@@ -155,6 +160,11 @@ public final class Actor {
 
         lastAnswer = answer;
         lastException = null;
+
+        if(question.surpassesRetryLimit()){
+          reporters.forEach(reporter -> reporter.success(this, question, answer));
+          return answer;
+        }
 
         if (question.acceptable(lastAnswer)) {
           reporters.forEach(reporter -> reporter.success(this, question, answer));
