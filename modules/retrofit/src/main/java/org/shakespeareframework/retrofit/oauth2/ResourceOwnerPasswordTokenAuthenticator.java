@@ -15,6 +15,7 @@ public class ResourceOwnerPasswordTokenAuthenticator extends RetryingTokenAuthen
   private final String password;
   private final String clientId;
   private final String clientSecret;
+  private final String scope;
   private Oauth2Token token;
 
   /**
@@ -23,18 +24,21 @@ public class ResourceOwnerPasswordTokenAuthenticator extends RetryingTokenAuthen
    * @param password the password
    * @param clientId the client ID
    * @param clientSecret the client secret
+   * @param scope the scope
    */
   public ResourceOwnerPasswordTokenAuthenticator(
       String tokenServiceUrl,
       String username,
       String password,
       String clientId,
-      String clientSecret) {
+      String clientSecret,
+      String scope) {
     super(tokenServiceUrl, 3);
     this.username = username;
     this.password = password;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+    this.scope = scope;
   }
 
   @Override
@@ -42,7 +46,9 @@ public class ResourceOwnerPasswordTokenAuthenticator extends RetryingTokenAuthen
     if (token == null || token.isExpired()) {
       try {
         final var response =
-            oauth2Api.getToken(clientId, clientSecret, username, password, "password").execute();
+            oauth2Api
+                .getToken(clientId, clientSecret, username, password, scope, "password")
+                .execute();
 
         if (!response.isSuccessful() || response.body() == null) {
           throw new Oauth2AuthenticationFailedException();

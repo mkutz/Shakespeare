@@ -21,9 +21,10 @@ class ResourceOwnerPasswordAuthenticatorTest {
   static final String password = UUID.randomUUID().toString();
   static final String clientId = UUID.randomUUID().toString();
   static final String clientSecret = UUID.randomUUID().toString();
+  static final String scope = UUID.randomUUID().toString();
   final ResourceOwnerPasswordTokenAuthenticator authenticator =
       new ResourceOwnerPasswordTokenAuthenticator(
-          mockOAuth2Server.baseUrl().toString(), username, password, clientId, clientSecret);
+          mockOAuth2Server.baseUrl().toString(), username, password, clientId, clientSecret, scope);
 
   @BeforeAll
   static void startMockOAuth2Server() {
@@ -55,6 +56,7 @@ class ResourceOwnerPasswordAuthenticatorTest {
             format("password=%s", password),
             format("client_id=%s", clientId),
             format("client_secret=%s", clientSecret),
+            format("scope=%s", scope),
             "grant_type=password");
   }
 }
