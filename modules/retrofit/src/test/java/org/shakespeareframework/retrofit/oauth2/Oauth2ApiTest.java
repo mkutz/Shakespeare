@@ -41,6 +41,7 @@ class Oauth2ApiTest {
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
                 "password")
             .execute();
 

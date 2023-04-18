@@ -15,6 +15,7 @@ interface Oauth2Api {
       @Field("client_secret") String clientSecret,
       @Field("username") String username,
       @Field("password") String password,
+      @Field("scope") String scope,
       @Field("grant_type") String grantType);
 
   @FormUrlEncoded
@@ -22,5 +23,6 @@ interface Oauth2Api {
   Call<Oauth2Token> getToken(
       @Field("client_id") String clientId,
       @Field("client_secret") String clientSecret,
+      @Field("scope") String scope,
       @Field("grant_type") String grantType);
 }
