@@ -14,7 +14,7 @@ dependencies {
 
   api("io.github.bonigarcia:webdrivermanager:5.3.2")
   implementation("commons-io:commons-io:2.11.0")
-  implementation(platform("com.fasterxml.jackson:jackson-bom:2.14.2"))
+  implementation(platform("com.fasterxml.jackson:jackson-bom:2.15.0"))
   implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
   testImplementation("org.slf4j:slf4j-api:2.0.7")
