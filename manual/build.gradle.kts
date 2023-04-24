@@ -21,7 +21,7 @@ dependencies {
 
   testImplementation("org.assertj:assertj-core:3.24.2")
 
-  testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+  testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
 }
 
 java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
