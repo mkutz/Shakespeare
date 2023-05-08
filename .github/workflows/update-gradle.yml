@@ -6,7 +6,7 @@ on:
     - cron: 0 5 * * *
 
 jobs:
-  check:
+  update-gradle:
     
     runs-on: ubuntu-latest
     
