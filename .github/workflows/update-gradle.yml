@@ -1,0 +1,33 @@
+name: Update Gradle Wrapper
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 5 * * *
+
+jobs:
+  check:
+    runs-on: [ self-hosted, prd ]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          overwrite-settings: false
+
+      - uses: actions/checkout@v3
+
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: current
+          arguments: wrapper
+
+      - name: Push changes
+        run: |
+          git config user.name "Gradle Updater"
+          git config user.email "mail@michael-kutz.de"
+          git switch -c update-gradle
+          git add gradle gradlew
+          git commit -m "Bump Gradle wrapper to latest"
+          git push
