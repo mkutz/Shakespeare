@@ -32,3 +32,6 @@ jobs:
           git add gradle gradlew
           git commit -m "Bump Gradle wrapper to latest"
           git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+
+      - name: Open pull request
+        run: gh pr create
