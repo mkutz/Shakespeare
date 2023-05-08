@@ -7,8 +7,9 @@ on:
 
 jobs:
   check:
-    runs-on: [ self-hosted, prd ]
-    timeout-minutes: 15
+    
+    runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/setup-java@v3
         with:
