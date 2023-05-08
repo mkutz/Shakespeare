@@ -31,4 +31,4 @@ jobs:
           git switch -c update-gradle
           git add gradle gradlew
           git commit -m "Bump Gradle wrapper to latest"
-          git push
+          git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
