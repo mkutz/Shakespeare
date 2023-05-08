@@ -21,7 +21,7 @@ jobs:
         with:
           ref: update-gradle
       
-      - run: git rebase main
+      - run: git rebase origin main
 
       - uses: gradle/gradle-build-action@v2
         with:
