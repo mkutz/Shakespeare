@@ -22,7 +22,7 @@ jobs:
           ref: update-gradle
           fetch-depth: 0
       
-      - run: git rebase origin main
+      - run: git rebase main
 
       - uses: gradle/gradle-build-action@v2
         with:
