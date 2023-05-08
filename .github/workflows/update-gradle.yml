@@ -18,6 +18,10 @@ jobs:
           overwrite-settings: false
 
       - uses: actions/checkout@v3
+        with:
+          branch: update-gradle
+      
+      - run: git rebase main
 
       - uses: gradle/gradle-build-action@v2
         with:
@@ -28,8 +32,6 @@ jobs:
         run: |
           git config user.name "Gradle Updater"
           git config user.email "mail@michael-kutz.de"
-          git switch -c update-gradle
-          git pull --rebase
           git add gradle gradlew
           git commit -m "Bump Gradle wrapper to latest"
           git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
