@@ -16,7 +16,7 @@ dependencies {
   implementation(platform("com.fasterxml.jackson:jackson-bom:2.15.3"))
   api("com.squareup.retrofit2:converter-scalars:2.9.0")
 
-  testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+  testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
   testImplementation("no.nav.security:mock-oauth2-server:2.0.0")
 
   implementation("com.google.code.findbugs:jsr305:3.0.2")
