@@ -22,5 +22,5 @@ dependencies {
 
   testImplementation("org.assertj:assertj-core:3.24.2")
 
-  testImplementation("net.jqwik:jqwik:1.8.0")
+  testImplementation("net.jqwik:jqwik:1.8.1")
 }
