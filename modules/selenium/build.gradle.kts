@@ -18,7 +18,7 @@ dependencies {
   implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
   testImplementation("org.slf4j:slf4j-api:2.0.9")
-  testImplementation("ch.qos.logback:logback-classic:1.4.11")
+  testImplementation("ch.qos.logback:logback-classic:1.4.14")
 
   testImplementation(project(":modules:testutils"))
 
