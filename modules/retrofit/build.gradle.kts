@@ -17,7 +17,7 @@ dependencies {
   api("com.squareup.retrofit2:converter-scalars:2.9.0")
 
   testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
-  testImplementation("no.nav.security:mock-oauth2-server:2.0.1")
+  testImplementation("no.nav.security:mock-oauth2-server:2.1.0")
 
   implementation("com.google.code.findbugs:jsr305:3.0.2")
 
