@@ -92,8 +92,7 @@ public final class Actor {
         return this;
       } catch (Exception e) {
         lastException = e;
-        if (task.getAcknowledgedExceptions().stream()
-            .anyMatch(acknowledge -> acknowledge.isInstance(e))) {
+        if (task.isAcknowledgedException(e)) {
           reporters.forEach(reporter -> reporter.failure(this, task, e));
           throw e;
         }
@@ -163,7 +162,7 @@ public final class Actor {
         reporters.forEach(reporter -> reporter.retry(this, question, answer));
       } catch (Exception e) {
         lastException = e;
-        if (question.getIgnoredExceptions().stream().noneMatch(ignore -> ignore.isInstance(e))) {
+        if (question.isIgnoredException(e)) {
           reporters.forEach(reporter -> reporter.failure(this, question, e));
           throw e;
         }
