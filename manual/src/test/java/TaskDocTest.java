@@ -49,6 +49,7 @@ class TaskDocTest {
       logger.info("Hello World");
     }
   }
+
   // end::task[]
 
   static // tag::task-with-parameter[]
@@ -66,6 +67,7 @@ class TaskDocTest {
       logger.info(String.format("Hello %s", to));
     }
   }
+
   // end::task-with-parameter[]
 
   // tag::task-as-record[]

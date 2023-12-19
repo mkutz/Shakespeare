@@ -107,6 +107,7 @@ class GroupingInteractionsDocTest {
       return String.format("login as %s", username);
     }
   }
+
   // end::task[]
 
   static // tag::question[]
