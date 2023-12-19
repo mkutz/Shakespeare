@@ -35,6 +35,7 @@ class RetrofitDocTest {
     @GET("/actors/{id}/name")
     Call<String> getActorName(@Path("id") String id);
   }
+
   // end::test-api[]
 
   // tag::scalars-example[]
@@ -56,6 +57,7 @@ class RetrofitDocTest {
       }
     }
   }
+
   // end::scalars-example[]
 
   @Test

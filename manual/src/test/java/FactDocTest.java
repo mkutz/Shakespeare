@@ -31,6 +31,7 @@ class FactDocTest {
 
   // tag::fact[]
   record PhoneNumber(String number) implements Fact {}
+
   // end::fact[]
 
   @Test
@@ -49,6 +50,7 @@ class FactDocTest {
 
   // tag::poly-fact[]
   record PhoneNumbers(String home, String work) implements Fact {}
+
   // end::poly-fact[]
 
   @Test
@@ -69,6 +71,7 @@ class FactDocTest {
     public static CreditCard DEFAULT_VISA =
         new CreditCard("visa", "4111111111111111", YearMonth.of(2026, 10));
   }
+
   // end::fact-with-default[]
 
   // tag::fact-with-generator[]
