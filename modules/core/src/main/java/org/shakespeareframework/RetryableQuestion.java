@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * A {@link Question} that will be retried until it yields an answer deemed {@link #acceptable} or
  * the {@link Retryable#getTimeout() timeout} is reached. {@link Exception}s thrown will be ignored
- * if they are contained in {@link #getIgnoredExceptions() ignoredExceptions}.
+ * if they match the {@link #isIgnoredException(Exception) isIgnoredException predicate}.
  */
 public interface RetryableQuestion<A> extends Question<A>, Retryable {
 
@@ -18,6 +18,13 @@ public interface RetryableQuestion<A> extends Question<A>, Retryable {
    */
   default Set<Class<? extends Exception>> getIgnoredExceptions() {
     return Set.of();
+  }
+
+  /**
+   * @return the predicate that decides weather the exception will be ignored when thrown in a retry
+   */
+  default boolean isIgnoredException(Exception exception) {
+    return getIgnoredExceptions().stream().noneMatch(ignored -> ignored.isInstance(exception));
   }
 
   /**
