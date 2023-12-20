@@ -47,7 +47,7 @@ class SeleniumDocTest {
             .can(
                 new BrowseTheWeb(
                     new LocalWebDriverSupplier(
-                        BrowserType.CHROME, new ChromeOptions().setHeadless(true))));
+                        BrowserType.CHROME, new ChromeOptions().addArguments("--headless"))));
     // end::additional-capabilities[]
 
     var latestRelease = cameron.checks(new LatestShakespeareReleaseVersion());

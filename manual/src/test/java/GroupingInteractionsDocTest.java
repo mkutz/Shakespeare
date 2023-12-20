@@ -62,7 +62,8 @@ class GroupingInteractionsDocTest {
     assumeThat(new ProcessBuilder("which", "google-chrome").start().waitFor()).isEqualTo(0);
     final var browseTheWeb =
         new BrowseTheWeb(
-            new LocalWebDriverSupplier(BrowserType.CHROME, new ChromeOptions().setHeadless(true)));
+            new LocalWebDriverSupplier(
+                BrowserType.CHROME, new ChromeOptions().addArguments("--headless")));
     // tag::create-actor[]
     var john = new Actor("John").can(browseTheWeb);
     // end::create-actor[]
