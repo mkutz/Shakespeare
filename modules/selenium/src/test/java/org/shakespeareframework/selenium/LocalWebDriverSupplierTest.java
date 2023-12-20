@@ -25,8 +25,8 @@ class LocalWebDriverSupplierTest {
 
   private static final Map<BrowserType, Capabilities> HEADLESS =
       Map.of(
-          CHROME, new ChromeOptions().setHeadless(true),
-          FIREFOX, new FirefoxOptions().setHeadless(true));
+          CHROME, new ChromeOptions().addArguments("--headless"),
+          FIREFOX, new FirefoxOptions().addArguments("-headless"));
 
   @ParameterizedTest(name = "get returns a {0}")
   @EnumSource(BrowserType.class)
