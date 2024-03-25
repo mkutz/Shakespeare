@@ -10,7 +10,7 @@ repositories { mavenCentral() }
 dependencies {
   api(project(":modules:core"))
 
-  api("com.squareup.retrofit2:retrofit:2.9.0")
+  api("com.squareup.retrofit2:retrofit:2.10.0")
   api("com.squareup.okhttp3:okhttp:4.12.0")
   api("com.squareup.retrofit2:converter-jackson:2.10.0")
   implementation(platform("com.fasterxml.jackson:jackson-bom:2.17.0"))
