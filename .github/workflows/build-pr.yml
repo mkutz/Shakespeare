@@ -52,5 +52,3 @@ jobs:
         if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: gradle/actions/dependency-submission@v3
