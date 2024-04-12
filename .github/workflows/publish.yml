@@ -18,6 +18,8 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
+          
+      - uses: gradle/actions/setup-gradle@v3
 
       - run: ./gradlew assemble
 

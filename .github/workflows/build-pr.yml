@@ -27,6 +27,8 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
+      
+      - uses: gradle/actions/setup-gradle@v3
 
       - run: ./gradlew check
 
@@ -50,3 +52,5 @@ jobs:
         if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: gradle/actions/dependency-submission@v3
