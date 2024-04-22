@@ -13,7 +13,7 @@ dependencies {
   implementation("org.slf4j:slf4j-api:2.0.13")
 
   testImplementation(project(":modules:testutils"))
-  testImplementation("ch.qos.logback:logback-classic:1.5.5")
+  testImplementation("ch.qos.logback:logback-classic:1.5.6")
 
   testImplementation(platform("org.junit:junit-bom:5.10.2"))
   testImplementation("org.junit.jupiter:junit-jupiter-api")
