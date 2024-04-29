@@ -10,7 +10,7 @@ repositories { mavenCentral() }
 dependencies {
   api(project(":modules:core"))
 
-  api("org.seleniumhq.selenium:selenium-java:4.19.1")
+  api("org.seleniumhq.selenium:selenium-java:4.20.0")
 
   api("io.github.bonigarcia:webdrivermanager:5.8.0")
   implementation("commons-io:commons-io:2.16.1")
