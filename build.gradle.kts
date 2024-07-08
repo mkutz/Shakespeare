@@ -1,6 +1,6 @@
 plugins {
   base
-  id("org.sonarqube") version "5.0.0.4638"
+  id("org.sonarqube") version "5.1.0.4882"
   id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
   id("info.solidsoft.pitest.aggregator")
 }
