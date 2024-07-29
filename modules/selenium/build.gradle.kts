@@ -12,7 +12,7 @@ dependencies {
 
   api("org.seleniumhq.selenium:selenium-java:4.23.0")
 
-  api("io.github.bonigarcia:webdrivermanager:5.9.1")
+  api("io.github.bonigarcia:webdrivermanager:5.9.2")
   implementation("commons-io:commons-io:2.16.1")
   implementation(platform("com.fasterxml.jackson:jackson-bom:2.17.2"))
   implementation("org.bouncycastle:bcprov-jdk15on:1.70")
