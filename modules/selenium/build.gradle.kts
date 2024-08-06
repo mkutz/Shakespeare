@@ -10,22 +10,22 @@ repositories { mavenCentral() }
 dependencies {
   api(project(":modules:core"))
 
-  api("org.seleniumhq.selenium:selenium-java:4.23.0")
+  api(libs.seleniumJava)
 
-  api("io.github.bonigarcia:webdrivermanager:5.9.2")
-  implementation("commons-io:commons-io:2.16.1")
-  implementation(platform("com.fasterxml.jackson:jackson-bom:2.17.2"))
-  implementation("org.bouncycastle:bcprov-jdk15on:1.70")
+  api(libs.webdrivermanager)
+  implementation(libs.commonsIo)
+  implementation(platform(libs.jacksonBom))
+  implementation(libs.bcprovJdk15on)
 
-  testImplementation("org.slf4j:slf4j-api:2.0.13")
-  testImplementation("ch.qos.logback:logback-classic:1.5.6")
+  testImplementation(libs.slf4jApi)
+  testImplementation(libs.logbackClassic)
 
   testImplementation(project(":modules:testutils"))
 
-  testImplementation(platform("org.junit:junit-bom:5.10.3"))
-  testImplementation("org.junit.jupiter:junit-jupiter-api")
-  testImplementation("org.junit.jupiter:junit-jupiter-params")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+  testImplementation(platform(libs.junitBom))
+  testImplementation(libs.junitJupiterApi)
+  testImplementation(libs.junitJupiterParams)
+  testRuntimeOnly(libs.junitJupiterEngine)
 
-  testImplementation("org.assertj:assertj-core:3.26.3")
+  testImplementation(libs.assertjCore)
 }

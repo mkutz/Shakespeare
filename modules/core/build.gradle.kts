@@ -8,19 +8,19 @@ plugins {
 repositories { mavenCentral() }
 
 dependencies {
-  implementation("com.google.code.findbugs:jsr305:3.0.2")
+  implementation(libs.jsr305)
 
-  implementation("org.slf4j:slf4j-api:2.0.13")
+  implementation(libs.slf4jApi)
 
   testImplementation(project(":modules:testutils"))
-  testImplementation("ch.qos.logback:logback-classic:1.5.6")
+  testImplementation(libs.logbackClassic)
 
-  testImplementation(platform("org.junit:junit-bom:5.10.3"))
-  testImplementation("org.junit.jupiter:junit-jupiter-api")
-  testImplementation("org.junit.jupiter:junit-jupiter-params")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+  testImplementation(platform(libs.junitBom))
+  testImplementation(libs.junitJupiterApi)
+  testImplementation(libs.junitJupiterParams)
+  testRuntimeOnly(libs.junitJupiterEngine)
 
-  testImplementation("org.assertj:assertj-core:3.26.3")
+  testImplementation(libs.assertjCore)
 
-  testImplementation("net.jqwik:jqwik:1.9.0")
+  testImplementation(libs.jqwik)
 }

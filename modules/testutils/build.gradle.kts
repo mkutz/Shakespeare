@@ -10,9 +10,9 @@ repositories { mavenCentral() }
 dependencies {
   api(project(":modules:core"))
 
-  testImplementation(platform("org.junit:junit-bom:5.10.3"))
-  testImplementation("org.junit.jupiter:junit-jupiter-api")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+  testImplementation(platform(libs.junitBom))
+  testImplementation(libs.junitJupiterApi)
+  testRuntimeOnly(libs.junitJupiterEngine)
 
-  testImplementation("org.assertj:assertj-core:3.26.3")
+  testImplementation(libs.assertjCore)
 }
