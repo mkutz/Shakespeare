@@ -79,9 +79,13 @@ public abstract class FileReporter implements Reporter {
 
   /** Possible types of reports. */
   public enum ReportType {
+    /** something was started */
     START,
+    /** something was retried */
     RETRY,
+    /** something was finished successfully */
     SUCCESS,
+    /** something was finished unsuccessfully */
     FAILURE;
 
     @Override

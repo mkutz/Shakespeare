@@ -15,7 +15,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 public abstract class RetryingTokenAuthenticator implements Authenticator {
 
+  /** {@link Oauth2Api} instance to obtain a token. */
   protected final Oauth2Api oauth2Api;
+
+  /** Maximum number of retries. */
   private final int maxRetries;
 
   /**
@@ -46,6 +49,9 @@ public abstract class RetryingTokenAuthenticator implements Authenticator {
         .build();
   }
 
+  /**
+   * @return a valid token
+   */
   protected abstract Oauth2Token getToken();
 
   private static int responseCount(final Response response, int count) {

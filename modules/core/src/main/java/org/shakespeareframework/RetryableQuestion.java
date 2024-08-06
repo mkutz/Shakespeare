@@ -21,6 +21,7 @@ public interface RetryableQuestion<A> extends Question<A>, Retryable {
   }
 
   /**
+   * @param exception the {@link Exception} that made the retry necessary
    * @return the predicate that decides weather the exception will be ignored when thrown in a retry
    */
   default boolean isIgnoredException(Exception exception) {

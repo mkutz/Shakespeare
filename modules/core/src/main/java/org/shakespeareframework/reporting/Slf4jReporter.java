@@ -9,6 +9,7 @@ import org.shakespeareframework.RetryableQuestion;
 import org.shakespeareframework.RetryableTask;
 import org.shakespeareframework.Task;
 
+/** {@link LoggingReporter} that logs to SLF4J. */
 public class Slf4jReporter implements LoggingReporter {
 
   private LoggingReport currentRootReport;

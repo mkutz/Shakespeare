@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 
+/** A parsed OAuth2 token. */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Oauth2Token {
 
@@ -34,6 +35,9 @@ public class Oauth2Token {
     return now().plusSeconds(10).isAfter(expirationInstant);
   }
 
+  /**
+   * @return the access token {@link String} for the Authorization header
+   */
   public String getAccessToken() {
     return accessToken;
   }

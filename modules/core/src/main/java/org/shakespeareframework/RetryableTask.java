@@ -18,6 +18,7 @@ public interface RetryableTask extends Task, Retryable {
   }
 
   /**
+   * @param exception the {@link Exception} that made the retry necessary
    * @return the predicate that decides weather the exception won't be ignored when thrown in a
    *     retry
    */

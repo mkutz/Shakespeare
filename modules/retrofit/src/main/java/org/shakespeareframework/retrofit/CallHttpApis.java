@@ -91,6 +91,13 @@ public class CallHttpApis implements Ability {
       return this;
     }
 
+    /**
+     * Sets the {@link Authenticator} of the {@link #okHttpClientBuilder}.
+     *
+     * @param authenticator the {@link Authenticator} to be set
+     * @return the {@link Builder}
+     * @see OkHttpClient.Builder#authenticator(Authenticator)
+     */
     public Builder authenticator(Authenticator authenticator) {
       okHttpClientBuilder.authenticator(authenticator);
       return this;
