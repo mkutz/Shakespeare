@@ -11,8 +11,8 @@ dependencies {
   api(project(":modules:core"))
 
   testImplementation(platform(libs.junitBom))
-  testImplementation(libs.junitJupiterApi)
-  testRuntimeOnly(libs.junitJupiterEngine)
-
   testImplementation(libs.assertjCore)
+  testImplementation(libs.junitJupiterApi)
+
+  testRuntimeOnly(libs.junitJupiterEngine)
 }

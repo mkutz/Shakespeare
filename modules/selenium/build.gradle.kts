@@ -8,24 +8,21 @@ plugins {
 repositories { mavenCentral() }
 
 dependencies {
+  api(libs.seleniumJava)
+  api(libs.webdrivermanager)
   api(project(":modules:core"))
 
-  api(libs.seleniumJava)
-
-  api(libs.webdrivermanager)
+  implementation(libs.bcprovJdk15on)
   implementation(libs.commonsIo)
   implementation(platform(libs.jacksonBom))
-  implementation(libs.bcprovJdk15on)
-
-  testImplementation(libs.slf4jApi)
-  testImplementation(libs.logbackClassic)
-
-  testImplementation(project(":modules:testutils"))
 
   testImplementation(platform(libs.junitBom))
+  testImplementation(project(":modules:testutils"))
+  testImplementation(libs.assertjCore)
   testImplementation(libs.junitJupiterApi)
   testImplementation(libs.junitJupiterParams)
-  testRuntimeOnly(libs.junitJupiterEngine)
+  testImplementation(libs.logbackClassic)
+  testImplementation(libs.slf4jApi)
 
-  testImplementation(libs.assertjCore)
+  testRuntimeOnly(libs.junitJupiterEngine)
 }

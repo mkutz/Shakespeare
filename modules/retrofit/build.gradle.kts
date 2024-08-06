@@ -9,25 +9,22 @@ repositories { mavenCentral() }
 
 dependencies {
   api(project(":modules:core"))
-
-  api(libs.retrofit2)
   api(libs.okHttp3)
+  api(libs.retrofit2)
   api(libs.retrofit2ConverterJackson)
-  implementation(platform(libs.jacksonBom))
   api(libs.retrofit2ConverterScalars)
 
-  testImplementation(libs.mockwebserver)
-  testImplementation(libs.mockOauth2Server)
-
   implementation(libs.jsr305)
+  implementation(platform(libs.jacksonBom))
 
-  testImplementation(libs.slf4jApi)
-  testImplementation(libs.logbackClassic)
-
+  testImplementation(libs.assertjCore)
   testImplementation(platform(libs.junitBom))
   testImplementation(libs.junitJupiterApi)
   testImplementation(libs.junitJupiterParams)
-  testRuntimeOnly(libs.junitJupiterEngine)
+  testImplementation(libs.logbackClassic)
+  testImplementation(libs.mockOauth2Server)
+  testImplementation(libs.mockwebserver)
+  testImplementation(libs.slf4jApi)
 
-  testImplementation(libs.assertjCore)
+  testRuntimeOnly(libs.junitJupiterEngine)
 }
