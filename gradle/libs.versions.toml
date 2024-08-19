@@ -13,7 +13,7 @@ junitBom = { module = "org.junit:junit-bom", version.ref = "junitVersion" }
 junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitVersion" }
 junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitVersion" }
 junitJupiterParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitVersion" }
-junitPlatformLauncher = { module = "org.junit.platform:junit-platform-launcher", version = "1.10.3" }
+junitPlatformLauncher = { module = "org.junit.platform:junit-platform-launcher", version = "1.11.0" }
 logbackClassic = { module = "ch.qos.logback:logback-classic", version = "1.5.6" }
 mockOauth2Server = { module = "no.nav.security:mock-oauth2-server", version = "2.1.8" }
 mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version = "4.12.0" }
