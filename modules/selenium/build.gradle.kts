@@ -8,6 +8,7 @@ plugins {
 repositories { mavenCentral() }
 
 dependencies {
+  api(libs.jspecify)
   api(libs.seleniumJava)
   api(libs.webdrivermanager)
   api(project(":modules:core"))

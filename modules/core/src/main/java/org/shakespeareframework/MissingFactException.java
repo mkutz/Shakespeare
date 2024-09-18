@@ -1,9 +1,12 @@
 package org.shakespeareframework;
 
+import org.jspecify.annotations.NullMarked;
+
 /**
  * A {@link MissingFactException} is thrown in case an {@link Actor} cannot {@link Actor#remembers}
  * a required {@link Fact} {@link Class}.
  */
+@NullMarked
 public class MissingFactException extends RuntimeException {
 
   /**

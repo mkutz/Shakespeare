@@ -1,3 +1,5 @@
+package examples.java;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
@@ -18,7 +20,7 @@ import org.shakespeareframework.selenium.LocalWebDriverSupplier;
 
 class GroupingInteractionsDocTest {
 
-  static String LOGIN_FORM_HTML =
+  static final String LOGIN_FORM_HTML =
       """
       <html>
         <body>
@@ -33,7 +35,7 @@ class GroupingInteractionsDocTest {
       </html>
       """;
 
-  static String LOGGED_IN_HTML =
+  static final String LOGGED_IN_HTML =
       """
       <html>
         <body>

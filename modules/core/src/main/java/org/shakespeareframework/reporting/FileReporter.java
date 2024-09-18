@@ -9,6 +9,7 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Locale;
+import org.jspecify.annotations.NullMarked;
 import org.shakespeareframework.Actor;
 
 /**
@@ -16,6 +17,7 @@ import org.shakespeareframework.Actor;
  * #reportsPath} and named {@code counter}-{@code actor}-{@code reportType}-{@code
  * task|question}.{@code fileNameExtension}. E.g.: {@code 003-regina-retry-is_logged_in.png}.
  */
+@NullMarked
 public abstract class FileReporter implements Reporter {
 
   private final Path reportsPath;

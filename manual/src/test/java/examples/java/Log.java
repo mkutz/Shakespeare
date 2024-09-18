@@ -1,3 +1,5 @@
+package examples.java;
+
 import java.util.logging.Logger;
 import org.shakespeareframework.Ability;
 

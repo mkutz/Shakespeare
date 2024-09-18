@@ -1,8 +1,10 @@
 package org.shakespeareframework.reporting;
 
 import java.time.Duration;
+import org.jspecify.annotations.NullMarked;
 
 /** Utility class to format {@link Duration}s as {@link String}s. */
+@NullMarked
 final class DurationFormatter {
 
   public static final int SECONDS_PER_HOUR = 60 * 60;

@@ -8,6 +8,8 @@ plugins {
 repositories { mavenCentral() }
 
 dependencies {
+  api(libs.jspecify)
+
   implementation(libs.jsr305)
   implementation(libs.slf4jApi)
 

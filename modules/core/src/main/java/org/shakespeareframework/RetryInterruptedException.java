@@ -2,6 +2,8 @@ package org.shakespeareframework;
 
 import static java.lang.String.format;
 
+import org.jspecify.annotations.NullMarked;
+
 /**
  * A {@link RetryInterruptedException} is thrown when an {@link Actor} get interrupted while
  * retrying a {@link Retryable}.
@@ -9,6 +11,7 @@ import static java.lang.String.format;
  * @see Actor#does(RetryableTask)
  * @see Actor#checks(RetryableQuestion)
  */
+@NullMarked
 public class RetryInterruptedException extends RuntimeException {
 
   /**

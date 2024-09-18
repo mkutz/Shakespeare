@@ -11,10 +11,13 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
 
 /** Report on a {@link Task} or {@link Question}. */
+@NullMarked
 class LoggingReport {
 
   private static int counter = 0;
@@ -25,7 +28,7 @@ class LoggingReport {
   private final StringBuilder supplementBuilder;
   private final List<LoggingReport> subReports;
   private Status status;
-  private Duration duration;
+  @Nullable private Duration duration;
   private int retries;
 
   /**
@@ -160,7 +163,7 @@ class LoggingReport {
         "•".repeat(retries),
         status.getSymbol(),
         DurationFormatter.format(getDuration()),
-        supplementBuilder.length() > 0 ? " " + supplementBuilder : "",
+        !supplementBuilder.isEmpty() ? " " + supplementBuilder : "",
         subReportsString);
   }
 

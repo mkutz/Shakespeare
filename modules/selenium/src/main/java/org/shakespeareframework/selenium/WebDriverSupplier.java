@@ -1,6 +1,8 @@
 package org.shakespeareframework.selenium;
 
 import java.util.function.Supplier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
@@ -8,6 +10,7 @@ import org.openqa.selenium.WebDriver;
  * A {@link Supplier} for {@link WebDriver}, which also takes care of {@link WebDriver#quit()
  * quitting} the {@link WebDriver}.
  */
+@NullMarked
 public abstract class WebDriverSupplier implements Supplier<WebDriver>, AutoCloseable {
 
   private final BrowserType browserType;
@@ -21,7 +24,8 @@ public abstract class WebDriverSupplier implements Supplier<WebDriver>, AutoClos
    * @param browserType the {@link BrowserType} to be setup
    * @param additionalCapabilities additional {@link Capabilities} for the {@link WebDriver}
    */
-  protected WebDriverSupplier(BrowserType browserType, Capabilities additionalCapabilities) {
+  protected WebDriverSupplier(
+      BrowserType browserType, @Nullable Capabilities additionalCapabilities) {
     this.browserType = browserType;
     this.capabilities =
         additionalCapabilities == null

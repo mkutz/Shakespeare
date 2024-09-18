@@ -1,8 +1,10 @@
 package org.shakespeareframework.retrofit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import org.jspecify.annotations.NullMarked;
 import org.shakespeareframework.Ability;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -10,6 +12,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /** {@link Ability} to call RESTful APIs using {@link Retrofit}. */
+@NullMarked
 public class CallHttpApis implements Ability {
 
   /**
@@ -76,7 +79,21 @@ public class CallHttpApis implements Ability {
      * @see JacksonConverterFactory
      */
     public Builder addJacksonConverterFactory() {
-      return addConverterFactory(JacksonConverterFactory.create());
+      return addJacksonConverterFactory(new ObjectMapper());
+    }
+
+    /**
+     * Adds a {@link JacksonConverterFactory} using the given objectMapper to the {@link
+     * #retrofitBuilder}.
+     *
+     * @param objectMapper the {@link ObjectMapper} to be used by the {@link
+     *     JacksonConverterFactory}
+     * @return the {@link Builder}
+     * @see #addConverterFactory(Converter.Factory)
+     * @see JacksonConverterFactory
+     */
+    public Builder addJacksonConverterFactory(ObjectMapper objectMapper) {
+      return addConverterFactory(JacksonConverterFactory.create(objectMapper));
     }
 
     /**

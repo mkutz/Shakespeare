@@ -3,10 +3,12 @@ package org.shakespeareframework.selenium;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
+import org.jspecify.annotations.NullMarked;
 import org.openqa.selenium.WebDriver;
 import org.shakespeareframework.Ability;
 
 /** {@link Ability} to browse the web using a Selenium {@link WebDriver}. */
+@NullMarked
 public final class BrowseTheWeb implements Ability, AutoCloseable {
 
   private final WebDriverSupplier webDriverSupplier;

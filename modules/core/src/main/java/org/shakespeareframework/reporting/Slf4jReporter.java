@@ -3,6 +3,8 @@ package org.shakespeareframework.reporting;
 import static java.lang.String.format;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.RetryableQuestion;
@@ -10,9 +12,10 @@ import org.shakespeareframework.RetryableTask;
 import org.shakespeareframework.Task;
 
 /** {@link LoggingReporter} that logs to SLF4J. */
+@NullMarked
 public class Slf4jReporter implements LoggingReporter {
 
-  private LoggingReport currentRootReport;
+  @Nullable private LoggingReport currentRootReport;
 
   @Override
   public void start(Actor actor, Task task) {
@@ -29,6 +32,9 @@ public class Slf4jReporter implements LoggingReporter {
   }
 
   private void retry() {
+    if (currentRootReport == null) {
+      throw new IllegalStateException("No current report to retry");
+    }
     currentRootReport.getCurrentReport().retry();
   }
 
@@ -49,6 +55,9 @@ public class Slf4jReporter implements LoggingReporter {
 
   private void success(Actor actor) {
     final var logger = getLogger(actor.getName());
+    if (currentRootReport == null) {
+      throw new IllegalStateException("No current report to succeed");
+    }
     currentRootReport.getCurrentReport().success();
     if (logger.isInfoEnabled() && currentRootReport.isFinished()) {
       logger.info(currentRootReport.success().toString());
@@ -64,6 +73,9 @@ public class Slf4jReporter implements LoggingReporter {
   @Override
   public <A> void success(Actor actor, Question<A> question, A answer) {
     final var logger = getLogger(actor.getName());
+    if (currentRootReport == null) {
+      throw new IllegalStateException("No current report to succeed");
+    }
     currentRootReport.getCurrentReport().success(format("→ %s", answer));
     if (logger.isInfoEnabled() && currentRootReport.isFinished()) {
       logger.info(currentRootReport.toString());
@@ -73,6 +85,9 @@ public class Slf4jReporter implements LoggingReporter {
 
   private void failure(Actor actor, Exception cause) {
     final var logger = getLogger(actor.getName());
+    if (currentRootReport == null) {
+      throw new IllegalStateException("No current report to fail");
+    }
     currentRootReport.getCurrentReport().failure(cause.getClass().getSimpleName());
     if (logger.isWarnEnabled() && currentRootReport.isFinished()) {
       logger.warn(currentRootReport.toString());
@@ -93,6 +108,9 @@ public class Slf4jReporter implements LoggingReporter {
   @Override
   public <A> void failure(Actor actor, Question<A> question, A answer) {
     final var logger = getLogger(actor.getName());
+    if (currentRootReport == null) {
+      throw new IllegalStateException("No current report to fail");
+    }
     currentRootReport.getCurrentReport().failure(format("→ %s", answer));
     if (logger.isWarnEnabled() && currentRootReport.isFinished()) {
       logger.warn(currentRootReport.toString());

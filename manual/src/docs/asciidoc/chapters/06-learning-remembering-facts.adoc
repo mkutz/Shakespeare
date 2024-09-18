@@ -3,21 +3,33 @@
 link:{javadoc-url}/core/org/shakespeareframework/Fact.html[Facts] are a way to add data to the link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor].
 After a Fact was link:{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact...)[learned], it can always be link:{javadoc-url}/core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)[remembered] by its class and be used to do Tasks or answer Questions.
 
-.Learn and remember Facts
-[source,java,indent=0]
+[source,java,indent=0,role="secondary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=learn-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=learn-fact]
 
-include::../../../test/java/FactDocTest.java[tag=remember-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=remember-fact]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=learn-fact]
+
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=remember-fact]
 ----
 
 Fact classes only need to implement the (empty) Fact marker interface.
 Apart from that they can be basically anything but should be immutable value objects or records.
 
-.PhoneNumber Fact
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=fact]
+----
+[source,kotlin,indent=0,role="seconary"]
+.Java
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=fact]
 ----
 
 == Relearning Facts
@@ -25,14 +37,23 @@ include::../../../test/java/FactDocTest.java[tag=fact]
 Note that an Actor cannot remember multiple instances of a Fact.
 When you call remember with two different instances of the same Fact class, the older one is being forgotten and replaced by the new one.
 
-.Learn and remember Facts
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=learn-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=learn-fact]
 
-include::../../../test/java/FactDocTest.java[tag=relearn-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=relearn-fact]
 
-include::../../../test/java/FactDocTest.java[tag=remember-changed-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=remember-changed-fact]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Java
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=learn-fact]
+
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=relearn-fact]
+
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=remember-changed-fact]
 ----
 
 == Poly Facts
@@ -41,18 +62,30 @@ One way to achieve something similar are Poly Facts: Simply Facts with multiple 
 
 E.g. a PhoneNumbers Fact might contain a field for a work phone number and one for a home phone number:
 
-.PhoneNumbers Poly Fact
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=poly-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=poly-fact]
+----
+[source,java,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=poly-fact]
 ----
 
-.Learn and remember Poly Facts
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=learn-poly-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=learn-poly-fact]
 
-include::../../../test/java/FactDocTest.java[tag=remember-poly-fact]
+include::../../../test/java/examples/java/FactDocTest.java[tag=remember-poly-fact]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=learn-poly-fact]
+
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=remember-poly-fact]
 ----
 
 == Facts with Defaults and Generators
@@ -61,18 +94,28 @@ One great advantage of Fact classes is the possibility of adding static fields a
 
 E.g. you can put that one valid test credit card number in a `public static CreditCard DEFAULT` in your `CreditCard` Fact class:
 
-.CreditCard Fact with default
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=fact-with-default]
+include::../../../test/java/examples/java/FactDocTest.java[tag=fact-with-default]
+----
+[source,kotlin,indent=0,role="seconary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=fact-with-default]
 ----
 
 Or you can add a method to generate valid unique random email addresses to your `EmailAddress` Fact class:
 
-.EmailAddress with random generator
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/FactDocTest.java[tag=fact-with-generator]
+include::../../../test/java/examples/java/FactDocTest.java[tag=fact-with-generator]
+----
+[source,java,indent=0,role="seconary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=fact-with-generator]
 ----
 
 == Personalized Tasks/Questions

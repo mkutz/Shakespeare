@@ -8,6 +8,7 @@ plugins {
 repositories { mavenCentral() }
 
 dependencies {
+  api(libs.jspecify)
   api(project(":modules:core"))
 
   testImplementation(platform(libs.junitBom))

@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import org.jspecify.annotations.Nullable;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.RetryableQuestion;
@@ -21,7 +22,7 @@ public class TestQuestionBuilder<A> {
 
   private static int counter = 0;
   private String string = String.format("test question #%d", ++counter);
-  private Function<Actor, A> answer = actor -> null;
+  private Function<Actor, @Nullable A> answer = actor -> null;
   private Duration timeout = ofMillis(100);
   private Duration interval = ofMillis(10);
   private Set<Class<? extends Exception>> ignoredExceptions = Set.of();
