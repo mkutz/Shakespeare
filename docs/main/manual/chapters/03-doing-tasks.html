@@ -435,12 +435,161 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+.hidden {
+	display: none;
+}
+
+.switch {
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+	display: inline-block;
+}
+
+.switch--item {
+	padding: 10px;
+	background-color: #ffffff;
+	color: #7a2518;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.switch--item:not(:first-child) {
+	border-width: 0 0 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+}
+
+.switch--item.selected {
+	background-color: #7a2519;
+	color: #ffffff;
+}
+
+</style>
+<script type="text/javascript">
+function addBlockSwitches() {
+	for (var primary of document.querySelectorAll('.primary')) {
+		var switchItem = createSwitchItem(primary, createBlockSwitch(primary));
+		switchItem.item.classList.add("selected");
+		var title = primary.querySelector('.title')
+		title.remove();
+	}
+	for (var secondary of document.querySelectorAll('.secondary')) {
+		var primary = findPrimary(secondary);
+		if (primary === null) {
+			console.error("Found secondary block with no primary sibling");
+		}
+		else {
+			var switchItem = createSwitchItem(secondary, primary.querySelector('.switch'));
+			switchItem.content.classList.add("hidden");
+			primary.append(switchItem.content);
+			secondary.remove();
+		}
+	}
+}
+
+function createElementFromHtml(html) {
+	var template = document.createElement('template');
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+function createBlockSwitch(primary) {
+    var blockSwitch = createElementFromHtml('<div class="switch"></div>');
+    primary.prepend(blockSwitch)
+	return blockSwitch;
+}
+
+function findPrimary(secondary) {
+	var candidate = secondary.previousElementSibling;
+	while (candidate != null && !candidate.classList.contains('primary')) {
+		candidate = candidate.previousElementSibling;
+	}
+	return candidate;
+}
+
+function createSwitchItem(block, blockSwitch) {
+	var blockName = block.querySelector('.title').textContent;
+	var content = block.querySelectorAll('.content').item(0);
+	var colist = nextSibling(block, '.colist');
+	if (colist != null) {
+		content.append(colist);
+	}
+	var item = createElementFromHtml('<div class="switch--item">' + blockName + '</div>');
+	item.dataset.blockName = blockName;
+	content.dataset.blockName = blockName;
+	blockSwitch.append(item);
+	return {'item': item, 'content': content};
+}
+
+function nextSibling(element, selector) {
+	var sibling = element.nextElementSibling;
+	while (sibling) {
+		if (sibling.matches(selector)) {
+			return sibling;
+		}
+		sibling = sibling.nextElementSibling;
+	}
+}
+
+function globalSwitch() {
+	document.querySelectorAll(".switch--item").forEach(function(item) {
+		var blockId = blockIdForSwitchItem(item);
+		var handler = function(event) {
+			selectedText = event.target.textContent;
+			window.localStorage.setItem(blockId, selectedText);
+			for (var switchItem of document.querySelectorAll(".switch--item")) {
+				if (blockIdForSwitchItem(switchItem) === blockId && switchItem.textContent === selectedText) {
+					select(switchItem);
+				}
+			}
+		}
+		item.addEventListener("click", handler);
+		if (item.textContent === window.localStorage.getItem(blockId)) {
+			select(item);
+		}
+	});
+}
+
+function select(selected) {
+	for (var child of selected.parentNode.children) {
+		child.classList.remove("selected");
+	}
+	selected.classList.add("selected");
+	for (var child of selected.parentNode.parentNode.children) {
+		if (child.classList.contains("content")) {
+			if (selected.dataset.blockName === child.dataset.blockName) {
+				child.classList.remove("hidden");
+			}
+			else {
+				child.classList.add("hidden");
+			}
+		}
+	}	
+}
+
+function blockIdForSwitchItem(item) {
+	idComponents = []
+	for (var switchItem of item.parentNode.querySelectorAll(".switch--item")) {
+		idComponents.push(switchItem.textContent.toLowerCase());
+	}
+	return idComponents.sort().join("-")
+}
+
+window.onload = function() {
+	addBlockSwitches();
+	globalSwitch();
+};
+
+</script>
+
 </head>
 <body class="article">
 <div id="header">
 <h1>Doing Tasks</h1>
 <div class="details">
-<span id="revnumber">version 0.8-SNAPSHOT</span>
+<span id="revnumber">version 0.7.5</span>
 </div>
 </div>
 <div id="content">
@@ -454,8 +603,8 @@ What the actor should do is defined in the <a href="{javadoc-url}/core/org/shake
 <div class="paragraph">
 <p>As the Actor is given as an argument, the Task implementation has access to the Actor&#8217;s Abilities via the <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#uses(java.lang.Class))"><code>uses(Class&lt;? extends Ability&gt;)</code> method</a>.</p>
 </div>
-<div class="listingblock">
-<div class="title">SayHelloWorld Task</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class SayHelloWorld implements Task {
 
@@ -467,10 +616,27 @@ What the actor should do is defined in the <a href="{javadoc-url}/core/org/shake
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Doing SayHelloWorld Task</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">class SayHelloWorld() : Task {
+  override fun performAs(actor: Actor) {
+    val logger = actor.uses(Log::class.java).logger
+    logger.info("Hello World")
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">tom.does(new SayHelloWorld());</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">tom.does(SayHelloWorld())</code></pre>
 </div>
 </div>
 </div>
@@ -485,8 +651,8 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 <div class="paragraph">
 <p>Such data can be added as properties of the Task.</p>
 </div>
-<div class="listingblock">
-<div class="title">SayHello Parameterized Task</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class SayHello implements Task {
 
@@ -504,14 +670,25 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">data class SayHello(val to: String) : Task {
+  override fun performAs(actor: Actor) {
+    val logger = actor.uses(Log::class.java).logger
+    logger.info("Hello $to")
+  }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>As Tasks should not change over time and should be reusable, it is also possible to declare them as Java Records&#8212;&#8203;given that you can use Java 17+ features.</p>
 </div>
 <div class="paragraph">
 <p>Doing the Tasks is the same for Classes and Records.</p>
 </div>
-<div class="listingblock">
-<div class="title">SayHelloAsRecord Parameterized Task</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record SayHelloAsRecord(String to) implements Task {
 
@@ -523,11 +700,17 @@ E.g. a <code>SearchFor</code> Task probably needs a query string, or an <code>Ad
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Doing SayHello Parameterized Task</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">alex.does(new SayHello("Shakespeare"));
 alex.does(new SayHelloAsRecord("Shakespeare"));</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">alex.does(SayHello("Shakespeare"))</code></pre>
 </div>
 </div>
 </div>
@@ -538,10 +721,16 @@ alex.does(new SayHelloAsRecord("Shakespeare"));</code></pre>
 <div class="paragraph">
 <p>As Tasks only have one abstract method, they can be declared using Java&#8217;s Lambda syntax.</p>
 </div>
-<div class="listingblock">
-<div class="title">Simple parameterized Task</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">mila.does(she -&gt; she.uses(Log.class).getLogger().info("Hi"));</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">mila.does { she -&gt; she.uses(Log::class.java).logger.info("Hi") }</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -577,8 +766,8 @@ This chapter contains some examples how to find the right level of abstraction f
 <p>Let&#8217;s take a Task to log in to a website.
 This might consist of the following interactions with the website:</p>
 </div>
-<div class="listingblock">
-<div class="title">LoginTask</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">class Login implements Task {
 
@@ -610,6 +799,33 @@ This might consist of the following interactions with the website:</p>
   @Override
   public String toString() {
     return String.format("login as %s", username);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">data class Login(private val username: String, private val password: String) : Task {
+
+  override fun performAs(actor: Actor) {
+    val webDriver = actor.uses(BrowseTheWeb::class.java).webDriver
+
+    webDriver.get(mockWebServer.url("/").toString()) // <b class="conum">(1)</b>
+
+    webDriver
+      .findElement(By.name("username")) // <b class="conum">(2)</b>
+      .sendKeys(username) // <b class="conum">(3)</b>
+    webDriver
+      .findElement(By.name("password")) // <b class="conum">(4)</b>
+      .sendKeys(password) // <b class="conum">(5)</b>
+    webDriver
+      .findElement(By.cssSelector(".login button")) // <b class="conum">(6)</b>
+      .click() // <b class="conum">(7)</b>
+  }
+
+  override fun toString(): String {
+    return "login as $username"
   }
 }</code></pre>
 </div>
@@ -693,8 +909,8 @@ It is generally a bad idea to mix simple interactions with sub-tasks, as it make
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.8-SNAPSHOT<br>
-Last updated 2024-08-06 08:47:41 UTC
+Version 0.7.5<br>
+Last updated 2024-09-18 15:29:37 UTC
 </div>
 </div>
 </body>

@@ -435,12 +435,161 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+.hidden {
+	display: none;
+}
+
+.switch {
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+	display: inline-block;
+}
+
+.switch--item {
+	padding: 10px;
+	background-color: #ffffff;
+	color: #7a2518;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.switch--item:not(:first-child) {
+	border-width: 0 0 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+}
+
+.switch--item.selected {
+	background-color: #7a2519;
+	color: #ffffff;
+}
+
+</style>
+<script type="text/javascript">
+function addBlockSwitches() {
+	for (var primary of document.querySelectorAll('.primary')) {
+		var switchItem = createSwitchItem(primary, createBlockSwitch(primary));
+		switchItem.item.classList.add("selected");
+		var title = primary.querySelector('.title')
+		title.remove();
+	}
+	for (var secondary of document.querySelectorAll('.secondary')) {
+		var primary = findPrimary(secondary);
+		if (primary === null) {
+			console.error("Found secondary block with no primary sibling");
+		}
+		else {
+			var switchItem = createSwitchItem(secondary, primary.querySelector('.switch'));
+			switchItem.content.classList.add("hidden");
+			primary.append(switchItem.content);
+			secondary.remove();
+		}
+	}
+}
+
+function createElementFromHtml(html) {
+	var template = document.createElement('template');
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+function createBlockSwitch(primary) {
+    var blockSwitch = createElementFromHtml('<div class="switch"></div>');
+    primary.prepend(blockSwitch)
+	return blockSwitch;
+}
+
+function findPrimary(secondary) {
+	var candidate = secondary.previousElementSibling;
+	while (candidate != null && !candidate.classList.contains('primary')) {
+		candidate = candidate.previousElementSibling;
+	}
+	return candidate;
+}
+
+function createSwitchItem(block, blockSwitch) {
+	var blockName = block.querySelector('.title').textContent;
+	var content = block.querySelectorAll('.content').item(0);
+	var colist = nextSibling(block, '.colist');
+	if (colist != null) {
+		content.append(colist);
+	}
+	var item = createElementFromHtml('<div class="switch--item">' + blockName + '</div>');
+	item.dataset.blockName = blockName;
+	content.dataset.blockName = blockName;
+	blockSwitch.append(item);
+	return {'item': item, 'content': content};
+}
+
+function nextSibling(element, selector) {
+	var sibling = element.nextElementSibling;
+	while (sibling) {
+		if (sibling.matches(selector)) {
+			return sibling;
+		}
+		sibling = sibling.nextElementSibling;
+	}
+}
+
+function globalSwitch() {
+	document.querySelectorAll(".switch--item").forEach(function(item) {
+		var blockId = blockIdForSwitchItem(item);
+		var handler = function(event) {
+			selectedText = event.target.textContent;
+			window.localStorage.setItem(blockId, selectedText);
+			for (var switchItem of document.querySelectorAll(".switch--item")) {
+				if (blockIdForSwitchItem(switchItem) === blockId && switchItem.textContent === selectedText) {
+					select(switchItem);
+				}
+			}
+		}
+		item.addEventListener("click", handler);
+		if (item.textContent === window.localStorage.getItem(blockId)) {
+			select(item);
+		}
+	});
+}
+
+function select(selected) {
+	for (var child of selected.parentNode.children) {
+		child.classList.remove("selected");
+	}
+	selected.classList.add("selected");
+	for (var child of selected.parentNode.parentNode.children) {
+		if (child.classList.contains("content")) {
+			if (selected.dataset.blockName === child.dataset.blockName) {
+				child.classList.remove("hidden");
+			}
+			else {
+				child.classList.add("hidden");
+			}
+		}
+	}	
+}
+
+function blockIdForSwitchItem(item) {
+	idComponents = []
+	for (var switchItem of item.parentNode.querySelectorAll(".switch--item")) {
+		idComponents.push(switchItem.textContent.toLowerCase());
+	}
+	return idComponents.sort().join("-")
+}
+
+window.onload = function() {
+	addBlockSwitches();
+	globalSwitch();
+};
+
+</script>
+
 </head>
 <body class="article">
 <div id="header">
 <h1>Getting Started</h1>
 <div class="details">
-<span id="revnumber">version 0.8-SNAPSHOT</span>
+<span id="revnumber">version 0.7.5</span>
 </div>
 </div>
 <div id="content">
@@ -461,7 +610,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock primary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation 'org.shakespeareframework:core:0.8-SNAPSHOT'</code></pre>
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation 'org.shakespeareframework:core:0.7.5'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle.kts</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">implementation("org.shakespeareframework:core:0.7.5")</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
@@ -470,7 +625,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
   &lt;artifactId&gt;core&lt;/artifactId&gt;
-  &lt;version&gt;0.8-SNAPSHOT&lt;/version&gt;
+  &lt;version&gt;0.7.5&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -495,9 +650,17 @@ Hence, you don&#8217;t need to keep it once you add another module (e.g. <code>s
 <div class="listingblock primary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation platform('org.shakespeareframework:bom:0.8-SNAPSHOT')
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">implementation platform('org.shakespeareframework:bom:0.7.5')
 implementation 'org.shakespeareframework:selenium'
 implementation 'org.shakespeareframework:retrofit'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle.kts</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">implementation(platform("org.shakespeareframework:bom:0.7.5"))
+implementation("org.shakespeareframework:selenium")
+implementation("org.shakespeareframework:retrofit")</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
@@ -510,7 +673,7 @@ implementation 'org.shakespeareframework:retrofit'</code></pre>
       &lt;dependency&gt;
         &lt;groupId&gt;org.shakespeareframework&lt;/groupId&gt;
         &lt;artifactId&gt;bom&lt;/artifactId&gt;
-        &lt;version&gt;0.8-SNAPSHOT&lt;/version&gt;
+        &lt;version&gt;0.7.5&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
       &lt;/dependency&gt;
@@ -537,8 +700,8 @@ implementation 'org.shakespeareframework:retrofit'</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.8-SNAPSHOT<br>
-Last updated 2024-08-06 08:47:41 UTC
+Version 0.7.5<br>
+Last updated 2024-09-18 15:29:37 UTC
 </div>
 </div>
 </body>

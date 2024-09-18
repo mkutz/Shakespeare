@@ -435,12 +435,161 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+.hidden {
+	display: none;
+}
+
+.switch {
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+	display: inline-block;
+}
+
+.switch--item {
+	padding: 10px;
+	background-color: #ffffff;
+	color: #7a2518;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.switch--item:not(:first-child) {
+	border-width: 0 0 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+}
+
+.switch--item.selected {
+	background-color: #7a2519;
+	color: #ffffff;
+}
+
+</style>
+<script type="text/javascript">
+function addBlockSwitches() {
+	for (var primary of document.querySelectorAll('.primary')) {
+		var switchItem = createSwitchItem(primary, createBlockSwitch(primary));
+		switchItem.item.classList.add("selected");
+		var title = primary.querySelector('.title')
+		title.remove();
+	}
+	for (var secondary of document.querySelectorAll('.secondary')) {
+		var primary = findPrimary(secondary);
+		if (primary === null) {
+			console.error("Found secondary block with no primary sibling");
+		}
+		else {
+			var switchItem = createSwitchItem(secondary, primary.querySelector('.switch'));
+			switchItem.content.classList.add("hidden");
+			primary.append(switchItem.content);
+			secondary.remove();
+		}
+	}
+}
+
+function createElementFromHtml(html) {
+	var template = document.createElement('template');
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+function createBlockSwitch(primary) {
+    var blockSwitch = createElementFromHtml('<div class="switch"></div>');
+    primary.prepend(blockSwitch)
+	return blockSwitch;
+}
+
+function findPrimary(secondary) {
+	var candidate = secondary.previousElementSibling;
+	while (candidate != null && !candidate.classList.contains('primary')) {
+		candidate = candidate.previousElementSibling;
+	}
+	return candidate;
+}
+
+function createSwitchItem(block, blockSwitch) {
+	var blockName = block.querySelector('.title').textContent;
+	var content = block.querySelectorAll('.content').item(0);
+	var colist = nextSibling(block, '.colist');
+	if (colist != null) {
+		content.append(colist);
+	}
+	var item = createElementFromHtml('<div class="switch--item">' + blockName + '</div>');
+	item.dataset.blockName = blockName;
+	content.dataset.blockName = blockName;
+	blockSwitch.append(item);
+	return {'item': item, 'content': content};
+}
+
+function nextSibling(element, selector) {
+	var sibling = element.nextElementSibling;
+	while (sibling) {
+		if (sibling.matches(selector)) {
+			return sibling;
+		}
+		sibling = sibling.nextElementSibling;
+	}
+}
+
+function globalSwitch() {
+	document.querySelectorAll(".switch--item").forEach(function(item) {
+		var blockId = blockIdForSwitchItem(item);
+		var handler = function(event) {
+			selectedText = event.target.textContent;
+			window.localStorage.setItem(blockId, selectedText);
+			for (var switchItem of document.querySelectorAll(".switch--item")) {
+				if (blockIdForSwitchItem(switchItem) === blockId && switchItem.textContent === selectedText) {
+					select(switchItem);
+				}
+			}
+		}
+		item.addEventListener("click", handler);
+		if (item.textContent === window.localStorage.getItem(blockId)) {
+			select(item);
+		}
+	});
+}
+
+function select(selected) {
+	for (var child of selected.parentNode.children) {
+		child.classList.remove("selected");
+	}
+	selected.classList.add("selected");
+	for (var child of selected.parentNode.parentNode.children) {
+		if (child.classList.contains("content")) {
+			if (selected.dataset.blockName === child.dataset.blockName) {
+				child.classList.remove("hidden");
+			}
+			else {
+				child.classList.add("hidden");
+			}
+		}
+	}	
+}
+
+function blockIdForSwitchItem(item) {
+	idComponents = []
+	for (var switchItem of item.parentNode.querySelectorAll(".switch--item")) {
+		idComponents.push(switchItem.textContent.toLowerCase());
+	}
+	return idComponents.sort().join("-")
+}
+
+window.onload = function() {
+	addBlockSwitches();
+	globalSwitch();
+};
+
+</script>
+
 </head>
 <body class="article">
 <div id="header">
 <h1>Learning &amp; Remembering Facts</h1>
 <div class="details">
-<span id="revnumber">version 0.8-SNAPSHOT</span>
+<span id="revnumber">version 0.7.5</span>
 </div>
 </div>
 <div id="content">
@@ -450,22 +599,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="{javadoc-url}/core/org/shakespeareframework/Fact.html">Facts</a> are a way to add data to the <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html">Actor</a>.
 After a Fact was <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact&#8230;&#8203;)">learned</a>, it can always be <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)">remembered</a> by its class and be used to do Tasks or answer Questions.</p>
 </div>
-<div class="listingblock">
-<div class="title">Learn and remember Facts</div>
+<div class="listingblock secondary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
 
 PhoneNumber katesPhoneNumber = kate.remembers(PhoneNumber.class);</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">kate.learns(PhoneNumber("+49 0180 4 100 100"))
+
+val katesPhoneNumber = kate.remembers(PhoneNumber::class.java)</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Fact classes only need to implement the (empty) Fact marker interface.
 Apart from that they can be basically anything but should be immutable value objects or records.</p>
 </div>
-<div class="listingblock">
-<div class="title">PhoneNumber Fact</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record PhoneNumber(String number) implements Fact {}</code></pre>
+</div>
+</div>
+<div class="listingblock seconary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">data class PhoneNumber(val number: String) : Fact</code></pre>
 </div>
 </div>
 </div>
@@ -477,8 +640,8 @@ Apart from that they can be basically anything but should be immutable value obj
 <p>Note that an Actor cannot remember multiple instances of a Fact.
 When you call remember with two different instances of the same Fact class, the older one is being forgotten and replaced by the new one.</p>
 </div>
-<div class="listingblock">
-<div class="title">Learn and remember Facts</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
 
@@ -486,6 +649,17 @@ kate.learns(new PhoneNumber("+1 (303) 499-7111"));
 
 PhoneNumber katesNewPhoneNumber = kate.remembers(PhoneNumber.class);
 assertThat(katesNewPhoneNumber).isEqualTo(new PhoneNumber("+1 (303) 499-7111"));</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">kate.learns(PhoneNumber("+49 0180 4 100 100"))
+
+kate.learns(PhoneNumber("+1 (303) 499-7111"))
+
+val katesNewPhoneNumber = kate.remembers(PhoneNumber::class.java)
+assertThat(katesNewPhoneNumber).isEqualTo(PhoneNumber("+1 (303) 499-7111"))</code></pre>
 </div>
 </div>
 </div>
@@ -499,20 +673,36 @@ assertThat(katesNewPhoneNumber).isEqualTo(new PhoneNumber("+1 (303) 499-7111"));
 <div class="paragraph">
 <p>E.g. a PhoneNumbers Fact might contain a field for a work phone number and one for a home phone number:</p>
 </div>
-<div class="listingblock">
-<div class="title">PhoneNumbers Poly Fact</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record PhoneNumbers(String home, String work) implements Fact {}</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Learn and remember Poly Facts</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">data class PhoneNumbers(val home: String, val work: String) : Fact</code></pre>
+</div>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">robin.learns(new PhoneNumbers("+49 0180 4 100 100", "+1 (303) 499-7111"));
 
 var robinsPhoneNumbers = robin.remembers(PhoneNumbers.class);
 var robinsHomePhoneNumber = robinsPhoneNumbers.home();
 var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">robin.learns(PhoneNumbers(home = "+49 0180 4 100 100", work = "+1 (303) 499-7111"))
+
+val robinsPhoneNumbers = robin.remembers(PhoneNumbers::class.java)
+val robinsHomePhoneNumber = robinsPhoneNumbers.home
+val robinsWorkPhoneNumber = robinsPhoneNumbers.work</code></pre>
 </div>
 </div>
 </div>
@@ -526,8 +716,8 @@ var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 <div class="paragraph">
 <p>E.g. you can put that one valid test credit card number in a <code>public static CreditCard DEFAULT</code> in your <code>CreditCard</code> Fact class:</p>
 </div>
-<div class="listingblock">
-<div class="title">CreditCard Fact with default</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record CreditCard(String type, String number, YearMonth expiration) implements Fact {
   public static CreditCard DEFAULT_VISA =
@@ -535,15 +725,36 @@ var robinsWorkPhoneNumber = robinsPhoneNumbers.work();</code></pre>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock seconary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">data class CreditCard(val type: String, val number: String, val expiration: YearMonth) : Fact {
+  companion object {
+    val DEFAULT_VISA =
+      CreditCard("visa", "4111111111111111", YearMonth.of(2026, 10))
+  }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Or you can add a method to generate valid unique random email addresses to your <code>EmailAddress</code> Fact class:</p>
 </div>
-<div class="listingblock">
-<div class="title">EmailAddress with random generator</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">record EmailAddress(String address) implements Fact {
   public static EmailAddress random() {
     return new EmailAddress("%s@shakespeareframework.org".formatted(UUID.randomUUID()));
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock seconary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">data class EmailAddress(val address: String) : Fact {
+  companion object {
+    fun random() = EmailAddress("${UUID.randomUUID()}@shakespeareframework.org")
   }
 }</code></pre>
 </div>
@@ -612,8 +823,8 @@ Side effects are not easy to keep track of,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.8-SNAPSHOT<br>
-Last updated 2024-08-06 08:47:41 UTC
+Version 0.7.5<br>
+Last updated 2024-09-18 15:29:37 UTC
 </div>
 </div>
 </body>
