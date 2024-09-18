@@ -9,16 +9,26 @@ There can be any number of Actors in a Screenplay (Test).
 To make different Actors easily identifiable, they have a name.
 The name can be explicitly given or will be randomly assigned.
 
-.Actor with explicitly given name
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/ActorDocTest.java[tag=create-actor]
+include::../../../test/java/examples/java/ActorDocTest.java[tag=create-actor]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/ActorDocTest.kt[tag=create-actor]
 ----
 
-.Actor with random name
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/ActorDocTest.java[tag=create-actor-random-name]
+include::../../../test/java/examples/java/ActorDocTest.java[tag=create-actor-random-name]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/ActorDocTest.kt[tag=create-actor-random-name]
 ----
 
 == Abilities
@@ -29,24 +39,39 @@ Ability is a simple marker interface.
 Implementations should provide methods providing an object which allows interaction with the system under test.
 If that object is being generated on demand or simply wrapped by the Ability is up to the implementation.
 
-.A simple example for an Ability implementation
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/Log.java[tag=ability]
+include::../../../test/java/examples/java/Log.java[tag=ability]
+----
+[source,java,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/Log.kt[tag=ability]
 ----
 
 To allow Actors to use an Ability it needs to be given to them via the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#can(org.shakespeareframework.Ability...)[`can(Ability)` method].
 
-.Give an Ability to an Actor
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/AbilityDocTest.java[tag=can]
+include::../../../test/java/examples/java/AbilityDocTest.java[tag=can]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/AbilityDocTest.kt[tag=can]
 ----
 
 To get an Ability from an Actor, there's the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#uses(java.lang.Class)[`uses(Class<? extends Ability>)` method].
 
-.Get an Ability from an Actor
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/AbilityDocTest.java[tag=uses]
+include::../../../test/java/examples/java/AbilityDocTest.java[tag=uses]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/AbilityDocTest.kt[tag=uses]
 ----

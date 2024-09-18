@@ -7,16 +7,26 @@ What the actor should do is defined in the link:{javadoc-url}/core/org/shakespea
 
 As the Actor is given as an argument, the Task implementation has access to the Actor's Abilities via the link:{javadoc-url}/core/org/shakespeareframework/Actor.html#uses(java.lang.Class))[`uses(Class<? extends Ability>)` method].
 
-.SayHelloWorld Task
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/TaskDocTest.java[tag=task]
+include::../../../test/java/examples/java/TaskDocTest.java[tag=task]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/TaskDocTest.kt[tag=task]
 ----
 
-.Doing SayHelloWorld Task
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/TaskDocTest.java[tag=does-task]
+include::../../../test/java/examples/java/TaskDocTest.java[tag=does-task]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/TaskDocTest.kt[tag=does-task]
 ----
 
 == Tasks with Parameters
@@ -26,36 +36,51 @@ E.g. a `SearchFor` Task probably needs a query string, or an `AddToCart` Task mi
 
 Such data can be added as properties of the Task.
 
-.SayHello Parameterized Task
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/TaskDocTest.java[tag=task-with-parameter]
+include::../../../test/java/examples/java/TaskDocTest.java[tag=task-with-parameter]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/TaskDocTest.kt[tag=task-with-parameter]
 ----
 
 As Tasks should not change over time and should be reusable, it is also possible to declare them as Java Records--given that you can use Java 17+ features.
 
 Doing the Tasks is the same for Classes and Records.
 
-.SayHelloAsRecord Parameterized Task
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/TaskDocTest.java[tags=task-as-record,does-task-as-record]
+include::../../../test/java/examples/java/TaskDocTest.java[tags=task-as-record,does-task-as-record]
 ----
 
-.Doing SayHello Parameterized Task
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/TaskDocTest.java[tag=does-task-with-parameter]
+include::../../../test/java/examples/java/TaskDocTest.java[tag=does-task-with-parameter]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/TaskDocTest.kt[tag=does-task-with-parameter]
 ----
 
 == Lambdas as Tasks
 
 As Tasks only have one abstract method, they can be declared using Java's Lambda syntax.
 
-.Simple parameterized Task
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/TaskDocTest.java[tag=does-lambda]
+include::../../../test/java/examples/java/TaskDocTest.java[tag=does-lambda]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/TaskDocTest.kt[tag=does-lambda]
 ----
 
 NOTE: A Task should group complex interactions into a semantic unit of work.
@@ -75,12 +100,16 @@ The simplest kind of Tasks are those who group simple interactions with the syst
 Let's take a Task to log in to a website.
 This might consist of the following interactions with the website:
 
-[source,java,indent=0]
-.LoginTask
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/GroupingInteractionsDocTest.java[tag=task]
+include::../../../test/java/examples/java/GroupingInteractionsDocTest.java[tag=task]
 ----
-
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/GroupingInteractionsDocTest.kt[tag=task]
+----
 <1> Navigate to the website,
 <2> find the "username" input field,
 <3> write "john" into it,

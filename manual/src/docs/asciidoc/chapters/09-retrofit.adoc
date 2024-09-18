@@ -7,10 +7,15 @@ The Retrofit Module provides the link:{javadoc-url}/retrofit/org/shakespearefram
 In order to create a client, Retrofit requires an interface, which describes the API.
 For this, please follow the instructions in the https://square.github.io/retrofit/#api-declaration[Retrofit "API Declaration" documentation chapter].
 
-.API declaration example
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/RetrofitDocTest.java[tag=test-api]
+include::../../../test/java/examples/java/RetrofitDocTest.java[tag=test-api]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/RetrofitDocTest.kt[tag=test-api]
 ----
 
 == Building the Client
@@ -19,12 +24,16 @@ Once the API interface is declared, the client can be build.
 
 === For Scalar Bodies (Strings, Integers, Floats)
 
-.Example for scalar bodies
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/RetrofitDocTest.java[tag=scalars-example]
+include::../../../test/java/examples/java/RetrofitDocTest.java[tag=scalars-example]
 ----
-
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/RetrofitDocTest.kt[tag=scalars-example]
+----
 <1> The `getClient` method returns a link:{javadoc-url}/retrofit/org/shakespeareframework/retrofit/CallHttpApis.Builder.html[CallHttpApis.Builder],
 <2> configure the base URL of the service--it will be put in front of the relative URLs in the API annotations,
 <3> add needed ConverterFactory to convert response/request bodies,
@@ -32,12 +41,16 @@ include::../../../test/java/RetrofitDocTest.java[tag=scalars-example]
 
 === For JSON Bodies
 
-.Example for JSON bodies
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/RetrofitDocTest.java[tag=jackson-example]
+include::../../../test/java/examples/java/RetrofitDocTest.java[tag=jackson-example]
 ----
-
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/RetrofitDocTest.kt[tag=jackson-example]
+----
 <1> By adding the JacksonConverterFactory, the client will be able to parse the JSON body
 <2> into an instance of ActorInfo.
 

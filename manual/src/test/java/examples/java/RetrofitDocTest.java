@@ -1,3 +1,5 @@
+package examples.java;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ import retrofit2.http.Path;
 class RetrofitDocTest {
 
   static MockWebServer serviceMock = new MockWebServer();
-  static String ACTORS_SERVICE_URL = serviceMock.url("/").toString();
+  static String serviceUrl = serviceMock.url("/").toString();
 
   @AfterAll
   static void shutdownMockWebServer() throws IOException {
@@ -47,7 +49,7 @@ class RetrofitDocTest {
           actor
               .uses(CallHttpApis.class)
               .buildClient() // <1>
-              .baseUrl(ACTORS_SERVICE_URL) // <2>
+              .baseUrl(serviceUrl) // <2>
               .addScalarsConverterFactory() // <3>
               .build(ActorsApi.class); // <4>
       try {
@@ -93,7 +95,7 @@ class RetrofitDocTest {
           actor
               .uses(CallHttpApis.class)
               .buildClient()
-              .baseUrl(ACTORS_SERVICE_URL)
+              .baseUrl(serviceUrl)
               .addJacksonConverterFactory() // <1>
               .build(ActorsApi.class);
       try {

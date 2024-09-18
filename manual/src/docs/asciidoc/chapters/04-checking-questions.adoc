@@ -9,10 +9,15 @@ How the Actor finds the answer to a Question is defined in the link:{javadoc-url
 
 Similar to the link:{javadoc-url}/core/org/shakespeareframework/Task.html#performAs(org.shakespeareframework.Actor)[performAs(Actor) method] of the Task, the Actor is given as an argument, so a Question can use all the Actor's Abilities to find the answer.
 
-.LoggedInState Question
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/GroupingInteractionsDocTest.java[tag=question]
+include::../../../test/java/examples/java/GroupingInteractionsDocTest.java[tag=question]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/GroupingInteractionsDocTest.kt[tag=question]
 ----
 
 While it is possible to put complex interactions in Questions it is generally advisable to keep them simple and independent.

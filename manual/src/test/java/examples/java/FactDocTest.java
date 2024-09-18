@@ -1,3 +1,5 @@
+package examples.java;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.YearMonth;
@@ -46,6 +48,8 @@ class FactDocTest {
     var robinsWorkPhoneNumber = robinsPhoneNumbers.work();
     // end::remember-poly-fact[]
     assertThat(robinsPhoneNumbers).isInstanceOf(PhoneNumbers.class);
+    assertThat(robinsHomePhoneNumber).isNotBlank();
+    assertThat(robinsWorkPhoneNumber).isNotBlank();
   }
 
   // tag::poly-fact[]

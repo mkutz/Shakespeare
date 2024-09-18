@@ -13,10 +13,15 @@ For this Shakespeare comes with the link:{javadoc-url}/selenium/org/shakespearef
 
 It does take care of downloading the required binary, starting the browser as soon as the Actor actually uses it and closing it after the test case.
 
-.Setup for local development
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/SeleniumDocTest.java[tag=local]
+include::../../../test/java/examples/java/SeleniumDocTest.java[tag=local]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/SeleniumDocTest.kt[tag=local]
 ----
 
 === Using WebDriverManager
@@ -25,10 +30,15 @@ The above variant relies on the https://bonigarcia.dev/webdrivermanager/[WebDriv
 
 link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverManagerWebDriverSupplier.html[WebDriverManagerWebDriverSupplier] allows to use it directly and thereby use all of its features.
 
-.Setup with WebDriverManager
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/SeleniumDocTest.java[tag=web-driver-manager]
+include::../../../test/java/examples/java/SeleniumDocTest.java[tag=web-driver-manager]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/SeleniumDocTest.kt[tag=web-driver-manager]
 ----
 
 == Base URL
@@ -37,20 +47,30 @@ Usually you will be testing one specific web application.
 In order to reset the browser to the URL of that application, you can give that base URL as an additional parameter to the link:{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html#<init>(org.shakespeareframework.selenium.WebDriverSupplier,java.lang.String)[WebDriverManager].
 The URL will be automatically called when you call link:{javadoc-url}/selenium/org/shakespeareframework/selenium/BrowseTheWeb.html#getWebDriver()[getWebDriver].
 
-.Configure a base URL
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/SeleniumDocTest.java[tag=open-base-url]
+include::../../../test/java/examples/java/SeleniumDocTest.java[tag=open-base-url]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/SeleniumDocTest.kt[tag=open-base-url]
 ----
 
 == Additional Capabilities
 
 All link:{javadoc-url}/selenium/org/shakespeareframework/selenium/WebDriverSupplier.html[WebDriverSuppliers] provide a constructor, which allows configuring additional Capabilities.
 
-.Additional Capabilities in a LocalWebDriverSupplier
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/SeleniumDocTest.java[tag=additional-capabilities]
+include::../../../test/java/examples/java/SeleniumDocTest.java[tag=additional-capabilities]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/SeleniumDocTest.kt[tag=additional-capabilities]
 ----
 
 == Selenium Reporting
@@ -63,18 +83,28 @@ By default, this will create a screenshot of the current page whenever doing a T
 The screenshots can then be found at the configured reports path and are named `<counter>-<actor>-<retry|failure|success>-<task|question string>.png`, where the `<task|question string>` is a file system friendly version of the Task's or Question's `toString()`.
 E.g. `001-imogen-success-latest_shakespeare_release_version.png`.
 
-.Using a ScreenshotReporter
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/SeleniumDocTest.java[tag=screenshot-reporter]
+include::../../../test/java/examples/java/SeleniumDocTest.java[tag=screenshot-reporter]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/SeleniumDocTest.kt[tag=screenshot-reporter]
 ----
 
 === HTML Snapshot Reports
 
 Similar to the <<Screenshot Reporting>> there's also a link:{javadoc-url}/selenium/org/shakespeareframework/selenium/HtmlSnapshotReporter.html[HtmlSnapshotReporter], which captures the current page's HTML snapshot.
 
-.Using a HtmlSnapshotReporter
-[source,java,indent=0]
+[source,java,indent=0,role="primary"]
+.Java
 ----
-include::../../../test/java/SeleniumDocTest.java[tag=html-snapshot-reporter]
+include::../../../test/java/examples/java/SeleniumDocTest.java[tag=html-snapshot-reporter]
+----
+[source,kotlin,indent=0,role="secondary"]
+.Kotlin
+----
+include::../../../test/kotlin/examples/kotlin/SeleniumDocTest.kt[tag=html-snapshot-reporter]
 ----

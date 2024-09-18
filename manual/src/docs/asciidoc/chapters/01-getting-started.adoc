@@ -8,14 +8,18 @@ In oder to use Shakespeare you need a JDK 11 or higher.
 
 To use Shakespeare in your own project, you need to add it as a dependency to your project.
 
-.Gradle
 [source,groovy,subs=attributes+,role="primary"]
+.Gradle
 ----
 implementation 'org.shakespeareframework:core:{revnumber}'
 ----
-
-.Maven
+[source,kotlin,subs=attributes+,role="secondary"]
+.Gradle.kts
+----
+implementation("org.shakespeareframework:core:{revnumber}")
+----
 [source,xml,subs=attributes+,role="secondary"]
+.Maven
 ----
 <dependency>
   <groupId>org.shakespeareframework</groupId>
@@ -31,16 +35,22 @@ Hence, you don't need to keep it once you add another module (e.g. `selenium` or
 
 If you want to use more than one module in the same project, you can use Shakespeare's bill of materials (BOM) and omit the explicit version for the other modules.
 
-.Gradle
 [source,groovy,subs=attributes+,role="primary"]
+.Gradle
 ----
 implementation platform('org.shakespeareframework:bom:{revnumber}')
 implementation 'org.shakespeareframework:selenium'
 implementation 'org.shakespeareframework:retrofit'
 ----
-
-.Maven
+[source,kotlin,subs=attributes+,role="secondary"]
+.Gradle.kts
+----
+implementation(platform("org.shakespeareframework:bom:{revnumber}"))
+implementation("org.shakespeareframework:selenium")
+implementation("org.shakespeareframework:retrofit")
+----
 [source,xml,subs=attributes+,role="secondary"]
+.Maven
 ----
 <project>
   <!--…-->
