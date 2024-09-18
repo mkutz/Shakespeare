@@ -79,7 +79,7 @@ public class CallHttpApis implements Ability {
      * @see JacksonConverterFactory
      */
     public Builder addJacksonConverterFactory() {
-      return addConverterFactory(JacksonConverterFactory.create());
+      return addJacksonConverterFactory(new ObjectMapper());
     }
 
     /**

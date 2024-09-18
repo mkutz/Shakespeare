@@ -1,6 +1,7 @@
 package org.shakespeareframework.reporting;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -211,5 +212,82 @@ class Slf4jReporterTest {
                 + " root question ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n"
                 + "├── Logan does first sub task ✓ (\\d+s)?(<?\\d+ms)\n"
                 + "└── Logan does second sub task ✗ (\\d+s)?(<?\\d+ms) RuntimeException\n");
+  }
+
+  @Test
+  @DisplayName("successfully finish unstarted task")
+  void test12() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var task = new TestTaskBuilder().string("some task").build();
+
+    assertThatThrownBy(() -> reporter.success(logan, task))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("No current report to succeed");
+  }
+
+  @Test
+  @DisplayName("unsuccessfully finish unstarted task")
+  void test13() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var task = new TestTaskBuilder().string("some task").build();
+    var cause = new RuntimeException("Failure!");
+
+    assertThatThrownBy(() -> reporter.failure(logan, task, cause))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("No current report to fail");
+  }
+
+  @Test
+  @DisplayName("retry unstarted task")
+  void test15() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var retryableTask = new TestTaskBuilder().string("some retryable task").buildRetryable();
+    var cause = new RuntimeException("Failure!");
+
+    assertThatThrownBy(() -> reporter.retry(logan, retryableTask, cause))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("No current report to retry");
+  }
+
+  @Test
+  @DisplayName("successfully finish unstarted question")
+  void test16() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var question = new TestQuestionBuilder<String>().string("some question").build();
+
+    assertThatThrownBy(() -> reporter.success(logan, question, "some answer"))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("No current report to succeed");
+  }
+
+  @Test
+  @DisplayName("unsuccessfully finish unstarted question")
+  void test17() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var question = new TestQuestionBuilder<String>().string("some question").build();
+    var cause = new RuntimeException("Failure!");
+
+    assertThatThrownBy(() -> reporter.failure(logan, question, cause))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("No current report to fail");
+  }
+
+  @Test
+  @DisplayName("retry unstarted task")
+  void test18() {
+    var reporter = new Slf4jReporter();
+    var logan = new Actor("Logan");
+    var retryableQuestion =
+        new TestQuestionBuilder<String>().string("some retryable question").buildRetryable();
+    var cause = new RuntimeException("Failure!");
+
+    assertThatThrownBy(() -> reporter.retry(logan, retryableQuestion, cause))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("No current report to retry");
   }
 }
