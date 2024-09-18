@@ -9,6 +9,7 @@ repositories { mavenCentral() }
 
 dependencies {
   api(project(":modules:core"))
+  api(libs.jspecify)
   api(libs.okHttp3)
   api(libs.retrofit2)
   api(libs.retrofit2ConverterJackson)

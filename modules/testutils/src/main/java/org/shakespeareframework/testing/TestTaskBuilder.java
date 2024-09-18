@@ -7,11 +7,13 @@ import static java.util.stream.Collectors.toSet;
 import java.time.Duration;
 import java.util.Set;
 import java.util.function.Consumer;
+import org.jspecify.annotations.NullMarked;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.RetryableTask;
 import org.shakespeareframework.Task;
 
 /** Builder to create {@link Task}s or {@link RetryableTask}s in an at hoc fashion. */
+@NullMarked
 public class TestTaskBuilder {
 
   private static int counter = 0;

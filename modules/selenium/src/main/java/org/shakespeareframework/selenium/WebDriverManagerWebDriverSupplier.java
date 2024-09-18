@@ -3,14 +3,17 @@ package org.shakespeareframework.selenium;
 import static java.util.Objects.requireNonNull;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
 /** A {@link WebDriverSupplier} based on {@link WebDriverManager}. */
+@NullMarked
 public class WebDriverManagerWebDriverSupplier extends WebDriverSupplier {
 
   private final WebDriverManager webDriverManager;
-  private WebDriver webDriver;
+  @Nullable private WebDriver webDriver;
 
   /**
    * @param webDriverManager the {@link WebDriverManager} that will be used to create the WebDriver
@@ -20,7 +23,7 @@ public class WebDriverManagerWebDriverSupplier extends WebDriverSupplier {
   public WebDriverManagerWebDriverSupplier(
       WebDriverManager webDriverManager,
       BrowserType browserType,
-      Capabilities additionalCapabilities) {
+      @Nullable Capabilities additionalCapabilities) {
     super(browserType, additionalCapabilities);
     this.webDriverManager = webDriverManager;
   }

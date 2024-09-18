@@ -6,6 +6,7 @@ import static org.shakespeareframework.reporting.FileReporter.ReportType.RETRY;
 import static org.shakespeareframework.reporting.FileReporter.ReportType.SUCCESS;
 
 import java.nio.file.Path;
+import org.jspecify.annotations.NullMarked;
 import org.openqa.selenium.TakesScreenshot;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
@@ -19,6 +20,7 @@ import org.shakespeareframework.reporting.FileReporter;
  * to take a screenshot of the currently displayed site. By default, only retries and failures are
  * reported. If {@link #reportSuccess} is set true, successes are reported as well.
  */
+@NullMarked
 public class ScreenshotReporter extends FileReporter {
 
   private final boolean reportSuccess;

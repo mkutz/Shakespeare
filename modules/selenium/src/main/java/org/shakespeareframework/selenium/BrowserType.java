@@ -2,6 +2,7 @@ package org.shakespeareframework.selenium;
 
 import static java.util.Arrays.stream;
 
+import org.jspecify.annotations.NullMarked;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,6 +12,7 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.safari.SafariOptions;
 
 /** {@link Enum} of all browser types which are supported by {@link WebDriverSupplier}. */
+@NullMarked
 public enum BrowserType {
 
   /** Google Chrome */

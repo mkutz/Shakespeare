@@ -1,9 +1,12 @@
 package org.shakespeareframework;
 
+import org.jspecify.annotations.NullMarked;
+
 /**
  * A {@link MissingAbilityException} is thrown in case an {@link Actor} cannot {@link Actor#uses} a
  * required {@link Ability} {@link Class}.
  */
+@NullMarked
 public class MissingAbilityException extends RuntimeException {
 
   /**

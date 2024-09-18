@@ -6,6 +6,7 @@ import static org.shakespeareframework.reporting.FileReporter.ReportType.SUCCESS
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import org.jspecify.annotations.NullMarked;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.RetryableQuestion;
@@ -18,6 +19,7 @@ import org.shakespeareframework.reporting.FileReporter;
  * of the currently displayed site. By default, only retries and failures are reported. If {@link
  * #reportSuccess} is set true, successes are reported as well.
  */
+@NullMarked
 public class HtmlSnapshotReporter extends FileReporter {
 
   private final boolean reportSuccess;

@@ -6,11 +6,13 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import okhttp3.Interceptor;
 import okhttp3.Response;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * {@link Interceptor} to add headers to any request. This should be used to set authentication or
  * other contextual headers.
  */
+@NullMarked
 public class HeaderInterceptor implements Interceptor {
 
   private final Map<String, String> headers = new HashMap<>();

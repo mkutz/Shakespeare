@@ -17,12 +17,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.NullMarked;
 import org.shakespeareframework.reporting.Reporter;
 
 /**
  * An {@link Actor} is the central class of the Shakespeare Framework. It is basically used for any
  * interaction with the system under test.
  */
+@NullMarked
 public final class Actor {
 
   private static final String[] NAMES = {

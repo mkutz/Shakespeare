@@ -1,6 +1,7 @@
 package org.shakespeareframework.selenium;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.jspecify.annotations.NullMarked;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebDriver;
  * A {@link WebDriverSupplier} for locally installed browser instances. Uses {@link
  * WebDriverManager} to set up the local binary and create the {@link WebDriver}.
  */
+@NullMarked
 public class LocalWebDriverSupplier extends WebDriverManagerWebDriverSupplier {
 
   /**

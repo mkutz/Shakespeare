@@ -3,6 +3,7 @@ package org.shakespeareframework.retrofit;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import org.jspecify.annotations.NullMarked;
 import org.shakespeareframework.Ability;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -10,6 +11,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /** {@link Ability} to call RESTful APIs using {@link Retrofit}. */
+@NullMarked
 public class CallHttpApis implements Ability {
 
   /**
