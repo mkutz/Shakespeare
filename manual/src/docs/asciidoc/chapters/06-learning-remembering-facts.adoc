@@ -3,7 +3,7 @@
 link:{javadoc-url}/core/org/shakespeareframework/Fact.html[Facts] are a way to add data to the link:{javadoc-url}/core/org/shakespeareframework/Actor.html[Actor].
 After a Fact was link:{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact...)[learned], it can always be link:{javadoc-url}/core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)[remembered] by its class and be used to do Tasks or answer Questions.
 
-[source,java,indent=0,role="secondary"]
+[source,java,indent=0,role="primary"]
 .Java
 ----
 include::../../../test/java/examples/java/FactDocTest.java[tag=learn-fact]
@@ -27,7 +27,7 @@ Apart from that they can be basically anything but should be immutable value obj
 include::../../../test/java/examples/java/FactDocTest.java[tag=fact]
 ----
 [source,kotlin,indent=0,role="seconary"]
-.Java
+.Kotlin
 ----
 include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=fact]
 ----
@@ -47,7 +47,7 @@ include::../../../test/java/examples/java/FactDocTest.java[tag=relearn-fact]
 include::../../../test/java/examples/java/FactDocTest.java[tag=remember-changed-fact]
 ----
 [source,kotlin,indent=0,role="secondary"]
-.Java
+.Kotlin
 ----
 include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=learn-fact]
 
@@ -112,7 +112,7 @@ Or you can add a method to generate valid unique random email addresses to your 
 ----
 include::../../../test/java/examples/java/FactDocTest.java[tag=fact-with-generator]
 ----
-[source,java,indent=0,role="seconary"]
+[source,kotlin,indent=0,role="seconary"]
 .Kotlin
 ----
 include::../../../test/kotlin/examples/kotlin/FactDocTest.kt[tag=fact-with-generator]
