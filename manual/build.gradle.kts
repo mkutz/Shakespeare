@@ -2,13 +2,13 @@ plugins {
   alias(libs.plugins.asciidoctor)
   `shakespeare-style`
   java
-  kotlin("jvm") version "2.0.20"
+  alias(libs.plugins.kotlinJvm)
 }
 
 val asciidoctorExt by configurations.creating
 
 dependencies {
-  asciidoctorExt("io.spring.asciidoctor:spring-asciidoctor-extensions-block-switch:0.6.3")
+  asciidoctorExt(libs.asciidoctorBlockSwitch)
 
   implementation(libs.jsr305)
 

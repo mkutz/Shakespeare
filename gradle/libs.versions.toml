@@ -4,6 +4,7 @@ retrofitVersion = "2.11.0"
 jacksonVersion = "2.17.2"
 
 [libraries]
+asciidoctorBlockSwitch = { module = "io.spring.asciidoctor:spring-asciidoctor-extensions-block-switch", version = "0.6.3" }
 assertjCore = { module = "org.assertj:assertj-core", version = "3.26.3" }
 bcprovJdk15on = { module = "org.bouncycastle:bcprov-jdk15on", version = "1.70" }
 commonsIo = { module = "commons-io:commons-io", version = "2.16.1" }
@@ -29,5 +30,6 @@ webdrivermanager = { module = "io.github.bonigarcia:webdrivermanager", version =
 
 [plugins]
 asciidoctor = { id = "org.asciidoctor.jvm.convert", version = "4.0.3" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version = "2.0.20" }
 nexusPublish = { id = "io.github.gradle-nexus.publish-plugin", version = "2.0.0" }
 sonar = { id = "org.sonarqube", version = "5.1.0.4882" }
