@@ -589,7 +589,7 @@ window.onload = function() {
 <div id="header">
 <h1>Learning &amp; Remembering Facts</h1>
 <div class="details">
-<span id="revnumber">version 0.7.5</span>
+<span id="revnumber">version 0.9-SNAPSHOT</span>
 </div>
 </div>
 <div id="content">
@@ -599,7 +599,7 @@ window.onload = function() {
 <p><a href="{javadoc-url}/core/org/shakespeareframework/Fact.html">Facts</a> are a way to add data to the <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html">Actor</a>.
 After a Fact was <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#learns(org.shakespeareframework.Fact&#8230;&#8203;)">learned</a>, it can always be <a href="{javadoc-url}/core/org/shakespeareframework/Actor.html#remembers(java.lang.Class)">remembered</a> by its class and be used to do Tasks or answer Questions.</p>
 </div>
-<div class="listingblock secondary">
+<div class="listingblock primary">
 <div class="title">Java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">kate.learns(new PhoneNumber("+49 0180 4 100 100"));
@@ -626,7 +626,7 @@ Apart from that they can be basically anything but should be immutable value obj
 </div>
 </div>
 <div class="listingblock seconary">
-<div class="title">Java</div>
+<div class="title">Kotlin</div>
 <div class="content">
 <pre class="highlight"><code class="language-kotlin" data-lang="kotlin">data class PhoneNumber(val number: String) : Fact</code></pre>
 </div>
@@ -652,7 +652,7 @@ assertThat(katesNewPhoneNumber).isEqualTo(new PhoneNumber("+1 (303) 499-7111"));
 </div>
 </div>
 <div class="listingblock secondary">
-<div class="title">Java</div>
+<div class="title">Kotlin</div>
 <div class="content">
 <pre class="highlight"><code class="language-kotlin" data-lang="kotlin">kate.learns(PhoneNumber("+49 0180 4 100 100"))
 
@@ -752,7 +752,7 @@ val robinsWorkPhoneNumber = robinsPhoneNumbers.work</code></pre>
 <div class="listingblock seconary">
 <div class="title">Kotlin</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">data class EmailAddress(val address: String) : Fact {
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">data class EmailAddress(val address: String) : Fact {
   companion object {
     fun random() = EmailAddress("${UUID.randomUUID()}@shakespeareframework.org")
   }
@@ -823,8 +823,8 @@ Side effects are not easy to keep track of,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.7.5<br>
-Last updated 2024-09-18 15:29:37 UTC
+Version 0.9-SNAPSHOT<br>
+Last updated 2024-09-19 06:49:56 UTC
 </div>
 </div>
 </body>
