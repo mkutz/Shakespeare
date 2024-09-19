@@ -143,4 +143,4 @@ E.g. after finishing a shop's checkout process it might be useful to remember th
 In that case the Facts are learned as a side effect of a Task or a Question.
 
 WARNING: Don't overdo this!
-Side effects are not easy to keep track of,
+Side effects are not easy to keep track of.
