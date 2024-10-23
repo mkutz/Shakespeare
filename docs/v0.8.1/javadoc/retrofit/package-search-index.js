@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.shakespeareframework.retrofit"},{"l":"org.shakespeareframework.retrofit.oauth2"}];updateSearchResults();
