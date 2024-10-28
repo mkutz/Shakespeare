@@ -1,5 +1,5 @@
 [versions]
-junitVersion = "5.11.2"
+junitVersion = "5.11.3"
 retrofitVersion = "2.11.0"
 jacksonVersion = "2.18.0"
 
