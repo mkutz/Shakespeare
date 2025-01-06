@@ -5,7 +5,7 @@ jacksonVersion = "2.18.2"
 
 [libraries]
 asciidoctorBlockSwitch = { module = "io.spring.asciidoctor:spring-asciidoctor-extensions-block-switch", version = "0.6.3" }
-assertjCore = { module = "org.assertj:assertj-core", version = "3.27.0" }
+assertjCore = { module = "org.assertj:assertj-core", version = "3.27.2" }
 bcprovJdk15on = { module = "org.bouncycastle:bcprov-jdk15on", version = "1.70" }
 commonsIo = { module = "commons-io:commons-io", version = "2.18.0" }
 jacksonBom = { module = "com.fasterxml.jackson:jackson-bom", version.ref = "jacksonVersion" }
