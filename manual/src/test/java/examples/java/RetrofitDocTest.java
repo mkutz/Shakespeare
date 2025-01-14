@@ -67,8 +67,8 @@ class RetrofitDocTest {
     Actor ron = new Actor("Ron").can(new CallHttpApis());
     var jsonBody =
         """
-                [{"id":"273","name":"Alex"},{"id":"476","name":"Jonny"},{"id":"538","name":"Emma"}]
-                """;
+        [{"id":"273","name":"Alex"},{"id":"476","name":"Jonny"},{"id":"538","name":"Emma"}]
+        """;
     serviceMock.enqueue(new MockResponse().setBody(jsonBody));
 
     var actors = ron.checks(new AllActors());
