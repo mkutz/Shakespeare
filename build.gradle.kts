@@ -2,7 +2,6 @@ plugins {
   base
   alias(libs.plugins.sonar)
   alias(libs.plugins.nexusPublish)
-  id("info.solidsoft.pitest.aggregator")
 }
 
 repositories { mavenCentral() }
