@@ -22,4 +22,5 @@ dependencies {
   testImplementation(libs.logbackClassic)
 
   testRuntimeOnly(libs.junitJupiterEngine)
+  testRuntimeOnly(libs.junitPlatformLauncher)
 }
