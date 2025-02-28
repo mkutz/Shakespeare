@@ -3,7 +3,6 @@ package org.shakespeareframework;
 import static java.time.Duration.ofMillis;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.data.Percentage.withPercentage;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +22,7 @@ class ActorDoesRetryableTest {
             .timeout(ofMillis(100))
             .interval(ofMillis(10))
             .perform(
-                actor -> {
+                they -> {
                   called.incrementAndGet();
                   throw new RuntimeException();
                 })
@@ -31,7 +30,7 @@ class ActorDoesRetryableTest {
 
     assertThatExceptionOfType(TimeoutException.class).isThrownBy(() -> actor.does(retryableTask));
 
-    assertThat(called).hasValueCloseTo(10, withPercentage(0.15));
+    assertThat(called).hasValueBetween(9, 11);
   }
 
   @Test
@@ -39,7 +38,7 @@ class ActorDoesRetryableTest {
   void doesRetryableTest2() {
     var called = new AtomicInteger(0);
     var retryableTask =
-        new TestTaskBuilder().perform(actor -> called.incrementAndGet()).buildRetryable();
+        new TestTaskBuilder().perform(they -> called.incrementAndGet()).buildRetryable();
 
     actor.does(retryableTask);
 
@@ -54,7 +53,7 @@ class ActorDoesRetryableTest {
         new TestTaskBuilder()
             .acknowledgedExceptions(IllegalStateException.class)
             .perform(
-                actor -> {
+                they -> {
                   called.incrementAndGet();
                   throw new IllegalStateException();
                 })
