@@ -26,6 +26,7 @@ dependencies {
   testImplementation(platform(libs.jacksonBom))
 
   testRuntimeOnly(libs.junitJupiterEngine)
+  testRuntimeOnly(libs.junitPlatformLauncher)
 }
 
 java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
