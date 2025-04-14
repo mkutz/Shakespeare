@@ -27,7 +27,7 @@ retrofit2ConverterJackson = { module = "com.squareup.retrofit2:converter-jackson
 retrofit2ConverterScalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofitVersion" }
 seleniumJava = { module = "org.seleniumhq.selenium:selenium-java", version = "4.30.0" }
 slf4jApi = { module = "org.slf4j:slf4j-api", version = "2.0.17" }
-webdrivermanager = { module = "io.github.bonigarcia:webdrivermanager", version = "6.0.0" }
+webdrivermanager = { module = "io.github.bonigarcia:webdrivermanager", version = "6.0.1" }
 
 [plugins]
 asciidoctor = { id = "org.asciidoctor.jvm.convert", version = "4.0.4" }
