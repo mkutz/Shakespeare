@@ -26,10 +26,8 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
-      
-      - uses: gradle/actions/setup-gradle@v4
 
-      - run: ./gradlew build
+      - uses: gradle/actions/setup-gradle@v4
 
       - name: cache SonarCloud packages
         uses: actions/cache@v4

@@ -27,7 +27,7 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
-      
+
       - uses: gradle/actions/setup-gradle@v4
 
       - run: ./gradlew check
@@ -45,7 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Enable auto merge for Dependabot PRs  
+      - name: Enable auto merge for Dependabot PRs
         run: |
           gh pr review --approve "${{ github.event.pull_request.html_url }}"
           gh pr merge --auto --rebase --delete-branch "${{ github.event.pull_request.html_url }}"

@@ -58,7 +58,7 @@ For bigger changes or if you're not certain, please follow the same process as d
 If you want to provide code, please make sure that there's a consensus on the feature was reached (see [above](#suggest-new-features)) and read the following chapters on [project knowledge](#project-knowledge).
 
 After you're done, please [open a new pull request](https://github.com/mkutz/shakespeare/compare) and wait for a review by a maintainer.
- 
+
 ## Project Knowledge
 
 In oder to prevent avoidable conflicts in pull requests, please read this in case you want to contribute any code to Shakespeare.
@@ -109,8 +109,6 @@ It is structured in four main modules:
 - the [bom](bom) directory contains the build file to generate a [Maven Bill of Material (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) for all the Shakespeare modules, and
 - the [manual](manual) directory contains the projects documentation written in [AsciiDoc](https://docs.asciidoctor.org/asciidoc/latest/).
 
-There's also the [buildSrc](buildSrc) directory, which contains some shared build logic (see [Gradle documentation](https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources)).
-
 ### Packages
 
 The main package of the project is `org.shakespeareframework`.
@@ -124,7 +122,7 @@ E.g. a sub package `tasks` that contains only Task classes is _not_ compliant to
 
 In order to minimize side effects, all classes in the framework should be as immutable as possible.
 
-Hence, wherever possible 
+Hence, wherever possible
 
 - class fields should be declared `final`,
 - local variable should be declared `final`,

@@ -1,8 +1,16 @@
+@file:Suppress("UnstableApiUsage", "unused")
+
 plugins {
-  `shakespeare-module`
-  `shakespeare-publish`
-  `shakespeare-style`
-  `shakespeare-testing`
+  `java-library`
+  jacoco
+  `jvm-test-suite`
+  `maven-publish`
+}
+
+java {
+  withJavadocJar()
+  withSourcesJar()
+  toolchain { languageVersion.set(JavaLanguageVersion.of(17)) }
 }
 
 repositories { mavenCentral() }
@@ -17,16 +25,28 @@ dependencies {
 
   implementation(libs.jsr305)
   implementation(platform(libs.jacksonBom))
-
-  testImplementation(libs.assertjCore)
-  testImplementation(platform(libs.junitBom))
-  testImplementation(libs.junitJupiterApi)
-  testImplementation(libs.junitJupiterParams)
-  testImplementation(libs.logbackClassic)
-  testImplementation(libs.mockOauth2Server)
-  testImplementation(libs.mockwebserver)
-  testImplementation(libs.slf4jApi)
-
-  testRuntimeOnly(libs.junitJupiterEngine)
-  testRuntimeOnly(libs.junitPlatformLauncher)
 }
+
+testing {
+  suites {
+    val test by
+      getting(JvmTestSuite::class) {
+        useJUnitJupiter()
+        dependencies {
+          implementation(libs.assertjCore)
+          implementation(platform(libs.junitBom))
+          implementation(libs.junitJupiterApi)
+          implementation(libs.junitJupiterParams)
+          implementation(libs.logbackClassic)
+          implementation(libs.mockOauth2Server)
+          implementation(libs.mockwebserver)
+          implementation(libs.slf4jApi)
+
+          runtimeOnly(libs.junitJupiterEngine)
+          runtimeOnly(libs.junitPlatformLauncher)
+        }
+      }
+  }
+}
+
+tasks.jacocoTestReport { reports { xml.required = true } }

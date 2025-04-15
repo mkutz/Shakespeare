@@ -1,10 +1,80 @@
 plugins {
   base
+  `maven-publish`
+  alias(libs.plugins.jreleaser)
   alias(libs.plugins.sonar)
-  alias(libs.plugins.nexusPublish)
+  alias(libs.plugins.spotless)
 }
 
 repositories { mavenCentral() }
+
+subprojects {
+  afterEvaluate {
+    if (plugins.hasPlugin("maven-publish")) {
+      publishing {
+        publications {
+          create<MavenPublication>(name) {
+            from(components.findByName("java") ?: components.getByName("javaPlatform"))
+            pom {
+              project.properties["mavenPomName"]?.let { name = "$it" }
+              project.properties["mavenPomDescription"]?.let { description = "$it" }
+              url = "https://shakespeareframework.org"
+              inceptionYear = "2025"
+              licenses {
+                license {
+                  name = "Apache-2.0"
+                  url = "https://spdx.org/licenses/Apache-2.0.html"
+                }
+              }
+              developers {
+                developer {
+                  id = "mkutz"
+                  name = "Michael Kutz"
+                }
+              }
+              scm {
+                connection = "scm:git:https://github.com/mkutz/shakespeare.git"
+                developerConnection = "scm:git:ssh://github.com/mkutz/shakespeare.git"
+                url = "https://github.com/mkutz/shakespeare"
+              }
+            }
+          }
+        }
+        repositories { maven { url = uri(layout.buildDirectory.dir("staging-deploy")) } }
+      }
+    }
+  }
+}
+
+jreleaser {
+  signing {
+    active = org.jreleaser.model.Active.ALWAYS
+    armored = true
+  }
+  deploy {
+    maven {
+      mavenCentral {
+        create("sonatype") {
+          active = org.jreleaser.model.Active.ALWAYS
+          maxRetries = 60
+          retryDelay = 30
+          stagingRepository("modules/core/build/staging-deploy")
+          stagingRepository("modules/retrofit/build/staging-deploy")
+          stagingRepository("modules/selenium/build/staging-deploy")
+          stagingRepository("modules/testutils/build/staging-deploy")
+          stagingRepository("bom/build/staging-deploy")
+          url = "https://central.sonatype.com/api/v1/publisher"
+        }
+      }
+    }
+  }
+  release {
+    github {
+      overwrite = true
+      update { enabled = true }
+    }
+  }
+}
 
 sonar {
   properties {
@@ -14,11 +84,28 @@ sonar {
   }
 }
 
-nexusPublishing {
-  repositories {
-    sonatype {
-      nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-      snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-    }
+spotless {
+  format("misc") {
+    target("**/*.md", "**/*.xml", "**/*.yml", "**/*.yaml", "**/*.html", "**/*.css", ".gitignore")
+    targetExclude("**/build/**/*", "**/.idea/**")
+    trimTrailingWhitespace()
+    endWithNewline()
+    leadingTabsToSpaces(2)
   }
+
+  java {
+    target("**/*.java")
+    targetExclude("**/build/**/*")
+    googleJavaFormat().reflowLongStrings()
+    removeUnusedImports()
+    leadingTabsToSpaces(2)
+  }
+
+  kotlinGradle {
+    target("**/*.gradle.kts")
+    targetExclude("**/build/**/*.gradle.kts")
+    ktfmt().googleStyle()
+  }
+
+  freshmark { target("*.md") }
 }

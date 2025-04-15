@@ -1,8 +1,16 @@
+@file:Suppress("UnstableApiUsage", "unused")
+
 plugins {
-  `shakespeare-module`
-  `shakespeare-publish`
-  `shakespeare-style`
-  `shakespeare-testing`
+  `java-library`
+  jacoco
+  `jvm-test-suite`
+  `maven-publish`
+}
+
+java {
+  withJavadocJar()
+  withSourcesJar()
+  toolchain { languageVersion.set(JavaLanguageVersion.of(17)) }
 }
 
 repositories { mavenCentral() }
@@ -10,11 +18,23 @@ repositories { mavenCentral() }
 dependencies {
   api(libs.jspecify)
   api(project(":modules:core"))
-
-  testImplementation(platform(libs.junitBom))
-  testImplementation(libs.assertjCore)
-  testImplementation(libs.junitJupiterApi)
-
-  testRuntimeOnly(libs.junitJupiterEngine)
-  testRuntimeOnly(libs.junitPlatformLauncher)
 }
+
+testing {
+  suites {
+    val test by
+      getting(JvmTestSuite::class) {
+        useJUnitJupiter()
+        dependencies {
+          implementation(platform(libs.junitBom))
+          implementation(libs.assertjCore)
+          implementation(libs.junitJupiterApi)
+
+          runtimeOnly(libs.junitPlatformLauncher)
+          runtimeOnly(libs.junitJupiterEngine)
+        }
+      }
+  }
+}
+
+tasks.jacocoTestReport { reports { xml.required = true } }

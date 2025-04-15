@@ -2,64 +2,56 @@ name: Update Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish'
+        required: true
   workflow_call:
-  push:
-    branches:
-      - main
-    paths:
-      - 'manual/**'
+    inputs:
+      version:
+        description: 'Version to publish'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  build:
+  update:
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
 
       - uses: actions/checkout@v4
 
+      - name: Ensure base directory
+        run: mkdir -p pages/docs
+
       - uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 21
           distribution: temurin
-      
+
       - uses: gradle/actions/setup-gradle@v4
 
-      - uses: actions/checkout@v4
-        with:
-          ref: pages
-          path: pages
-
-      - name: Create base directory
-        run: mkdir -p pages/docs/${{ github.ref_name }}
-
       - name: Update AsciiDoc
-        run: |
-          ./gradlew asciidoc
-          rm -rf pages/docs/${{ github.ref_name }}/manual
-          mv manual/build/docs/asciidoc pages/docs/${{ github.ref_name }}/manual
+        run: ./update-pages "${{ github.event.inputs.version }}"
 
-      - name: Update JavaDoc
-        run: |
-          ./gradlew javadoc
-          rm -rf pages/docs/${{ github.ref_name }}/javadoc
-          mkdir pages/docs/${{ github.ref_name }}/javadoc
-          mv modules/core/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/core
-          mv modules/retrofit/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/retrofit
-          mv modules/selenium/build/docs/javadoc pages/docs/${{ github.ref_name }}/javadoc/selenium
+      - uses: actions/configure-pages@v5
 
-      - name: Update "latest" Alias
-        if: github.ref_type == 'tag'
-        run: |
-          rm -f docs/latest
-          ln -s ./${{ github.ref_name }} docs/latest
-        working-directory: pages
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./pages
 
-      - name: Push changes
-        run: |
-          git config user.name "Documentor"
-          git config user.email "mail@michael-kutz.de"
-          git add docs
-          git commit -m "Update docs for ${{ github.ref_name }}" -m "[skip ci]"
-          git push
-        working-directory: pages
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - '**/build.gradle.kts'
-  workflow_dispatch: 
+      - 'gradle/libs.versions.toml'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,5 +25,5 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
-      
+
       - uses: gradle/actions/dependency-submission@v4
