@@ -1,6 +1,6 @@
 [versions]
 junitVersion = "5.12.2"
-retrofitVersion = "2.11.0"
+retrofitVersion = "3.0.0"
 jacksonVersion = "2.19.0"
 
 [libraries]
