@@ -5,6 +5,8 @@
 Shakespeare is a Java implementation of Screenplay.
 It was mainly created to explain the basic concepts of Screenplay and hence is kept rather simple in its core.
 
+To review the code, file issues or suggest changes, please visit the project's link:https://github.com/mkutz/shakespeare[GitHub page].
+
 == Screenplay
 
 A framework helping to write tests like screenplays.
