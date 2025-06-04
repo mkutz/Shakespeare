@@ -15,7 +15,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.selenium.BrowseTheWeb;
-import org.shakespeareframework.selenium.BrowserType;
 import org.shakespeareframework.selenium.HtmlSnapshotReporter;
 import org.shakespeareframework.selenium.LocalWebDriverSupplier;
 import org.shakespeareframework.selenium.ScreenshotReporter;

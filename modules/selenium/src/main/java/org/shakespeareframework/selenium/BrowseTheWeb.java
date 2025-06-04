@@ -1,58 +1,52 @@
 package org.shakespeareframework.selenium;
 
 import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.WebDriver;
 import org.shakespeareframework.Ability;
 
 /** {@link Ability} to browse the web using a Selenium {@link WebDriver}. */
 @NullMarked
-public final class BrowseTheWeb implements Ability, AutoCloseable {
+public class BrowseTheWeb implements Ability {
 
-  private final WebDriverSupplier webDriverSupplier;
-  private final String baseUrl;
+  private final WebDriver webDriver;
+  @Nullable private final String baseUrl;
 
   /**
-   * @param webDriverSupplier the {@link WebDriverSupplier} used to setup the {@link WebDriver}
+   * @param webDriver the {@link WebDriver}
    * @param baseUrl a URL to be opened automatically
    */
-  public BrowseTheWeb(WebDriverSupplier webDriverSupplier, String baseUrl) {
-    this.webDriverSupplier = requireNonNull(webDriverSupplier);
+  public BrowseTheWeb(WebDriver webDriver, @Nullable String baseUrl) {
+    this.webDriver = webDriver;
     this.baseUrl = baseUrl;
   }
 
   /**
-   * @param webDriverSupplier the {@link WebDriverSupplier} used to setup the {@link WebDriver}
+   * @param webDriver the {@link WebDriver}
    */
-  public BrowseTheWeb(WebDriverSupplier webDriverSupplier) {
-    this(webDriverSupplier, null);
+  public BrowseTheWeb(WebDriver webDriver) {
+    this(webDriver, null);
   }
 
   /**
-   * Gets the {@link WebDriver} from the {@link #webDriverSupplier} and returns it.
+   * Returns the {@link #webDriver} instance. If a {@link #baseUrl} is given, it will be opened
+   * automatically.
    *
-   * <p>If a {@link #baseUrl} is given, it will be opened automatically.
-   *
-   * @return a {@link WebDriver} instance.
-   * @see WebDriverSupplier#get()
+   * @return a {@link WebDriver} instance
    */
   public WebDriver getWebDriver() {
-    final var webDriver = webDriverSupplier.get();
-    if (baseUrl != null && !webDriver.getCurrentUrl().startsWith("http")) {
+    if (baseUrl != null
+        && !Objects.requireNonNullElse(webDriver.getCurrentUrl(), "").startsWith("http")) {
       webDriver.get(baseUrl);
     }
     return webDriver;
   }
 
   @Override
-  public void close() throws Exception {
-    webDriverSupplier.close();
-  }
-
-  @Override
   public String toString() {
-    return format("browse the web using %s", webDriverSupplier);
+    return format("browse the web using %s", webDriver);
   }
 }

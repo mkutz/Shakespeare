@@ -18,12 +18,7 @@ repositories { mavenCentral() }
 dependencies {
   api(libs.jspecify)
   api(libs.seleniumJava)
-  api(libs.webdrivermanager)
   api(project(":modules:core"))
-
-  implementation(libs.bcprovJdk15on)
-  implementation(libs.commonsIo)
-  implementation(platform(libs.jacksonBom))
 }
 
 testing {

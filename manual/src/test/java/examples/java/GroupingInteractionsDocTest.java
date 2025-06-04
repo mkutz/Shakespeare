@@ -15,7 +15,6 @@ import org.shakespeareframework.Actor;
 import org.shakespeareframework.Question;
 import org.shakespeareframework.Task;
 import org.shakespeareframework.selenium.BrowseTheWeb;
-import org.shakespeareframework.selenium.BrowserType;
 import org.shakespeareframework.selenium.LocalWebDriverSupplier;
 
 class GroupingInteractionsDocTest {
