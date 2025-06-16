@@ -1,7 +1,7 @@
 [versions]
 junitVersion = "5.13.0"
 retrofitVersion = "3.0.0"
-jacksonVersion = "2.19.0"
+jacksonVersion = "2.19.1"
 
 [libraries]
 asciidoctorBlockSwitch = { module = "io.spring.asciidoctor:spring-asciidoctor-extensions-block-switch", version = "0.6.3" }
