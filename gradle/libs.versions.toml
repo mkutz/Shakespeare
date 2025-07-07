@@ -20,8 +20,8 @@ junitJupiterParams = { module = "org.junit.jupiter:junit-jupiter-params", versio
 junitPlatformLauncher = { module = "org.junit.platform:junit-platform-launcher", version = "1.13.0" }
 logbackClassic = { module = "ch.qos.logback:logback-classic", version = "1.5.18" }
 mockOauth2Server = { module = "no.nav.security:mock-oauth2-server", version = "2.1.11" }
-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version = "4.12.0" }
-okHttp3 = { module = "com.squareup.okhttp3:okhttp", version = "4.12.0" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version = "5.0.0" }
+okHttp3 = { module = "com.squareup.okhttp3:okhttp", version = "5.0.0" }
 retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
 retrofit2ConverterJackson = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofitVersion" }
 retrofit2ConverterScalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofitVersion" }
