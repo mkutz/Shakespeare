@@ -19,10 +19,6 @@ include::chapters/05-retryables.adoc[leveloffset=1]
 include::chapters/06-learning-remembering-facts.adoc[leveloffset=1]
 include::chapters/07-reporting.adoc[leveloffset=1]
 
-== Additional Modules
-
-include::chapters/08-selenium.adoc[leveloffset=2]
-include::chapters/09-retrofit.adoc[leveloffset=2]
 
 == Further Reading
 

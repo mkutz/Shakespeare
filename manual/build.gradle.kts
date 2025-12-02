@@ -8,17 +8,13 @@ plugins {
   alias(libs.plugins.asciidoctor)
 }
 
-java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
+java { toolchain { languageVersion.set(JavaLanguageVersion.of(21)) } }
 
 repositories { mavenCentral() }
 
 val asciidoctorExt: Configuration by configurations.creating
 
-dependencies {
-  asciidoctorExt(libs.asciidoctorBlockSwitch)
-
-  implementation(libs.jsr305)
-}
+dependencies { asciidoctorExt(libs.asciidoctor.block.switch) }
 
 testing {
   suites {
@@ -26,21 +22,14 @@ testing {
       getting(JvmTestSuite::class) {
         useJUnitJupiter()
         dependencies {
-          implementation(platform(libs.junitBom))
+          implementation(platform(libs.junit.bom))
           implementation(project(":modules:core"))
-          implementation(project(":modules:retrofit"))
-          implementation(project(":modules:selenium"))
-          implementation(libs.assertjCore)
-          implementation(libs.jacksonModuleKotlin)
-          implementation(libs.junitJupiterApi)
-          implementation(libs.junitJupiterParams)
-          implementation(libs.logbackClassic)
-          implementation(libs.mockwebserver)
+          implementation(libs.assertj.core)
+          implementation(libs.logback.classic)
           implementation(libs.slf4jApi)
-          implementation(platform(libs.jacksonBom))
 
-          runtimeOnly(libs.junitPlatformLauncher)
-          runtimeOnly(libs.junitJupiterEngine)
+          runtimeOnly(libs.junit.platform.launcher)
+          runtimeOnly(libs.junit.jupiter.engine)
         }
       }
   }

@@ -103,20 +103,13 @@ This might consist of the following interactions with the website:
 [source,java,indent=0,role="primary"]
 .Java
 ----
-include::../../../test/java/examples/java/GroupingInteractionsDocTest.java[tag=task]
+// TODO
 ----
 [source,kotlin,indent=0,role="secondary"]
 .Kotlin
 ----
-include::../../../test/kotlin/examples/kotlin/GroupingInteractionsDocTest.kt[tag=task]
+// TODO
 ----
-<1> Navigate to the website,
-<2> find the "username" input field,
-<3> write "john" into it,
-<4> find the "password" input field,
-<5> write "demo" into it,
-<6> find the login button,
-<7> click on it.
 
 As you can see all the interactions are wrapped in the Task object.
 It has fields for the username and the password, so we can easily reuse the Task with other credentials.

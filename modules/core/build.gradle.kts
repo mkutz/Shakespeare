@@ -10,7 +10,7 @@ plugins {
 java {
   withJavadocJar()
   withSourcesJar()
-  toolchain { languageVersion.set(JavaLanguageVersion.of(17)) }
+  toolchain { languageVersion.set(JavaLanguageVersion.of(21)) }
 }
 
 repositories { mavenCentral() }
@@ -18,7 +18,6 @@ repositories { mavenCentral() }
 dependencies {
   api(libs.jspecify)
 
-  implementation(libs.jsr305)
   implementation(libs.slf4jApi)
 }
 
@@ -29,15 +28,15 @@ testing {
         useJUnitJupiter()
         dependencies {
           implementation(project(":modules:testutils"))
-          implementation(libs.assertjCore)
+          implementation(libs.assertj.core)
           implementation(libs.jqwik)
-          implementation(platform(libs.junitBom))
-          implementation(libs.junitJupiterApi)
-          implementation(libs.junitJupiterParams)
-          implementation(libs.logbackClassic)
+          implementation(platform(libs.junit.bom))
+          implementation(libs.junit.jupiter.api)
+          implementation(libs.junit.jupiter.params)
+          implementation(libs.logback.classic)
 
-          runtimeOnly(libs.junitPlatformLauncher)
-          runtimeOnly(libs.junitJupiterEngine)
+          runtimeOnly(libs.junit.platform.launcher)
+          runtimeOnly(libs.junit.jupiter.engine)
         }
       }
   }

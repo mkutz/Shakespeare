@@ -12,12 +12,12 @@ Similar to the link:{javadoc-url}/core/org/shakespeareframework/Task.html#perfor
 [source,java,indent=0,role="primary"]
 .Java
 ----
-include::../../../test/java/examples/java/GroupingInteractionsDocTest.java[tag=question]
+// TODO
 ----
 [source,kotlin,indent=0,role="secondary"]
 .Kotlin
 ----
-include::../../../test/kotlin/examples/kotlin/GroupingInteractionsDocTest.kt[tag=question]
+// TODO
 ----
 
 While it is possible to put complex interactions in Questions it is generally advisable to keep them simple and independent.
