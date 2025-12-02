@@ -19,7 +19,7 @@ final class DurationFormatter {
    * Formats the given {@link Duration} as a String with time unit abbreviations for days (d), hours
    * (h), minutes (m), seconds (s) and millis (ms).
    *
-   * <p>Durations of less then 1ms will simply return &lt;1ms.
+   * <p>Durations of less than 1ms will simply return &lt;1ms.
    *
    * <p>Examples:
    *
@@ -54,7 +54,7 @@ final class DurationFormatter {
       if (ms > 0) stringBuilder.append(ms).append("ms");
     }
 
-    if (stringBuilder.length() == 0) return "<1ms";
+    if (stringBuilder.isEmpty()) return "<1ms";
 
     return stringBuilder.toString();
   }
